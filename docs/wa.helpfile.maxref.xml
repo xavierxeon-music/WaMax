@@ -28,6 +28,11 @@
 
 	<methodlist>
 
+		<method name='setfile'>
+			<digest>set current patch file </digest>
+			<description>set current patch file </description>
+		</method>
+
 	</methodlist>
 
 

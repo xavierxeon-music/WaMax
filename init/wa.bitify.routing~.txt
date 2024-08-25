@@ -1,0 +1,2 @@
+max objectfile wa.bitify.routing~ wa.bitify.routing~;
+max definesubstitution wa.bitify.routing~ bpatcher @name wa.bitify.routing~.maxpat;

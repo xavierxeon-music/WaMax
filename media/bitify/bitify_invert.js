@@ -59,12 +59,12 @@ class InvertCanvas extends Canvas {
 
 //
 setupDocument(172, 1, 1);
-let title = new Title("bitify routing");
+let title = new Title("bitify invert");
 title.setStyle("height", "20px");
 
 let resetButton = new Button(title, "reset");
 resetButton.onClicked(reset);
-resetButton.move(130, 3);
+resetButton.move(125, 3);
 
 let canvas = new InvertCanvas();
 reset();

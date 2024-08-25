@@ -1,0 +1,2 @@
+max objectfile wa.bitify.mapping~ wa.bitify.mapping~;
+max definesubstitution wa.bitify.mapping~ bpatcher @name wa.bitify.mapping~.maxpat;

@@ -115,7 +115,7 @@ title.setStyle("height", "20px");
 
 let resetButton = new Button(title, "reset");
 resetButton.onClicked(reset);
-resetButton.move(140, 3);
+resetButton.move(135, 3);
 
 let canvas = new RountingCanvas();
 reset();

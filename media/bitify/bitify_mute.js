@@ -62,7 +62,7 @@ title.setStyle("height", "20px");
 
 let resetButton = new Button(title, "reset");
 resetButton.onClicked(reset);
-resetButton.move(130, 3);
+resetButton.move(125, 3);
 
 let canvas = new MuteCanvas();
 reset();

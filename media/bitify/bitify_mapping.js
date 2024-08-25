@@ -9,7 +9,7 @@ class MappingCanvas extends Canvas {
 
    constructor() {
 
-      super(document.body, 200, 200);
+      super(document.body, 260, 260);
       this.padding = 5;
 
       this.element.addEventListener("pointerdown", (clickEvent) => {
@@ -40,13 +40,13 @@ class MappingCanvas extends Canvas {
 }
 
 //
-setupDocument(200, 1, 1);
+setupDocument(261, 1, 1);
 let title = new Title("bitify mapping");
 title.setStyle("height", "20px");
 
 let resetButton = new Button(title, "reset");
 resetButton.onClicked(sendReset);
-resetButton.move(160, 3);
+resetButton.move(215, 3);
 
 let canvas = new MappingCanvas();
 canvas.update();

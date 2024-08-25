@@ -1,0 +1,2 @@
+max objectfile wa.bitify.invert~ wa.bitify.invert~;
+max definesubstitution wa.bitify.invert~ bpatcher @name wa.bitify.invert~.maxpat;
