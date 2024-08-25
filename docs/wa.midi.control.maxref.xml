@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+<c74object as_bpatcher="0" name="wa.midi.control">
+    <digest>midi control input</digest>
+    <description>capture midi control values</description>
+    <metadatalist>
+        <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMaxPackage</metadata>
+    </metadatalist>
+    <parser inlet_count="1"/>
+    <misc name="Outputs">
+        <entry id="1" name="value">
+            <digest/>
+            <description>the captured value</description>
+        </entry>
+        <entry id="2" name="pressed">
+            <digest/>
+            <description>bang if value equal to zero</description>
+        </entry>
+        <entry id="0" name="released">
+            <digest/>
+            <description>bang if  value not equal to zero</description>
+        </entry>
+    </misc>
+    <objarglist>
+        <objarg name="1" optional="1" type="symbol">
+            <digest>device name</digest>
+            <description>device name (default: "Internal LaunchKey")</description>
+        </objarg>
+    </objarglist>
+    <attributelist>
+        <attribute get="1" name="number" set="1" size="1" type="int">
+            <digest>controller number</digest>
+            <description>the controller number to capture</description>
+        </attribute>
+    </attributelist>
+    <methodlist>
+        <method name="number" standard="0">
+            <arglist>
+                <arg name="" optional="0" type="int"/>
+            </arglist>
+            <digest>controller number</digest>
+            <description>the controller number to capture</description>
+        </method>
+    </methodlist>
+    <seealsolist/>
+</c74object>

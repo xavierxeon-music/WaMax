@@ -1,0 +1,2 @@
+max objectfile wa.slew~ wa.slew~;
+max definesubstitution wa.slew~ bpatcher @name wa.slew~.maxpat;

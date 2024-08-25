@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+<c74object as_bpatcher="0" name="wa.toggle">
+    <digest>toggle value</digest>
+    <description>on first value set value, on second value set to 0</description>
+    <metadatalist>
+        <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMaxPackage</metadata>
+    </metadatalist>
+    <parser inlet_count="1"/>
+    <misc name="Outputs">
+        <entry id="1" name="value">
+            <digest/>
+            <description>the value</description>
+        </entry>
+    </misc>
+    <objarglist/>
+    <attributelist/>
+    <methodlist/>
+    <seealsolist/>
+</c74object>

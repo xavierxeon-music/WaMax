@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+<c74object name="wa.crossfade~" patcher_type="standard">
+    <digest>crossfade or pan a mono signal</digest>
+    <description>pans a mono signal to a stereo output </description>
+    <metadatalist>
+        <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMaxPackageBase</metadata>
+        <metadata name="tag">WaMaxPackage</metadata>
+    </metadatalist>
+    <misc name="Outputs">
+        <entry name="signal">
+            <digest/>
+            <description>(left) (right) the paned or crossfadd signals</description>
+        </entry>
+    </misc>
+    <objarglist>
+        <objarg name="pan" optional="1" type="float">
+            <digest>set the pan</digest>
+            <description>set the pan in range [-1. 1.]</description>
+        </objarg>
+    </objarglist>
+    <attributelist/>
+    <methodlist>
+        <method name="float" standard="1">
+            <arglist>
+                <arg name="float" optional="0" type="float"/>
+            </arglist>
+            <digest>postion</digest>
+            <description>(middle) the position of the signal [-1,1]. Center is at 0.</description>
+        </method>
+        <method name="signal" standard="1">
+            <arglist>
+                <arg name="signal" optional="0" type="signal"/>
+            </arglist>
+            <digest>pan</digest>
+            <description>(left) the signal to be panned.<br/>(middle) crossfade or pan position<br/>(right) the signal to be corssfaded</description>
+        </method>
+    </methodlist>
+    <seealsolist/>
+</c74object>

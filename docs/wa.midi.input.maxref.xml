@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+<c74object name="wa.midi.input" patcher_type="standard">
+    <digest>midi input</digest>
+    <description>a midi input that checks periodically if the device is available</description>
+    <metadatalist>
+        <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMaxPackage</metadata>
+    </metadatalist>
+    <parser inlet_count="1"/>
+    <misc name="Outputs">
+        <entry id="0" name="">
+            <digest/>
+            <description>device available</description>
+        </entry>
+    </misc>
+    <objarglist/>
+    <attributelist/>
+    <methodlist/>
+    <seealsolist/>
+</c74object>

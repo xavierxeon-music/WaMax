@@ -1,0 +1,9 @@
+{
+	"default" : 	{
+		"accentcolor" : [ 0.701961, 0.415686, 0.886275, 1.0 ]
+	}
+,
+	"parentstyle" : "",
+	"name" : "wa.send",
+	"multi" : 0
+}

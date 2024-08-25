@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+<c74object as_bpatcher="0" name="wa.partials~">
+    <digest>seperate partials </digest>
+    <description>seperate patrials in an incoming signal</description>
+    <metadatalist>
+        <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMaxPackage</metadata>
+    </metadatalist>
+    <parser inlet_count="2"/>
+    <misc name="Outputs">
+        <entry id="1" name="even">
+            <digest/>
+            <description>even outpout</description>
+        </entry>
+        <entry id="2" name="odd">
+            <digest/>
+            <description>odd outout</description>
+        </entry>
+        <entry id="3" name="bin_size">
+            <digest/>
+            <description>size of a bin in samples</description>
+        </entry>
+    </misc>
+    <objarglist/>
+    <attributelist>
+        <attribute get="1" name="bincount" set="1" size="1" type="int">
+            <digest>bin count</digest>
+            <description>how many bins should the partials be sorted into</description>
+        </attribute>
+        <attribute get="1" name="width" set="1" size="1" type="float">
+            <digest>stereo width</digest>
+            <description>1 even / odd<br/>0 mono (like incoming signal)<br/>-1 odd / even</description>
+        </attribute>
+    </attributelist>
+    <methodlist>
+        <method name="float" standard="1">
+            <digest/>
+            <description>stereo width. see</description>
+        </method>
+        <method name="signal" standard="1">
+            <digest/>
+            <description>in left inlet: the input signal<br/>in right inlet: stereo width.  see <ar>width</ar>.</description>
+        </method>
+    </methodlist>
+    <seealsolist/>
+</c74object>

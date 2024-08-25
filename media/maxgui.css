@@ -1,0 +1,151 @@
+* {
+   -webkit-box-sizing: border-box;
+   -moz-box-sizing: border-box;
+   box-sizing: border-box;
+}
+
+body {
+   overflow: hidden;
+   background: rgba(0, 0, 0, 0);
+   color: #eeeeee;
+   font-size: 12px;
+}
+
+div.title {
+   padding-left: 5px;
+   text-align: left;
+   font-weight: bold;
+   border: 1px solid #ccc;
+   background: #ccc;
+   color: #111111;
+}
+
+/* tabs */
+
+div.tabbar {
+   overflow: hidden;
+   border: 1px solid #ccc;
+   background-color: #777777;
+}
+
+div.tabbar button {
+   background-color: inherit;
+   float: left;
+   border: none;
+   outline: none;
+   cursor: pointer;
+   padding: 2px 8px;
+}
+
+div.tabbar button:hover {
+   background-color: #999999;
+}
+
+div.tabbar button.active {
+   background-color: #ccc;
+}
+
+div.tabcontent {
+   display: grid;
+   padding: 5px 5px;
+   border: 1px solid #ccc;
+   background: #373737;
+   border-top: none;
+}
+
+div.blank {
+   color: #373737;
+}
+
+/* slider */
+
+input.slider {
+   -webkit-appearance: none;
+   appearance: none;
+   background: #dddddd;
+   width: 100%;
+   height: 2px;
+   vertical-align: middle;
+
+}
+
+input.slider::-webkit-slider-thumb {
+   -webkit-appearance: none;
+   appearance: none;
+   width: 5px;
+   height: 10px;
+   background: #aaaaaa;
+   cursor: pointer;
+}
+
+/* canvas */
+
+canvas {
+   background: #373737;
+   border: 1px solid #eeeeee;
+}
+
+/* table */
+
+table {
+   background: #373737;
+   border: 1px solid #eeeeee;
+   border-collapse: collapse;
+   width: 100%;
+   border-spacing: 5px;
+}
+
+tr {
+   border-collapse: collapse;
+   height: 18px;
+}
+
+tr:nth-child(odd) {
+   background-color: #444444;
+}
+
+th {
+   border-collapse: collapse;
+   border: 1px solid #ccc;
+   background: #ccc;
+   color: #111111;
+   padding-left: 2px;
+}
+
+td {
+   padding-left: 2px;
+}
+
+
+/* button */
+
+button {
+   border: 1px solid #111111;
+   background: #bbbbbb;
+   color: #111111;
+   padding: 0px 5px;
+   height: 18px;
+   cursor: pointer;
+}
+
+button:hover {
+   background: #ccc;
+}
+
+button.active {
+   background-color: #fcc;
+}
+
+/* line edit */
+
+input.lineedit {
+   margin-left: 5px;
+   margin-right: 5px;
+   background: #ccc;
+   color: #111111;
+   border: none;
+   border-bottom: 1px solid #111111;
+   text-align: center;
+   font-size: 12px;
+   font-weight: bold;
+}

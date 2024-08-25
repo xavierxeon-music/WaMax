@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+<c74object name="wa.midi.output" patcher_type="standard">
+    <digest>Hello World</digest>
+    <metadatalist>
+        <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMaxPackage</metadata>
+    </metadatalist>
+    <parser inlet_count="1"/>
+    <misc name="Outputs">
+        <entry id="1" name="available">
+            <digest/>
+        </entry>
+    </misc>
+    <objarglist/>
+    <attributelist/>
+    <methodlist>
+        <method name="symbol" standard="1">
+            <digest/>
+        </method>
+        <method name="int" standard="1">
+            <digest/>
+        </method>
+    </methodlist>
+    <seealsolist/>
+</c74object>

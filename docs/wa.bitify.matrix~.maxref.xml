@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+<c74object as_bpatcher="1" name="wa.bitify.matrix~">
+    <digest>route bytes</digest>
+    <description>route bytes via a matrix</description>
+    <metadatalist>
+        <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMaxPackage</metadata>
+    </metadatalist>
+    <parser inlet_count="2"/>
+    <misc name="Outputs">
+        <entry id="0" name="byte">
+            <digest/>
+            <description>mc signal for byte</description>
+        </entry>
+    </misc>
+    <objarglist/>
+    <attributelist/>
+    <methodlist>
+        <method name="multichannelsignal" standard="1">
+            <digest/>
+            <description>mc signal for byte</description>
+        </method>
+    </methodlist>
+    <seealsolist>
+        <seealso name="wa.bitify.byte~"/>
+        <seealso name="wa.bitify.signal~"/>
+    </seealsolist>
+</c74object>

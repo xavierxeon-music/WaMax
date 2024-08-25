@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+<c74object as_bpatcher="0" name="wa.push2.button">
+    <digest>a button on a push device</digest>
+    <description>a button on a push device</description>
+    <metadatalist>
+        <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMaxPackage</metadata>
+    </metadatalist>
+    <parser inlet_count="1"/>
+    <misc name="Outputs">
+        <entry name="active" id="1">
+            <digest/>
+            <description>In <i>"click"</i>mode active is 1 for as long as the button is pressed.<br/>In <i>"toggle"</i> mode active is 1 between to consecutive button presses.</description>
+        </entry>
+        <entry name="pressed" id="2">
+            <digest/>
+            <description>bang when button is pressed.</description>
+        </entry>
+        <entry name="released" id="3">
+            <digest/>
+            <description>bang when button is released.</description>
+        </entry>
+    </misc>
+    <objarglist>
+        <objarg optional="1" name="name" type="symbol">
+            <digest>the name of the button</digest>
+            <description>the name of the button. see <o>wa.push.device~</o> for details</description>
+        </objarg>
+    </objarglist>
+    <attributelist>
+        <attribute size="1" get="1" name="color" set="1" type="symbol">
+            <digest>color of the button</digest>
+            <description>rgb hex color of the button, default is  green</description>
+        </attribute>
+        <attribute size="1" get="1" name="downColor" set="1" type="symbol">
+            <digest>color of the pressed button</digest>
+            <description>rgb hex color of the button, default is  blue</description>
+        </attribute>
+        <attribute size="1" get="1" name="toggle" set="1" type="int">
+            <digest>make this a toggle button</digest>
+            <description>make this a toggle button, default 0</description>
+        </attribute>
+    </attributelist>
+    <methodlist>
+        <method standard="0" name="color">
+            <arglist>
+                <arg optional="0" name="" type="symbol"/>
+            </arglist>
+            <digest>color of the button</digest>
+            <description>rgb hex color of the button, default is  ffffff</description>
+        </method>
+        <method standard="0" name="downColor">
+            <arglist>
+                <arg optional="0" name="" type="symbol"/>
+            </arglist>
+            <digest>color of the pressed button</digest>
+            <description>rgb hex color of the button, default is  blue</description>
+        </method>
+        <method standard="0" name="forceActive">
+            <arglist>
+                <arg optional="0" name="" type="int"/>
+            </arglist>
+            <digest>force the active state</digest>
+            <description>force the active state</description>
+        </method>
+        <method standard="0" name="setButton">
+            <arglist>
+                <arg optional="0" name="" type="symbol"/>
+            </arglist>
+            <digest>set the button id</digest>
+            <description>set the button id</description>
+        </method>
+        <method standard="0" name="toggle">
+            <arglist>
+                <arg optional="0" name="" type="int"/>
+            </arglist>
+            <digest>make this a toggle button</digest>
+            <description>make this a toggle button, default 0</description>
+        </method>
+    </methodlist>
+    <seealsolist/>
+</c74object>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+<c74object name="wa.channel_strip.stereo~" patcher_type="gui">
+    <digest>a mixer stereo channel</digest>
+    <description>a mixer stereo channel</description>
+    <metadatalist>
+        <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMaxPackage</metadata>
+    </metadatalist>
+    <parser inlet_count="2"/>
+    <misc name="Outputs">
+        <entry id="0" name="passR">
+            <digest/>
+            <description>pass right signal</description>
+        </entry>
+        <entry id="1" name="passL">
+            <digest/>
+            <description>pass left signal</description>
+        </entry>
+    </misc>
+    <objarglist/>
+    <attributelist>
+        <attribute get="1" name="name" set="1" size="1" type="symbol">
+            <digest>the channel name</digest>
+            <description>the channel name</description>
+        </attribute>
+    </attributelist>
+    <methodlist>
+        <method name="int" standard="1">
+            <digest/>
+            <description>mute the mixer</description>
+        </method>
+        <method name="signal" standard="1">
+            <digest/>
+            <description>the input signal</description>
+        </method>
+    </methodlist>
+    <seealsolist/>
+</c74object>

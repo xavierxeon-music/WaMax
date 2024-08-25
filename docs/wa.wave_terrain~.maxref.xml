@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+<c74object name="wa.wave_terrain~" patcher_type="standard">
+    <digest>Wave Terrain Synthesis</digest>
+    <description>Scan a matrix and report its plane values</description>
+    <metadatalist>
+        <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMaxPackageBase</metadata>
+        <metadata name="tag">WaMaxPackage</metadata>
+    </metadatalist>
+    <misc name="Outputs">
+        <entry name="anything">
+            <digest/>
+        </entry>
+    </misc>
+    <objarglist/>
+    <attributelist>
+        <attribute name="px" type="symbol">
+            <digest/>
+        </attribute>
+    </attributelist>
+    <methodlist>
+        <method name="signal" standard="1">
+            <arglist>
+                <arg name="signal" optional="0" type="signal"/>
+            </arglist>
+            <digest>x/y control</digest>
+            <description>(left) x control<br/>(right) y control</description>
+        </method>
+    </methodlist>
+    <seealsolist/>
+</c74object>

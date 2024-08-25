@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+<c74object name="wa.encoder" patcher_type="standard">
+    <digest>emulate an encoder</digest>
+    <description>increment or decrement a value</description>
+    <metadatalist>
+        <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMaxPackage</metadata>
+    </metadatalist>
+    <misc name="Outputs">
+        <entry name="anything">
+            <digest>value</digest>
+            <description>the current value</description>
+        </entry>
+    </misc>
+    <objarglist>
+        <objarg name="min" optional="1" type="float">
+            <digest>set the minmum value (0)</digest>
+            <description>set the minmum value<br/><br/>default is 0<br/>see <m>setMin</m><br/><br/><br/></description>
+        </objarg>
+        <objarg name="max" optional="1" type="float">
+            <digest>set the maximum value (127)</digest>
+            <description>see <m>setMax</m><br/><br/>default is 127</description>
+        </objarg>
+    </objarglist>
+    <attributelist>
+        <attribute name="delta" type="float">
+            <digest>scale encoder (1.0)</digest>
+            <description>scales the incoming encoder values</description>
+        </attribute>
+        <attribute name="wrap" type="int">
+            <digest>wrap (1)</digest>
+            <description>if set to true max value will jump to min value and vice versa</description>
+        </attribute>
+    </attributelist>
+    <methodlist>
+        <method name="delta" standard="0">
+            <arglist>
+                <arg name="delta" optional="0" type="float"/>
+            </arglist>
+            <digest>scale encoder (1.0)</digest>
+            <description>scales the incoming encoder values</description>
+        </method>
+        <method name="forceValue" standard="0">
+            <arglist>
+                <arg name="forceValue" optional="0" type="int"/>
+            </arglist>
+            <digest>set the current value</digest>
+            <description>In right input: set the current value</description>
+        </method>
+        <method name="setMax" standard="0">
+            <arglist>
+                <arg name="setMax" optional="0" type="int"/>
+            </arglist>
+            <digest>the minmum value</digest>
+            <description>set the minmum possible value.<br/><br/>there is no check if the min value is actually smaller then the max value</description>
+        </method>
+        <method name="setMin" standard="0">
+            <arglist>
+                <arg name="setMin" optional="0" type="int"/>
+            </arglist>
+            <digest>the maximum value</digest>
+            <description>set the maximum possible value<br/><br/>there is no check if the min value is actually smaller then the max value</description>
+        </method>
+        <method name="wrap" standard="0">
+            <arglist>
+                <arg name="wrap" optional="0" type="int"/>
+            </arglist>
+            <digest>wrap (1)</digest>
+            <description>if set to true max value will jump to min value and vice versa</description>
+        </method>
+        <method name="int" standard="1">
+            <arglist>
+                <arg name="int" optional="0" type="int"/>
+            </arglist>
+            <digest>diff</digest>
+            <description>the diff vlaue</description>
+        </method>
+        <method name="bang" standard="1">
+            <arglist>
+                <arg name="bang" optional="0" type="bang"/>
+            </arglist>
+            <digest/>
+        </method>
+    </methodlist>
+    <seealsolist/>
+</c74object>

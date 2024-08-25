@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+<c74object as_bpatcher="0" name="wa.bitify.byte~">
+    <digest>turn singal into a byte</digest>
+    <description>turn singal into a byte<br/><br/>an imitation of the left side of a XAOC Device Drezno</description>
+    <metadatalist>
+        <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMaxPackage</metadata>
+    </metadatalist>
+    <parser inlet_count="1"/>
+    <misc name="Outputs">
+        <entry id="1" name="byte">
+            <digest/>
+            <description>mc signal for byte</description>
+        </entry>
+    </misc>
+    <objarglist/>
+    <attributelist/>
+    <methodlist/>
+    <seealsolist>
+        <seealso name="wa.bitify.matrix~"/>
+        <seealso name="wa.bitify.signal~"/>
+    </seealsolist>
+</c74object>

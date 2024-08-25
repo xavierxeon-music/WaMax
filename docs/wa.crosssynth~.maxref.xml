@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+<c74object name="wa.crosssynth~" patcher_type="standard">
+    <digest>crosssynth to signals</digest>
+    <description>crosssynth to signals</description>
+    <metadatalist>
+        <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMaxPackage</metadata>
+    </metadatalist>
+    <parser inlet_count="2"/>
+    <misc name="Outputs">
+        <entry id="1" name="signalBlend">
+            <digest/>
+            <description>phase from left signal<br/></description>
+        </entry>
+        <entry id="2" name="signalBlend">
+            <digest/>
+            <description>phase from both signals<br/></description>
+        </entry>
+        <entry id="3" name="signalBlend">
+            <digest/>
+            <description> phase from right signal</description>
+        </entry>
+    </misc>
+    <objarglist/>
+    <attributelist/>
+    <methodlist>
+        <method name="signal" standard="1">
+            <digest/>
+            <description>lenf, right: the 2 signals to cross synthesise</description>
+        </method>
+    </methodlist>
+    <seealsolist/>
+</c74object>

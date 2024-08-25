@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+<c74object name="wa.channel_strip.master~" patcher_type="gui">
+    <digest>the mixer master section</digest>
+    <description>the mixer master section</description>
+    <metadatalist>
+        <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMaxPackage</metadata>
+    </metadatalist>
+    <parser inlet_count="1"/>
+    <misc name="Outputs">
+        <entry id="0" name="rightOut">
+            <digest/>
+            <description>right signal out</description>
+        </entry>
+        <entry id="1" name="leftOut">
+            <digest/>
+            <description>left signal out</description>
+        </entry>
+    </misc>
+    <objarglist/>
+    <attributelist/>
+    <methodlist>
+        <method name="int" standard="1">
+            <digest/>
+            <description>mute</description>
+        </method>
+    </methodlist>
+    <seealsolist/>
+</c74object>

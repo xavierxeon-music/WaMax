@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+<c74object name="wa.sound.hagia~" patcher_type="standard">
+    <digest>sofia clone</digest>
+    <description>a clone og the choas devices hagia</description>
+    <metadatalist>
+        <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMaxPackage</metadata>
+        <metadata name="tag">audio</metadata>
+    </metadatalist>
+    <parser inlet_count="1"/>
+    <misc name="Outputs">
+        <entry id="0" name="main">
+            <digest/>
+        </entry>
+        <entry id="1" name="rippleB">
+            <digest/>
+        </entry>
+        <entry id="2" name="rippleA">
+            <digest/>
+        </entry>
+    </misc>
+    <objarglist/>
+    <attributelist>
+        <attribute get="1" name="lenA" set="1" size="1" type="anything">
+            <digest>lenA</digest>
+        </attribute>
+        <attribute get="1" name="lenB" set="1" size="1" type="anything">
+            <digest>lenB</digest>
+        </attribute>
+        <attribute get="1" name="ratioA" set="1" size="1" type="anything">
+            <digest>ratioA</digest>
+        </attribute>
+        <attribute get="1" name="ratioB" set="1" size="1" type="anything">
+            <digest>ratioB</digest>
+        </attribute>
+    </attributelist>
+    <methodlist>
+        <method name="float" standard="1">
+            <digest/>
+            <description>pitch</description>
+        </method>
+        <method name="signal" standard="1">
+            <digest/>
+            <description>pitch</description>
+        </method>
+        <method name="in1" standard="0">
+            <digest>message input</digest>
+            <description>message input</description>
+        </method>
+        <method name="lenA" standard="0">
+            <arglist>
+                <arg name="" optional="0" type="symbol"/>
+            </arglist>
+            <digest/>
+        </method>
+        <method name="lenB" standard="0">
+            <arglist>
+                <arg name="" optional="0" type="symbol"/>
+            </arglist>
+            <digest/>
+        </method>
+        <method name="message" standard="0">
+            <digest>message input</digest>
+            <description>message input</description>
+        </method>
+        <method name="ratioA" standard="0">
+            <arglist>
+                <arg name="" optional="0" type="symbol"/>
+            </arglist>
+            <digest/>
+        </method>
+        <method name="ratioB" standard="0">
+            <arglist>
+                <arg name="" optional="0" type="symbol"/>
+            </arglist>
+            <digest/>
+        </method>
+    </methodlist>
+    <seealsolist/>
+</c74object>

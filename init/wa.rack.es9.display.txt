@@ -1,0 +1,2 @@
+max objectfile wa.rack.es9.display wa.rack.es9.display;
+max definesubstitution wa.rack.es9.display bpatcher @name wa.rack.es9.display.maxpat;

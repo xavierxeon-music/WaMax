@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+<c74object name="wa.quantizer" patcher_type="standard">
+    <digest>quantize a midiNote</digest>
+    <description>quantize a midiNote to a scale defined by <o>wa.quantizer.scale</o></description>
+    <metadatalist>
+        <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMaxPackageBase</metadata>
+        <metadata name="tag">WaMaxPackage</metadata>
+        <metadata name="tag">WaMaxPackage</metadata>
+        <metadata name="tag">WaMaxPackage</metadata>
+    </metadatalist>
+    <misc name="Outputs">
+        <entry name="int">
+            <digest>note</digest>
+            <description>the qunatized midi note</description>
+        </entry>
+    </misc>
+    <objarglist>
+        <objarg name="1" optional="1" type="symbol">
+            <digest>the name of the scale</digest>
+            <description>the name of the scale<br/><br/>must match a name of a scale defined by <o>wa.sequence.scale</o></description>
+        </objarg>
+    </objarglist>
+    <attributelist/>
+    <methodlist>
+        <method name="int" standard="1">
+            <arglist>
+                <arg name="int" optional="0" type="int"/>
+            </arglist>
+            <digest>midi note</digest>
+            <description>a midi note to be quantize</description>
+        </method>
+    </methodlist>
+    <seealsolist>
+        <seealso name="wa.quantizer.scale"/>
+    </seealsolist>
+</c74object>

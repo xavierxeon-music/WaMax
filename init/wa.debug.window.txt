@@ -1,0 +1,2 @@
+max objectfile wa.debug.window wa.debug.window;
+max definesubstitution wa.debug.window bpatcher @name wa.debug.window.maxpat;

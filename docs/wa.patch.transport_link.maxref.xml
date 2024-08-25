@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+<c74object name="wa.patch.transport_link" patcher_type="standard">
+    <digest>Hello World</digest>
+    <metadatalist>
+        <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMaxPackage</metadata>
+    </metadatalist>
+    <parser inlet_count="1"/>
+    <misc name="Outputs">
+        <entry id="1" name="link_phasor">
+            <digest/>
+        </entry>
+    </misc>
+    <objarglist/>
+    <attributelist>
+        <attribute get="1" name="tempo" set="1" size="1" type="symbol">
+            <digest/>
+        </attribute>
+    </attributelist>
+    <methodlist>
+        <method name="int" standard="1">
+            <digest/>
+        </method>
+        <method name="tempo" standard="0">
+            <arglist>
+                <arg name="" optional="0" type="symbol"/>
+            </arglist>
+            <digest/>
+        </method>
+    </methodlist>
+    <seealsolist/>
+</c74object>

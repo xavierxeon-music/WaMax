@@ -1,0 +1,13 @@
+{
+   "author": "Ralf Waspe",
+   "displayname": "",
+   "description": "Helper classes",
+   "max_version_min": "8.0",
+   "max_version_max": "none",
+   "name": "WaMaxPackageBase",
+   "tags": [],
+   "version": "0.1.0",
+   "extends": "",
+   "extensible": 1,
+   "homepatcher": "WaMaxPackageBase.maxpat"
+}

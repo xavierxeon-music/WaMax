@@ -1,0 +1,9 @@
+{
+	"default" : 	{
+		"accentcolor" : [ 0.439216, 0.74902, 0.254902, 1.0 ]
+	}
+,
+	"parentstyle" : "",
+	"name" : "wa.patcher",
+	"multi" : 0
+}

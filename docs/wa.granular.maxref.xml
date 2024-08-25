@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+<c74object name="wa.granular" patcher_type="standard">
+    <digest>granular synth</digest>
+    <description>use a buffer as the basis for a granular synth</description>
+    <metadatalist>
+        <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMaxPackage</metadata>
+    </metadatalist>
+    <parser inlet_count="1"/>
+    <misc name="Outputs">
+        <entry id="1" name="">
+            <digest/>
+            <description>left audio</description>
+        </entry>
+        <entry id="2" name="">
+            <digest/>
+            <description>right audio</description>
+        </entry>
+    </misc>
+    <objarglist>
+        <objarg name="1" optional="1" type="symbol">
+            <digest>sound file</digest>
+            <description>the name of the sound file to use</description>
+        </objarg>
+    </objarglist>
+    <attributelist>
+        <attribute get="1" name="basenote" set="1" size="1" type="symbol">
+            <digest>basenote (60)</digest>
+            <description>mid note of the source material pitch</description>
+        </attribute>
+        <attribute get="1" name="channels" set="1" size="1" type="symbol">
+            <digest>channels (30)</digest>
+            <description>number of grains</description>
+        </attribute>
+        <attribute get="1" name="grainsize" set="1" size="1" type="symbol">
+            <digest>grainsize (20)</digest>
+            <description>grainsize in ms</description>
+        </attribute>
+        <attribute get="1" name="spray" set="1" size="1" type="symbol">
+            <digest>spray (10)</digest>
+            <description>random spread of startpos in ms</description>
+        </attribute>
+        <attribute get="1" name="spread" set="1" size="1" type="symbol">
+            <digest>spread (0)</digest>
+            <description>frequency spread (hz)</description>
+        </attribute>
+        <attribute get="1" name="startpos" set="1" size="1" type="symbol">
+            <digest>start pos (0)</digest>
+            <description>grain start pos</description>
+        </attribute>
+        <attribute get="1" name="triggerintervall" set="1" size="1" type="symbol">
+            <digest>trigger intervall (1)</digest>
+            <description>grain trigger intervall in ms</description>
+        </attribute>
+    </attributelist>
+    <methodlist>
+        <method name="basenote" standard="0">
+            <arglist>
+                <arg name="" optional="0" type="symbol"/>
+            </arglist>
+            <digest>basenote</digest>
+            <description>mid note of the source material pitch</description>
+        </method>
+        <method name="channels" standard="0">
+            <arglist>
+                <arg name="" optional="0" type="symbol"/>
+            </arglist>
+            <digest>channels</digest>
+            <description>number of grains</description>
+        </method>
+        <method name="grainsize" standard="0">
+            <arglist>
+                <arg name="" optional="0" type="symbol"/>
+            </arglist>
+            <digest>grainsize</digest>
+            <description>grainsize in ms</description>
+        </method>
+        <method name="spray" standard="0">
+            <arglist>
+                <arg name="" optional="0" type="symbol"/>
+            </arglist>
+            <digest>spray</digest>
+            <description>random spread of startpos in ms</description>
+        </method>
+        <method name="spread" standard="0">
+            <arglist>
+                <arg name="" optional="0" type="symbol"/>
+            </arglist>
+            <digest>spread</digest>
+            <description>frequency spread (hz)</description>
+        </method>
+        <method name="startpos" standard="0">
+            <arglist>
+                <arg name="" optional="0" type="symbol"/>
+            </arglist>
+            <digest>start pos</digest>
+            <description>grain start pos</description>
+        </method>
+        <method name="triggerintervall" standard="0">
+            <arglist>
+                <arg name="" optional="0" type="symbol"/>
+            </arglist>
+            <digest>trigger intervall</digest>
+            <description>grain trigger intervall in ms</description>
+        </method>
+    </methodlist>
+    <seealsolist/>
+</c74object>

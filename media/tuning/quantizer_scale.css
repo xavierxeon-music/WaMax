@@ -1,0 +1,15 @@
+input.lineedit {
+   margin-left: 5px;
+   margin-right: 5px;
+   background: #eeeeee;
+   color: #111111;
+   border: none;
+   border-bottom: 1px solid #111111;
+   text-align: center;
+   font-size: 12px;
+   font-weight: bold;
+}
+
+canvas {
+   background: #eeeeee;
+}

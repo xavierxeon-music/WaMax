@@ -1,0 +1,78 @@
+{
+   "audio_loopback": {
+      "name": "Audio Loopback",
+      "script": "./external_software/audio_loopback_ui.js"
+   },
+   "drums": {
+      "name": "Drum Control",
+      "script": "./oscilators/drum_control_ui.js"
+   },
+   "debug_window": {
+      "name": "Debug Console",
+      "script": "./other/debug_window.js"
+   },
+   "grid_pot16": {
+      "name": "Grid Pot16",
+      "script": "./hardware/grid_pot16_ui.js"
+   },
+   "grid_enc16": {
+      "name": "Grid Enc16",
+      "script": "./hardware/grid_enc16_ui.js"
+   },
+   "rack_es8": {
+      "name": "Rack ES8",
+      "script": "./rack/es8_ui.js"
+   },
+   "rack_es9": {
+      "name": "Rack ES9",
+      "script": "./rack/es9_ui.js"
+   },
+   "rack_acdc": {
+      "name": "Rack ACDC",
+      "script": "./rack/acdc_ui.js"
+   },
+   "quantizer": {
+      "name": "Quantizer",
+      "script": "./tuning/quantizer_scale.js",
+      "styles": [
+         "./tuning/quantizer_scale.css"
+      ]
+   },
+   "mixer": {
+      "name": "Mixer",
+      "script": "./mixer/mixer_console_ui.js",
+      "styles": [
+         "./mixer/mixer_console_ui.css"
+      ],
+      "includes": [
+         "./mixer/_mixer_fader.js",
+         "./mixer/_mixer_knob.js"
+      ]
+   },
+   "push2_dummy": {
+      "name": "Push2",
+      "script": "./hardware/push2_dummy.js",
+      "styles": [
+         "./hardware/push2_dummy.css"
+      ],
+      "includes": [
+         "./hardware/_push2_button.js",
+         "./hardware/_push2_dir_pad.js",
+         "./hardware/_push2_encoder.js",
+         "./hardware/_push2_slider.js"
+      ]
+   },
+   "_default": {
+      "includes": [
+         "./_maxgui/button.js",
+         "./_maxgui/canvas.js",
+         "./_maxgui/div.js",
+         "./_maxgui/maxdummy.js",
+         "./_maxgui/ringbuffer.js",
+         "./_maxgui/slider.js",
+         "./_maxgui/tab.js",
+         "./_maxgui/table.js",
+         "./_maxgui/textedit.js"
+      ]
+   }
+}

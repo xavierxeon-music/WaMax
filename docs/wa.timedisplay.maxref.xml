@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+<c74object as_bpatcher="1" name="wa.timedisplay">
+    <digest>display the time</digest>
+    <description>a simple time display</description>
+    <metadatalist>
+        <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMaxPackage</metadata>
+    </metadatalist>
+    <parser inlet_count="1"/>
+    <misc name="Outputs"/>
+    <objarglist>
+        <objarg name="1" optional="1" type="symbol">
+            <digest>the content of the label</digest>
+            <description>the content of the label</description>
+        </objarg>
+    </objarglist>
+    <attributelist/>
+    <methodlist>
+        <method name="symbol" standard="1">
+            <digest/>
+            <description>the content of the label</description>
+        </method>
+        <method name="int" standard="1">
+            <digest/>
+            <description>set 1 to start the display, 0 pauses the display</description>
+        </method>
+        <method name="bang" standard="1">
+            <digest/>
+            <description>reset the display</description>
+        </method>
+    </methodlist>
+    <seealsolist/>
+</c74object>

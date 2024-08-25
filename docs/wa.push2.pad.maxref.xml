@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+<c74object as_bpatcher="0" name="wa.push2.pad">
+    <digest>a pad on a push device</digest>
+    <description>a pad on a push device</description>
+    <metadatalist>
+        <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMaxPackage</metadata>
+    </metadatalist>
+    <parser inlet_count="1"/>
+    <misc name="Outputs">
+        <entry name="active" id="1">
+            <digest/>
+            <description>In <i>"click"</i>mode active is 1 for as long as the pad is pressed.<br/>In <i>"toggle"</i> mode active is 1 between to consecutive pad presses.</description>
+        </entry>
+        <entry name="pressed" id="2">
+            <digest/>
+            <description>bang when pad is pressed.</description>
+        </entry>
+        <entry name="released" id="3">
+            <digest/>
+            <description>bang when pad is released.</description>
+        </entry>
+    </misc>
+    <objarglist>
+        <objarg optional="1" name="name" type="symbol">
+            <digest>the name of the pad</digest>
+            <description>the name of the pad. see <o>wa.push.device~</o> for details</description>
+        </objarg>
+    </objarglist>
+    <attributelist>
+        <attribute size="1" get="1" name="color" set="1" type="symbol">
+            <digest>color of the pad</digest>
+            <description>rgb hex color of the pad, default is  ffffff</description>
+        </attribute>
+        <attribute size="1" get="1" name="downColor" set="1" type="symbol">
+            <digest>color of the pressed pad</digest>
+            <description>rgb hex color of the pad, default is  blue</description>
+        </attribute>
+        <attribute size="1" get="1" name="toggle" set="1" type="symbol">
+            <digest>make this a toggle pad</digest>
+            <description>make this a toggle pad, default is 0</description>
+        </attribute>
+    </attributelist>
+    <methodlist>
+        <method standard="0" name="color">
+            <arglist>
+                <arg optional="0" name="" type="symbol"/>
+            </arglist>
+            <digest>color of the pad</digest>
+            <description>rgb hex color of the pad, default is  ffffff</description>
+        </method>
+        <method standard="0" name="downColor">
+            <arglist>
+                <arg optional="0" name="" type="symbol"/>
+            </arglist>
+            <digest>color of the pressed pad</digest>
+            <description>rgb hex color of the pad, default is  blue</description>
+        </method>
+        <method standard="0" name="forceActive">
+            <arglist>
+                <arg optional="0" name="" type="symbol"/>
+            </arglist>
+            <digest>force the active state</digest>
+            <description>force the active state</description>
+        </method>
+        <method standard="0" name="setPad">
+            <arglist>
+                <arg optional="0" name="" type="symbol"/>
+            </arglist>
+            <digest>set the pad id</digest>
+            <description>set the pad id</description>
+        </method>
+        <method standard="0" name="toggle">
+            <arglist>
+                <arg optional="0" name="" type="symbol"/>
+            </arglist>
+            <digest>make this a toggle pad</digest>
+            <description>make this a toggle pad, default 0</description>
+        </method>
+    </methodlist>
+    <seealsolist/>
+</c74object>

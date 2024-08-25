@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+<c74object as_bpatcher="0" name="wa.mc.extract~">
+    <digest>extract signal</digest>
+    <description>extact a single channel from a multi channel signal</description>
+    <metadatalist>
+        <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMaxPackage</metadata>
+    </metadatalist>
+    <parser inlet_count="1"/>
+    <misc name="Outputs">
+        <entry id="0" name="signal">
+            <digest/>
+            <description>the signal</description>
+        </entry>
+    </misc>
+    <objarglist>
+        <objarg name="1" optional="0" type="int">
+            <digest>input</digest>
+            <description>number of the channel to extraxt (1 based)</description>
+        </objarg>
+    </objarglist>
+    <attributelist/>
+    <methodlist>
+        <method name="multichannelsignal" standard="1">
+            <digest/>
+            <description>the multichannel signal</description>
+        </method>
+    </methodlist>
+    <seealsolist/>
+</c74object>

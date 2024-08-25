@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+<c74object as_bpatcher="0" name="wa.visu.spectrum">
+    <digest>spectrum matrix</digest>
+    <description>An jit.gl visu of a spectrum</description>
+    <metadatalist>
+        <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMaxPackage</metadata>
+    </metadatalist>
+    <parser inlet_count="1"/>
+    <misc name="Outputs">
+        <entry id="0" name="matrix">
+            <digest/>
+            <description>the jit matrix for the visu</description>
+        </entry>
+    </misc>
+    <objarglist/>
+    <attributelist/>
+    <methodlist>
+        <method name="int" standard="1">
+            <digest/>
+            <description>turn visu on/off</description>
+        </method>
+        <method name="signal" standard="1">
+            <digest/>
+            <description>singal to cisualize</description>
+        </method>
+    </methodlist>
+    <seealsolist/>
+</c74object>

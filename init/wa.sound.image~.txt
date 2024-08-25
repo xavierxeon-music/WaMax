@@ -1,0 +1,2 @@
+max objectfile wa.sound.image~ wa.sound.image~;
+max definesubstitution wa.sound.image~ bpatcher @name wa.sound.image~.maxpat;

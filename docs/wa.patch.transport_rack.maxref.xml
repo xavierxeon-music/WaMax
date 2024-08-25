@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+<c74object as_bpatcher="0" name="wa.patch.transport_rack">
+    <digest>control transport from rack</digest>
+    <description>control transport from rack</description>
+    <metadatalist>
+        <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMaxPackage</metadata>
+    </metadatalist>
+    <parser inlet_count="3"/>
+    <misc name="Outputs">
+        <entry id="0" name="intervall">
+            <digest/>
+            <description>the intevall between ticks</description>
+        </entry>
+    </misc>
+    <objarglist/>
+    <attributelist/>
+    <methodlist>
+        <method name="signal" standard="1">
+            <digest/>
+            <description>left: tick<br/>middle: reset<br/>right: running</description>
+        </method>
+    </methodlist>
+    <seealsolist/>
+</c74object>

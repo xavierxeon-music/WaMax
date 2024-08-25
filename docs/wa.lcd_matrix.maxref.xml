@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+<c74object name="wa.lcd_matrix" patcher_type="standard">
+    <digest>create lcd matrix</digest>
+    <description>render target to be used with javascript LCD classes</description>
+    <metadatalist>
+        <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMaxPackage</metadata>
+    </metadatalist>
+    <misc name="Outputs">
+        <entry name="matrix">
+            <digest>image</digest>
+            <description>the image created by jit.lcd</description>
+        </entry>
+    </misc>
+    <objarglist>
+        <objarg name="name" optional="1" type="symbol">
+            <digest>device name (push2)</digest>
+            <description>a name which specivies a device </description>
+        </objarg>
+    </objarglist>
+    <attributelist>
+        <attribute name="dim" type="list">
+            <digest>dimension  (960 180)</digest>
+            <description>the size of the generated matrix</description>
+        </attribute>
+    </attributelist>
+    <methodlist/>
+    <seealsolist/>
+</c74object>

@@ -1,0 +1,15 @@
+{
+   "name": "WaMaxPackage",
+   "type": "filelist",
+   "contents": [
+      "wa.jit_project.maxsnip",
+      "wa.jit_project.launchpad.maxsnip",
+      "wa.output.maxsnip",
+      "wa.patch_main.maxsnip",
+      "wa.patch_sub.maxsnip",
+      "wa.rack_integration.maxsnip",
+      "wa.transport_link.maxsnip",
+      "wa.transport_manual.maxsnip",
+      "walive.device_main.maxsnip"
+   ]
+}

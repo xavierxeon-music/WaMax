@@ -1,0 +1,2 @@
+max objectfile wa.rack.acdc.display wa.rack.acdc.display;
+max definesubstitution wa.rack.acdc.display bpatcher @name wa.rack.acdc.display.maxpat;

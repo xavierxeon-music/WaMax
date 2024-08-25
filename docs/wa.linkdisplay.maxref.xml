@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+<c74object name="wa.linkdisplay" patcher_type="gui">
+    <digest>link display</digest>
+    <description>show th estate of the link connection</description>
+    <metadatalist>
+        <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMaxPackageBase</metadata>
+    </metadatalist>
+    <misc name="Outputs">
+        <entry name="signal">
+            <digest/>
+        </entry>
+    </misc>
+    <objarglist/>
+    <attributelist/>
+    <methodlist/>
+    <seealsolist/>
+</c74object>

@@ -1,0 +1,2 @@
+max objectfile wa.polysound.plonk wa.polysound.plonk;
+max definesubstitution wa.polysound.plonk poly~ wa.polysound.plonk 16;

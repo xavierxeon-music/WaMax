@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+<c74object as_bpatcher="1" name="wa.lattice.block">
+    <digest>a lattice</digest>
+    <description>seqeuncer 4 x 4 matrix</description>
+    <metadatalist>
+        <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMaxPackage</metadata>
+    </metadatalist>
+    <parser inlet_count="1"/>
+    <misc name="Outputs">
+        <entry id="0" name="">
+            <digest/>
+        </entry>
+        <entry id="1" name="">
+            <digest/>
+        </entry>
+    </misc>
+    <objarglist/>
+    <attributelist/>
+    <methodlist>
+        <method name="bang" standard="1">
+            <digest/>
+            <description>in left inlet: advance x<br/>in right inlet: advance y</description>
+        </method>
+    </methodlist>
+    <seealsolist/>
+</c74object>

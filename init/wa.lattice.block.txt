@@ -1,0 +1,2 @@
+max objectfile wa.lattice.block wa.lattice.block;
+max definesubstitution wa.lattice.block bpatcher @name wa.lattice.block.maxpat;

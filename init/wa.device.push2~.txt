@@ -1,0 +1,2 @@
+max objectfile wa.device.push2~ wa.device.push2~;
+max definesubstitution wa.device.push2~ bpatcher @name wa.device.push2~.maxpat;

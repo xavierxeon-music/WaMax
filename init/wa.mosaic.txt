@@ -1,0 +1,2 @@
+max objectfile wa.mosaic wa.mosaic;
+max definesubstitution wa.mosaic bpatcher @name wa.mosaic.maxpat;

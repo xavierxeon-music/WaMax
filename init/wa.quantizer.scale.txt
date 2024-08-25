@@ -1,0 +1,2 @@
+max objectfile wa.quantizer.scale wa.quantizer.scale;
+max definesubstitution wa.quantizer.scale bpatcher @name wa.quantizer.scale.maxpat;

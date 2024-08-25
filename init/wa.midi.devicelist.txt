@@ -1,0 +1,2 @@
+max objectfile wa.midi.devicelist wa.midi.devicelist;
+max definesubstitution wa.midi.devicelist bpatcher @name wa.midi.devicelist.maxpat;

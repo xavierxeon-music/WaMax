@@ -1,0 +1,2 @@
+max objectfile wa.device.grid.enc16 wa.device.grid.enc16;
+max definesubstitution wa.device.grid.enc16 bpatcher @name wa.device.grid.enc16.maxpat;

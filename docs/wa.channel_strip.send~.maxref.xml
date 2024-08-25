@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+<c74object name="wa.channel_strip.send~" patcher_type="gui">
+    <digest>mixer bus send</digest>
+    <description>mixer bus send</description>
+    <metadatalist>
+        <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMaxPackage</metadata>
+    </metadatalist>
+    <parser inlet_count="2"/>
+    <misc name="Outputs">
+        <entry id="0" name="outLeft">
+            <digest/>
+            <description>the left signal</description>
+        </entry>
+        <entry id="1" name="outRight">
+            <digest/>
+            <description>the right signal</description>
+        </entry>
+    </misc>
+    <objarglist/>
+    <attributelist>
+        <attribute get="1" name="mono" set="1" size="1" type="symbol">
+            <digest>mono mode</digest>
+            <description>copy left signal to right</description>
+        </attribute>
+        <attribute get="1" name="name" set="1" size="1" type="symbol">
+            <digest>sender name</digest>
+            <description>name of the sender. will be router to receivers with the same name</description>
+        </attribute>
+    </attributelist>
+    <methodlist>
+        <method name="int" standard="1">
+            <digest/>
+            <description>mute</description>
+        </method>
+        <method name="signal" standard="1">
+            <digest/>
+            <description>left and right: input signal</description>
+        </method>
+    </methodlist>
+    <seealsolist/>
+</c74object>

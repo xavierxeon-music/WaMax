@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+<c74object as_bpatcher="1" name="wa.sound.image~">
+    <digest>wave terrain image synthesis</digest>
+    <description>wave terrain image synthesis</description>
+    <metadatalist>
+        <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMaxPackage</metadata>
+    </metadatalist>
+    <parser inlet_count="2"/>
+    <misc name="Outputs">
+        <entry id="0" name="sound">
+            <digest/>
+            <description>the sound</description>
+        </entry>
+    </misc>
+    <objarglist/>
+    <attributelist/>
+    <methodlist>
+        <method name="float" standard="1">
+            <digest/>
+            <description>in left input: choose the horizontal image section<br/>in right input: choose the veritcal image section</description>
+        </method>
+        <method name="signal" standard="1">
+            <digest/>
+            <description>in left input: scan image horizontally<br/>in right input: scan image veritcally</description>
+        </method>
+    </methodlist>
+    <seealsolist/>
+</c74object>

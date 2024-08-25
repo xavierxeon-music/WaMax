@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <title>Max gui</title>
+   <link rel="stylesheet" type="text/css" href="./maxgui.css" />
+   <script src="./maxgui.js" type="text/javascript"></script>
+</head>
+
+<body>
+   <script>
+      let myUrl = new URL(window.location.href);
+      let contentKey = myUrl.searchParams.get("content");
+
+      let request = new XMLHttpRequest();
+      request.open("GET", "maxgui.json", false);
+      request.send(null);
+
+      let maxGuiDict = JSON.parse(request.responseText);
+
+      let defaults = maxGuiDict["_default"];
+      loadContent(defaults);
+
+      let content = maxGuiDict[contentKey];
+      if (!content) {
+         console.log("no content for key", contentKey);
+      }
+      else {
+         loadContent(content);
+      }
+   </script>
+</body>
+
+</html>

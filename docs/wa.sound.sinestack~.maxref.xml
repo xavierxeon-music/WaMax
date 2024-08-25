@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+<c74object as_bpatcher="0" name="wa.sound.sinestack">
+    <digest>a stack of sines</digest>
+    <description>can be used as a hamonic series</description>
+    <metadatalist>
+        <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMaxPackage</metadata>
+    </metadatalist>
+    <parser inlet_count="3"/>
+    <misc name="Outputs">
+        <entry id="1" name="evenOut">
+            <digest/>
+            <description>the even harmonics<br/></description>
+        </entry>
+        <entry id="2" name="oddOut">
+            <digest/>
+            <description>the odd harmonics<br/></description>
+        </entry>
+    </misc>
+    <objarglist/>
+    <attributelist>
+        <attribute get="1" name="octaves" set="1" size="1" type="int">
+            <digest>the number of octaves (5)</digest>
+            <description>the number of octaves (default is 5)</description>
+        </attribute>
+        <attribute get="1" name="offsetA" set="1" size="1" type="int">
+            <digest>offset from the base note (4)</digest>
+            <description>offset from the base note (default is 4)</description>
+        </attribute>
+        <attribute get="1" name="offsetB" set="1" size="1" type="int">
+            <digest>offset from the base note (4)</digest>
+            <description>offset from the base note (default is 4)</description>
+        </attribute>
+    </attributelist>
+    <methodlist>
+        <method name="int" standard="1">
+            <digest/>
+            <description>the base note (midi)</description>
+        </method>
+        <method name="multichannelsignal" standard="1">
+            <digest/>
+            <description>the phase of the sines</description>
+        </method>
+        <method name="multisignal" standard="0">
+            <arglist>
+                <arg name="" optional="0" type="multichannelsignal"/>
+            </arglist>
+            <digest/>
+        </method>
+        <method name="octaves" standard="0">
+            <arglist>
+                <arg name="" optional="0" type="int"/>
+            </arglist>
+            <digest>the number of octaves (5)</digest>
+            <description>the number of octaves (default is 5)</description>
+        </method>
+        <method name="offsetA" standard="0">
+            <arglist>
+                <arg name="" optional="0" type="int"/>
+            </arglist>
+            <digest>offset from the base note (4)</digest>
+            <description>offset from the base note (default is 4)</description>
+        </method>
+        <method name="offsetB" standard="0">
+            <arglist>
+                <arg name="" optional="0" type="int"/>
+            </arglist>
+            <digest>offset from the base note (7)</digest>
+            <description>offset from the base note (default is 7)</description>
+        </method>
+    </methodlist>
+    <seealsolist/>
+</c74object>

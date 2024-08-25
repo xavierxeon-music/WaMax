@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+<c74object name="wa.rainbow" patcher_type="standard">
+    <digest>Hello World</digest>
+    <metadatalist>
+        <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMaxPackage</metadata>
+    </metadatalist>
+    <parser inlet_count="1"/>
+    <misc name="Outputs">
+        <entry id="1" name="hex">
+            <digest/>
+        </entry>
+        <entry id="2" name="rgb">
+            <digest/>
+        </entry>
+    </misc>
+    <objarglist/>
+    <attributelist>
+        <attribute get="1" name="offset" set="1" size="1" type="symbol">
+            <digest/>
+        </attribute>
+        <attribute get="1" name="steps" set="1" size="1" type="symbol">
+            <digest/>
+        </attribute>
+    </attributelist>
+    <methodlist>
+        <method name="float" standard="1">
+            <digest/>
+        </method>
+        <method name="bang" standard="1">
+            <digest/>
+        </method>
+    </methodlist>
+    <seealsolist/>
+</c74object>

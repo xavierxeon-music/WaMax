@@ -1,0 +1,2 @@
+max objectfile wa.channel_strip.send~ wa.channel_strip.send~;
+max definesubstitution wa.channel_strip.send~ bpatcher @name wa.channel_strip.send~.maxpat;

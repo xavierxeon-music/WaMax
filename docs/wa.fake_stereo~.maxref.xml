@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+<c74object name="wa.fake_stereo~" patcher_type="standard">
+    <digest>Haas Effect</digest>
+    <description>create fake stereo</description>
+    <metadatalist>
+        <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMaxPackage</metadata>
+    </metadatalist>
+    <parser inlet_count="1"/>
+    <misc name="Outputs">
+        <entry id="0" name="left">
+            <digest/>
+            <description>left out</description>
+        </entry>
+        <entry id="1" name="right">
+            <digest/>
+            <description>right out</description>
+        </entry>
+    </misc>
+    <objarglist/>
+    <attributelist/>
+    <methodlist>
+        <method name="float" standard="1">
+            <digest/>
+            <description>stereo width</description>
+        </method>
+        <method name="signal" standard="1">
+            <digest/>
+            <description>audio in</description>
+        </method>
+    </methodlist>
+    <seealsolist/>
+</c74object>

@@ -1,0 +1,2 @@
+max objectfile wa.linkdisplay wa.linkdisplay;
+max definesubstitution wa.linkdisplay bpatcher @name wa.linkdisplay.maxpat;

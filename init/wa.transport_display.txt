@@ -1,0 +1,2 @@
+max objectfile wa.transport_display wa.transport_display;
+max definesubstitution wa.transport_display bpatcher @name wa.transport_display.maxpat;

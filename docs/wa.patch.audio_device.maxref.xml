@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+<c74object name="wa.patch.audio_device" patcher_type="standard">
+    <digest>Activate the audio device</digest>
+    <description>set and activate the patch audio device</description>
+    <metadatalist>
+        <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMaxPackageBase</metadata>
+        <metadata name="tag">WaMaxPackage</metadata>
+    </metadatalist>
+    <misc name="Outputs"/>
+    <objarglist>
+        <objarg name="device" optional="1" type="symbol">
+            <digest>the name of the device</digest>
+            <description>the name of the device as given in the system settings.<br/><br/>default is "BlackHole 64ch"<br/></description>
+        </objarg>
+    </objarglist>
+    <attributelist>
+        <attribute name="auto_start" type="int">
+            <digest>automatically start the device</digest>
+            <description>automatically start the device<br/><br/>default is true</description>
+        </attribute>
+        <attribute name="input_enabled" type="int">
+            <digest>enable the input</digest>
+            <description>enable the input<br/><br/>default is true</description>
+        </attribute>
+    </attributelist>
+    <methodlist>
+        <method name="bang" standard="1">
+            <arglist>
+                <arg name="bang" optional="0" type="bang"/>
+            </arglist>
+            <digest/>
+            <description>In left input: enable device manually.<br/></description>
+        </method>
+    </methodlist>
+    <seealsolist/>
+</c74object>

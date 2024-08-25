@@ -1,0 +1,2 @@
+max objectfile wa.timedisplay wa.timedisplay;
+max definesubstitution wa.timedisplay bpatcher @name wa.timedisplay.maxpat;

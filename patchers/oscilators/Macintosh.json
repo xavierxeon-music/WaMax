@@ -1,0 +1,40 @@
+{
+	"pattrstorage" : 	{
+		"name" : "main",
+		"slots" : 		{
+			"1" : 			{
+				"id" : 1,
+				"data" : 				{
+					"wa.control.drum::drum_values" : [ 						{
+							"amp_curve" : 0,
+							"amp_end" : 0,
+							"amp_length" : 10,
+							"amp_start" : 0,
+							"filter_curve" : 0,
+							"filter_end" : 300,
+							"filter_length" : 10,
+							"filter_start" : 300,
+							"noise_curve" : 0,
+							"noise_end" : 0,
+							"noise_length" : 10,
+							"noise_start" : 0,
+							"pitch_curve" : 0,
+							"pitch_end" : 50,
+							"pitch_length" : 10,
+							"pitch_start" : 100,
+							"q_curve" : 0,
+							"q_end" : 0,
+							"q_length" : 10,
+							"q_start" : 0,
+							"sound_mix" : 58
+						}
+ ]
+				}
+
+			}
+
+		}
+
+	}
+
+}

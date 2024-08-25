@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+<c74object as_bpatcher="1" name="wa.slew~">
+    <digest>slew limiter</digest>
+    <description>slew a incoming value</description>
+    <metadatalist>
+        <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMaxPackage</metadata>
+    </metadatalist>
+    <parser inlet_count="2"/>
+    <misc name="Outputs">
+        <entry id="1" name="float">
+            <digest/>
+            <description>the slewed value</description>
+        </entry>
+        <entry id="2" name="signal">
+            <digest/>
+            <description>the amplitude slewed signal</description>
+        </entry>
+    </misc>
+    <objarglist/>
+    <attributelist/>
+    <methodlist>
+        <method name="float" standard="1">
+            <digest/>
+            <description>the value to be slewed</description>
+        </method>
+        <method name="int" standard="1">
+            <digest/>
+            <description>the value to be slewed</description>
+        </method>
+        <method name="signal" standard="1">
+            <digest/>
+            <description>apply slew to signal amplitude</description>
+        </method>
+        <method name="attack" standard="0">
+            <arglist>
+                <arg name="" optional="0" type="float"/>
+            </arglist>
+            <digest>attack time</digest>
+            <description>the attack time in milliseconds</description>
+        </method>
+        <method name="decay" standard="0">
+            <arglist>
+                <arg name="" optional="0" type="float"/>
+            </arglist>
+            <digest>decay time</digest>
+            <description>the decay time in milliseconds</description>
+        </method>
+    </methodlist>
+    <seealsolist/>
+</c74object>

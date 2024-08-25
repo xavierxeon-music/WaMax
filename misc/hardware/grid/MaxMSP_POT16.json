@@ -1,0 +1,312 @@
+{
+   "id": "5cdf1022-11cf-4c17-91e9-0c786ec99da0",
+   "modifiedAt": "2024-07-24T18:42:26.813Z",
+   "name": "MaxMSP POT16",
+   "description": "Click here to add description",
+   "type": "PO16",
+   "version": {
+      "major": "1",
+      "minor": "3",
+      "patch": "3"
+   },
+   "configType": "profile",
+   "configs": [
+      {
+         "controlElementNumber": 0,
+         "events": [
+            {
+               "event": 0,
+               "config": "<?lua --[[@l]] local num,val,red,gre,blu=self:ind(),self:pva(),glr(),glg(),glb()--[[@spc]] self:pmo(12) self:pma(16383) ?>"
+            },
+            {
+               "event": 1,
+               "config": "<?lua --[[@l]] local num,val,ch,cc=self:ind(),self:pva(),2,0--[[@gmsh]] gms(ch,176,num,val//128) gms(ch,176,num+32,val%128) ?>"
+            },
+            {
+               "event": 6,
+               "config": "<?lua --[[@cb]] print('tick') ?>"
+            }
+         ]
+      },
+      {
+         "controlElementNumber": 1,
+         "events": [
+            {
+               "event": 0,
+               "config": "<?lua --[[@l]] local num,val,red,gre,blu=self:ind(),self:pva(),glr(),glg(),glb()--[[@spc]] self:pmo(12) self:pma(16383) ?>"
+            },
+            {
+               "event": 1,
+               "config": "<?lua --[[@l]] local num,val,ch,cc=self:ind(),self:pva(),2,1--[[@gmsh]] gms(ch,176,num,val//128) gms(ch,176,num+32,val%128) ?>"
+            },
+            {
+               "event": 6,
+               "config": "<?lua --[[@cb]] print('tick') ?>"
+            }
+         ]
+      },
+      {
+         "controlElementNumber": 2,
+         "events": [
+            {
+               "event": 0,
+               "config": "<?lua --[[@l]] local num,val,red,gre,blu=self:ind(),self:pva(),glr(),glg(),glb()--[[@spc]] self:pmo(10) self:pma(16383) ?>"
+            },
+            {
+               "event": 1,
+               "config": "<?lua --[[@l]] local num,val,ch,cc=self:ind(),self:pva(),2,2--[[@gmsh]] gms(ch,176,num,val//128) gms(ch,176,num+32,val%128) ?>"
+            },
+            {
+               "event": 6,
+               "config": "<?lua --[[@cb]] print('tick') ?>"
+            }
+         ]
+      },
+      {
+         "controlElementNumber": 3,
+         "events": [
+            {
+               "event": 0,
+               "config": "<?lua --[[@l]] local num,val,red,gre,blu=self:ind(),self:pva(),glr(),glg(),glb()--[[@spc]] self:pmo(12) self:pma(16383) ?>"
+            },
+            {
+               "event": 1,
+               "config": "<?lua --[[@l]] local num,val,ch,cc=self:ind(),self:pva(),2,3--[[@gmsh]] gms(ch,176,num,val//128) gms(ch,176,num+32,val%128) ?>"
+            },
+            {
+               "event": 6,
+               "config": "<?lua --[[@cb]] print('tick') ?>"
+            }
+         ]
+      },
+      {
+         "controlElementNumber": 4,
+         "events": [
+            {
+               "event": 0,
+               "config": "<?lua --[[@l]] local num,val,red,gre,blu=self:ind(),self:pva(),glr(),glg(),glb()--[[@spc]] self:pmo(12) self:pma(16383) ?>"
+            },
+            {
+               "event": 1,
+               "config": "<?lua --[[@l]] local num,val,ch,cc=self:ind(),self:pva(),2,4--[[@gmsh]] gms(ch,176,num,val//128) gms(ch,176,num+32,val%128) ?>"
+            },
+            {
+               "event": 6,
+               "config": "<?lua --[[@cb]] print('tick') ?>"
+            }
+         ]
+      },
+      {
+         "controlElementNumber": 5,
+         "events": [
+            {
+               "event": 0,
+               "config": "<?lua --[[@l]] local num,val,red,gre,blu=self:ind(),self:pva(),glr(),glg(),glb()--[[@spc]] self:pmo(12) self:pma(16383) ?>"
+            },
+            {
+               "event": 1,
+               "config": "<?lua --[[@l]] local num,val,ch,cc=self:ind(),self:pva(),2,5--[[@gmsh]] gms(ch,176,num,val//128) gms(ch,176,num+32,val%128) ?>"
+            },
+            {
+               "event": 6,
+               "config": "<?lua --[[@cb]] print('tick') ?>"
+            }
+         ]
+      },
+      {
+         "controlElementNumber": 6,
+         "events": [
+            {
+               "event": 0,
+               "config": "<?lua --[[@l]] local num,val,red,gre,blu=self:ind(),self:pva(),glr(),glg(),glb()--[[@spc]] self:pmo(12) self:pma(16383) ?>"
+            },
+            {
+               "event": 1,
+               "config": "<?lua --[[@l]] local num,val,ch,cc=self:ind(),self:pva(),2,6--[[@gmsh]] gms(ch,176,num,val//128) gms(ch,176,num+32,val%128) ?>"
+            },
+            {
+               "event": 6,
+               "config": "<?lua --[[@cb]] print('tick') ?>"
+            }
+         ]
+      },
+      {
+         "controlElementNumber": 7,
+         "events": [
+            {
+               "event": 0,
+               "config": "<?lua --[[@l]] local num,val,red,gre,blu=self:ind(),self:pva(),glr(),glg(),glb()--[[@spc]] self:pmo(12) self:pma(16383) ?>"
+            },
+            {
+               "event": 1,
+               "config": "<?lua --[[@l]] local num,val,ch,cc=self:ind(),self:pva(),2,7--[[@gmsh]] gms(ch,176,num,val//128) gms(ch,176,num+32,val%128) ?>"
+            },
+            {
+               "event": 6,
+               "config": "<?lua --[[@cb]] print('tick') ?>"
+            }
+         ]
+      },
+      {
+         "controlElementNumber": 8,
+         "events": [
+            {
+               "event": 0,
+               "config": "<?lua --[[@l]] local num,val,red,gre,blu=self:ind(),self:pva(),glr(),glg(),glb()--[[@spc]] self:pmo(12) self:pma(16383) ?>"
+            },
+            {
+               "event": 1,
+               "config": "<?lua --[[@l]] local num,val,ch,cc=self:ind(),self:pva(),2,8--[[@gmsh]] gms(ch,176,num,val//128) gms(ch,176,num+32,val%128) ?>"
+            },
+            {
+               "event": 6,
+               "config": "<?lua --[[@cb]] print('tick') ?>"
+            }
+         ]
+      },
+      {
+         "controlElementNumber": 9,
+         "events": [
+            {
+               "event": 0,
+               "config": "<?lua --[[@l]] local num,val,red,gre,blu=self:ind(),self:pva(),glr(),glg(),glb()--[[@spc]] self:pmo(12) self:pma(16383) ?>"
+            },
+            {
+               "event": 1,
+               "config": "<?lua --[[@l]] local num,val,ch,cc=self:ind(),self:pva(),2,9--[[@gmsh]] gms(ch,176,num,val//128) gms(ch,176,num+32,val%128) ?>"
+            },
+            {
+               "event": 6,
+               "config": "<?lua --[[@cb]] print('tick') ?>"
+            }
+         ]
+      },
+      {
+         "controlElementNumber": 10,
+         "events": [
+            {
+               "event": 0,
+               "config": "<?lua --[[@l]] local num,val,red,gre,blu=self:ind(),self:pva(),glr(),glg(),glb()--[[@spc]] self:pmo(12) self:pma(16383) ?>"
+            },
+            {
+               "event": 1,
+               "config": "<?lua --[[@l]] local num,val,ch,cc=self:ind(),self:pva(),2,10--[[@gmsh]] gms(ch,176,num,val//128) gms(ch,176,num+32,val%128) ?>"
+            },
+            {
+               "event": 6,
+               "config": "<?lua --[[@cb]] print('tick') ?>"
+            }
+         ]
+      },
+      {
+         "controlElementNumber": 11,
+         "events": [
+            {
+               "event": 0,
+               "config": "<?lua --[[@l]] local num,val,red,gre,blu=self:ind(),self:pva(),glr(),glg(),glb()--[[@spc]] self:pmo(12) self:pma(16383) ?>"
+            },
+            {
+               "event": 1,
+               "config": "<?lua --[[@l]] local num,val,ch,cc=self:ind(),self:pva(),2,11--[[@gmsh]] gms(ch,176,num,val//128) gms(ch,176,num+32,val%128) ?>"
+            },
+            {
+               "event": 6,
+               "config": "<?lua --[[@cb]] print('tick') ?>"
+            }
+         ]
+      },
+      {
+         "controlElementNumber": 12,
+         "events": [
+            {
+               "event": 0,
+               "config": "<?lua --[[@l]] local num,val,red,gre,blu=self:ind(),self:pva(),glr(),glg(),glb()--[[@spc]] self:pmo(12) self:pma(16383) ?>"
+            },
+            {
+               "event": 1,
+               "config": "<?lua --[[@l]] local num,val,ch,cc=self:ind(),self:pva(),2,12--[[@gmsh]] gms(ch,176,num,val//128) gms(ch,176,num+32,val%128) ?>"
+            },
+            {
+               "event": 6,
+               "config": "<?lua --[[@cb]] print('tick') ?>"
+            }
+         ]
+      },
+      {
+         "controlElementNumber": 13,
+         "events": [
+            {
+               "event": 0,
+               "config": "<?lua --[[@l]] local num,val,red,gre,blu=self:ind(),self:pva(),glr(),glg(),glb()--[[@spc]] self:pmo(12) self:pma(16383) ?>"
+            },
+            {
+               "event": 1,
+               "config": "<?lua --[[@l]] local num,val,ch,cc=self:ind(),self:pva(),2,13--[[@gmsh]] gms(ch,176,num,val//128) gms(ch,176,num+32,val%128) ?>"
+            },
+            {
+               "event": 6,
+               "config": "<?lua --[[@cb]] print('tick') ?>"
+            }
+         ]
+      },
+      {
+         "controlElementNumber": 14,
+         "events": [
+            {
+               "event": 0,
+               "config": "<?lua --[[@l]] local num,val,red,gre,blu=self:ind(),self:pva(),glr(),glg(),glb()--[[@spc]] self:pmo(12) self:pma(16383) ?>"
+            },
+            {
+               "event": 1,
+               "config": "<?lua --[[@l]] local num,val,ch,cc=self:ind(),self:pva(),2,14--[[@gmsh]] gms(ch,176,num,val//128) gms(ch,176,num+32,val%128) ?>"
+            },
+            {
+               "event": 6,
+               "config": "<?lua --[[@cb]] print('tick') ?>"
+            }
+         ]
+      },
+      {
+         "controlElementNumber": 15,
+         "events": [
+            {
+               "event": 0,
+               "config": "<?lua --[[@l]] local num,val,red,gre,blu=self:ind(),self:pva(),glr(),glg(),glb()--[[@spc]] self:pmo(12) self:pma(16383) ?>"
+            },
+            {
+               "event": 1,
+               "config": "<?lua --[[@l]] local num,val,ch,cc=self:ind(),self:pva(),2,15--[[@gmsh]] gms(ch,176,num,val//128) gms(ch,176,num+32,val%128) ?>"
+            },
+            {
+               "event": 6,
+               "config": "<?lua --[[@cb]] print('tick') ?>"
+            }
+         ]
+      },
+      {
+         "controlElementNumber": 255,
+         "events": [
+            {
+               "event": 0,
+               "config": "<?lua --[[@g]] ct={}--[[@cb]] for i=0,15 do ct[i]={r=0,g=0,b=0}glc(i,1,ct[i].r,ct[i].g,ct[i].b)glp(i,1,255)glf(i,1,0)end ?>"
+            },
+            {
+               "event": 4,
+               "config": "<?lua --[[@cb]] gpl(0) ?>"
+            },
+            {
+               "event": 5,
+               "config": "<?lua --[[@l]] local ch,c,i,v=midi.ch,midi.cmd,midi.p1,midi.p2--[[@cb]] if c==128 then ct[i].r=2*v;glc(i,1,ct[i].r,ct[i].g,ct[i].b)elseif c==144 then ct[i].g=2*v;glc(i,1,ct[i].r,ct[i].g,ct[i].b)elseif c==160 then ct[i].b=2*v;glc(i,1,ct[i].r,ct[i].g,ct[i].b)elseif c==208 then for i=0,15 do ct[i]={r=0,g=0,b=0}glc(i,1,ct[i].r,ct[i].g,ct[i].b)glp(i,1,255)glf(i,1,0)end end ?>"
+            },
+            {
+               "event": 6,
+               "config": "<?lua --[[@cb]] print('tick') ?>"
+            }
+         ]
+      }
+   ],
+   "owner": "07cy2bJjBXSTzesIQUp9mIJaYZE2",
+   "fileName": "MaxMSP POT16.json",
+   "isEditable": true,
+   "syncStatus": "local"
+}

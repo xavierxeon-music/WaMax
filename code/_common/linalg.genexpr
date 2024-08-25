@@ -1,0 +1,179 @@
+// vector 
+
+vecRotate(x, y, z, roll, pitch, yaw){
+	if(0 == roll && 0 == pitch && 0 == yaw){
+		return x, y, z;
+	} 
+	else {
+		rot_w, rot_x, rot_y, rot_z = quatFromRPY(roll, pitch, yaw);
+		irot_w, irot_x, irot_y, irot_z = quatInverse(rot_w, rot_x, rot_y, rot_z );
+		front_w, front_x, front_y, front_z = quatMult(irot_w, irot_x, irot_y, irot_z, 0, x, y, z);
+		out_w, out_x, out_y, out_z  = quatMult(front_w, front_x, front_y, front_z , rot_w, rot_x, rot_y, rot_z);
+	
+		return vecnorn(out_x, out_y, out_z);
+	}
+}
+
+vecInvRotate(x, y, z, roll, pitch, yaw){
+   rot_w, rot_x, rot_y, rot_z = quatFromRPY(roll, pitch, yaw);
+   irot_w, irot_x, irot_y, irot_z = quatInverse(rot_w, rot_x, rot_y, rot_z );
+   front_w, front_x, front_y, front_z = quatMult(rot_w, rot_x, rot_y, rot_z, 0, x, y, z);
+   out_w, out_x, out_y, out_z  = quatMult(front_w, front_x, front_y, front_z , irot_w, irot_x, irot_y, irot_z);
+
+   return vecnorn(out_x, out_y, out_z);
+}
+
+vecManhatan(x, y, z){   
+	mlength = (x * x) + (y * y) + (z * z);
+
+   return mlength;
+}
+
+veclength(x, y, z){   
+	mlength = (x * x) + (y * y) + (z * z);
+	length = sqrt(mlength);
+
+   return length;
+}
+
+vecscale(x, y, z, scale){
+	out_x = x * scale;
+	out_y = y * scale;
+	out_z = z * scale;	
+	
+	return out_x, out_y, out_z;
+}
+
+vecnorn(x, y, z){
+	length = veclength(x, y, z);
+
+	return vecscale(x, y, z, 1 / length);
+}
+
+vecadd(x1, y1, z1, x2, y2, z2){   
+	x = x1 + x2;
+	y = y1 + y2;
+	z = z1 + z2;
+
+   return x, y, z;
+}
+
+vecsub(x1, y1, z1, x2, y2, z2){   
+	x = x1 - x2;
+	y = y1 - y2;
+	z = z1 - z2;
+
+   return x, y, z;
+}
+
+vecdot(x1, y1, z1, x2, y2, z2){
+	dx = x1 * x2;
+	dy = y1 * y2;
+	dz = z1 * z2;
+	
+	value = dx + dy +dz;
+	
+   return value;
+}
+
+veccross(x1, y1, z1, x2, y2, z2){
+	x = (y1 * z2) + (z1 * y2);
+	y = (z1 * x2) + (x1 * z2);
+	z = (x1 * y2) + (y1 * x2);
+	
+	return x, y, z;
+}
+
+// quaternion 
+
+// w is real, x, y, z are imaginary
+// see https://danceswithcode.net/engineeringnotes/quaternions/quaternions.html
+
+// roll = z, pitch = y, yaw = x
+quatFromRPY(roll, pitch, yaw) {
+	cr = cos(roll * 0.5);
+    sr = sin(roll * 0.5);
+    cp = cos(pitch * 0.5);
+    sp = sin(pitch * 0.5);
+    cy = cos(yaw * 0.5);
+    sy = sin(yaw * 0.5);
+
+    w = cr * cp * cy + sr * sp * sy;
+    x = sr * cp * cy - cr * sp * sy;
+    y = cr * sp * cy + sr * cp * sy;
+    z = cr * cp * sy - sr * sp * cy;
+
+	return w, x, y, z;
+}
+
+quatAdd(w1, x1, y1, z1, w2, x2, y2, z2){
+	w = w1  + w2;
+	x = x1  + x2;
+	y = y1  + y2;
+	z = z1  + z2;
+		
+	return w, x, y, z;
+}
+
+quatMult(w1, x1, y1, z1, w2, x2, y2, z2){
+	w = (w1 * w2) - (x1 * x2) - (y1 * y2) - (z1 * z2);
+	x = (w1 * x2) + (x1 * w2) - (y1 * z2) + (z1 * y2);
+	y = (w1 * y2) + (x1 * z2) + (y1 * w2) - (z1 * x2);
+	z = (w1 * z2) - (x1 * y2) + (y1 * x2) + (z1 * w2);
+	
+	return w, x, y, z;
+}
+
+quatConjugate(w, x, y, z){
+	return w, -x, -y, -z;
+}
+
+quatGetNorm(w, x, y, z){
+	value = (w * w) - (x * x) - (y * y) - (z * z);
+	norm = sqrt(value);
+	
+	return norm;
+}
+
+quatInverse(w, x, y, z){
+	norm = quatGetNorm(w, x, y, z);	
+	iw = w / (norm * norm);
+	ix = -x / (norm * norm);
+	iy = -y / (norm * norm);
+	iz = -z / (norm * norm);
+	
+	return iw, ix, iy, iz;
+}
+
+// polar & shperical
+
+cartToSphere(x, y, z)
+{
+	mlength = (x * x) + (y * y) + (z * z);
+	radius = sqrt(mlength);
+	
+	azimuth = 0;
+	inclination = 0;
+	
+	if(radius < 0.01)
+	{
+		return 0, 0, 0;
+	}
+	
+	inclination = acos(z / radius);
+	
+	plane_radius = sqrt((x * x) + (y * y));
+	if(plane_radius > 0.01)
+	{
+		azimuth = acos(x / plane_radius); 
+	}
+	if(y > 0) 
+	{
+		//azimuth = TWOPI - azimuth;
+      azimuth = -azimuth;
+	}	
+				
+	return radius, azimuth, inclination;
+}
+
+

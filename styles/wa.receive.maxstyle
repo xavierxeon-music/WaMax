@@ -1,0 +1,9 @@
+{
+	"default" : 	{
+		"accentcolor" : [ 0.960784, 0.827451, 0.156863, 1.0 ]
+	}
+,
+	"parentstyle" : "",
+	"name" : "wa.receive",
+	"multi" : 0
+}
