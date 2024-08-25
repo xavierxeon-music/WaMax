@@ -3,9 +3,17 @@
       "name": "Audio Loopback",
       "script": "./external_software/audio_loopback_ui.js"
    },
+   "bitify_invert": {
+      "name": "Bitify Invert",
+      "script": "./bitify/bitify_invert.js"
+   },
    "bitify_mapping": {
       "name": "Bitify Mapping",
       "script": "./bitify/bitify_mapping.js"
+   },
+   "bitify_mute": {
+      "name": "Bitify Mute",
+      "script": "./bitify/bitify_mute.js"
    },
    "bitify_routing": {
       "name": "BItify Routing",

@@ -54,7 +54,7 @@ class RountingCanvas extends Canvas {
 
    constructor() {
 
-      super(document.body, 170, 220);
+      super(document.body, 180, 220);
       this.padding = 5;
 
       this.ctx.font = "12px Arial";
@@ -69,12 +69,23 @@ class RountingCanvas extends Canvas {
 
       this.clear();
 
-      var outlineColor = "#666666";
-      var fullColor = "#ffffff";
+      const outlineColor = "#666666";
+      const fullColor = "#ffffff";
+      const arrowLeft = String.fromCharCode(parseInt('2b05', 16));
+      const arrowRight = String.fromCharCode(parseInt('2b95', 16));
 
       this.ctx.fillStyle = fullColor;
       this.ctx.fillText("invert", 5, 15);
+      this.ctx.fillText("input " + arrowRight, 70, 15);
       this.ctx.fillText("route", 5, 52);
+      this.ctx.fillText("input " + arrowRight, 70, 52);
+
+
+      this.ctx.save();
+      this.ctx.translate(10, 160);
+      this.ctx.rotate(-Math.PI / 2);
+      this.ctx.fillText(arrowLeft + " output", 0, 0);
+      this.ctx.restore();
 
       const padSize = 17;
 
@@ -82,7 +93,7 @@ class RountingCanvas extends Canvas {
 
          let invertColor = invert[col] ? fullColor : outlineColor;
 
-         let x = 5 + col * 20;
+         let x = 15 + col * 20;
          this.box(x, 20, padSize, padSize, invertColor);
 
          for (let row = 0; row < 8; row++) {
@@ -117,13 +128,13 @@ class RountingCanvas extends Canvas {
 }
 
 //
-setupDocument(172, 1, 1);
+setupDocument(182, 1, 1);
 let title = new Title("bitify routing");
 title.setStyle("height", "20px");
 
 let resetButton = new Button(title, "reset");
 resetButton.onClicked(reset);
-resetButton.move(130, 3);
+resetButton.move(140, 3);
 
 let canvas = new RountingCanvas();
 reset();
