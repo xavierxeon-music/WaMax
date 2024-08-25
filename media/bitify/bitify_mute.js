@@ -4,14 +4,25 @@ let mute = [];
 function toggleMute(xIndex) {
 
    mute[xIndex] ^= true;
+
    canvas.update();
+   outputMuteValues();
 }
 
 function reset() {
 
    mute = [0, 0, 0, 0, 0, 0, 0, 0];
+
    canvas.update();
+   outputMuteValues();
 }
+
+function outputMuteValues() {
+
+   for (let index = 0; index < 8; index++)
+      max.outlet("mute", mute[index], index + 1);
+}
+
 
 //
 class MuteCanvas extends Canvas {

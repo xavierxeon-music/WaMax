@@ -6,13 +6,22 @@ function toggleInvert(xIndex) {
    invert[xIndex] ^= true;
 
    canvas.update();
+   outputInvertValues();
 }
 
 
 function reset() {
 
    invert = [0, 0, 0, 0, 0, 0, 0, 0];
+
    canvas.update();
+   outputInvertValues();
+}
+
+function outputInvertValues() {
+
+   for (let index = 0; index < 8; index++)
+      max.outlet("invert", invert[index], index + 1);
 }
 
 //

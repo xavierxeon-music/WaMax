@@ -1,41 +1,46 @@
 //
 let route = [];
 
-function routeIndex(xIndex, yIndex) {
+function routeIndex(col, row) {
 
-   //return (xIndex * 8) + yIndex;
-   return xIndex + (yIndex * 8);
+   return col + (row * 8);
 }
 
 
-function toggleRoute(xIndex, yIndex) {
+function toggleRoute(col, row) {
 
-   let index = routeIndex(xIndex, yIndex);
-   if (route[index])
+   let indexOn = routeIndex(col, row);
+   if (route[indexOn])
       return; // can not toggle myself off
 
-   for (let row = 0; row < 8; row++) {
+   for (let rowOff = 0; rowOff < 8; rowOff++) {
 
-      let index = routeIndex(xIndex, row);
-      route[index] = (row == yIndex) ? 1 : 0;
+      let indexOff = routeIndex(col, rowOff);
+      if (route[indexOff]) {
+         route[indexOff] = 0;
+         max.outlet("route", col, rowOff, 0);
+         break;
+      }
    }
+
+   route[indexOn] = 1;
+   max.outlet("route", col, row, 1);
 
    canvas.update();
 }
 
 function reset() {
 
-   invert = [];
    route = [];
 
    for (let col = 0; col < 8; col++) {
-
-      invert.push(0);
 
       for (let row = 0; row < 8; row++) {
 
          let active = (row == col) ? 1 : 0;
          route.push(active);
+
+         max.outlet("route", col, row, active);
       }
    }
 
@@ -102,9 +107,9 @@ class RountingCanvas extends Canvas {
       if (y < 5 || y > 165)
          return;
 
-      let xIndex = parseInt((x - 15) / 20);
-      let yIndex = parseInt((y - 5) / 20);
-      toggleRoute(xIndex, yIndex);
+      let col = parseInt((x - 15) / 20);
+      let row = parseInt((y - 5) / 20);
+      toggleRoute(col, row);
    }
 }
 
