@@ -1,5 +1,4 @@
 //
-let invert = [];
 let route = [];
 
 function routeIndex(xIndex, yIndex) {
@@ -8,12 +7,6 @@ function routeIndex(xIndex, yIndex) {
    return xIndex + (yIndex * 8);
 }
 
-function toggleInvert(xIndex) {
-
-   invert[xIndex] ^= true;
-
-   canvas.update();
-}
 
 function toggleRoute(xIndex, yIndex) {
 
@@ -54,7 +47,7 @@ class RountingCanvas extends Canvas {
 
    constructor() {
 
-      super(document.body, 180, 220);
+      super(document.body, 180, 180);
       this.padding = 5;
 
       this.ctx.font = "12px Arial";
@@ -75,14 +68,11 @@ class RountingCanvas extends Canvas {
       const arrowRight = String.fromCharCode(parseInt('2b95', 16));
 
       this.ctx.fillStyle = fullColor;
-      this.ctx.fillText("invert", 5, 15);
-      this.ctx.fillText("input " + arrowRight, 70, 15);
-      this.ctx.fillText("route", 5, 52);
-      this.ctx.fillText("input " + arrowRight, 70, 52);
+      this.ctx.fillText("input " + arrowRight, 70, 175);
 
 
       this.ctx.save();
-      this.ctx.translate(10, 160);
+      this.ctx.translate(10, 110);
       this.ctx.rotate(-Math.PI / 2);
       this.ctx.fillText(arrowLeft + " output", 0, 0);
       this.ctx.restore();
@@ -91,14 +81,11 @@ class RountingCanvas extends Canvas {
 
       for (let col = 0; col < 8; col++) {
 
-         let invertColor = invert[col] ? fullColor : outlineColor;
-
          let x = 15 + col * 20;
-         this.box(x, 20, padSize, padSize, invertColor);
 
          for (let row = 0; row < 8; row++) {
 
-            let y = 55 + row * 20;
+            let y = 5 + row * 20;
 
             let index = routeIndex(col, row);
             let routeColor = route[index] ? fullColor : outlineColor;
@@ -110,20 +97,14 @@ class RountingCanvas extends Canvas {
 
    #clicked(x, y) {
 
-      if (x < 5 || x >= 165)
+      if (x < 15 || x >= 175)
+         return;
+      if (y < 5 || y > 165)
          return;
 
-      let xIndex = parseInt((x - 5) / 20);
-
-      if (y >= 25 && y <= 45) {
-         toggleInvert(xIndex);
-
-      }
-      else if (y >= 55 && y <= 215) {
-
-         let yIndex = parseInt((y - 55) / 20);
-         toggleRoute(xIndex, yIndex);
-      }
+      let xIndex = parseInt((x - 15) / 20);
+      let yIndex = parseInt((y - 5) / 20);
+      toggleRoute(xIndex, yIndex);
    }
 }
 
