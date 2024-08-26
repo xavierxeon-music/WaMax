@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 34.0, 171.0, 3150.0, 1395.0 ],
+		"rect" : [ 34.0, 199.0, 3765.0, 1367.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 1,
 		"default_fontsize" : 12.0,
@@ -39,19 +39,6 @@
 		"subpatcher_template" : "OpenGrid",
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
-				"box" : 				{
-					"id" : "obj-14",
-					"maxclass" : "matrixctrl",
-					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "list", "list" ],
-					"parameter_enable" : 0,
-					"patching_rect" : [ 210.0, 825.0, 130.0, 66.0 ],
-					"rows" : 8
-				}
-
-			}
-, 			{
 				"box" : 				{
 					"id" : "obj-21",
 					"maxclass" : "newobj",
@@ -132,7 +119,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 219.0, 435.0, 63.0, 22.0 ],
-					"restore" : [ "[1,2,3,4,5,6,7,8]" ],
+					"restore" : [ "[2,1,3,4,5,6,7,8]" ],
 					"saved_object_attributes" : 					{
 						"parameter_enable" : 0,
 						"parameter_mappable" : 0
@@ -152,7 +139,7 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 116.0, 495.0, 113.0, 22.0 ],
 					"saved_object_attributes" : 					{
-						"filename" : "bitify_store_route.js",
+						"filename" : "bitify_store_route",
 						"parameter_enable" : 0
 					}
 ,
@@ -326,15 +313,6 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-11", 0 ],
-					"order" : 1,
-					"source" : [ "obj-18", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-14", 0 ],
-					"order" : 0,
 					"source" : [ "obj-18", 0 ]
 				}
 
