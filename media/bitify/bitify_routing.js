@@ -1,51 +1,36 @@
 //
-let route = [];
-
-function routeIndex(col, row) {
-
-   return col + (row * 8);
-}
+let route = [1, 2, 3, 4, 5, 6, 7, 8];
 
 
 function toggleRoute(col, row) {
 
-   let indexOn = routeIndex(col, row);
-   if (route[indexOn])
-      return; // can not toggle myself off
-
-   for (let rowOff = 0; rowOff < 8; rowOff++) {
-
-      let indexOff = routeIndex(col, rowOff);
-      if (route[indexOff]) {
-         route[indexOff] = 0;
-         max.outlet("route", col, rowOff, 0);
-         break;
-      }
-   }
-
-   route[indexOn] = 1;
-   max.outlet("route", col, row, 1);
+   route[col] = row + 1;
 
    canvas.update();
+   outputRouteValues();
+
 }
 
 function reset() {
 
-   route = [];
-
-   for (let col = 0; col < 8; col++) {
-
-      for (let row = 0; row < 8; row++) {
-
-         let active = (row == col) ? 1 : 0;
-         route.push(active);
-
-         max.outlet("route", col, row, active);
-      }
-   }
+   max.outlet("reset", "bang");
 
    canvas.update();
 }
+
+function outputRouteValues() {
+
+   max.outlet("route", ...route);
+}
+
+max.bindInlet('set', setRoute);
+function setRoute() {
+
+   for (let col = 0; col < 8; col++)
+      route[col] = arguments[col];
+   canvas.update();
+}
+
 
 //
 class RountingCanvas extends Canvas {
@@ -92,9 +77,7 @@ class RountingCanvas extends Canvas {
 
             let y = 5 + row * 20;
 
-            let index = routeIndex(col, row);
-            let routeColor = route[index] ? fullColor : outlineColor;
-
+            let routeColor = (route[col] == row + 1) ? fullColor : outlineColor;
             this.box(x, y, padSize, padSize, routeColor);
          }
       }
@@ -116,10 +99,7 @@ class RountingCanvas extends Canvas {
 //
 setupDocument(182, 1, 1);
 let title = new Title("bitify routing");
-
-let resetButton = new Button(title, "reset");
-resetButton.onClicked(reset);
-resetButton.move(135, 3);
+title.addButton("reset", reset);
 
 let canvas = new RountingCanvas();
-reset();
+canvas.update();
