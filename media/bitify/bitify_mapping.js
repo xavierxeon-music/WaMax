@@ -18,6 +18,16 @@ function changeMapping(x, y) {
    canvas.update();
 }
 
+function loadMapping() {
+
+   max.outlet("load");
+}
+
+function saveMapping() {
+
+   max.outlet("save");
+}
+
 //
 class MappingCanvas extends Canvas {
 
@@ -28,8 +38,9 @@ class MappingCanvas extends Canvas {
 
       this.track = false;
       this.margin = 7;
-
       this.last = [-1, -1];
+
+      this.setStyle("cursor", "crosshair");
 
       this.element.addEventListener("pointerdown", (clickEvent) => {
          this.#clicked(clickEvent.offsetX, clickEvent.offsetY);
@@ -130,6 +141,8 @@ class MappingCanvas extends Canvas {
 //
 setupDocument(271, 1, 1);
 let title = new Title("bitify mapping");
+title.addButton("load", loadMapping);
+title.addButton("save", saveMapping);
 title.addButton("reset", reset);
 
 let canvas = new MappingCanvas();
