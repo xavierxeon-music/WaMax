@@ -66,6 +66,16 @@ class Div extends BaseElement {
    }
 }
 
+class Spacer extends BaseElement {
+
+   constructor(parent) {
+
+      super("div", parent);
+
+      this.element.className = "spacer";
+   }
+}
+
 class Title extends BaseElement {
 
    constructor(text) {
@@ -75,6 +85,8 @@ class Title extends BaseElement {
 
       this.element.className = "title";
       this.element.innerText = this.name;
+
+      this.buttonCount = 0;
    }
 
    showMessage(text) {
@@ -83,5 +95,16 @@ class Title extends BaseElement {
 
    clearMessage() {
       this.element.innerText = this.name;
+   }
+
+   addButton(text, receiver) {
+
+      if (0 == this.buttonCount)
+         new Spacer(this);
+
+      this.buttonCount++;
+
+      let resetButton = new Button(this, text);
+      resetButton.onClicked(receiver);
    }
 }
