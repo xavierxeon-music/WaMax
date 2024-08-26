@@ -51,12 +51,12 @@ setupDocument(250, 1, 1);
 // top
 let title = new Title("console");
 
-let nameEdit = createAndAppend("input", title);
-nameEdit.type = "text";
-nameEdit.className = "lineedit";
+let nameEdit = new TextEdit(title);
+nameEdit.onChange(nameChanged);
+nameEdit.setStyle("width", "130px");
 
-let clearButton = new Button(title, "clear");
-clearButton.onClicked(clearMessages);
+//title.buttonCount++;
+title.addButton("clear", clearMessages);
 
 
 // table
@@ -72,13 +72,13 @@ for (let index = 0; index < numberOfColumns; index++) {
 updateTable();
 
 // name
-
 max.bindInlet('setName', setName);
 function setName(name) {
-   nameEdit.value = name;
+
+   nameEdit.setText(name);
 }
 
-nameEdit.addEventListener("change", () => {
-   max.outlet("updateName", nameEdit.value);
-});
+function nameChanged(text) {
 
+   max.outlet("updateName", text);
+}

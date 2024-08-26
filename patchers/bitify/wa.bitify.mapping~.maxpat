@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 34.0, 115.0, 1852.0, 1451.0 ],
+		"rect" : [ 34.0, 143.0, 2470.0, 1423.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -108,7 +108,7 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 375.0, 300.0, 270.0, 285.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 0.0, 0.0, 270.0, 285.0 ],
+					"presentation_rect" : [ 0.0, 0.0, 270.0, 300.0 ],
 					"rendermode" : 2,
 					"url" : "file:///Volumes/ExternalData/_Home/GitHub/MusicProjects/WaMaxPackageBase/media/maxgui.html?content=bitify_mapping"
 				}

@@ -1,5 +1,5 @@
 //
-let invert = [];
+let invert = [0, 0, 0, 0, 0, 0, 0, 0];
 
 function toggleInvert(xIndex) {
 
@@ -12,17 +12,22 @@ function toggleInvert(xIndex) {
 
 function reset() {
 
-   invert = [0, 0, 0, 0, 0, 0, 0, 0];
-
-   canvas.update();
-   outputInvertValues();
+   max.outlet("reset", "bang");
 }
 
 function outputInvertValues() {
 
-   for (let index = 0; index < 8; index++)
-      max.outlet("invert", invert[index], index + 1);
+   max.outlet("invert", ...invert);
 }
+
+max.bindInlet('set', setInvert);
+function setInvert() {
+
+   for (let col = 0; col < 8; col++)
+      invert[col] = arguments[col];
+   canvas.update();
+}
+
 
 //
 class InvertCanvas extends Canvas {
@@ -73,4 +78,4 @@ title.addButton("reset", reset);
 
 
 let canvas = new InvertCanvas();
-reset();
+canvas.update();

@@ -1,5 +1,5 @@
 //
-let mute = [];
+let mute = [0, 0, 0, 0, 0, 0, 0, 0];
 
 function toggleMute(xIndex) {
 
@@ -11,16 +11,20 @@ function toggleMute(xIndex) {
 
 function reset() {
 
-   mute = [0, 0, 0, 0, 0, 0, 0, 0];
-
-   canvas.update();
-   outputMuteValues();
+   max.outlet("reset", "bang");
 }
 
 function outputMuteValues() {
 
-   for (let index = 0; index < 8; index++)
-      max.outlet("mute", mute[index], index + 1);
+   max.outlet("mute", ...mute);
+}
+
+max.bindInlet('set', setMute);
+function setMute() {
+
+   for (let col = 0; col < 8; col++)
+      mute[col] = arguments[col];
+   canvas.update();
 }
 
 
@@ -71,6 +75,6 @@ setupDocument(172, 1, 1);
 let title = new Title("bitify mute");
 title.addButton("reset", reset);
 
-
 let canvas = new MuteCanvas();
-reset();
+canvas.update();
+
