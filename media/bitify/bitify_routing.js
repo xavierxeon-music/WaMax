@@ -111,7 +111,6 @@ class RountingCanvas extends Canvas {
 //
 setupDocument(182, 1, 1);
 let title = new Title("bitify routing");
-title.setStyle("height", "20px");
 
 let resetButton = new Button(title, "reset");
 resetButton.onClicked(reset);

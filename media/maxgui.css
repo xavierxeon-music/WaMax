@@ -13,11 +13,19 @@ body {
 
 div.title {
    padding-left: 5px;
+   padding-right: 5px;
    text-align: left;
    font-weight: bold;
    border: 1px solid #ccc;
    background: #ccc;
    color: #111111;
+   height: 20px;
+   line-height: 20px;
+   display: flex;
+}
+
+div.spacer {
+   flex-grow: 100;
 }
 
 /* tabs */
