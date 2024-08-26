@@ -98,7 +98,7 @@ class GridCanvas extends Canvas {
 //
 setupDocument(201, 1, 1);
 let title = new Title("grid pot16");
-title.addButton("reset", reset, true);
+title.addButton("reset", sendReset);
 
 let canvas = new GridCanvas();
 canvas.update();

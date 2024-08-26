@@ -85,6 +85,8 @@ class Title extends BaseElement {
 
       this.element.className = "title";
       this.element.innerText = this.name;
+
+      this.buttonCount = 0;
    }
 
    showMessage(text) {
@@ -95,10 +97,12 @@ class Title extends BaseElement {
       this.element.innerText = this.name;
    }
 
-   addButton(text, receiver, addSpacer) {
+   addButton(text, receiver) {
 
-      if (addSpacer)
+      if (0 == this.buttonCount)
          new Spacer(this);
+
+      this.buttonCount++;
 
       let resetButton = new Button(this, text);
       resetButton.onClicked(receiver);

@@ -202,7 +202,7 @@ class GridCanvas extends Canvas {
 //
 setupDocument(201, 1, 1);
 let title = new Title("grid enc16");
-title.addButton("reset", sendReset, true);
+title.addButton("reset", sendReset);
 
 let canvas = new GridCanvas();
 canvas.update();

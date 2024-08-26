@@ -60,7 +60,7 @@ class InvertCanvas extends Canvas {
 //
 setupDocument(172, 1, 1);
 let title = new Title("bitify invert");
-title.addButton("reset", reset, true);
+title.addButton("reset", reset);
 
 
 let canvas = new InvertCanvas();

@@ -58,7 +58,7 @@ class MuteCanvas extends Canvas {
 //
 setupDocument(172, 1, 1);
 let title = new Title("bitify mute");
-title.addButton("reset", reset, true);
+title.addButton("reset", reset);
 
 
 let canvas = new MuteCanvas();

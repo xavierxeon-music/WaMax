@@ -18,10 +18,6 @@ function changeMapping(x, y) {
    canvas.update();
 }
 
-function smoothMapping() {
-
-}
-
 //
 class MappingCanvas extends Canvas {
 
@@ -32,6 +28,8 @@ class MappingCanvas extends Canvas {
 
       this.track = false;
       this.margin = 7;
+
+      this.last = [-1, -1];
 
       this.element.addEventListener("pointerdown", (clickEvent) => {
          this.#clicked(clickEvent.offsetX, clickEvent.offsetY);
@@ -53,8 +51,6 @@ class MappingCanvas extends Canvas {
 
       this.clear();
 
-
-
       const outlineColor = "#666666";
       this.box(this.margin, this.margin, 256, 256, outlineColor);
 
@@ -73,7 +69,10 @@ class MappingCanvas extends Canvas {
 
       this.track = true;
 
-      this.#change(x, y);
+      [x, y] = this.#normalize(x, y);
+      changeMapping(x, y);
+
+      this.last = [x, y];
    }
 
    #move(x, y) {
@@ -81,34 +80,57 @@ class MappingCanvas extends Canvas {
       if (!this.track)
          return;
 
-      this.#change(x, y);
+      [x, y] = this.#normalize(x, y);
+
+      // interpolate last now
+      let startX = this.last[0];
+      let endX = x;
+      let startY = this.last[1];
+      let diffY = y - startY;
+
+      if (startX > endX) {
+         endX = startX;
+         startX = x;
+
+         startY = y;
+         diffY *= -1;
+      }
+
+      diffY /= (endX - startX);
+
+      for (let xi = startX; xi <= endX; xi++) {
+         let yi = (startY + (xi - startX) * diffY);
+
+         changeMapping(xi, yi);
+      }
+
+      this.last = [x, y];
    }
 
    #released(x, y) {
 
       this.track = false;
-      smoothMapping();
    }
 
-   #change(x, y) {
+   #normalize(x, y) {
 
       x = parseInt(x - this.margin);
       if (x < 0 || x >= 256)
-         return;
+         return [undefined, undefined];
 
       y = parseInt(y - this.margin);
-      y = (256 - y);
       if (y < 0 || y >= 256)
-         return;
+         return [undefined, undefined];
 
-      changeMapping(x, y);
+      y = (256 - y);
+      return [x, y];
    }
 }
 
 //
 setupDocument(271, 1, 1);
 let title = new Title("bitify mapping");
-title.addButton("reset", reset, true);
+title.addButton("reset", reset);
 
 let canvas = new MappingCanvas();
 reset();
