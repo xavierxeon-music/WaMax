@@ -54,7 +54,6 @@ function sendGen(setDirty) {
       var value = settings[col];
       for (var row = 0; row < 8; row++) {
          outlet(0, "value", col, row, (row + 1 == value) ? 1 : 0);
-
       }
    }
 

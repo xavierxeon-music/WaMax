@@ -98,7 +98,7 @@
 							}
 , 							{
 								"box" : 								{
-									"code" : "value = int(in1);\r\nrest = value % 2;\r\nif(rest != 0)\r\n\tout8 = 1;\r\nelse\r\n\tout8 = 0;\r\n\r\nvalue = value - rest;\r\nrest = value % 4;\r\nif(rest != 0)\r\n\tout7 = 1;\r\nelse\r\n\tout7 = 0;\r\n\r\n\r\nvalue = value - rest;\r\nrest = value % 8;\r\nif(rest != 0)\r\n\tout6 = 1;\r\nelse\r\n\tout6 = 0;\r\n\r\nvalue = value - rest;\r\nrest = value % 16;\r\nif(rest != 0)\r\n\tout5 = 1;\r\nelse\r\n\tout5 = 0;\r\n\r\nvalue = value - rest;\r\nrest = value % 32;\r\nif(rest != 0)\r\n\tout4 = 1;\r\nelse\r\n\tout4 = 0;\r\n\r\nvalue = value - rest;\r\nrest = value % 64;\r\nif(rest != 0)\r\n\tout3 = 1;\r\nelse\r\n\tout3 = 0;\r\n\r\nvalue = value - rest;\r\nrest = value % 128;\r\nif(rest != 0)\r\n\tout2 = 1;\r\nelse\r\n\tout2 = 0;\r\n\r\nvalue = value - rest;\r\nrest = value % 256;\r\nif(rest != 0)\r\n\tout1 = 1;\r\nelse\r\n\tout1 = 0;\r\n",
+									"code" : "hasBit(value, ref)\n{\n\tremain = value % (2* ref);\r\n\tif(value < ref)\r\n\t\treturn 0;\t\t\r\n\telse if(value == ref)\r\n\t\treturn 1;\r\n\telse if(remain < ref)\r\n\t\treturn 0;\r\n\telse\r\n\t\treturn 1;\t\n}\t\n\nvalue = int(in1);\n\nout1 = hasBit(value, 128);\nout2 = hasBit(value, 64);\nout3 = hasBit(value, 32);\nout4 = hasBit(value, 16);\nout5 = hasBit(value,  8);\nout6 = hasBit(value,  4);\nout7 = hasBit(value,  2);\nout8 = hasBit(value,  1);",
 									"fontface" : 0,
 									"fontname" : "<Monospaced>",
 									"fontsize" : 12.0,

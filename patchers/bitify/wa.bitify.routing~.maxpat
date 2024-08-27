@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 34.0, 199.0, 3765.0, 1367.0 ],
+		"rect" : [ 34.0, 255.0, 3150.0, 1311.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 1,
 		"default_fontsize" : 12.0,
@@ -119,7 +119,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 219.0, 435.0, 63.0, 22.0 ],
-					"restore" : [ "[2,1,3,4,5,6,7,8]" ],
+					"restore" : [ "[1,2,3,4,5,6,7,8]" ],
 					"saved_object_attributes" : 					{
 						"parameter_enable" : 0,
 						"parameter_mappable" : 0
@@ -156,8 +156,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "multichannelsignal", "" ],
-					"patching_rect" : [ 116.0, 630.0, 107.0, 22.0 ],
-					"text" : "mcs.matrix~ 8 8 1."
+					"patching_rect" : [ 116.0, 630.0, 94.0, 22.0 ],
+					"text" : "mcs.matrix~ 8 8"
 				}
 
 			}
