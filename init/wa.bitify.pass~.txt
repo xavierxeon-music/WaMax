@@ -1,0 +1,2 @@
+max objectfile wa.bitify.pass~ wa.bitify.pass~;
+max definesubstitution wa.bitify.pass~ bpatcher @name wa.bitify.pass~.maxpat;

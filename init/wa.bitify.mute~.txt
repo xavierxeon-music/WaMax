@@ -1,2 +1,0 @@
-max objectfile wa.bitify.mute~ wa.bitify.mute~;
-max definesubstitution wa.bitify.mute~ bpatcher @name wa.bitify.mute~.maxpat;

@@ -9,7 +9,8 @@ setoutletassist(0, "text");
 
 //////////////////////////////////////////
 
-var settings = [0, 0, 0, 0, 0, 0, 0, 0];
+const digit = jsarguments[1];
+var settings = [digit, digit, digit, digit, digit, digit, digit, digit];
 
 function getvalueof() {
    var text = JSON.stringify(settings);
@@ -29,9 +30,13 @@ function sendUi() {
    outlet(0, "ui", "set", settings);
 }
 
-function reset() {
+function reset(mode) {
 
-   settings = [0, 0, 0, 0, 0, 0, 0, 0];
+   if (0 == mode)
+      settings = [digit, digit, digit, digit, digit, digit, digit, digit];
+   else
+      settings = [1 - digit, 1 - digit, 1 - digit, 1 - digit, 1 - digit, 1 - digit, 1 - digit, 1 - digit];
+
    sendUi();
    sendGen(true);
 }

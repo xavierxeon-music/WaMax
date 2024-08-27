@@ -11,13 +11,14 @@ function toggleMute(xIndex) {
 
 function resetAll() {
 
-   max.outlet("reset", true);
+   max.outlet("reset", false);
 }
 
 function resetNone() {
 
-   max.outlet("reset", false);
+   max.outlet("reset", true);
 }
+
 function outputMuteValues() {
 
    max.outlet("pass", ...pass);
@@ -30,7 +31,6 @@ function setMute() {
       pass[col] = arguments[col];
    canvas.update();
 }
-
 
 //
 class MuteCanvas extends Canvas {
@@ -82,4 +82,3 @@ title.addButton("none", resetNone);
 
 let canvas = new MuteCanvas();
 canvas.update();
-
