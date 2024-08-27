@@ -81,7 +81,7 @@ function load(fileName) {
 
    sequences = {};
 
-   var content = readJsonFile(fileName);
+   var content = Json.readFile(fileName);
    for (var timePoint in content) {
       if ("settings" == timePoint)
          continue;

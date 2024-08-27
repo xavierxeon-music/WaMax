@@ -59,12 +59,6 @@ function sendGen(setDirty) {
       outlet(0, "value", "setvalue", col + 1, value);
    }
 
-   if (!setDirty)
-      return;
-
-   var toppatcher = patcher;
-   while (toppatcher.parentpatcher)
-      toppatcher = toppatcher.parentpatcher;
-
-   toppatcher.setattr("dirty", "1");
+   if (setDirty)
+      TopPatcher.markDirty(this);
 }

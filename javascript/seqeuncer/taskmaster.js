@@ -12,7 +12,7 @@ var schedule = null;
 
 function load(fileName) {
 
-   schedule = readJsonFile(fileName);
+   schedule = Json.readFile(fileName);
 }
 
 function time(bars, beats) {

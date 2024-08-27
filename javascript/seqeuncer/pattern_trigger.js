@@ -87,7 +87,7 @@ function time(bar, beat) {
 
 function load(fileName) {
 
-   var content = readJsonFile(fileName);
+   var content = Json.readFile(fileName);
    for (var tag in content) {
       tagData = content[tag];
       for (var tp in tagData) {

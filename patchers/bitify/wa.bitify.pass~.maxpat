@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 34.0, 199.0, 3765.0, 1367.0 ],
+		"rect" : [ 34.0, 283.0, 3732.0, 1283.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 1,
 		"default_fontsize" : 12.0,
@@ -175,7 +175,7 @@
 							}
 ,
 							"classnamespace" : "dsp.gen",
-							"rect" : [ 34.0, 171.0, 3466.0, 1395.0 ],
+							"rect" : [ 34.0, 283.0, 3732.0, 1283.0 ],
 							"bglocked" : 0,
 							"openinpresentation" : 0,
 							"default_fontsize" : 12.0,
@@ -211,7 +211,7 @@
 										"id" : "obj-5",
 										"numoutlets" : 1,
 										"outlettype" : [ "" ],
-										"patching_rect" : [ 31.0, 75.0, 26.0, 22.0 ]
+										"patching_rect" : [ 56.0, 64.0, 26.0, 22.0 ]
 									}
 
 								}
@@ -265,22 +265,8 @@
  ],
 							"lines" : [ 								{
 									"patchline" : 									{
-										"source" : [ "obj-5", 0 ],
-										"destination" : [ "obj-3", 0 ]
-									}
-
-								}
-, 								{
-									"patchline" : 									{
 										"source" : [ "obj-1", 0 ],
-										"destination" : [ "obj-5", 0 ]
-									}
-
-								}
-, 								{
-									"patchline" : 									{
-										"source" : [ "obj-2", 0 ],
-										"destination" : [ "obj-3", 1 ]
+										"destination" : [ "obj-3", 0 ]
 									}
 
 								}
@@ -288,6 +274,13 @@
 									"patchline" : 									{
 										"source" : [ "obj-3", 0 ],
 										"destination" : [ "obj-4", 0 ]
+									}
+
+								}
+, 								{
+									"patchline" : 									{
+										"source" : [ "obj-2", 0 ],
+										"destination" : [ "obj-3", 1 ]
 									}
 
 								}
@@ -304,7 +297,7 @@
 					"patching_rect" : [ 150.0, 525.0, 119.0, 22.0 ],
 					"style" : "wa.patcher",
 					"text" : "mc.gen~ @title pass",
-					"wrapper_uniquekey" : "u089000697"
+					"wrapper_uniquekey" : "u588001827"
 				}
 
 			}
@@ -340,7 +333,7 @@
 					"maxclass" : "inlet",
 					"numinlets" : 0,
 					"numoutlets" : 1,
-					"outlettype" : [ "" ],
+					"outlettype" : [ "multichannelsignal" ],
 					"patching_rect" : [ 289.0, 423.0, 30.0, 30.0 ]
 				}
 

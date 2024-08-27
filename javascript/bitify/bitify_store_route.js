@@ -57,13 +57,8 @@ function sendGen(setDirty) {
       }
    }
 
-   if (!setDirty)
-      return;
+   if (setDirty)
+      TopPatcher.markDirty(this);
 
-   var toppatcher = patcher;
-   while (toppatcher.parentpatcher)
-      toppatcher = toppatcher.parentpatcher;
-
-   toppatcher.setattr("dirty", "1");
 }
 

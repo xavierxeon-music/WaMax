@@ -3,17 +3,13 @@ let mapping = [];
 
 function reset() {
 
-   mapping = [];
-
-   for (let index = 0; index < 256; index++)
-      mapping.push(index);
-
-   canvas.update();
+   max.outlet("reset");
 }
 
 function changeMapping(x, y) {
 
    mapping[x] = y;
+   max.outlet("value", x, y);
 
    canvas.update();
 }
@@ -26,6 +22,15 @@ function loadMapping() {
 function saveMapping() {
 
    max.outlet("save");
+}
+
+max.bindInlet('set', setMapping);
+function setMapping() {
+
+   mapping = [];
+   for (let col = 0; col < 256; col++)
+      mapping[col] = arguments[col];
+   canvas.update();
 }
 
 //
@@ -110,7 +115,7 @@ class MappingCanvas extends Canvas {
       diffY /= (endX - startX);
 
       for (let xi = startX; xi <= endX; xi++) {
-         let yi = (startY + (xi - startX) * diffY);
+         let yi = parseInt(startY + (xi - startX) * diffY);
 
          changeMapping(xi, yi);
       }

@@ -1,6 +1,8 @@
 // json
 
-function readJsonFile(fileName) {
+var Json = {}; // namesapce 
+
+Json.readFile = function (fileName) {
 
    var text = "";
    var file = new File(fileName, "read");
@@ -16,7 +18,7 @@ function readJsonFile(fileName) {
    return object;
 }
 
-function saveJsonFile(object, fileName) {
+Json.saveFile = function (object, fileName) {
 
    // TODO: delete old file
    var file = new File(fileName, "write");
@@ -29,7 +31,7 @@ function saveJsonFile(object, fileName) {
    file.close();
 }
 
-function readFromDict(name) {
+Json.readDict = function (name) {
 
    var dict = new Dict(name);
    var text = dict.stringify();
@@ -39,7 +41,7 @@ function readFromDict(name) {
    return object;
 }
 
-function saveToDict(object, name) {
+Json.writeDict = function (object, name) {
 
    var text = JSON.stringify(object);
 

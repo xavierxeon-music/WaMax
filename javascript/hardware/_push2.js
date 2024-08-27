@@ -13,7 +13,7 @@ Push2Device = function () {
 
    this.whiteIndexBuffer = {};
 
-   var data = readJsonFile("push2_data.json");
+   var data = Json.readFile("push2_data.json");
    this.colorList = data["colors"];
    this.whiteList = data["whites"];
    this.padmap = data["pads"];

@@ -27,7 +27,7 @@ stateTask.repeat();
 
 function init(deviceName, settingsFileName) {
 
-   var settings = readJsonFile(settingsFileName);
+   var settings = Json.readFile(settingsFileName);
    baseUrl = "http://" + settings["bridge"] + "/api/" + settings["username"] + "/";
 
    var initResponse = function () {

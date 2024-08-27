@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 34.0, 199.0, 3150.0, 1367.0 ],
+		"rect" : [ 34.0, 283.0, 2976.0, 1283.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -40,12 +40,24 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"id" : "obj-28",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 30.0, 75.0, 163.0, 22.0 ],
+					"text" : "routepass multichannelsignal"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-5",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 30.0, 135.0, 84.0, 22.0 ],
+					"patching_rect" : [ 30.0, 240.0, 84.0, 22.0 ],
 					"text" : "mc.unpack~ 1"
 				}
 
@@ -304,9 +316,9 @@
  ]
 					}
 ,
-					"patching_rect" : [ 30.0, 90.0, 146.0, 22.0 ],
+					"patching_rect" : [ 30.0, 195.0, 146.0, 22.0 ],
 					"style" : "wa.patcher",
-					"text" : "mcs.gen~ @ttile to_signal"
+					"text" : "mcs.gen~ @title to_signal"
 				}
 
 			}
@@ -331,7 +343,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 30.0, 180.0, 30.0, 30.0 ]
+					"patching_rect" : [ 30.0, 285.0, 30.0, 30.0 ]
 				}
 
 			}
@@ -345,8 +357,15 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-2", 0 ],
+					"destination" : [ "obj-28", 0 ],
 					"source" : [ "obj-22", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-2", 0 ],
+					"source" : [ "obj-28", 0 ]
 				}
 
 			}
