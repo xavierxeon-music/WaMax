@@ -11,9 +11,9 @@
       "name": "Bitify Mapping",
       "script": "./bitify/bitify_mapping.js"
    },
-   "bitify_mute": {
-      "name": "Bitify Mute",
-      "script": "./bitify/bitify_mute.js"
+   "bitify_pass": {
+      "name": "Bitify Pass",
+      "script": "./bitify/bitify_pass.js"
    },
    "bitify_routing": {
       "name": "BItify Routing",

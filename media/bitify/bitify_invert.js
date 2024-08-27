@@ -10,10 +10,16 @@ function toggleInvert(xIndex) {
 }
 
 
-function reset() {
+function resetAll() {
 
-   max.outlet("reset", "bang");
+   max.outlet("reset", true);
 }
+
+function resetNone() {
+
+   max.outlet("reset", false);
+}
+
 
 function outputInvertValues() {
 
@@ -74,7 +80,8 @@ class InvertCanvas extends Canvas {
 //
 setupDocument(172, 1, 1);
 let title = new Title("bitify invert");
-title.addButton("reset", reset);
+title.addButton("all", resetAll);
+title.addButton("none", resetNone);
 
 let canvas = new InvertCanvas();
 canvas.update();

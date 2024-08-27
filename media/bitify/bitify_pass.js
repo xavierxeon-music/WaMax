@@ -1,29 +1,33 @@
 //
-let mute = [0, 0, 0, 0, 0, 0, 0, 0];
+let pass = [1, 1, 1, 1, 1, 1, 1, 1];
 
 function toggleMute(xIndex) {
 
-   mute[xIndex] ^= true;
+   pass[xIndex] ^= true;
 
    canvas.update();
    outputMuteValues();
 }
 
-function reset() {
+function resetAll() {
 
-   max.outlet("reset", "bang");
+   max.outlet("reset", true);
 }
 
+function resetNone() {
+
+   max.outlet("reset", false);
+}
 function outputMuteValues() {
 
-   max.outlet("mute", ...mute);
+   max.outlet("pass", ...pass);
 }
 
 max.bindInlet('set', setMute);
 function setMute() {
 
    for (let col = 0; col < 8; col++)
-      mute[col] = arguments[col];
+      pass[col] = arguments[col];
    canvas.update();
 }
 
@@ -45,16 +49,16 @@ class MuteCanvas extends Canvas {
 
       this.clear();
 
-      const outlineColor = "#444466";
+      const outlineColor = "#666699";
       const fullColor = "#6666ff";
       const padSize = 17;
 
       for (let col = 0; col < 8; col++) {
 
-         let muteColor = mute[col] ? fullColor : outlineColor;
+         let passColor = pass[col] ? fullColor : outlineColor;
 
          let x = 5 + col * 20;
-         this.box(x, 10, padSize, padSize, muteColor);
+         this.box(x, 10, padSize, padSize, passColor);
       }
    }
 
@@ -72,8 +76,9 @@ class MuteCanvas extends Canvas {
 
 //
 setupDocument(172, 1, 1);
-let title = new Title("bitify mute");
-title.addButton("reset", reset);
+let title = new Title("bitify pass");
+title.addButton("all", resetAll);
+title.addButton("none", resetNone);
 
 let canvas = new MuteCanvas();
 canvas.update();

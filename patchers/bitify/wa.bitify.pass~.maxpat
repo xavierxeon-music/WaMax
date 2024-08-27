@@ -125,8 +125,8 @@
 						"parameter_mappable" : 0
 					}
 ,
-					"text" : "pattr mute",
-					"varname" : "mute[1]"
+					"text" : "pattr pass",
+					"varname" : "pass[1]"
 				}
 
 			}
@@ -303,7 +303,7 @@
 					"outlettype" : [ "multichannelsignal" ],
 					"patching_rect" : [ 150.0, 525.0, 119.0, 22.0 ],
 					"style" : "wa.patcher",
-					"text" : "mc.gen~ @title mute",
+					"text" : "mc.gen~ @title pass",
 					"wrapper_uniquekey" : "u175001373"
 				}
 
@@ -402,7 +402,7 @@
 					"numoutlets" : 5,
 					"outlettype" : [ "", "", "", "", "" ],
 					"patching_rect" : [ 30.0, 210.0, 201.0, 22.0 ],
-					"text" : "route onloadend DEBUG mute reset"
+					"text" : "route onloadend DEBUG pass reset"
 				}
 
 			}
@@ -414,7 +414,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 30.0, 75.0, 227.0, 22.0 ],
-					"text" : "readfile maxgui.html?content=bitify_mute"
+					"text" : "readfile maxgui.html?content=bitify_pass"
 				}
 
 			}
@@ -429,7 +429,7 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 0.0, 0.0, 180.0, 60.0 ],
 					"rendermode" : 2,
-					"url" : "file:///Volumes/ExternalData/_Home/GitHub/MusicProjects/WaMaxPackageBase/media/maxgui.html?content=bitify_mute"
+					"url" : "file:///Volumes/ExternalData/_Home/GitHub/MusicProjects/WaMaxPackageBase/media/maxgui.html?content=bitify_pass"
 				}
 
 			}
