@@ -15,9 +15,13 @@ public:
    AppLauncher(const atoms& args = {});
 
 public:
-   inlet<> input;
-   outlet<> outputA;
-   outlet<> outputB;
+   inlet<> inputMessage;
+   inlet<> inputStdIn;
+
+   outlet<> outputRequest;
+   outlet<> outputStdOut;
+   outlet<> outputStdErr;
+
    message<> openFile;
    message<> openApp;
    message<> lanch;
