@@ -4,8 +4,11 @@
 #include <QString>
 #include <QStringList>
 
-struct Helper
+#include <QProcess>
+
+class Helper
 {
+public:
    enum class OpenState
    {
       Unkown,
@@ -14,11 +17,23 @@ struct Helper
       Done
    };
 
-   static void launch(const QString& appPath, const QStringList& arguments = QStringList());
-   static void python(const QStringList& arguments = QStringList());
-   static OpenState openFile(const QString& path, const QString& appName);
-   static void openApp(const QString& appName);
-   static QStringList getAppWindowTitles(const QString& appName);
+public:
+   Helper();
+
+public: // general
+   void launchDetached(const QString& appPath, const QStringList& arguments = QStringList());
+
+public: //os spectific
+   void python(const QStringList& arguments = QStringList());
+   OpenState openFileWithApp(const QString& path, const QString& appName);
+   void openApp(const QString& appName);
+   QStringList getAppWindowTitles(const QString& appName);
+
+private:
+   QString clean(const QString& name) const;
+
+private:
+   QProcess process;
 };
 
 #endif // NOT AppHelperH

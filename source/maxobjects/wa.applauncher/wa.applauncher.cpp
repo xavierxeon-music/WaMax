@@ -4,7 +4,6 @@
 #include <QFileInfo>
 #include <QHostInfo>
 
-#include "helper.h"
 #include <common.h>
 
 #if defined(__APPLE__)
@@ -16,6 +15,7 @@ QString AppLauncher::packagePath;
 
 AppLauncher::AppLauncher(const atoms& args)
    : object<AppLauncher>()
+   , Helper()
    , inputMessage(this, "messages")
    , inputStdIn(this, "std in")
    , outputRequest(this, "message")
@@ -54,13 +54,13 @@ atoms AppLauncher::openFileFunction(const atoms& args, const int inlet)
 
    const std::string fileName = args[0];
    const std::string appName = (2 == args.size()) ? args[1] : "";
-   const Helper::OpenState state = Helper::openFile(QString::fromStdString(fileName), QString::fromStdString(appName));
+   const OpenState state = openFileWithApp(QString::fromStdString(fileName), QString::fromStdString(appName));
 
-   if (state == Helper::OpenState::FileNotExist)
+   if (state == OpenState::FileNotExist)
       cerr << fileName << " does not exist" << endl;
-   else if (state == Helper::OpenState::AlreadyOpen)
+   else if (state == OpenState::AlreadyOpen)
       cout << fileName << " already open in " << appName << endl;
-   else if (state == Helper::OpenState::Done)
+   else if (state == OpenState::Done)
       cout << fileName << " opened in " << appName << endl;
 
    return {};
@@ -72,7 +72,7 @@ atoms AppLauncher::openAppFunction(const atoms& args, const int inlet)
       return {};
 
    const std::string appName = args[0];
-   Helper::openApp(QString::fromStdString(appName));
+   openApp(QString::fromStdString(appName));
 
    return {};
 }
@@ -93,7 +93,7 @@ atoms AppLauncher::launchFunction(const atoms& args, const int inlet)
          argumentList.append(argument);
    }
 
-   Helper::launch(appName, argumentList);
+   launchDetached(appName, argumentList);
 
    return {};
 }
@@ -110,20 +110,20 @@ atoms AppLauncher::pyhonFunction(const atoms& args, const int inlet)
       argumentList.append(argument);
    }
 
-   Helper::python(argumentList);
+   python(argumentList);
 
    return {};
 }
 
 atoms AppLauncher::packagePathFunction(const atoms& args, const int inlet)
 {
-   outputB.send(packagePath.toStdString());
+   outputRequest.send(packagePath.toStdString());
    return {};
 }
 
 atoms AppLauncher::hostnameFunction(const atoms& args, const int inlet)
 {
-   outputB.send(QHostInfo::localHostName().toStdString());
+   outputRequest.send(QHostInfo::localHostName().toStdString());
    return {};
 }
 

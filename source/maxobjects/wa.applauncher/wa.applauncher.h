@@ -6,7 +6,9 @@ using namespace c74::min;
 
 #include <QString>
 
-class AppLauncher : public object<AppLauncher>
+#include "helper.h"
+
+class AppLauncher : public object<AppLauncher>, public Helper
 {
 public:
    MIN_DESCRIPTION{"launch an application"};

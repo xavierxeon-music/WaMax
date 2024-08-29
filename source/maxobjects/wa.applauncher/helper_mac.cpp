@@ -3,40 +3,13 @@
 #include <Carbon/Carbon.h>
 
 #include <QFileInfo>
-#include <QProcess>
-#include <QThread>
-
-QString clean(const QString& name)
-{
-   const int slashIndex = name.indexOf("/", 1);
-   const QString colonTest = (-1 != slashIndex) ? name.mid(slashIndex - 1, 1) : "";
-   if (":" != colonTest)
-      return name;
-
-   const QString front = name.mid(0, slashIndex - 1);
-   const QString back = name.mid(slashIndex);
-
-   return "/Volumes/" + front + back;
-}
-
-void Helper::launch(const QString& appPath, const QStringList& arguments)
-{
-   QStringList args;
-   for (QString arg : arguments)
-   {
-      args.append(arg);
-   }
-
-   QProcess::startDetached(appPath, args);
-   QThread::sleep(1);
-}
 
 void Helper::python(const QStringList& arguments)
 {
-   launch("/opt/homebrew/bin/python3", arguments);
+   launchDetached("/opt/homebrew/bin/python3", arguments);
 }
 
-Helper::OpenState Helper::openFile(const QString& path, const QString& appName)
+Helper::OpenState Helper::openFileWithApp(const QString& path, const QString& appName)
 {
    QFileInfo info(clean(path));
    if (!info.exists())
@@ -51,14 +24,14 @@ Helper::OpenState Helper::openFile(const QString& path, const QString& appName)
       }
    }
 
-   launch("/usr/bin/open", {info.absoluteFilePath()});
+   launchDetached("/usr/bin/open", {info.absoluteFilePath()});
 
    return OpenState::Done;
 }
 
 void Helper::openApp(const QString& appName)
 {
-   launch("/usr/bin/open", {"-a", appName});
+   launchDetached("/usr/bin/open", {"-a", appName});
 }
 
 QStringList Helper::getAppWindowTitles(const QString& appName)
