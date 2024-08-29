@@ -28,6 +28,7 @@ public:
    message<> openApp;
    message<> lanch;
    message<> python;
+   message<> anything;
    message<> package;
    message<> hostname;
 
@@ -38,8 +39,12 @@ private:
    atoms openAppFunction(const atoms& args, const int inlet);
    atoms launchFunction(const atoms& args, const int inlet);
    atoms pyhonFunction(const atoms& args, const int inlet);
+   atoms stdinFunction(const atoms& args, const int inlet);
    atoms packagePathFunction(const atoms& args, const int inlet);
    atoms hostnameFunction(const atoms& args, const int inlet);
+
+   void stdOutput(const QString& text) override;
+   void stdError(const QString& text) override;
 
 private:
    static QString packagePath;

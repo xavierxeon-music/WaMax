@@ -6,7 +6,7 @@
 
 void Helper::python(const QStringList& arguments)
 {
-   launchDetached("/opt/homebrew/bin/python3", arguments);
+   launch("/opt/homebrew/bin/python3", arguments);
 }
 
 Helper::OpenState Helper::openFileWithApp(const QString& path, const QString& appName)

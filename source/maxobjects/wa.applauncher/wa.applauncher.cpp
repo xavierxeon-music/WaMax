@@ -25,6 +25,7 @@ AppLauncher::AppLauncher(const atoms& args)
    , openApp(this, "openApp", "open application", Patcher::minBind(this, &AppLauncher::openAppFunction))
    , lanch(this, "lanch", "launch application", Patcher::minBind(this, &AppLauncher::launchFunction))
    , python(this, "python", "open python script", Patcher::minBind(this, &AppLauncher::pyhonFunction))
+   , anything(this, "anything", "std input", Patcher::minBind(this, &AppLauncher::stdinFunction))
    , package(this, "package", "get the package path", Patcher::minBind(this, &AppLauncher::packagePathFunction))
    , hostname(this, "hostname", "get hostname", Patcher::minBind(this, &AppLauncher::hostnameFunction))
 {
@@ -49,6 +50,9 @@ void AppLauncher::setPackagePath(const char* external_path)
 
 atoms AppLauncher::openFileFunction(const atoms& args, const int inlet)
 {
+   if (0 != inlet)
+      return {};
+
    if (1 > args.size())
       return {};
 
@@ -68,6 +72,9 @@ atoms AppLauncher::openFileFunction(const atoms& args, const int inlet)
 
 atoms AppLauncher::openAppFunction(const atoms& args, const int inlet)
 {
+   if (0 != inlet)
+      return {};
+
    if (1 > args.size())
       return {};
 
@@ -79,6 +86,9 @@ atoms AppLauncher::openAppFunction(const atoms& args, const int inlet)
 
 atoms AppLauncher::launchFunction(const atoms& args, const int inlet)
 {
+   if (0 != inlet)
+      return {};
+
    if (1 > args.size())
       return {};
 
@@ -100,6 +110,9 @@ atoms AppLauncher::launchFunction(const atoms& args, const int inlet)
 
 atoms AppLauncher::pyhonFunction(const atoms& args, const int inlet)
 {
+   if (0 != inlet)
+      return {};
+
    if (1 > args.size())
       return {};
 
@@ -115,16 +128,49 @@ atoms AppLauncher::pyhonFunction(const atoms& args, const int inlet)
    return {};
 }
 
+atoms AppLauncher::stdinFunction(const atoms& args, const int inlet)
+{
+   if (1 != inlet)
+      return {};
+
+   QStringList data;
+   for (auto i = 0; i < args.size(); i++)
+   {
+      const QString argument = QString::fromStdString(args[i]);
+      data.append(argument);
+   }
+
+   write(data);
+
+   return {};
+}
+
 atoms AppLauncher::packagePathFunction(const atoms& args, const int inlet)
 {
+   if (0 != inlet)
+      return {};
+
    outputRequest.send(packagePath.toStdString());
    return {};
 }
 
 atoms AppLauncher::hostnameFunction(const atoms& args, const int inlet)
 {
+   if (0 != inlet)
+      return {};
+
    outputRequest.send(QHostInfo::localHostName().toStdString());
    return {};
+}
+
+void AppLauncher::stdOutput(const QString& text)
+{
+   outputStdOut.send(text.toStdString());
+}
+
+void AppLauncher::stdError(const QString& text)
+{
+   outputStdErr.send(text.toStdString());
 }
 
 // main
