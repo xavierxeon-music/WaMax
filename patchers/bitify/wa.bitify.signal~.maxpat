@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 34.0, 283.0, 2976.0, 1283.0 ],
+		"rect" : [ 34.0, 283.0, 3732.0, 1283.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -80,7 +80,7 @@
 						}
 ,
 						"classnamespace" : "dsp.gen",
-						"rect" : [ 34.0, 199.0, 3765.0, 1367.0 ],
+						"rect" : [ 34.0, 283.0, 3732.0, 1283.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -218,7 +218,7 @@
 							}
 , 							{
 								"box" : 								{
-									"code" : "value = int(in8);\r\nvalue += 2 * int(in7);\r\nvalue += 4 * int(in6);\r\nvalue += 8 * int(in5);\r\nvalue += 16 * int(in4);\r\nvalue += 32 * int(in3);\r\nvalue += 64 * int(in2);\r\nvalue += 128 * int(in1);\r\n\r\n\r\nout1 = value;",
+									"code" : "value = exp2(0) * int(in8);\r\nvalue += exp2(1) * int(in7);\r\nvalue += exp2(2) * int(in6);\r\nvalue += exp2(3) * int(in5);\r\nvalue += exp2(4) * int(in4);\r\nvalue += exp2(5) * int(in3);\r\nvalue += exp2(6) * int(in2);\r\nvalue += exp2(7) * int(in1);\r\n\r\n\r\nout1 = value;",
 									"fontface" : 0,
 									"fontname" : "<Monospaced>",
 									"fontsize" : 12.0,

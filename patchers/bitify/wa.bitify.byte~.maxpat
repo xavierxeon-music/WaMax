@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 34.0, 199.0, 3765.0, 1367.0 ],
+		"rect" : [ 34.0, 283.0, 3732.0, 1283.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -56,7 +56,7 @@
 						}
 ,
 						"classnamespace" : "dsp.gen",
-						"rect" : [ 34.0, 199.0, 3765.0, 1367.0 ],
+						"rect" : [ 34.0, 283.0, 3732.0, 1283.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -98,7 +98,7 @@
 							}
 , 							{
 								"box" : 								{
-									"code" : "hasBit(value, ref)\n{\n\tremain = value % (2* ref);\r\n\tif(value < ref)\r\n\t\treturn 0;\t\t\r\n\telse if(value == ref)\r\n\t\treturn 1;\r\n\telse if(remain < ref)\r\n\t\treturn 0;\r\n\telse\r\n\t\treturn 1;\t\n}\t\n\nvalue = int(in1);\n\nout1 = hasBit(value, 128);\nout2 = hasBit(value, 64);\nout3 = hasBit(value, 32);\nout4 = hasBit(value, 16);\nout5 = hasBit(value,  8);\nout6 = hasBit(value,  4);\nout7 = hasBit(value,  2);\nout8 = hasBit(value,  1);",
+									"code" : "hasBit(value, power)\n{\r\n\tref = exp2(power);\n\tremain = value % (2* ref);\r\n\tif(value < ref)\r\n\t\treturn 0;\t\t\r\n\telse if(value == ref)\r\n\t\treturn 1;\r\n\telse if(remain < ref)\r\n\t\treturn 0;\r\n\telse\r\n\t\treturn 1;\t\n}\t\n\nvalue = int(in1);\n\nout1 = hasBit(value, 7);\nout2 = hasBit(value, 6);\nout3 = hasBit(value, 5);\nout4 = hasBit(value, 4);\nout5 = hasBit(value, 3);\nout6 = hasBit(value, 2);\nout7 = hasBit(value, 1);\nout8 = hasBit(value, 0);",
 									"fontface" : 0,
 									"fontname" : "<Monospaced>",
 									"fontsize" : 12.0,
