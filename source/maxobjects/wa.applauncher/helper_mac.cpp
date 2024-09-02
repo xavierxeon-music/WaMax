@@ -4,12 +4,12 @@
 
 #include <QFileInfo>
 
-void Helper::python(const QStringList& arguments)
+void ProcessWrapper::python(const QStringList& arguments)
 {
    launch("/opt/homebrew/bin/python3", arguments);
 }
 
-Helper::OpenState Helper::openFileWithApp(const QString& path, const QString& appName)
+ProcessWrapper::ProcessWrapper Helper::openFileWithApp(const QString& path, const QString& appName)
 {
    QFileInfo info(clean(path));
    if (!info.exists())
@@ -29,12 +29,12 @@ Helper::OpenState Helper::openFileWithApp(const QString& path, const QString& ap
    return OpenState::Done;
 }
 
-void Helper::openApp(const QString& appName)
+void ProcessWrapper::openApp(const QString& appName)
 {
    launchDetached("/usr/bin/open", {"-a", appName});
 }
 
-QStringList Helper::getAppWindowTitles(const QString& appName)
+QStringList ProcessWrapper::getAppWindowTitles(const QString& appName)
 {
    CFArrayRef windowList = CGWindowListCopyWindowInfo(kCGWindowListOptionAll, kCGNullWindowID);
 
