@@ -1,4 +1,4 @@
-#include "helper.h"
+#include "ProcessWrapper.h"
 
 QStringList ProcessWrapper::getAppWindowTitles(const QString& appName) const
 {

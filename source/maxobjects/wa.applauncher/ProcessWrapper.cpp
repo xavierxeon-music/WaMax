@@ -1,4 +1,4 @@
-#include "helper.h"
+#include "ProcessWrapper.h"
 
 #include <functional>
 
@@ -7,8 +7,8 @@
 ProcessWrapper::ProcessWrapper()
    : process()
 {
-   QObject::connect(&process, &QProcess::readyReadStandardOutput, std::bind(&Helper::passStdOutput, this));
-   QObject::connect(&process, &QProcess::readyReadStandardError, std::bind(&Helper::passStdError, this));
+   QObject::connect(&process, &QProcess::readyReadStandardOutput, std::bind(&ProcessWrapper::passStdOutput, this));
+   QObject::connect(&process, &QProcess::readyReadStandardError, std::bind(&ProcessWrapper::passStdError, this));
 }
 
 void ProcessWrapper::launchDetached(const QString& appPath, const QStringList& arguments)

@@ -6,9 +6,9 @@ using namespace c74::min;
 
 #include <QString>
 
-#include "helper.h"
+#include "ProcessWrapper.h"
 
-class AppLauncher : public object<AppLauncher>, public Helper
+class AppLauncher : public object<AppLauncher>, public ProcessWrapper
 {
 public:
    MIN_DESCRIPTION{"launch an application"};

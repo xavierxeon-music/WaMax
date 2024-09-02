@@ -16,9 +16,14 @@ file(GLOB PROJECT_SRC
 )
 
 if(APPLE)
-   list(REMOVE_ITEM PROJECT_SRC "${PROJECT_SOURCE_DIR}/helper_win.cpp")
+   list(REMOVE_ITEM PROJECT_SRC "${PROJECT_SOURCE_DIR}/ProcessWrapper_linux.cpp")
+   list(REMOVE_ITEM PROJECT_SRC "${PROJECT_SOURCE_DIR}/ProcessWrapper_win.cpp")
+elseif(WIN32)
+   list(REMOVE_ITEM PROJECT_SRC "${PROJECT_SOURCE_DIR}/ProcessWrapper_linux.cpp")
+   list(REMOVE_ITEM PROJECT_SRC "${PROJECT_SOURCE_DIR}/ProcessWrapper_mac.cpp")
 else()
-   list(REMOVE_ITEM PROJECT_SRC "${PROJECT_SOURCE_DIR}/helper_mac.cpp")
+   list(REMOVE_ITEM PROJECT_SRC "${PROJECT_SOURCE_DIR}/ProcessWrapper_mac.cpp")
+   list(REMOVE_ITEM PROJECT_SRC "${PROJECT_SOURCE_DIR}/ProcessWrapper_win.cpp")
 endif()
 
 # message(STATUS "APPLUNCHER SOURCE FILES: ${PROJECT_SRC}")

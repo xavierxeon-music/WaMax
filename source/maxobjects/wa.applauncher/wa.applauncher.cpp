@@ -15,7 +15,7 @@ QString AppLauncher::packagePath;
 
 AppLauncher::AppLauncher(const atoms& args)
    : object<AppLauncher>()
-   , Helper()
+   , ProcessWrapper()
    , inputMessage(this, "messages")
    , inputStdIn(this, "std in")
    , outputRequest(this, "message")
@@ -188,7 +188,7 @@ void ext_main(void* moduleRef)
 
    CFRelease(ext_url_ref);
    CFRelease(mac_path);
-#else
+#elif defined(__WINDOWS__)
    const char* external_path[256];
    GetModuleFileName(moduleRef, (LPCH)external_path, sizeof(external_path));
 
