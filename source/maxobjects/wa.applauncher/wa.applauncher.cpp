@@ -4,7 +4,7 @@
 #include <QFileInfo>
 #include <QHostInfo>
 
-#include <common.h>
+#include <patcher.h>
 
 #if defined(__APPLE__)
 #include <CoreFoundation/CoreFoundation.h>

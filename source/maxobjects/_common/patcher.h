@@ -1,5 +1,5 @@
-#ifndef WaPackageCommonH
-#define WaPackageCommonH
+#ifndef PatcherH
+#define PatcherH
 
 #include "c74_min.h"
 using namespace c74::min;
@@ -16,8 +16,8 @@ struct Patcher
    static void setDirty(ObjectType* object, bool dirty = true);
 };
 
-#ifndef WaPackageCommonHPP
-#include "common.hpp"
-#endif // NOT WaPackageCommonHPP
+#ifndef PatcherHPP
+#include "patcher.hpp"
+#endif // NOT PatcherHPP
 
-#endif // NOT WaPackageCommonH
+#endif // NOT PatcherH

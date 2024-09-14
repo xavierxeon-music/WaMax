@@ -1,5 +1,7 @@
-#ifndef WaPackageCommonHPP
-#define WaPackageCommonHPP
+#ifndef PatcherHPP
+#define PatcherHPP
+
+#include "patcher.h"
 
 #include <functional>
 
@@ -27,4 +29,4 @@ void Patcher::setDirty(ObjectType* object, bool dirty)
    max::jpatcher_set_dirty(max_patch_instance, dirty ? 1 : 0);
 }
 
-#endif // NOT WaPackageCommonHPP
+#endif // NOT PatcherHPP

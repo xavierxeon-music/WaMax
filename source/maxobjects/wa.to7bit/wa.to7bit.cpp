@@ -3,7 +3,7 @@
 #include <inttypes.h>
 #include <vector>
 
-#include <common.h>
+#include <patcher.h>
 
 To7Bit::To7Bit()
    : object<To7Bit>()

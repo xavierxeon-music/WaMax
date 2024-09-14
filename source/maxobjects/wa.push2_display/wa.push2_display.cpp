@@ -2,7 +2,7 @@
 
 #include <map>
 
-#include <common.h>
+#include <patcher.h>
 
 // see https://www.qt.io/blog/2015/12/15/ableton-push-qt-in-music-making
 // see https://github.com/pixsperdavid/imp.push

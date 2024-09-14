@@ -7,7 +7,7 @@
 #include <QJsonObject>
 
 #include <HelpForMax.h>
-#include <common.h>
+#include <patcher.h>
 
 HelpFile::HelpFile(const atoms& args)
    : object<HelpFile>()
