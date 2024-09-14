@@ -28,9 +28,19 @@
 
 	<methodlist>
 
-		<method name='list'>
-			<digest>7 bit list</digest>
-			<description>7 bit list. </description>
+		<method name='z'>
+			<digest>z value</digest>
+			<description>z value. </description>
+		</method>
+
+		<method name='y'>
+			<digest>y value</digest>
+			<description>y value. </description>
+		</method>
+
+		<method name='x'>
+			<digest>x value</digest>
+			<description>x value. </description>
 		</method>
 
 	</methodlist>
@@ -39,21 +49,6 @@
 	<!--ATTRIBUTES-->
 
 	<attributelist>
-
-		<attribute name='z' get='1' set='1' type='float64' size='1' >
-			<digest></digest>
-			<description></description>
-		</attribute>
-
-		<attribute name='y' get='1' set='1' type='float64' size='1' >
-			<digest></digest>
-			<description></description>
-		</attribute>
-
-		<attribute name='x' get='1' set='1' type='float64' size='1' >
-			<digest></digest>
-			<description></description>
-		</attribute>
 
 	</attributelist>
 
