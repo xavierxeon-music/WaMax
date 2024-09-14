@@ -1,29 +1,29 @@
-#include "helper.h"
+#include "ProcessWrapper.h"
 
 #include <functional>
 
 #include <QThread>
 
-Helper::Helper()
+ProcessWrapper::ProcessWrapper()
    : process()
 {
-   QObject::connect(&process, &QProcess::readyReadStandardOutput, std::bind(&Helper::passStdOutput, this));
-   QObject::connect(&process, &QProcess::readyReadStandardError, std::bind(&Helper::passStdError, this));
+   QObject::connect(&process, &QProcess::readyReadStandardOutput, std::bind(&ProcessWrapper::passStdOutput, this));
+   QObject::connect(&process, &QProcess::readyReadStandardError, std::bind(&ProcessWrapper::passStdError, this));
 }
 
-void Helper::launchDetached(const QString& appPath, const QStringList& arguments)
+void ProcessWrapper::launchDetached(const QString& appPath, const QStringList& arguments)
 {
    process.startDetached(appPath, arguments);
    QThread::sleep(1);
 }
 
-void Helper::write(const QStringList& data)
+void ProcessWrapper::write(const QStringList& data)
 {
    for (const QString& part : data)
       process.write(part.toUtf8() + "\n");
 }
 
-bool Helper::launch(const QString& appPath, const QStringList& arguments)
+bool ProcessWrapper::launch(const QString& appPath, const QStringList& arguments)
 {
    process.start(appPath, arguments);
 
@@ -33,7 +33,7 @@ bool Helper::launch(const QString& appPath, const QStringList& arguments)
    return true;
 }
 
-QString Helper::clean(const QString& name) const
+QString ProcessWrapper::clean(const QString& name) const
 {
    const int slashIndex = name.indexOf("/", 1);
    const QString colonTest = (-1 != slashIndex) ? name.mid(slashIndex - 1, 1) : "";
@@ -46,12 +46,12 @@ QString Helper::clean(const QString& name) const
    return "/Volumes/" + front + back;
 }
 
-void Helper::passStdOutput()
+void ProcessWrapper::passStdOutput()
 {
    stdOutput(QString::fromUtf8(process.readAllStandardOutput()));
 }
 
-void Helper::passStdError()
+void ProcessWrapper::passStdError()
 {
    stdError(QString::fromUtf8(process.readAllStandardError()));
 }

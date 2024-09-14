@@ -1,12 +1,12 @@
-#ifndef AppHelperH
-#define AppHelperH
+#ifndef ProcessWrapperH
+#define ProcessWrapperH
 
 #include <QString>
 #include <QStringList>
 
 #include <QProcess>
 
-class Helper
+class ProcessWrapper
 {
 public:
    enum class OpenState
@@ -18,7 +18,7 @@ public:
    };
 
 public:
-   Helper();
+   ProcessWrapper();
 
 public: // general
    void launchDetached(const QString& appPath, const QStringList& arguments = QStringList());
@@ -44,4 +44,4 @@ private:
    QProcess process;
 };
 
-#endif // NOT AppHelperH
+#endif // NOT ProcessWrapperH
