@@ -1,19 +1,19 @@
-#include "wa.from7bit.h"
+#include "wa.sphere2cart.h"
 
 #include <inttypes.h>
 #include <vector>
 
 #include <patcher.h>
 
-From7Bit::From7Bit()
-   : object<From7Bit>()
+Sphere2Cart::Sphere2Cart()
+   : object<Sphere2Cart>()
    , input{this, "(list) 7 bit list"}
    , output{this, "(int) integer value"}
-   , listMessage{this, "list", "7 bit list.", Patcher::minBind(this, &From7Bit::listFunction)}
+   , listMessage{this, "list", "7 bit list.", Patcher::minBind(this, &Sphere2Cart::listFunction)}
 {
 }
 
-atoms From7Bit::listFunction(const atoms& args, const int inlet)
+atoms Sphere2Cart::listFunction(const atoms& args, const int inlet)
 {
    std::vector<uint8_t> sevenBits;
    for (auto i = 0; i < args.size(); i++)
@@ -35,4 +35,4 @@ atoms From7Bit::listFunction(const atoms& args, const int inlet)
    return {};
 }
 
-MIN_EXTERNAL(From7Bit);
+MIN_EXTERNAL(Sphere2Cart);

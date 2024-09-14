@@ -1,25 +1,37 @@
 
-#ifndef WaFrom7BitH
-#define WaFrom7BitH
+#ifndef WaCart2SphereH
+#define WaCart2SphereH
 
 #include "c74_min.h"
 using namespace c74::min;
 
-class From7Bit : public object<From7Bit>
+#include <linalg.h>
+
+class Cart2Sphere : public object<Cart2Sphere>
 {
 public:
-   MIN_DESCRIPTION{"7bit list to int"};
+   MIN_DESCRIPTION{"convert 3d carteasion coordinates to spherical"};
 
 public:
-   From7Bit();
+   Cart2Sphere();
+
+private:
+   Linalg::Vector3 cartesian;
 
 public:
    inlet<> input;
    outlet<> output;
-   message<> listMessage;
+
+   message<> xMessage;
+   message<> yMessage;
+   message<> zMessage;
 
 private:
-   atoms listFunction(const atoms& args, const int inlet);
+   atoms xFunction(const atoms& args, const int inlet);
+   atoms yFunction(const atoms& args, const int inlet);
+   atoms zFunction(const atoms& args, const int inlet);
+
+   void calcluate();
 };
 
-#endif // NOT  WaFrom7BitH
+#endif // NOT  WaCart2SphereH

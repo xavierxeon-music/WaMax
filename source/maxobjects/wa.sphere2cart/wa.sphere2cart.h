@@ -1,17 +1,17 @@
 
-#ifndef WaFrom7BitH
-#define WaFrom7BitH
+#ifndef WaSphere2CartH
+#define WaSphere2CartH
 
 #include "c74_min.h"
 using namespace c74::min;
 
-class From7Bit : public object<From7Bit>
+class Sphere2Cart : public object<Sphere2Cart>
 {
 public:
-   MIN_DESCRIPTION{"7bit list to int"};
+   MIN_DESCRIPTION{"convert sphercal corrdinates to 3d carteasion"};
 
 public:
-   From7Bit();
+   Sphere2Cart();
 
 public:
    inlet<> input;
@@ -22,4 +22,4 @@ private:
    atoms listFunction(const atoms& args, const int inlet);
 };
 
-#endif // NOT  WaFrom7BitH
+#endif // NOT  WaSphere2CartH

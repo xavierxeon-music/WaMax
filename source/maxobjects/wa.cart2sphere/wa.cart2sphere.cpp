@@ -1,38 +1,52 @@
-#include "wa.from7bit.h"
-
-#include <inttypes.h>
-#include <vector>
+#include "wa.cart2sphere.h"
 
 #include <patcher.h>
 
-From7Bit::From7Bit()
-   : object<From7Bit>()
+Cart2Sphere::Cart2Sphere()
+   : object<Cart2Sphere>()
+   , cartesian()
    , input{this, "(list) 7 bit list"}
    , output{this, "(int) integer value"}
-   , listMessage{this, "list", "7 bit list.", Patcher::minBind(this, &From7Bit::listFunction)}
+   , xMessage{this, "x", "x value.", Patcher::minBind(this, &Cart2Sphere::xFunction)}
+   , yMessage{this, "y", "y value.", Patcher::minBind(this, &Cart2Sphere::yFunction)}
+   , zMessage{this, "z", "z value.", Patcher::minBind(this, &Cart2Sphere::zFunction)}
 {
 }
 
-atoms From7Bit::listFunction(const atoms& args, const int inlet)
+atoms Cart2Sphere::xFunction(const atoms& args, const int inlet)
 {
-   std::vector<uint8_t> sevenBits;
-   for (auto i = 0; i < args.size(); i++)
+   if (0 < args.size())
    {
-      const int value = args[i];
-      sevenBits.insert(sevenBits.begin(), value);
+      cartesian.setA(args[0]);
+      calcluate();
    }
-
-   long number = 0;
-   long power = 1;
-
-   for (const uint8_t& value : sevenBits)
-   {
-      number += value * power;
-      power *= 128;
-   }
-
-   output.send(number);
    return {};
 }
 
-MIN_EXTERNAL(From7Bit);
+atoms Cart2Sphere::yFunction(const atoms& args, const int inlet)
+{
+   if (0 < args.size())
+   {
+      cartesian.setB(args[0]);
+      calcluate();
+   }
+
+   return {};
+}
+
+atoms Cart2Sphere::zFunction(const atoms& args, const int inlet)
+{
+   if (0 < args.size())
+   {
+      cartesian.setC(args[0]);
+      calcluate();
+   }
+   return {};
+}
+
+void Cart2Sphere::calcluate()
+{
+   cout << cartesian.getA() << " " << cartesian.getB() << " " << cartesian.getC() << endl;
+}
+
+MIN_EXTERNAL(Cart2Sphere);

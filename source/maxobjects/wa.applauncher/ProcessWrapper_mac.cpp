@@ -9,7 +9,7 @@ void ProcessWrapper::python(const QStringList& arguments)
    launch("/opt/homebrew/bin/python3", arguments);
 }
 
-ProcessWrapper::ProcessWrapper Helper::openFileWithApp(const QString& path, const QString& appName)
+ProcessWrapper::OpenState ProcessWrapper::openFileWithApp(const QString& path, const QString& appName)
 {
    QFileInfo info(clean(path));
    if (!info.exists())
