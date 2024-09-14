@@ -16,26 +16,23 @@ public:
    Cart2Sphere(const atoms& args = {});
 
 private:
-   Linalg::Vector3 cartesian;
-
-public:
-   inlet<> input;
-   outlet<> output;
-
-   message<> xValue;
-   message<> yValue;
-   message<> zValue;
-
-   message<> doubleClick;
-
-private:
    atoms xFunction(const atoms& args, const int inlet);
    atoms yFunction(const atoms& args, const int inlet);
    atoms zFunction(const atoms& args, const int inlet);
-
-   atoms doubleClickedFunction(const atoms& args, const int inlet);
-
+   atoms listFunction(const atoms& args, const int inlet);
+   atoms calculateFunction(const atoms& args, const int inlet);
    void calcluate();
+
+private:
+   Linalg::Vector3 cartesian;
+   outlet<> output;
+   attribute<bool> asDegrees;
+   message<> xMessage;
+   message<> yMessage;
+   message<> zMessage;
+   message<> listMessage;
+   message<> bangMessage;
+   message<> doubleClick;
 };
 
 #endif // NOT  WaCart2SphereH

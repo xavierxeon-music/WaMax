@@ -5,12 +5,43 @@
 Cart2Sphere::Cart2Sphere(const atoms& args)
    : object<Cart2Sphere>()
    , cartesian()
-   , input{this, "set values"}
    , output{this, "(int) integer value"}
-   , xValue{this, "x", "x value", Patcher::minBind(this, &Cart2Sphere::xFunction)}
-   , yValue{this, "y", "y value", Patcher::minBind(this, &Cart2Sphere::xFunction)}
-   , zValue{this, "z", "z value", Patcher::minBind(this, &Cart2Sphere::xFunction)}
-   , doubleClick{this, "dblclick", Patcher::minBind(this, &Cart2Sphere::doubleClickedFunction)}
+   , asDegrees{this, "asDegrees", true}
+   , xMessage{this, "x", "x value", Patcher::minBind(this, &Cart2Sphere::xFunction)}
+   , yMessage{this, "y", "y value", Patcher::minBind(this, &Cart2Sphere::xFunction)}
+   , zMessage{this, "z", "z value", Patcher::minBind(this, &Cart2Sphere::xFunction)}
+   , listMessage{this, "list", Patcher::minBind(this, &Cart2Sphere::listFunction)}
+   , bangMessage{this, "bang", Patcher::minBind(this, &Cart2Sphere::calculateFunction)}
+   , doubleClick{this, "dblclick", Patcher::minBind(this, &Cart2Sphere::calculateFunction)}
+{
+   listFunction(args, 0);
+}
+
+atoms Cart2Sphere::xFunction(const atoms& args, const int inlet)
+{
+   cartesian.setA(args[0]);
+   calcluate();
+
+   return {};
+}
+
+atoms Cart2Sphere::yFunction(const atoms& args, const int inlet)
+{
+   cartesian.setB(args[0]);
+   calcluate();
+
+   return {};
+}
+
+atoms Cart2Sphere::zFunction(const atoms& args, const int inlet)
+{
+   cartesian.setC(args[0]);
+   calcluate();
+
+   return {};
+}
+
+atoms Cart2Sphere::listFunction(const atoms& args, const int inlet)
 {
    if (args.size() > 0)
       cartesian.setA(args[0]);
@@ -20,40 +51,11 @@ Cart2Sphere::Cart2Sphere(const atoms& args)
       cartesian.setC(args[2]);
 
    calcluate();
-}
-
-atoms Cart2Sphere::xFunction(const atoms& args, const int inlet)
-{
-   if (0 < args.size())
-   {
-      cartesian.setA(args[0]);
-      calcluate();
-   }
-   return {};
-}
-
-atoms Cart2Sphere::yFunction(const atoms& args, const int inlet)
-{
-   if (0 < args.size())
-   {
-      cartesian.setB(args[0]);
-      calcluate();
-   }
 
    return {};
 }
 
-atoms Cart2Sphere::zFunction(const atoms& args, const int inlet)
-{
-   if (0 < args.size())
-   {
-      cartesian.setC(args[0]);
-      calcluate();
-   }
-   return {};
-}
-
-atoms Cart2Sphere::doubleClickedFunction(const atoms& args, const int inlet)
+atoms Cart2Sphere::calculateFunction(const atoms& args, const int inlet)
 {
    calcluate();
 
@@ -62,7 +64,10 @@ atoms Cart2Sphere::doubleClickedFunction(const atoms& args, const int inlet)
 
 void Cart2Sphere::calcluate()
 {
-   cout << cartesian.getA() << " " << cartesian.getB() << " " << cartesian.getC() << endl;
+   const Linalg::Vector3 spherical = cartesian.cart2Sphre(asDegrees);
+
+   atoms result = {spherical.getA(), spherical.getB(), spherical.getC()};
+   output.send(result);
 }
 
 MIN_EXTERNAL(Cart2Sphere);

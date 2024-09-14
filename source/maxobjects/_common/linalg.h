@@ -3,6 +3,9 @@
 
 namespace Linalg
 {
+   double deg2Rad(const double& degrees);
+   double rad2Deg(const double& radians);
+
    class Vector3
    {
    public:
@@ -17,6 +20,17 @@ namespace Linalg
 
       const double& getC() const;
       void setC(const double& value);
+
+      Vector3 spehreToCart(const bool fromDegree = true);
+      Vector3 cart2Sphre(const bool toDegree = true);
+
+      double length() const;
+
+      double dot(const Vector3& other) const;
+      double dotAngle(const Vector3& other, const bool toDegree = true) const;
+
+      Vector3 cross(const Vector3& other) const;
+      double crossAngle(const Vector3& other, const bool toDegree = true) const;
 
    private:
       double a;
