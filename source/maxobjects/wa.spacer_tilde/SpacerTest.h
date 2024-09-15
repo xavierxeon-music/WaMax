@@ -4,6 +4,8 @@
 #include "ui_SpacerTest.h"
 #include <QWidget>
 
+#include <QLineSeries>
+
 #include "MathVector3.h"
 #include "SpatialRingBuffer.h"
 
@@ -26,6 +28,9 @@ private:
 private:
    Spatial::RingBuffer buffer;
    Math::Vector3 cartesian;
+
+   QLineSeries* leftEar;
+   QLineSeries* rightEar;
 };
 
 #endif // NOT SpacerTestH

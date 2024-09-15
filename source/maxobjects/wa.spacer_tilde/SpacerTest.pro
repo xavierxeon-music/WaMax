@@ -1,7 +1,7 @@
 TARGET = SpacerTest
 TEMPLATE = app
 
-QT += widgets svg
+QT += widgets svg charts
 CONFIG += c++20
 
 INCLUDEPATH += ../_common

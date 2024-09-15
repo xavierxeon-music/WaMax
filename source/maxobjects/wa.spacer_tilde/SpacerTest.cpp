@@ -3,21 +3,54 @@
 #include <QApplication>
 #include <QCloseEvent>
 #include <QSettings>
+#include <QValueAxis>
+
+#include "SpatialFunction.h"
 
 SpacerTest::SpacerTest()
    : QWidget(nullptr)
    , buffer()
    , cartesian()
+   , leftEar(nullptr)
+   , rightEar(nullptr)
 {
    setupUi(this);
    setWindowTitle("Spacer Test");
 
+   qDebug() << chartView->chart();
+
+   QValueAxis* axisX = new QValueAxis;
+   axisX->setRange(0, 128);
+   axisX->setLabelFormat("%g");
+   axisX->setTitleText("Samples");
+   chartView->chart()->addAxis(axisX, Qt::AlignBottom);
+
+   QValueAxis* axisY = new QValueAxis;
+   axisY->setRange(-1, 1);
+   axisY->setTitleText("level");
+   chartView->chart()->addAxis(axisY, Qt::AlignLeft);
+
+   auto addSeries = [&](const QString& name, const QColor& color)
+   {
+      QLineSeries* series = new QLineSeries;
+
+      chartView->chart()->addSeries(series);
+      series->attachAxis(axisX);
+      series->attachAxis(axisY);
+
+      series->setName(name);
+      series->setColor(color);
+
+      return series;
+   };
+
+   leftEar = addSeries("Level Left", QColor(Qt::green));
+   rightEar = addSeries("Level Right", QColor(Qt::red));
+
    {
       QSettings settings;
 
-      const int win_x = settings.value("SpacerTest/x").toInt();
-      const int win_y = settings.value("SpacerTest/y").toInt();
-      move(win_x, win_y);
+      restoreGeometry(settings.value("SpacerTest/geometry").toByteArray());
 
       const double x = settings.value("Value/x").toDouble();
       const double y = settings.value("Value/y").toDouble();
@@ -71,19 +104,34 @@ void SpacerTest::update()
 {
    const Math::Vector3 spherical = cartesian.cart2Sphre();
 
-   azSpin->setValue(spherical.getA());
-   elSpin->setValue(spherical.getB());
+   const double az = spherical.getA();
+   const double el = spherical.getB();
+
+   azSpin->setValue(az);
+   elSpin->setValue(el);
    radSpin->setValue(spherical.getC());
 
-   graphLabel;
+   Spatial::Function leftFunction(az, el, true);
+   Spatial::Function rightFunction(az, el, false);
+
+   leftEar->clear();
+   rightEar->clear();
+
+   for (int index = 0; index < 128; index++)
+   {
+      const double leftValue = leftFunction.value(index);
+      leftEar->append(index, leftValue);
+
+      const double rightValue = rightFunction.value(index);
+      rightEar->append(index, rightValue);
+   }
 }
 
 void SpacerTest::closeEvent(QCloseEvent* ce)
 {
    QSettings settings;
 
-   settings.setValue("SpacerTest/x", x());
-   settings.setValue("SpacerTest/y", y());
+   settings.setValue("SpacerTest/geometry", saveGeometry());
 
    ce->accept();
 }
