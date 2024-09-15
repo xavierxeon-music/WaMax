@@ -28,9 +28,6 @@ private:
 private:
    Spatial::RingBuffer buffer;
    Math::Vector3 cartesian;
-
-   QLineSeries* leftEar;
-   QLineSeries* rightEar;
 };
 
 #endif // NOT SpacerTestH

@@ -4,27 +4,17 @@ TEMPLATE = app
 QT += widgets svg charts
 CONFIG += c++20
 
-INCLUDEPATH += \
-    .. \
-    ../../_common
+include(base.pri)
 
 HEADERS += \
-    ../../_common/MathGeneral.h \
-    ../../_common/MathGeneral.hpp \
-    ../../_common/MathVector3.h \
-    ../../_common/MathVector3.hpp \
-    ../../_common/Tools.h \
-    ../../_common/Tools.hpp
-
-HEADERS += \
+    ImpulseChart.h \
+    SignalChart.h \
     SpacerTest.h \
-    ../SpatialFunction.h \
-    ../SpatialRingBuffer.h
 
 SOURCES += \
+    ImpulseChart.cpp \
+    SignalChart.cpp \
     SpacerTest.cpp \
-    ../SpatialFunction.cpp \
-    ../SpatialRingBuffer.cpp
 
 FORMS += \
     SpacerTest.ui

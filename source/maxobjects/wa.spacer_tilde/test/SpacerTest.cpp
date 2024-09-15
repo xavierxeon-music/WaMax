@@ -3,49 +3,14 @@
 #include <QApplication>
 #include <QCloseEvent>
 #include <QSettings>
-#include <QValueAxis>
-
-#include "SpatialFunction.h"
 
 SpacerTest::SpacerTest()
    : QWidget(nullptr)
    , buffer()
    , cartesian()
-   , leftEar(nullptr)
-   , rightEar(nullptr)
 {
    setupUi(this);
    setWindowTitle("Spacer Test");
-
-   qDebug() << chartView->chart();
-
-   QValueAxis* axisX = new QValueAxis;
-   axisX->setRange(0, 128);
-   axisX->setLabelFormat("%g");
-   axisX->setTitleText("Samples");
-   chartView->chart()->addAxis(axisX, Qt::AlignBottom);
-
-   QValueAxis* axisY = new QValueAxis;
-   axisY->setRange(-1, 1);
-   axisY->setTitleText("level");
-   chartView->chart()->addAxis(axisY, Qt::AlignLeft);
-
-   auto addSeries = [&](const QString& name, const QColor& color)
-   {
-      QLineSeries* series = new QLineSeries;
-
-      chartView->chart()->addSeries(series);
-      series->attachAxis(axisX);
-      series->attachAxis(axisY);
-
-      series->setName(name);
-      series->setColor(color);
-
-      return series;
-   };
-
-   leftEar = addSeries("Level Left", QColor(Qt::green));
-   rightEar = addSeries("Level Right", QColor(Qt::red));
 
    {
       QSettings settings;
@@ -111,20 +76,7 @@ void SpacerTest::update()
    elSpin->setValue(el);
    radSpin->setValue(spherical.getC());
 
-   Spatial::Function leftFunction(az, el, true);
-   Spatial::Function rightFunction(az, el, false);
-
-   leftEar->clear();
-   rightEar->clear();
-
-   for (int index = 0; index < 128; index++)
-   {
-      const double leftValue = leftFunction.value(index);
-      leftEar->append(index, leftValue);
-
-      const double rightValue = rightFunction.value(index);
-      rightEar->append(index, rightValue);
-   }
+   impulseChartView->update(az, el);
 }
 
 void SpacerTest::closeEvent(QCloseEvent* ce)
