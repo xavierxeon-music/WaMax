@@ -2,7 +2,7 @@
 
 #include <map>
 
-#include <patcher.h>
+#include <MaxPatcher.h>
 
 // see https://www.qt.io/blog/2015/12/15/ableton-push-qt-in-music-making
 // see https://github.com/pixsperdavid/imp.push
@@ -13,14 +13,14 @@ static const int dataLength = imageLength * 2; // RGB 16 image
 Push2Display::Push2Display()
    : object<Push2Display>()
    , matrix_operator<>(false)
-   , input{this, "(matrix) Input", "matrix"}
-   , output{this, "(matrix) output", "matrix"}
-   , updateTimer{this, Patcher::minBind(this, &Push2Display::timerFunction)}
    , context(nullptr)
    , device(nullptr)
    , bufferData(nullptr)
    , sendData(nullptr)
    , bufferMutex()
+   , input{this, "(matrix) Input", "matrix"}
+   , output{this, "(matrix) output", "matrix"}
+   , updateTimer{this, Max::Patcher::minBind(this, &Push2Display::timerFunction)}
 {
    libusb_init(&context);
    bindDevice();

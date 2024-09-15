@@ -12,13 +12,13 @@ public:
 public:
    To7Bit();
 
-public:
+private:
+   atoms intFunction(const atoms& args, const int inlet);
+
+private:
    inlet<> input;
    outlet<> output;
    message<> intMessage;
-
-private:
-   atoms intFunction(const atoms& args, const int inlet);
 };
 
 #endif // NOT WaTo7BitH

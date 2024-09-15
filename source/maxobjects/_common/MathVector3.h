@@ -1,11 +1,8 @@
-#ifndef LinalgH
-#define LinalgH
+#ifndef MathVector3H
+#define MathVector3H
 
-namespace Linalg
+namespace Math
 {
-   double deg2Rad(const double& degrees);
-   double rad2Deg(const double& radians);
-
    class Vector3
    {
    public:
@@ -21,7 +18,7 @@ namespace Linalg
       const double& getC() const;
       void setC(const double& value);
 
-      Vector3 spehreToCart(const bool fromDegree = true);
+      Vector3 sphere2Cart(const bool fromDegree = true);
       Vector3 cart2Sphre(const bool toDegree = true);
 
       double length() const;
@@ -37,10 +34,10 @@ namespace Linalg
       double b;
       double c;
    };
-} // namespace Linalg
+} // namespace Math
 
-#ifndef LinalgHPP
-#include "linalg.hpp"
-#endif // NOT LinalgHPP
+#ifndef MathVector3HPP
+#include "MathVector3.hpp"
+#endif // NOT MathVector3HPP
 
 #endif // NOT LinalgH

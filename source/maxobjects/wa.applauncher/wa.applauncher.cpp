@@ -4,7 +4,7 @@
 #include <QFileInfo>
 #include <QHostInfo>
 
-#include <patcher.h>
+#include <MaxPatcher.h>
 
 #if defined(__APPLE__)
 #include <CoreFoundation/CoreFoundation.h>
@@ -21,13 +21,13 @@ AppLauncher::AppLauncher(const atoms& args)
    , outputRequest(this, "message")
    , outputStdOut(this, "std out")
    , outputStdErr(this, "std in")
-   , openFile(this, "openFile", "open file", Patcher::minBind(this, &AppLauncher::openFileFunction))
-   , openApp(this, "openApp", "open application", Patcher::minBind(this, &AppLauncher::openAppFunction))
-   , lanch(this, "lanch", "launch application", Patcher::minBind(this, &AppLauncher::launchFunction))
-   , python(this, "python", "open python script", Patcher::minBind(this, &AppLauncher::pyhonFunction))
-   , anything(this, "anything", "std input", Patcher::minBind(this, &AppLauncher::stdinFunction))
-   , package(this, "package", "get the package path", Patcher::minBind(this, &AppLauncher::packagePathFunction))
-   , hostname(this, "hostname", "get hostname", Patcher::minBind(this, &AppLauncher::hostnameFunction))
+   , openFile(this, "openFile", "open file", Max::Patcher::minBind(this, &AppLauncher::openFileFunction))
+   , openApp(this, "openApp", "open application", Max::Patcher::minBind(this, &AppLauncher::openAppFunction))
+   , lanch(this, "lanch", "launch application", Max::Patcher::minBind(this, &AppLauncher::launchFunction))
+   , python(this, "python", "open python script", Max::Patcher::minBind(this, &AppLauncher::pyhonFunction))
+   , anything(this, "anything", "std input", Max::Patcher::minBind(this, &AppLauncher::stdinFunction))
+   , package(this, "package", "get the package path", Max::Patcher::minBind(this, &AppLauncher::packagePathFunction))
+   , hostname(this, "hostname", "get hostname", Max::Patcher::minBind(this, &AppLauncher::hostnameFunction))
 {
 }
 

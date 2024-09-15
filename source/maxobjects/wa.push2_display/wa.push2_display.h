@@ -23,11 +23,6 @@ public:
 
    pixel calc_cell(pixel input, const matrix_info& info, matrix_coord& position);
 
-public:
-   inlet<> input;
-   outlet<> output; // needs matrix output !
-   timer<timer_options::defer_delivery> updateTimer;
-
 private:
    bool bindDevice();
    void unbindDevice();
@@ -43,6 +38,10 @@ private:
    ushort* bufferData;
    uchar* sendData;
    mutex bufferMutex;
+
+   inlet<> input;
+   outlet<> output; // needs matrix output !
+   timer<timer_options::defer_delivery> updateTimer;
 };
 
 #endif // NOT WaPush2DisplayH

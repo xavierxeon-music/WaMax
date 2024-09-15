@@ -5,7 +5,7 @@
 #include "c74_min.h"
 using namespace c74::min;
 
-#include <linalg.h>
+#include <MathVector3.h>
 
 class Sphere2Cart : public object<Sphere2Cart>
 {
@@ -24,7 +24,8 @@ private:
    void calcluate();
 
 private:
-   Linalg::Vector3 spherical;
+   Math::Vector3 spherical;
+
    outlet<> output;
    attribute<bool> asDegrees;
    message<> azMessage;

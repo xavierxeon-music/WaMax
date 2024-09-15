@@ -7,15 +7,15 @@
 #include <QJsonObject>
 
 #include <HelpForMax.h>
-#include <patcher.h>
+#include <MaxPatcher.h>
 
 HelpFile::HelpFile(const atoms& args)
    : object<HelpFile>()
    , ui_operator::ui_operator(this, args)
-   , paint{this, "paint", Patcher::minBind(this, &HelpFile::paintFunction)}
-   , dblclick(this, "mousedoubleclick", Patcher::minBind(this, &HelpFile::mouseDoubleClickFunction))
-   , setfile(this, "setfile", "set current patch file", Patcher::minBind(this, &HelpFile::setFileFunction))
-   , loopTimer(this, Patcher::minBind(this, &HelpFile::timerFunction))
+   , paint{this, "paint", Max::Patcher::minBind(this, &HelpFile::paintFunction)}
+   , dblclick(this, "mousedoubleclick", Max::Patcher::minBind(this, &HelpFile::mouseDoubleClickFunction))
+   , setfile(this, "setfile", "set current patch file", Max::Patcher::minBind(this, &HelpFile::setFileFunction))
+   , loopTimer(this, Max::Patcher::minBind(this, &HelpFile::timerFunction))
    , socket()
    , current("")
 {

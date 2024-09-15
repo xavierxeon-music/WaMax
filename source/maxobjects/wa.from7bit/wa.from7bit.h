@@ -13,13 +13,13 @@ public:
 public:
    From7Bit();
 
-public:
+private:
+   atoms listFunction(const atoms& args, const int inlet);
+
+private:
    inlet<> input;
    outlet<> output;
    message<> listMessage;
-
-private:
-   atoms listFunction(const atoms& args, const int inlet);
 };
 
 #endif // NOT  WaFrom7BitH

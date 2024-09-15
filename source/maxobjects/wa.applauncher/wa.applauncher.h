@@ -17,21 +17,6 @@ public:
    AppLauncher(const atoms& args = {});
 
 public:
-   inlet<> inputMessage;
-   inlet<> inputStdIn;
-
-   outlet<> outputRequest;
-   outlet<> outputStdOut;
-   outlet<> outputStdErr;
-
-   message<> openFile;
-   message<> openApp;
-   message<> lanch;
-   message<> python;
-   message<> anything;
-   message<> package;
-   message<> hostname;
-
    static void setPackagePath(const char* external_path);
 
 private:
@@ -48,6 +33,21 @@ private:
 
 private:
    static QString packagePath;
+
+   inlet<> inputMessage;
+   inlet<> inputStdIn;
+
+   outlet<> outputRequest;
+   outlet<> outputStdOut;
+   outlet<> outputStdErr;
+
+   message<> openFile;
+   message<> openApp;
+   message<> lanch;
+   message<> python;
+   message<> anything;
+   message<> package;
+   message<> hostname;
 };
 
 #endif // NOT  WaAppLauncherH

@@ -1,18 +1,18 @@
 #include "wa.sphere2cart.h"
 
-#include <patcher.h>
+#include <MaxPatcher.h>
 
 Sphere2Cart::Sphere2Cart(const atoms& args)
    : object<Sphere2Cart>()
    , spherical()
    , output{this, "(int) integer value"}
    , asDegrees{this, "asDegrees", true}
-   , azMessage{this, "az", "azimuth value", Patcher::minBind(this, &Sphere2Cart::azFunction)}
-   , elMessage{this, "el", "elevation value", Patcher::minBind(this, &Sphere2Cart::elFunction)}
-   , radiusMessage{this, "radius", "radius value", Patcher::minBind(this, &Sphere2Cart::radiusFunction)}
-   , listMessage{this, "list", Patcher::minBind(this, &Sphere2Cart::listFunction)}
-   , bangMessage{this, "bang", Patcher::minBind(this, &Sphere2Cart::calculateFunction)}
-   , doubleClick{this, "dblclick", Patcher::minBind(this, &Sphere2Cart::calculateFunction)}
+   , azMessage{this, "az", "azimuth value", Max::Patcher::minBind(this, &Sphere2Cart::azFunction)}
+   , elMessage{this, "el", "elevation value", Max::Patcher::minBind(this, &Sphere2Cart::elFunction)}
+   , radiusMessage{this, "radius", "radius value", Max::Patcher::minBind(this, &Sphere2Cart::radiusFunction)}
+   , listMessage{this, "list", Max::Patcher::minBind(this, &Sphere2Cart::listFunction)}
+   , bangMessage{this, "bang", Max::Patcher::minBind(this, &Sphere2Cart::calculateFunction)}
+   , doubleClick{this, "dblclick", Max::Patcher::minBind(this, &Sphere2Cart::calculateFunction)}
 {
    listFunction(args, 0);
 }
@@ -64,7 +64,7 @@ atoms Sphere2Cart::calculateFunction(const atoms& args, const int inlet)
 
 void Sphere2Cart::calcluate()
 {
-   const Linalg::Vector3 cartesian = spherical.spehreToCart(asDegrees);
+   const Math::Vector3 cartesian = spherical.sphere2Cart(asDegrees);
 
    atoms result = {cartesian.getA(), cartesian.getB(), cartesian.getC()};
    output.send(result);

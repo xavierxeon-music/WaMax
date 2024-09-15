@@ -1,60 +1,50 @@
-#ifndef LinalgHPP
-#define LinalgHPP
+#ifndef MathVector3HPP
+#define MathVector3HPP
+
+#include "MathVector3.h"
 
 #include <cmath>
 
-#include "linalg.h"
+#include "MathGeneral.h"
 
-double Linalg::deg2Rad(const double& degrees)
-{
-   const double radians = degrees * (M_PI / 180);
-   return radians;
-}
-
-double Linalg::rad2Deg(const double& radians)
-{
-   const double degrees = radians * (180 / M_PI);
-   return degrees;
-}
-
-Linalg::Vector3::Vector3(const double& a, const double& b, const double& c)
+inline Math::Vector3::Vector3(const double& a, const double& b, const double& c)
    : a(a)
    , b(b)
    , c(c)
 {
 }
 
-const double& Linalg::Vector3::getA() const
+inline const double& Math::Vector3::getA() const
 {
    return a;
 }
 
-void Linalg::Vector3::setA(const double& value)
+inline void Math::Vector3::setA(const double& value)
 {
    a = value;
 }
 
-const double& Linalg::Vector3::getB() const
+inline const double& Math::Vector3::getB() const
 {
    return b;
 }
 
-void Linalg::Vector3::setB(const double& value)
+inline void Math::Vector3::setB(const double& value)
 {
    b = value;
 }
 
-const double& Linalg::Vector3::getC() const
+inline const double& Math::Vector3::getC() const
 {
    return c;
 }
 
-void Linalg::Vector3::setC(const double& value)
+inline void Math::Vector3::setC(const double& value)
 {
    c = value;
 }
 
-Linalg::Vector3 Linalg::Vector3::spehreToCart(const bool fromDegree)
+inline Math::Vector3 Math::Vector3::sphere2Cart(const bool fromDegree)
 {
    double az = a;
    double el = b;
@@ -74,7 +64,7 @@ Linalg::Vector3 Linalg::Vector3::spehreToCart(const bool fromDegree)
    return Vector3(x, y, z);
 }
 
-Linalg::Vector3 Linalg::Vector3::cart2Sphre(const bool toDegree)
+inline Math::Vector3 Math::Vector3::cart2Sphre(const bool toDegree)
 {
    const double radius = length();
    if (0.0 == radius)
@@ -96,18 +86,18 @@ Linalg::Vector3 Linalg::Vector3::cart2Sphre(const bool toDegree)
    return Vector3(az, el, radius);
 }
 
-double Linalg::Vector3::length() const
+inline double Math::Vector3::length() const
 {
    const double selfDot = dot(*this);
    return std::sqrt(selfDot);
 }
 
-double Linalg::Vector3::dot(const Vector3& other) const
+inline double Math::Vector3::dot(const Vector3& other) const
 {
    return (a * other.a) + (b * other.b) + (c * other.c);
 }
 
-double Linalg::Vector3::dotAngle(const Vector3& other, const bool toDegree) const
+inline double Math::Vector3::dotAngle(const Vector3& other, const bool toDegree) const
 {
    const double d = dot(other);
    const double l = length() * other.length();
@@ -119,7 +109,7 @@ double Linalg::Vector3::dotAngle(const Vector3& other, const bool toDegree) cons
    return angle;
 }
 
-Linalg::Vector3 Linalg::Vector3::cross(const Vector3& other) const
+inline Math::Vector3 Math::Vector3::cross(const Vector3& other) const
 {
    const double a = (b * other.c) - (c * other.b);
    const double b = (c * other.a) - (a * other.c);
@@ -128,7 +118,7 @@ Linalg::Vector3 Linalg::Vector3::cross(const Vector3& other) const
    return Vector3(a, b, c);
 }
 
-double Linalg::Vector3::crossAngle(const Vector3& other, const bool toDegree) const
+inline double Math::Vector3::crossAngle(const Vector3& other, const bool toDegree) const
 {
    const double c = cross(other).length();
    const double l = length() * other.length();
@@ -140,4 +130,4 @@ double Linalg::Vector3::crossAngle(const Vector3& other, const bool toDegree) co
    return angle;
 }
 
-#endif // NOT LinalgHPP
+#endif // NOT MathVector3HPP

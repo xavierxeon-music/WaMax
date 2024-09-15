@@ -3,13 +3,13 @@
 #include <inttypes.h>
 #include <vector>
 
-#include <patcher.h>
+#include <MaxPatcher.h>
 
 To7Bit::To7Bit()
    : object<To7Bit>()
    , input{this, "(int) values to To7Bit"}
    , output{this, "(int) 7 bit list"}
-   , intMessage{this, "int", "integer value.", Patcher::minBind(this, &To7Bit::intFunction)}
+   , intMessage{this, "int", "integer value.", Max::Patcher::minBind(this, &To7Bit::intFunction)}
 {
 }
 

@@ -18,12 +18,6 @@ public:
 public:
    HelpFile(const atoms& args = {});
 
-public:
-   message<> paint;
-   message<> dblclick;
-   message<> setfile;
-   timer<timer_options::defer_delivery> loopTimer;
-
 private:
    atoms paintFunction(const atoms& args, const int inlet);
    atoms mouseDoubleClickFunction(const atoms& args, const int inlet);
@@ -36,6 +30,11 @@ private:
 private:
    QLocalSocket socket;
    Current current;
+
+   message<> paint;
+   message<> dblclick;
+   message<> setfile;
+   timer<timer_options::defer_delivery> loopTimer;
 };
 
 #endif // NOT  WaHelpFileH

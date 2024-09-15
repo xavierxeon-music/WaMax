@@ -5,7 +5,7 @@
 #include "c74_min.h"
 using namespace c74::min;
 
-#include <linalg.h>
+#include <MathVector3.h>
 
 class Cart2Sphere : public object<Cart2Sphere>
 {
@@ -21,10 +21,12 @@ private:
    atoms zFunction(const atoms& args, const int inlet);
    atoms listFunction(const atoms& args, const int inlet);
    atoms calculateFunction(const atoms& args, const int inlet);
+
    void calcluate();
 
 private:
-   Linalg::Vector3 cartesian;
+   Math::Vector3 cartesian;
+
    outlet<> output;
    attribute<bool> asDegrees;
    message<> xMessage;

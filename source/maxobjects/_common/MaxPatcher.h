@@ -1,23 +1,26 @@
-#ifndef PatcherH
-#define PatcherH
+#ifndef MaxPatcherH
+#define MaxPatcherH
 
 #include "c74_min.h"
 using namespace c74::min;
 
-struct Patcher
+namespace Max
 {
-   template <typename ObjectType>
-   static function minBind(ObjectType* object, atoms (ObjectType::*functionPointer)(const atoms&, const int));
+   struct Patcher
+   {
+      template <typename ObjectType>
+      static function minBind(ObjectType* object, atoms (ObjectType::*functionPointer)(const atoms&, const int));
 
-   template <typename ObjectType>
-   static std::string path(ObjectType* object);
+      template <typename ObjectType>
+      static std::string path(ObjectType* object);
 
-   template <typename ObjectType>
-   static void setDirty(ObjectType* object, bool dirty = true);
-};
+      template <typename ObjectType>
+      static void setDirty(ObjectType* object, bool dirty = true);
+   };
+} // namespace Max
 
-#ifndef PatcherHPP
-#include "patcher.hpp"
-#endif // NOT PatcherHPP
+#ifndef MaxPatcherHPP
+#include "MaxPatcher.hpp"
+#endif // NOT MaxPatcherHPP
 
-#endif // NOT PatcherH
+#endif // NOT MaxPatcherH

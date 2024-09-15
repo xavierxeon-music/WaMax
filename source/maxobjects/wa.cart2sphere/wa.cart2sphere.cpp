@@ -1,18 +1,18 @@
 #include "wa.cart2sphere.h"
 
-#include <patcher.h>
+#include <MaxPatcher.h>
 
 Cart2Sphere::Cart2Sphere(const atoms& args)
    : object<Cart2Sphere>()
    , cartesian()
    , output{this, "(int) integer value"}
    , asDegrees{this, "asDegrees", true}
-   , xMessage{this, "x", "x value", Patcher::minBind(this, &Cart2Sphere::xFunction)}
-   , yMessage{this, "y", "y value", Patcher::minBind(this, &Cart2Sphere::xFunction)}
-   , zMessage{this, "z", "z value", Patcher::minBind(this, &Cart2Sphere::xFunction)}
-   , listMessage{this, "list", Patcher::minBind(this, &Cart2Sphere::listFunction)}
-   , bangMessage{this, "bang", Patcher::minBind(this, &Cart2Sphere::calculateFunction)}
-   , doubleClick{this, "dblclick", Patcher::minBind(this, &Cart2Sphere::calculateFunction)}
+   , xMessage{this, "x", "x value", Max::Patcher::minBind(this, &Cart2Sphere::xFunction)}
+   , yMessage{this, "y", "y value", Max::Patcher::minBind(this, &Cart2Sphere::xFunction)}
+   , zMessage{this, "z", "z value", Max::Patcher::minBind(this, &Cart2Sphere::xFunction)}
+   , listMessage{this, "list", Max::Patcher::minBind(this, &Cart2Sphere::listFunction)}
+   , bangMessage{this, "bang", Max::Patcher::minBind(this, &Cart2Sphere::calculateFunction)}
+   , doubleClick{this, "dblclick", Max::Patcher::minBind(this, &Cart2Sphere::calculateFunction)}
 {
    listFunction(args, 0);
 }
@@ -64,7 +64,7 @@ atoms Cart2Sphere::calculateFunction(const atoms& args, const int inlet)
 
 void Cart2Sphere::calcluate()
 {
-   const Linalg::Vector3 spherical = cartesian.cart2Sphre(asDegrees);
+   const Math::Vector3 spherical = cartesian.cart2Sphre(asDegrees);
 
    atoms result = {spherical.getA(), spherical.getB(), spherical.getC()};
    output.send(result);
