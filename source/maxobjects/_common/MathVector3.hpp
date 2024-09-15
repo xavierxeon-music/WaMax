@@ -72,10 +72,10 @@ inline Math::Vector3 Math::Vector3::cart2Sphre(const bool toDegree)
 
    double el = std::acos(c / radius);
 
-   const double planeRadius = std::sqrt(a * a + b * b);
-   double az = std::acos(a / planeRadius);
+   const double planeRadius = std::sqrt((a * a) + (b * b));
+   double az = (planeRadius > 0) ? std::acos(a / planeRadius) : 0.0;
    if (b < 0)
-      az *= -1.0;
+      az = (2 * M_PI) - az;
 
    if (toDegree)
    {
