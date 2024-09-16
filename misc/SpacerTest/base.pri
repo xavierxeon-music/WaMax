@@ -1,19 +1,21 @@
+MAX_OBJECTS = ../../source/maxobjects
+
 INCLUDEPATH += \
-    $$PWD/.. \
-    $$PWD/../../_common
+    $$MAX_OBJECTS/wa.spacer_tilde \
+    $$MAX_OBJECTS/_common
 
 HEADERS += \
-    $$PWD/../../_common/MathGeneral.h \
-    $$PWD/../../_common/MathGeneral.hpp \
-    $$PWD/../../_common/MathVector3.h \
-    $$PWD/../../_common/MathVector3.hpp \
-    $$PWD/../../_common/Tools.h \
-    $$PWD/../../_common/Tools.hpp
+    $$MAX_OBJECTS/_common/MathGeneral.h \
+    $$MAX_OBJECTS/_common/MathGeneral.hpp \
+    $$MAX_OBJECTS/_common/MathVector3.h \
+    $$MAX_OBJECTS/_common/MathVector3.hpp \
+    $$MAX_OBJECTS/_common/Tools.h \
+    $$MAX_OBJECTS/_common/Tools.hpp
 
 HEADERS += \
-    $$PWD/../SpatialFunction.h \
-    $$PWD/../SpatialRingBuffer.h
+    $$MAX_OBJECTS/wa.spacer_tilde/SpatialFunction.h \
+    $$MAX_OBJECTS/wa.spacer_tilde/SpatialRingBuffer.h
 
 SOURCES += \
-    $$PWD/../SpatialFunction.cpp \
-    $$PWD/../SpatialRingBuffer.cpp
+    $$MAX_OBJECTS/wa.spacer_tilde/SpatialFunction.cpp \
+    $$MAX_OBJECTS/wa.spacer_tilde/SpatialRingBuffer.cpp
