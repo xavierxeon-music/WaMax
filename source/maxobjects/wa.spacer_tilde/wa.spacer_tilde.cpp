@@ -2,6 +2,7 @@
 
 #include <MaxPatcher.h>
 
+#include "SpatialCoords.h"
 #include "SpatialFunction.h"
 
 Spacer::Spacer(const atoms& args)
@@ -14,8 +15,8 @@ Spacer::Spacer(const atoms& args)
    , rightOutput{this, "(signal) right signal", "signal"}
    , asDegrees{this, "asDegrees", true}
    , xMessage{this, "x", "x value", Max::Patcher::minBind(this, &Spacer::xFunction)}
-   , yMessage{this, "y", "y value", Max::Patcher::minBind(this, &Spacer::xFunction)}
-   , zMessage{this, "z", "z value", Max::Patcher::minBind(this, &Spacer::xFunction)}
+   , yMessage{this, "y", "y value", Max::Patcher::minBind(this, &Spacer::yFunction)}
+   , zMessage{this, "z", "z value", Max::Patcher::minBind(this, &Spacer::zFunction)}
    , listMessage{this, "list", Max::Patcher::minBind(this, &Spacer::listFunction)}
 {
    listFunction(args, 0);
@@ -23,8 +24,9 @@ Spacer::Spacer(const atoms& args)
 
 samples<2> Spacer::operator()(sample in)
 {
-   buffer.add(in, spherical.getA(), spherical.getB());
+   Spatial::Coords coords{spherical.getA(), spherical.getB()};
 
+   buffer.add(in, coords);
    sample left = buffer.convolve(true);
    sample right = buffer.convolve(false);
 
@@ -46,6 +48,7 @@ atoms Spacer::yFunction(const atoms& args, const int inlet)
    cartesian.setB(args[0]);
 
    spherical = cartesian.cart2Sphre(asDegrees);
+   cout << spherical.getA() << " " << spherical.getB() << endl;
 
    return {};
 }

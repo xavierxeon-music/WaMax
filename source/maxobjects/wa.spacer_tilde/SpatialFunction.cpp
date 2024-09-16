@@ -17,7 +17,7 @@ Spatial::Function::Function(const Coords& coords, bool left)
    static const Tools::Mapper endClamp(Tools::Range(0, 1.0), Tools::Range(5.0, 10.0));
    static const double earWeight = 0.65;
 
-   const Math::Vector3 ear = left ? Math::Vector3(0, 1, 0) : Math::Vector3(0, -1, 0);
+   const Math::Vector3 ear = left ? Math::Vector3(0, -1, 0) : Math::Vector3(0, 1, 0);
    const Math::Vector3 up(0, 0, 1);
 
    const Math::Vector3 dir = Math::Vector3(coords.az, coords.el, 1).sphere2Cart();
