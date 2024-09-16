@@ -15,9 +15,18 @@ public:
    SignalChart(QWidget* parent);
 
 public:
-   void update(const double& az, const double& el, const double& frequency);
+   void setParams(const double& az, const double& el, const double& frequency);
 
 private:
+   void timerEvent(QTimerEvent* event) override;
+   void initSeries();
+
+private:
+   double az;
+   double el;
+   double frequency;
+   uint32_t currentIndex;
+
    Spatial::RingBuffer buffer;
    QLineSeries* inputSignal;
    QLineSeries* leftEar;
