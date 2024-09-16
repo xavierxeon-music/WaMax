@@ -20,7 +20,7 @@ void Spatial::RingBuffer::add(const double& value, const Coords& coords)
 
    targetCoords = coords;
 
-   if (Math::throghZero(lastValue, value))
+   if (Math::signChange(lastValue, value))
       currentCoords = targetCoords;
 
    lastValue = value;
