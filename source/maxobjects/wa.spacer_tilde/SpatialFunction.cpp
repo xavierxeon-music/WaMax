@@ -5,7 +5,7 @@
 
 #include <cmath>
 
-Spatial::Function::Function(const double& az, const double& el, bool left)
+Spatial::Function::Function(const Coords& coords, bool left)
    : max(0.0)
    , peak(0.0)
    , start(0.0)
@@ -20,7 +20,7 @@ Spatial::Function::Function(const double& az, const double& el, bool left)
    const Math::Vector3 ear = left ? Math::Vector3(0, 1, 0) : Math::Vector3(0, -1, 0);
    const Math::Vector3 up(0, 0, 1);
 
-   const Math::Vector3 dir = Math::Vector3(az, el, 1).sphere2Cart();
+   const Math::Vector3 dir = Math::Vector3(coords.az, coords.el, 1).sphere2Cart();
    const double upNess = dir.dot(up);
 
    double value = (earWeight * dir.dot(ear)) + ((1.0 - earWeight) * upNess);

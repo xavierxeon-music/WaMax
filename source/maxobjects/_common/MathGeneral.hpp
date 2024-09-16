@@ -3,7 +3,7 @@
 
 #include "MathGeneral.h"
 
-#include <cmath>
+#include <math.h>
 
 inline double Math::deg2Rad(const double& degrees)
 {
@@ -15,6 +15,16 @@ inline double Math::rad2Deg(const double& radians)
 {
    const double degrees = radians * (180 / M_PI);
    return degrees;
+}
+
+inline bool Math::signChange(const double& value1, const double& value2)
+{
+   if (value1 < 0.0 && value2 >= 0.0)
+      return true;
+   else if (value1 >= 0.0 && value2 < 0.0)
+      return true;
+   else
+      return false;
 }
 
 #endif // NOT MathGeneralHPP

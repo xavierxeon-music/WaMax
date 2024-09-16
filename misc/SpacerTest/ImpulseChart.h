@@ -5,6 +5,8 @@
 
 #include <QLineSeries>
 
+#include <SpatialCoords.h>
+
 class ImpulseChart : public QChartView
 {
    Q_OBJECT
@@ -13,7 +15,7 @@ public:
    ImpulseChart(QWidget* parent);
 
 public:
-   void update(const double& az, const double& el);
+   void update(const Spatial::Coords& coords);
 
 private:
    QLineSeries* leftEar;

@@ -90,8 +90,9 @@ void SpacerTest::update()
    elSpin->setValue(el);
    radSpin->setValue(spherical.getC());
 
-   impulseChartView->update(az, el);
-   signalChartView->setParams(az, el, signalFrequencySpin->value());
+   Spatial::Coords coords{az, el};
+   impulseChartView->update(coords);
+   signalChartView->setParams(coords, signalFrequencySpin->value());
 }
 
 void SpacerTest::closeEvent(QCloseEvent* ce)

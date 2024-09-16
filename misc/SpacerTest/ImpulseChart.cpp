@@ -40,10 +40,10 @@ ImpulseChart::ImpulseChart(QWidget* parent)
    chart()->legend()->setAlignment(Qt::AlignRight);
 }
 
-void ImpulseChart::update(const double& az, const double& el)
+void ImpulseChart::update(const Spatial::Coords& coords)
 {
-   Spatial::Function leftFunction(az, el, true);
-   Spatial::Function rightFunction(az, el, false);
+   Spatial::Function leftFunction(coords, true);
+   Spatial::Function rightFunction(coords, false);
 
    leftEar->clear();
    rightEar->clear();

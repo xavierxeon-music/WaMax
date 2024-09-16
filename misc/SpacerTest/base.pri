@@ -13,6 +13,7 @@ HEADERS += \
     $$MAX_OBJECTS/_common/Tools.hpp
 
 HEADERS += \
+    $$MAX_OBJECTS/wa.spacer_tilde/SpatialCoords.h \
     $$MAX_OBJECTS/wa.spacer_tilde/SpatialFunction.h \
     $$MAX_OBJECTS/wa.spacer_tilde/SpatialRingBuffer.h
 

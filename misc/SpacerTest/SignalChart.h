@@ -5,6 +5,7 @@
 
 #include <QLineSeries>
 
+#include "SpatialCoords.h"
 #include "SpatialRingBuffer.h"
 
 class SignalChart : public QChartView
@@ -15,15 +16,14 @@ public:
    SignalChart(QWidget* parent);
 
 public:
-   void setParams(const double& az, const double& el, const double& frequency);
+   void setParams(const Spatial::Coords& coords, const double& frequency);
 
 private:
    void timerEvent(QTimerEvent* event) override;
    void initSeries();
 
 private:
-   double az;
-   double el;
+   Spatial::Coords coords;
    double frequency;
    uint32_t currentIndex;
 

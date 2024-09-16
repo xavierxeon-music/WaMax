@@ -1,20 +1,31 @@
 #include "SpatialRingBuffer.h"
 
 #include "SpatialFunction.h"
+#include <MathGeneral.h>
 
 Spatial::RingBuffer::RingBuffer()
    : buffer{}
-   , current(bufferSize)
+   , currentIndex(bufferSize)
+   , currentCoords{}
+   , targetCoords{}
+   , lastValue(0.0)
 {
 }
 
-void Spatial::RingBuffer::add(const double& value, const double& az, const double& el)
+void Spatial::RingBuffer::add(const double& value, const Coords& coords)
 {
-   current++;
-   if (current >= bufferSize)
-      current = 0;
+   currentIndex++;
+   if (currentIndex >= bufferSize)
+      currentIndex = 0;
 
-   buffer[current] = Entry{value, az, el};
+   targetCoords = coords;
+
+   if (Math::throghZero(lastValue, value))
+      currentCoords = targetCoords;
+
+   lastValue = value;
+
+   buffer[currentIndex] = Entry{value, currentCoords};
 }
 
 double Spatial::RingBuffer::convolve(bool left) const
@@ -24,7 +35,7 @@ double Spatial::RingBuffer::convolve(bool left) const
    for (uint16_t counter = 0; counter < bufferSize; counter++)
    {
       const double& inValue = buffer[counter].value;
-      Function f(buffer[counter].az, buffer[counter].el, left);
+      Function f(buffer[counter].coords, left);
 
       uint16_t index = relativeIndex(counter);
       const double amplitude = f.value(index);
@@ -40,6 +51,6 @@ double Spatial::RingBuffer::convolve(bool left) const
 
 uint16_t Spatial::RingBuffer::relativeIndex(const uint16_t counter) const
 {
-   uint16_t index = (counter + bufferSize - current) % bufferSize;
+   uint16_t index = (counter + bufferSize - currentIndex) % bufferSize;
    return index;
 }

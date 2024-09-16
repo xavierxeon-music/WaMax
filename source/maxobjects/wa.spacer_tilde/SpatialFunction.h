@@ -1,12 +1,14 @@
 #ifndef SpatialFunctionH
 #define SpatialFunctionH
 
+#include "SpatialCoords.h"
+
 namespace Spatial
 {
    class Function
    {
    public:
-      Function(const double& az, const double& el, bool left);
+      Function(const Coords& coords, bool left);
 
    public:
       double value(int index) const;

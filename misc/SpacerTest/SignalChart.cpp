@@ -5,8 +5,8 @@
 
 #include "MathGeneral.h"
 
-static const uint16_t samplesPerSecond = 1000;
-static const double timerIntervall = 0.01;
+static const uint16_t samplesPerSecond = 100;
+static const double timerIntervall = 0.1;
 static const uint32_t xLength = 5;
 
 static const uint32_t maxPointCount = xLength * samplesPerSecond;
@@ -14,14 +14,14 @@ static const uint32_t pointsPerIntervall = static_cast<int>(timerIntervall * sam
 
 SignalChart::SignalChart(QWidget* parent)
    : QChartView(parent)
-   , az(90.0)
-   , el(0.0)
+   , coords{}
    , frequency(1.0)
    , currentIndex(0)
    , buffer()
    , inputSignal(nullptr)
    , leftEar(nullptr)
    , rightEar(nullptr)
+
 {
    QValueAxis* axisX = new QValueAxis;
    axisX->setRange(0, xLength);
@@ -57,10 +57,9 @@ SignalChart::SignalChart(QWidget* parent)
    startTimer(timerIntervall * 1000);
 }
 
-void SignalChart::setParams(const double& az, const double& el, const double& frequency)
+void SignalChart::setParams(const Spatial::Coords& coords, const double& frequency)
 {
-   this->az = az;
-   this->el = el;
+   this->coords = coords;
    this->frequency = frequency;
 }
 
@@ -79,7 +78,7 @@ void SignalChart::timerEvent(QTimerEvent* event)
       const double angle = 2.0 * M_PI * frequency * time;
       const double signal = std::sin(angle);
 
-      buffer.add(signal, az, el);
+      buffer.add(signal, coords);
       const double left = buffer.convolve(true);
       const double right = buffer.convolve(false);
 
@@ -105,7 +104,7 @@ void SignalChart::initSeries()
       const double angle = 2.0 * M_PI * frequency * time;
       const double signal = std::sin(angle);
 
-      buffer.add(signal, az, el);
+      buffer.add(signal, coords);
       const double left = buffer.convolve(true);
       const double right = buffer.convolve(false);
 
