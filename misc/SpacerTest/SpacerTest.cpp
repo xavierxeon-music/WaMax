@@ -26,11 +26,16 @@ SpacerTest::SpacerTest()
       zSpin->setValue(z);
 
       cartesian = Math::Vector3(x, y, z);
+
+      const double frequency = settings.value("frequency", signalFrequencySpin->value()).toDouble();
+      signalFrequencySpin->setValue(frequency);
    }
 
    connect(xSpin, &QDoubleSpinBox::valueChanged, this, &SpacerTest::slotXChanged);
    connect(ySpin, &QDoubleSpinBox::valueChanged, this, &SpacerTest::slotYChanged);
    connect(zSpin, &QDoubleSpinBox::valueChanged, this, &SpacerTest::slotZChanged);
+
+   connect(signalFrequencySpin, &QDoubleSpinBox::valueChanged, this, &SpacerTest::slotSetFrequency);
 
    update();
 }
@@ -65,6 +70,15 @@ void SpacerTest::slotZChanged(const double& value)
    }
 }
 
+void SpacerTest::slotSetFrequency(const double& frequency)
+{
+   update();
+   {
+      QSettings settings;
+      settings.setValue("frequency", frequency);
+   }
+}
+
 void SpacerTest::update()
 {
    const Math::Vector3 spherical = cartesian.cart2Sphre();
@@ -77,6 +91,7 @@ void SpacerTest::update()
    radSpin->setValue(spherical.getC());
 
    impulseChartView->update(az, el);
+   signalChartView->update(az, el, signalFrequencySpin->value());
 }
 
 void SpacerTest::closeEvent(QCloseEvent* ce)

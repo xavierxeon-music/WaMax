@@ -16,7 +16,7 @@ ImpulseChart::ImpulseChart(QWidget* parent)
    chart()->addAxis(axisX, Qt::AlignBottom);
 
    QValueAxis* axisY = new QValueAxis;
-   axisY->setRange(-1, 1);
+   axisY->setRange(0, 1);
    axisY->setTitleText("level");
    chart()->addAxis(axisY, Qt::AlignLeft);
 
@@ -34,8 +34,8 @@ ImpulseChart::ImpulseChart(QWidget* parent)
       return series;
    };
 
-   leftEar = addSeries("Level Left", QColor(Qt::green));
-   rightEar = addSeries("Level Right", QColor(Qt::red));
+   leftEar = addSeries("Left", QColor(Qt::green));
+   rightEar = addSeries("Right", QColor(Qt::red));
 
    chart()->legend()->setAlignment(Qt::AlignRight);
 }

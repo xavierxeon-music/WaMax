@@ -20,6 +20,7 @@ private slots:
    void slotXChanged(const double& value);
    void slotYChanged(const double& value);
    void slotZChanged(const double& value);
+   void slotSetFrequency(const double& frequency);
 
 private:
    void update();

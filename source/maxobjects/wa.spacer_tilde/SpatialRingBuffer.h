@@ -21,10 +21,12 @@ namespace Spatial
    public:
       void add(const double& value, const double& az, const double& el);
       double convolve(bool left) const;
+      uint16_t relativeIndex(const uint16_t counter) const;
 
    private:
-      Entry buffer[128];
-      uint8_t current;
+      static constexpr uint16_t bufferSize = 128;
+      Entry buffer[bufferSize];
+      uint16_t current;
    };
 } // namespace Spatial
 

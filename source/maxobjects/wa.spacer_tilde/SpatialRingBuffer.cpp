@@ -4,14 +4,14 @@
 
 Spatial::RingBuffer::RingBuffer()
    : buffer{}
-   , current(128)
+   , current(bufferSize)
 {
 }
 
 void Spatial::RingBuffer::add(const double& value, const double& az, const double& el)
 {
    current++;
-   if (current >= 128)
+   if (current >= bufferSize)
       current = 0;
 
    buffer[current] = Entry{value, az, el};
@@ -21,19 +21,25 @@ double Spatial::RingBuffer::convolve(bool left) const
 {
    double out = 0;
 
-   for (uint8_t counter = 0; counter < 128; counter++)
+   for (uint16_t counter = 0; counter < bufferSize; counter++)
    {
       const double& inValue = buffer[counter].value;
       Function f(buffer[counter].az, buffer[counter].el, left);
 
-      uint8_t index = (counter + 128 - current) % 128;
-      const double amplitude = f.value(counter);
+      uint16_t index = relativeIndex(counter);
+      const double amplitude = f.value(index);
 
       const double outValue = amplitude * inValue;
       out += outValue;
    }
 
-   out /= 8.0;
+   out /= 16.0;
 
    return out;
+}
+
+uint16_t Spatial::RingBuffer::relativeIndex(const uint16_t counter) const
+{
+   uint16_t index = (counter + bufferSize - current) % bufferSize;
+   return index;
 }
