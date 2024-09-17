@@ -33,6 +33,14 @@ Spatial::Function::Function(const Coords& coords, bool left)
    end = peak - endClamp(value);
 }
 
+Spatial::Function::Function(const double& max, const double& peak, const double& start, const double& end)
+   : max(max)
+   , peak(peak)
+   , start(start)
+   , end(end)
+{
+}
+
 double Spatial::Function::value(int index) const
 {
    const double halfwidth = (index < peak) ? (peak - start) : (end - peak);

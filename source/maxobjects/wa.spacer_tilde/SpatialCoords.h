@@ -7,6 +7,8 @@ namespace Spatial
    {
       double az = 0;
       double el = 0;
+
+      bool operator<(const Coords& other) const;
    };
 } // namespace Spatial
 
