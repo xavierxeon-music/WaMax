@@ -17,17 +17,20 @@ Spatial::Function::Function(const Coords& coords, bool left)
    static const Tools::Mapper endClamp(Tools::Range(0, 1.0), Tools::Range(5.0, 10.0));
    static const double earWeight = 0.65;
 
-   const Math::Vector3 ear = left ? Math::Vector3(0, -1, 0) : Math::Vector3(0, 1, 0);
-   const Math::Vector3 up(0, 0, 1);
+   static const Math::Vector3 up(0, 0, 1);
+   static const Math::Vector3 forward(1, 0, 0);
 
+   const Math::Vector3 ear = left ? Math::Vector3(0, -1, 0) : Math::Vector3(0, 1, 0);
    const Math::Vector3 dir = Math::Vector3(coords.az, coords.el, 1).sphere2Cart();
+
    const double upNess = dir.dot(up);
+   const double forwardNess = dir.dot(forward);
 
    double value = (earWeight * dir.dot(ear)) + ((1.0 - earWeight) * upNess);
    value = valueClamp(value);
 
    max = maxClamp(value);
-   peak = 25 + (30 * (1.0 - value));
+   peak = 20 + (30 * (1.0 - value));
 
    start = peak - startClamp(value);
    end = peak - endClamp(value);

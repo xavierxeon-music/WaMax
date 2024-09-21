@@ -14,6 +14,18 @@ inline Math::Vector3::Vector3(const double& a, const double& b, const double& c)
 {
 }
 
+inline bool Math::Vector3::operator==(const Vector3& other) const
+{
+   if (a != other.a)
+      return false;
+   else if (b != other.b)
+      return false;
+   else if (c != other.c)
+      return false;
+
+   return true;
+}
+
 inline const double& Math::Vector3::getA() const
 {
    return a;

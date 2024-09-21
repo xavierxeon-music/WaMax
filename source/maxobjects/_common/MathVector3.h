@@ -9,6 +9,9 @@ namespace Math
       Vector3(const double& a = 0.0, const double& b = 0.0, const double& c = 0.0);
 
    public:
+      bool operator==(const Vector3& other) const;
+
+   public:
       const double& getA() const;
       void setA(const double& value);
 
