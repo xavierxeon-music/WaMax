@@ -3,28 +3,32 @@
 
 namespace Math
 {
+   struct Spherical
+   {
+      double az = 0.0;
+      double el = 0.0;
+      double radius = 0.0;
+
+      bool operator<(const Spherical& other) const;
+   };
+
    class Vector3
    {
    public:
-      Vector3(const double& a = 0.0, const double& b = 0.0, const double& c = 0.0);
+      Vector3(const double& x = 0.0, const double& y = 0.0, const double& z = 0.0);
 
    public:
       bool operator==(const Vector3& other) const;
+      bool operator<(const Vector3& other) const;
+      const double& operator[](const int index) const;
+      double& operator[](const int index);
 
    public:
-      const double& getA() const;
-      void setA(const double& value);
-
-      const double& getB() const;
-      void setB(const double& value);
-
-      const double& getC() const;
-      void setC(const double& value);
-
-      Vector3 sphere2Cart(const bool fromDegree = true);
-      Vector3 cart2Sphre(const bool toDegree = true);
+      static Vector3 fromSpherical(const Spherical& spherical, const bool fromDegree = true);
+      Spherical toSpherical(const bool toDegree = true) const;
 
       double length() const;
+      Vector3 norm() const;
 
       double dot(const Vector3& other) const;
       double dotAngle(const Vector3& other, const bool toDegree = true) const;
@@ -33,9 +37,16 @@ namespace Math
       double crossAngle(const Vector3& other, const bool toDegree = true) const;
 
    private:
-      double a;
-      double b;
-      double c;
+      union
+      {
+         struct
+         {
+            double x;
+            double y;
+            double z;
+         };
+         double data[3];
+      };
    };
 } // namespace Math
 

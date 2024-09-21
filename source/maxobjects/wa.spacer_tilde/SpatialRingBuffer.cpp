@@ -12,7 +12,7 @@ Spatial::RingBuffer::RingBuffer()
 {
 }
 
-void Spatial::RingBuffer::add(const double& value, const Coords& coords)
+void Spatial::RingBuffer::add(const double& value, const Math::Spherical& coords)
 {
    currentIndex++;
    if (currentIndex >= bufferSize)

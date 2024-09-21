@@ -7,59 +7,64 @@
 
 #include "MathGeneral.h"
 
-inline Math::Vector3::Vector3(const double& a, const double& b, const double& c)
-   : a(a)
-   , b(b)
-   , c(c)
+inline bool Math::Spherical::operator<(const Spherical& other) const
+{
+   if (az < other.az)
+      return true;
+   else if (az > other.az)
+      return false;
+   else
+      return (el < other.el);
+}
+
+inline Math::Vector3::Vector3(const double& x, const double& y, const double& z)
+   : x(x)
+   , y(y)
+   , z(z)
 {
 }
 
 inline bool Math::Vector3::operator==(const Vector3& other) const
 {
-   if (a != other.a)
+   if (x != other.x)
       return false;
-   else if (b != other.b)
+   else if (y != other.y)
       return false;
-   else if (c != other.c)
+   else if (z != other.z)
       return false;
 
    return true;
 }
 
-inline const double& Math::Vector3::getA() const
+inline bool Math::Vector3::operator<(const Vector3& other) const
 {
-   return a;
+   if (x < other.x)
+      return true;
+   else if (x > other.x)
+      return false;
+   else if (y < other.y)
+      return true;
+   else if (y > other.y)
+      return false;
+   else
+      return (z < other.z);
 }
 
-inline void Math::Vector3::setA(const double& value)
+inline const double& Math::Vector3::operator[](const int index) const
 {
-   a = value;
+   return data[index];
 }
 
-inline const double& Math::Vector3::getB() const
+inline double& Math::Vector3::operator[](const int index)
 {
-   return b;
+   return data[index];
 }
 
-inline void Math::Vector3::setB(const double& value)
-{
-   b = value;
-}
+inline Math::Vector3 Math::Vector3::fromSpherical(const Spherical& spherical, const bool fromDegree)
 
-inline const double& Math::Vector3::getC() const
 {
-   return c;
-}
-
-inline void Math::Vector3::setC(const double& value)
-{
-   c = value;
-}
-
-inline Math::Vector3 Math::Vector3::sphere2Cart(const bool fromDegree)
-{
-   double az = a;
-   double el = b;
+   double az = spherical.az;
+   double el = spherical.el;
 
    if (fromDegree)
    {
@@ -67,26 +72,24 @@ inline Math::Vector3 Math::Vector3::sphere2Cart(const bool fromDegree)
       el = deg2Rad(el);
    }
 
-   double radius = c;
-
-   const double x = radius * std::sin(el) * std::cos(az);
-   const double y = radius * std::sin(el) * std::sin(az);
-   const double z = radius * std::cos(el);
+   const double x = spherical.radius * std::sin(el) * std::cos(az);
+   const double y = spherical.radius * std::sin(el) * std::sin(az);
+   const double z = spherical.radius * std::cos(el);
 
    return Vector3(x, y, z);
 }
 
-inline Math::Vector3 Math::Vector3::cart2Sphre(const bool toDegree)
+inline Math::Spherical Math::Vector3::toSpherical(const bool toDegree) const
 {
    const double radius = length();
    if (0.0 == radius)
-      return Vector3(0, 0, 0);
+      return Spherical{0, 0, 0};
 
-   double el = std::acos(c / radius);
+   double el = std::acos(y / radius);
 
-   const double planeRadius = std::sqrt((a * a) + (b * b));
-   double az = (planeRadius > 0) ? std::acos(a / planeRadius) : 0.0;
-   if (b < 0)
+   const double planeRadius = std::sqrt((x * x) + (y * y));
+   double az = (planeRadius > 0) ? std::acos(x / planeRadius) : 0.0;
+   if (y < 0)
       az = (2 * M_PI) - az;
 
    if (toDegree)
@@ -95,7 +98,7 @@ inline Math::Vector3 Math::Vector3::cart2Sphre(const bool toDegree)
       el = rad2Deg(el);
    }
 
-   return Vector3(az, el, radius);
+   return Spherical{az, el, radius};
 }
 
 inline double Math::Vector3::length() const
@@ -104,9 +107,22 @@ inline double Math::Vector3::length() const
    return std::sqrt(selfDot);
 }
 
+inline Math::Vector3 Math::Vector3::norm() const
+{
+   const double l = length();
+   if (0.0 == l)
+      return Vector3(0.0, 0.0, 0.0);
+
+   const double nx = x / l;
+   const double ny = y / l;
+   const double nz = z / l;
+
+   return Vector3(nx, ny, nz);
+}
+
 inline double Math::Vector3::dot(const Vector3& other) const
 {
-   return (a * other.a) + (b * other.b) + (c * other.c);
+   return (x * other.x) + (y * other.y) + (z * other.z);
 }
 
 inline double Math::Vector3::dotAngle(const Vector3& other, const bool toDegree) const
@@ -123,11 +139,11 @@ inline double Math::Vector3::dotAngle(const Vector3& other, const bool toDegree)
 
 inline Math::Vector3 Math::Vector3::cross(const Vector3& other) const
 {
-   const double a = (b * other.c) - (c * other.b);
-   const double b = (c * other.a) - (a * other.c);
-   const double c = (a * other.b) - (b * other.a);
+   const double x = (y * other.z) - (z * other.y);
+   const double y = (z * other.x) - (x * other.z);
+   const double z = (x * other.y) - (y * other.x);
 
-   return Vector3(a, b, c);
+   return Vector3(x, y, z);
 }
 
 inline double Math::Vector3::crossAngle(const Vector3& other, const bool toDegree) const
