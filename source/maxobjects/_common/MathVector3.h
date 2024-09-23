@@ -1,6 +1,8 @@
 #ifndef MathVector3H
 #define MathVector3H
 
+#include <iostream>
+
 namespace Math
 {
    struct Spherical
@@ -10,6 +12,7 @@ namespace Math
       double radius = 0.0;
 
       bool operator<(const Spherical& other) const;
+      friend std::ostream& operator<<(std::ostream& out, const Spherical& value);
    };
 
    class Vector3
@@ -22,6 +25,7 @@ namespace Math
       bool operator<(const Vector3& other) const;
       const double& operator[](const int index) const;
       double& operator[](const int index);
+      friend std::ostream& operator<<(std::ostream& out, const Vector3& value);
 
    public:
       static Vector3 fromSpherical(const Spherical& spherical, const bool fromDegree = true);
@@ -48,6 +52,10 @@ namespace Math
          double data[3];
       };
    };
+
+   std::ostream& operator<<(std::ostream& out, const Spherical& value);
+   std::ostream& operator<<(std::ostream& out, const Vector3& value);
+
 } // namespace Math
 
 #ifndef MathVector3HPP

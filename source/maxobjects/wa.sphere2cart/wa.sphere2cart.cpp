@@ -64,6 +64,7 @@ atoms Sphere2Cart::calculateFunction(const atoms& args, const int inlet)
 
 void Sphere2Cart::calcluate()
 {
+   cout << spherical << endl;
    const Math::Vector3 cartesian = Math::Vector3::fromSpherical(spherical, asDegrees);
 
    atoms result = {cartesian[0], cartesian[1], cartesian[2]};

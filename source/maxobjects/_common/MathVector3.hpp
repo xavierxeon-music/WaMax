@@ -17,6 +17,8 @@ inline bool Math::Spherical::operator<(const Spherical& other) const
       return (el < other.el);
 }
 
+//
+
 inline Math::Vector3::Vector3(const double& x, const double& y, const double& z)
    : x(x)
    , y(y)
@@ -156,6 +158,20 @@ inline double Math::Vector3::crossAngle(const Vector3& other, const bool toDegre
       angle = rad2Deg(angle);
 
    return angle;
+}
+
+//
+
+inline std::ostream& Math::operator<<(std::ostream& out, const Math::Spherical& value)
+{
+   out << "sperical[" << value.az << ", " << value.el << ", " << value.radius << "]";
+   return out;
+}
+
+inline std::ostream& Math::operator<<(std::ostream& out, const Math::Vector3& value)
+{
+   out << "[" << value.x << ", " << value.y << ", " << value.z << "]";
+   return out;
 }
 
 #endif // NOT MathVector3HPP
