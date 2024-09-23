@@ -28,12 +28,37 @@
 
 	<methodlist>
 
+		<method name='list'>
+			<digest></digest>
+			<description></description>
+		</method>
+
+		<method name='z'>
+			<digest>z value </digest>
+			<description>z value </description>
+		</method>
+
+		<method name='y'>
+			<digest>y value </digest>
+			<description>y value </description>
+		</method>
+
+		<method name='x'>
+			<digest>x value </digest>
+			<description>x value </description>
+		</method>
+
 	</methodlist>
 
 
 	<!--ATTRIBUTES-->
 
 	<attributelist>
+
+		<attribute name='asDegrees' get='1' set='1' type='long' size='1' >
+			<digest></digest>
+			<description></description>
+		</attribute>
 
 	</attributelist>
 

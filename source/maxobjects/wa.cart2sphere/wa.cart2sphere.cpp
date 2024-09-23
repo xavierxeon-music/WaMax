@@ -19,7 +19,7 @@ Cart2Sphere::Cart2Sphere(const atoms& args)
 
 atoms Cart2Sphere::xFunction(const atoms& args, const int inlet)
 {
-   cartesian.setA(args[0]);
+   cartesian[0] = args[0];
    calcluate();
 
    return {};
@@ -27,7 +27,7 @@ atoms Cart2Sphere::xFunction(const atoms& args, const int inlet)
 
 atoms Cart2Sphere::yFunction(const atoms& args, const int inlet)
 {
-   cartesian.setB(args[0]);
+   cartesian[1] = args[0];
    calcluate();
 
    return {};
@@ -35,7 +35,7 @@ atoms Cart2Sphere::yFunction(const atoms& args, const int inlet)
 
 atoms Cart2Sphere::zFunction(const atoms& args, const int inlet)
 {
-   cartesian.setC(args[0]);
+   cartesian[2] = args[0];
    calcluate();
 
    return {};
@@ -44,11 +44,11 @@ atoms Cart2Sphere::zFunction(const atoms& args, const int inlet)
 atoms Cart2Sphere::listFunction(const atoms& args, const int inlet)
 {
    if (args.size() > 0)
-      cartesian.setA(args[0]);
+      cartesian[0] = args[0];
    if (args.size() > 1)
-      cartesian.setB(args[1]);
+      cartesian[1] = args[1];
    if (args.size() > 2)
-      cartesian.setC(args[2]);
+      cartesian[2] = args[2];
 
    calcluate();
 
@@ -64,9 +64,9 @@ atoms Cart2Sphere::calculateFunction(const atoms& args, const int inlet)
 
 void Cart2Sphere::calcluate()
 {
-   const Math::Vector3 spherical = cartesian.cart2Sphre(asDegrees);
+   const Math::Spherical spherical = cartesian.toSpherical(asDegrees);
 
-   atoms result = {spherical.getA(), spherical.getB(), spherical.getC()};
+   atoms result = {spherical.az, spherical.el, spherical.radius};
    output.send(result);
 }
 

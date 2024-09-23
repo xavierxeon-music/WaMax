@@ -24,7 +24,7 @@ private:
    void calcluate();
 
 private:
-   Math::Vector3 spherical;
+   Math::Spherical spherical;
 
    outlet<> output;
    attribute<bool> asDegrees;

@@ -15,6 +15,7 @@ Spatial::Function::Function(const Math::Spherical& coords, bool left)
    static const Tools::Mapper valueClamp(Tools::Range(-1.0, 1.0), Tools::Range(0.0, 1.0));
    static const Tools::Mapper startClamp(Tools::Range(0, 1.0), Tools::Range(1.0, 3.0));
    static const Tools::Mapper endClamp(Tools::Range(0, 1.0), Tools::Range(5.0, 10.0));
+   static const Tools::Mapper forwardClamp(Tools::Range(-1.0, 1.0), Tools::Range(0.0, 1.0));
    static const double earWeight = 0.65;
 
    static const Math::Vector3 up(0, 0, 1);
@@ -33,7 +34,7 @@ Spatial::Function::Function(const Math::Spherical& coords, bool left)
    max = maxClamp(value);
    peak = 20 + (30 * (1.0 - value));
 
-   start = peak - startClamp(value);
+   start = peak - startClamp(value) - forwardClamp(forwardNess);
    end = peak - endClamp(value);
 }
 

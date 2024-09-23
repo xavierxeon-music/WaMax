@@ -28,7 +28,7 @@ private:
 
 private:
    Math::Vector3 cartesian;
-   Math::Vector3 spherical;
+   Math::Spherical spherical;
    Spatial::RingBuffer buffer;
 
    inlet<> input;
