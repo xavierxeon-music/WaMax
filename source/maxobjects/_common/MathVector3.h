@@ -28,6 +28,10 @@ namespace Math
       friend std::ostream& operator<<(std::ostream& out, const Vector3& value);
 
    public:
+      const double& getX() const;
+      const double& getY() const;
+      const double& getZ() const;
+
       static Vector3 fromSpherical(const Spherical& spherical, const bool fromDegree = true);
       Spherical toSpherical(const bool toDegree = true) const;
 

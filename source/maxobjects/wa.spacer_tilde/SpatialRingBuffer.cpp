@@ -6,6 +6,7 @@ Spatial::RingBuffer::RingBuffer()
    : buffer{}
    , currentIndex(bufferSize)
    , currentCoords{}
+   , currentFunction()
    , targetCoords{}
    , lastValue(0.0)
 {
@@ -22,24 +23,22 @@ void Spatial::RingBuffer::add(const double& value, const Math::Spherical& coords
    if (Math::signChange(lastValue, value))
    {
       currentCoords = targetCoords;
-      currentLeftFunction = Function(currentCoords, true);
-      currentRightFunction = Function(currentCoords, false);
+      currentFunction = Function(currentCoords);
    }
 
    lastValue = value;
 
-   buffer[currentIndex] = Entry{value, currentCoords, currentLeftFunction, currentRightFunction};
+   buffer[currentIndex] = Entry{value, currentFunction};
 }
 
-std::tuple<double, double> Spatial::RingBuffer::convolve() const
+Spatial::Stereo Spatial::RingBuffer::convolve() const
 {
    double left = 0;
    double right = 0;
    for (uint16_t counter = 0; counter < bufferSize; counter++)
    {
       uint16_t index = relativeIndex(counter);
-      const double leftAmplitude = buffer[counter].leftFunction.value(index);
-      const double rightAmplitude = buffer[counter].rightFunction.value(index);
+      const auto [leftAmplitude, rightAmplitude] = buffer[counter].function.value(index);
 
       const double& inValue = buffer[counter].value;
       left += leftAmplitude * inValue;

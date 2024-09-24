@@ -62,6 +62,21 @@ inline double& Math::Vector3::operator[](const int index)
    return data[index];
 }
 
+inline const double& Math::Vector3::getX() const
+{
+   return x;
+}
+
+inline const double& Math::Vector3::getY() const
+{
+   return y;
+}
+
+inline const double& Math::Vector3::getZ() const
+{
+   return z;
+}
+
 inline Math::Vector3 Math::Vector3::fromSpherical(const Spherical& spherical, const bool fromDegree)
 
 {
