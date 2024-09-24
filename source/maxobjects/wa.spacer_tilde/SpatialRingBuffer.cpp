@@ -1,6 +1,5 @@
 #include "SpatialRingBuffer.h"
 
-#include "SpatialFunction.h"
 #include <MathGeneral.h>
 
 Spatial::RingBuffer::RingBuffer()
@@ -21,32 +20,35 @@ void Spatial::RingBuffer::add(const double& value, const Math::Spherical& coords
    targetCoords = coords;
 
    if (Math::signChange(lastValue, value))
+   {
       currentCoords = targetCoords;
+      currentLeftFunction = Function(currentCoords, true);
+      currentRightFunction = Function(currentCoords, false);
+   }
 
    lastValue = value;
 
-   buffer[currentIndex] = Entry{value, currentCoords};
+   buffer[currentIndex] = Entry{value, currentCoords, currentLeftFunction, currentRightFunction};
 }
 
-double Spatial::RingBuffer::convolve(bool left) const
+std::tuple<double, double> Spatial::RingBuffer::convolve() const
 {
-   double out = 0;
-
+   double left = 0;
+   double right = 0;
    for (uint16_t counter = 0; counter < bufferSize; counter++)
    {
-      const double& inValue = buffer[counter].value;
-      Function f(buffer[counter].coords, left);
-
       uint16_t index = relativeIndex(counter);
-      const double amplitude = f.value(index);
+      const double leftAmplitude = buffer[counter].leftFunction.value(index);
+      const double rightAmplitude = buffer[counter].rightFunction.value(index);
 
-      const double outValue = amplitude * inValue;
-      out += outValue;
+      const double& inValue = buffer[counter].value;
+      left += leftAmplitude * inValue;
+      right += rightAmplitude * inValue;
    }
+   left /= 16.0;
+   right /= 16.0;
 
-   out /= 16.0;
-
-   return out;
+   return std::make_tuple(left, right);
 }
 
 uint16_t Spatial::RingBuffer::relativeIndex(const uint16_t counter) const

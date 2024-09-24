@@ -24,46 +24,64 @@ Spacer::Spacer(const atoms& args)
 samples<2> Spacer::operator()(sample in)
 {
    buffer.add(in, spherical);
-   sample left = buffer.convolve(true);
-   sample right = buffer.convolve(false);
+   const auto [left, right] = buffer.convolve();
 
    return {left, right};
 }
 
 atoms Spacer::xFunction(const atoms& args, const int inlet)
 {
-   cartesian[0] = args[0];
-   spherical = cartesian.toSpherical(asDegrees);
+   const double value = args[0];
+   if (cartesian[0] != value)
+   {
+      cartesian[0] = value;
+      spherical = cartesian.toSpherical(asDegrees);
+   }
 
    return {};
 }
 
 atoms Spacer::yFunction(const atoms& args, const int inlet)
 {
-   cartesian[1] = args[0];
-   spherical = cartesian.toSpherical(asDegrees);
+   const double value = args[0];
+   if (cartesian[1] != value)
+   {
+      cartesian[1] = value;
+      spherical = cartesian.toSpherical(asDegrees);
+   }
 
    return {};
 }
 
 atoms Spacer::zFunction(const atoms& args, const int inlet)
 {
-   cartesian[2] = args[0];
-   spherical = cartesian.toSpherical(asDegrees);
+   const double value = args[0];
+   if (cartesian[2] != value)
+   {
+      cartesian[2] = value;
+      spherical = cartesian.toSpherical(asDegrees);
+   }
 
    return {};
 }
 
 atoms Spacer::listFunction(const atoms& args, const int inlet)
 {
-   if (args.size() > 0)
-      cartesian[0] = args[0];
-   if (args.size() > 1)
-      cartesian[1] = args[1];
-   if (args.size() > 2)
-      cartesian[2] = args[2];
+   bool change = false;
+   for (const int& index : {0, 1, 2})
+   {
+      if (args.size() <= index)
+         break;
+      const double value = args[index];
+      if (cartesian[index] == value)
+         continue;
 
-   spherical = cartesian.toSpherical(asDegrees);
+      cartesian[index] = value;
+      change = true;
+   }
+
+   if (change)
+      spherical = cartesian.toSpherical(asDegrees);
 
    return {};
 }
