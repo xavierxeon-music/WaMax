@@ -5,6 +5,8 @@
 
 #include <cmath>
 
+// param
+
 Spatial::Function::Param::Param(const double& max, const double& peak, const double& start, const double& end)
    : max(max)
    , peak(peak)
@@ -13,9 +15,10 @@ Spatial::Function::Param::Param(const double& max, const double& peak, const dou
 {
 }
 
+// function
+
 Spatial::Function::Function(const Math::Spherical& coords)
-   : left()
-   , right()
+   : buffer{}
 {
    static const Tools::Range maxClamp(0.1, 0.8);
    static const Tools::Mapper valueClamp(Tools::Range(-1.0, 1.0), Tools::Range(0.0, 1.0));
@@ -27,8 +30,9 @@ Spatial::Function::Function(const Math::Spherical& coords)
    const Math::Vector3 dir = Math::Vector3::fromSpherical(coords);
    const Math::Vector3 normDir = dir.norm();
 
-   auto fillParam = [&](Param& param, bool invertValue)
+   auto createParam = [&](bool invertValue)
    {
+      Param param;
       double value = earWeight * normDir.getY();
       if (invertValue)
          value *= -1.0;
@@ -40,31 +44,44 @@ Spatial::Function::Function(const Math::Spherical& coords)
 
       param.start = param.peak - startClamp(value) - forwardClamp(normDir.getX());
       param.end = param.peak - endClamp(value);
+
+      return param;
    };
 
-   fillParam(left, false);
-   fillParam(right, true);
+   Param left = createParam(false);
+   Param right = createParam(true);
+
+   fillBuffer(left, right);
 }
 
 Spatial::Function::Function(const Param& left, const Param& right)
-   : left(left)
-   , right(right)
+   : buffer{}
 {
+   fillBuffer(left, right);
 }
 
-Spatial::Stereo Spatial::Function::value(int index) const
+const Spatial::Stereo& Spatial::Function::value(int index) const
 {
-   auto getValue = [&](const Param& param)
+   return buffer[index];
+}
+
+void Spatial::Function::fillBuffer(const Param& left, const Param& right)
+{
+   for (int index = 0; index < bufferSize; index++)
    {
-      const double halfwidth = (index < param.peak) ? (param.peak - param.start) : (param.end - param.peak);
-      const double raise = (index - param.peak) / (2 * halfwidth);
-      const double value = param.max * std::exp(-raise * raise);
+      auto getValue = [&](const Param& param)
+      {
+         const double halfwidth = (index < param.peak) ? (param.peak - param.start) : (param.end - param.peak);
+         const double raise = (index - param.peak) / (2 * halfwidth);
+         const double value = param.max * std::exp(-raise * raise);
 
-      return value;
-   };
+         return value;
+      };
 
-   const double leftValue = getValue(left);
-   const double rightValue = getValue(right);
+      const double leftValue = getValue(left);
+      const double rightValue = getValue(right);
 
-   return std::make_tuple(leftValue, rightValue);
+      const Stereo stereo = Stereo{leftValue, rightValue};
+      buffer[index] = stereo;
+   }
 }

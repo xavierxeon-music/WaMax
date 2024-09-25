@@ -25,14 +25,12 @@ namespace Spatial
       uint16_t relativeIndex(const uint16_t counter) const;
 
    private:
-      static constexpr uint16_t bufferSize = 128;
       Entry buffer[bufferSize];
       uint16_t currentIndex;
 
       Math::Spherical currentCoords;
       Function currentFunction;
 
-      Math::Spherical targetCoords;
       double lastValue;
    };
 } // namespace Spatial

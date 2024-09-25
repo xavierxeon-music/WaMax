@@ -1,13 +1,17 @@
 #ifndef SpatialFunctionH
 #define SpatialFunctionH
 
-#include <tuple>
-
 #include "MathVector3.h"
 
 namespace Spatial
 {
-   using Stereo = std::tuple<double, double>;
+   struct Stereo
+   {
+      double left;
+      double right;
+   };
+
+   static constexpr uint16_t bufferSize = 128;
 
    class Function
    {
@@ -27,11 +31,13 @@ namespace Spatial
       Function(const Param& left = Param(), const Param& right = Param());
 
    public:
-      Stereo value(int index) const;
+      const Stereo& value(int index) const;
 
-   public:
-      Param left;
-      Param right;
+   private:
+      void fillBuffer(const Param& left, const Param& right);
+
+   private:
+      Stereo buffer[bufferSize];
    };
 } // namespace Spatial
 

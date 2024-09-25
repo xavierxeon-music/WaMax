@@ -24,9 +24,9 @@ Spacer::Spacer(const atoms& args)
 samples<2> Spacer::operator()(sample in)
 {
    buffer.add(in, spherical);
-   const auto [left, right] = buffer.convolve();
+   const Spatial::Stereo stereo = buffer.convolve();
 
-   return {left, right};
+   return {stereo.left, stereo.right};
 }
 
 atoms Spacer::xFunction(const atoms& args, const int inlet)
