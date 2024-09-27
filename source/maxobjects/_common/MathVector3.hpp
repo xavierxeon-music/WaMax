@@ -102,7 +102,7 @@ inline Math::Spherical Math::Vector3::toSpherical(const bool toDegree) const
    if (0.0 == radius)
       return Spherical{0, 0, 0};
 
-   double el = std::acos(y / radius);
+   double el = std::acos(z / radius);
 
    const double planeRadius = std::sqrt((x * x) + (y * y));
    double az = (planeRadius > 0) ? std::acos(x / planeRadius) : 0.0;
