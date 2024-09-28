@@ -28,6 +28,41 @@
 
 	<methodlist>
 
+		<method name='anything'>
+			<digest>std input </digest>
+			<description>std input </description>
+		</method>
+
+		<method name='hostname'>
+			<digest>get hostname </digest>
+			<description>get hostname </description>
+		</method>
+
+		<method name='lanch'>
+			<digest>launch application </digest>
+			<description>launch application </description>
+		</method>
+
+		<method name='openApp'>
+			<digest>open application </digest>
+			<description>open application </description>
+		</method>
+
+		<method name='python'>
+			<digest>open python script </digest>
+			<description>open python script </description>
+		</method>
+
+		<method name='package'>
+			<digest>get the package path </digest>
+			<description>get the package path </description>
+		</method>
+
+		<method name='openFile'>
+			<digest>open file </digest>
+			<description>open file </description>
+		</method>
+
 	</methodlist>
 
 

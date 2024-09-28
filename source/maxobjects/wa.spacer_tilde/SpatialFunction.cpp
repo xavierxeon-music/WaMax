@@ -24,7 +24,7 @@ Spatial::Function::Function(const Math::Spherical& coords)
    static const Tools::Mapper valueClamp(Tools::Range(-1.0, 1.0), Tools::Range(0.0, 1.0));
    static const Tools::Mapper startClamp(Tools::Range(0, 1.0), Tools::Range(1.0, 3.0));
    static const Tools::Mapper endClamp(Tools::Range(0, 1.0), Tools::Range(5.0, 10.0));
-   static const Tools::Mapper forwardClamp(Tools::Range(-1.0, 1.0), Tools::Range(0.0, 1.0));
+   static const Tools::Mapper forwardClamp(Tools::Range(-1.0, 1.0), Tools::Range(-1.0, 1.0));
    static const double earWeight = 0.65;
 
    const Math::Vector3 dir = Math::Vector3::fromSpherical(coords);
@@ -42,14 +42,14 @@ Spatial::Function::Function(const Math::Spherical& coords)
       param.max = maxClamp(value);
       param.peak = 20 + (30 * (1.0 - value));
 
-      param.start = param.peak - startClamp(value) - forwardClamp(normDir.getX());
-      param.end = param.peak - endClamp(value);
+      param.start = param.peak - startClamp(value) + forwardClamp(normDir.getX());
+      param.end = param.peak - endClamp(value) + forwardClamp(normDir.getX());
 
       return param;
    };
 
-   Param left = createParam(false);
-   Param right = createParam(true);
+   Param left = createParam(true);
+   Param right = createParam(false);
 
    fillBuffer(left, right);
 }
