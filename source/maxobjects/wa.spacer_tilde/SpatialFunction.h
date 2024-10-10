@@ -5,6 +5,12 @@
 
 namespace Spatial
 {
+   enum class Ear
+   {
+      Left,
+      Right
+   };
+
    struct Stereo
    {
       double left;
@@ -34,10 +40,10 @@ namespace Spatial
       const Stereo& value(int index) const;
 
    private:
-      void fillBuffer(const Param& left, const Param& right);
+      void fillCache(const Param& left, const Param& right);
 
    private:
-      Stereo buffer[bufferSize];
+      Stereo cache[bufferSize];
    };
 } // namespace Spatial
 
