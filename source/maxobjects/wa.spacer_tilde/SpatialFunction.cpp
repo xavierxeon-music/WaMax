@@ -30,6 +30,8 @@ Spatial::Function::Function(const Math::Spherical& coords)
    const Math::Vector3 dir = Math::Vector3::fromSpherical(coords);
    const Math::Vector3 normDir = dir.norm();
 
+   const double peakDistance = 0.0;
+
    auto createParam = [&](bool invertValue)
    {
       Param param;
@@ -40,7 +42,7 @@ Spatial::Function::Function(const Math::Spherical& coords)
       value = valueClamp(value);
 
       param.max = maxClamp(value);
-      param.peak = 20 + (30 * (1.0 - value));
+      param.peak = peakDistance + (30.0 * (1.0 - value));
 
       param.start = param.peak - startClamp(value) + forwardClamp(normDir.getX());
       param.end = param.peak - endClamp(value) + forwardClamp(normDir.getX());
@@ -63,6 +65,21 @@ Spatial::Function::Function(const Param& left, const Param& right)
 const Spatial::Stereo& Spatial::Function::value(int index) const
 {
    return cache[index];
+}
+
+void Spatial::Function::shiftCache(int steps)
+{
+   Stereo sourceCache[bufferSize];
+   std::memcpy(sourceCache, cache, bufferSize);
+
+   for (int targetIndex = 0; targetIndex < bufferSize; targetIndex++)
+   {
+      const int sourceIndex = targetIndex - steps;
+      if (sourceIndex < 0 || sourceIndex >= bufferSize)
+         cache[targetIndex] = Stereo{0.0, 0.0};
+      else
+         cache[targetIndex] = cache[sourceIndex];
+   }
 }
 
 void Spatial::Function::fillCache(const Param& left, const Param& right)
