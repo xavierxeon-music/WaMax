@@ -19,6 +19,8 @@ Spatial::Function::Param::Param(const double& max, const double& peak, const dou
 
 Spatial::Function::Function(const Math::Spherical& coords)
    : cache{}
+   , left()
+   , right()
 {
    static const Tools::Range maxClamp(0.1, 0.8);
    static const Tools::Mapper valueClamp(Tools::Range(-1.0, 1.0), Tools::Range(0.0, 1.0));
@@ -50,16 +52,18 @@ Spatial::Function::Function(const Math::Spherical& coords)
       return param;
    };
 
-   Param left = createParam(true);
-   Param right = createParam(false);
+   left = createParam(true);
+   right = createParam(false);
 
-   fillCache(left, right);
+   fillCache();
 }
 
 Spatial::Function::Function(const Param& left, const Param& right)
    : cache{}
+   , left(left)
+   , right(right)
 {
-   fillCache(left, right);
+   fillCache();
 }
 
 const Spatial::Stereo& Spatial::Function::value(int index) const
@@ -82,7 +86,7 @@ void Spatial::Function::shiftCache(int steps)
    }
 }
 
-void Spatial::Function::fillCache(const Param& left, const Param& right)
+void Spatial::Function::fillCache()
 {
    for (int index = 0; index < bufferSize; index++)
    {

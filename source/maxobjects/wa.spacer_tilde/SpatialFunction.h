@@ -41,10 +41,12 @@ namespace Spatial
       void shiftCache(int steps);
 
    private:
-      void fillCache(const Param& left, const Param& right);
+      void fillCache();
 
    private:
       Stereo cache[bufferSize];
+      Param left;
+      Param right;
    };
 } // namespace Spatial
 
