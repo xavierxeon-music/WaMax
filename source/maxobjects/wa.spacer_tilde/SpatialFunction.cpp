@@ -86,6 +86,16 @@ void Spatial::Function::shiftCache(int steps)
    }
 }
 
+const Spatial::Function::Param& Spatial::Function::getLeftParam() const
+{
+   return left;
+}
+
+const Spatial::Function::Param& Spatial::Function::getRightParam() const
+{
+   return right;
+}
+
 void Spatial::Function::fillCache()
 {
    for (int index = 0; index < bufferSize; index++)

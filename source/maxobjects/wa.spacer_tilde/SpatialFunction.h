@@ -17,7 +17,7 @@ namespace Spatial
       double right;
    };
 
-   static constexpr int16_t bufferSize = 128;
+   static constexpr int16_t bufferSize = 64;
 
    class Function
    {
@@ -39,6 +39,8 @@ namespace Spatial
    public:
       const Stereo& value(int index) const;
       void shiftCache(int steps);
+      const Param& getLeftParam() const;
+      const Param& getRightParam() const;
 
    private:
       void fillCache();
