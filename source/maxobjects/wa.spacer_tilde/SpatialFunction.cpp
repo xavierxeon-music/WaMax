@@ -73,17 +73,17 @@ const Spatial::Stereo& Spatial::Function::value(int index) const
 
 void Spatial::Function::shiftCache(int steps)
 {
-   Stereo sourceCache[bufferSize];
-   std::memcpy(sourceCache, cache, bufferSize);
-
-   for (int targetIndex = 0; targetIndex < bufferSize; targetIndex++)
+   auto moveParam = [&](Param& param)
    {
-      const int sourceIndex = targetIndex - steps;
-      if (sourceIndex < 0 || sourceIndex >= bufferSize)
-         cache[targetIndex] = Stereo{0.0, 0.0};
-      else
-         cache[targetIndex] = cache[sourceIndex];
-   }
+      param.start += steps;
+      param.peak += steps;
+      param.end += steps;
+   };
+
+   moveParam(left);
+   moveParam(right);
+
+   fillCache();
 }
 
 const Spatial::Function::Param& Spatial::Function::getLeftParam() const
