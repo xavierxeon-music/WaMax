@@ -32,23 +32,25 @@ Spatial::Stereo Spatial::RingBuffer::convolve() const
 {
    double left = 0;
    double right = 0;
-   for (uint16_t counter = 0; counter < bufferSize; counter++)
+
+   for (int16_t counter = 0; counter < bufferSize; counter++)
    {
-      uint16_t index = relativeIndex(counter);
+      int16_t index = relativeIndex(counter);
       const Stereo& amplitude = buffer[counter].function.value(index);
 
       const double& inValue = buffer[counter].value;
       left += amplitude.left * inValue;
       right += amplitude.right * inValue;
    }
+
    left /= 16.0;
    right /= 16.0;
 
    return Stereo{left, right};
 }
 
-uint16_t Spatial::RingBuffer::relativeIndex(const uint16_t counter) const
+int16_t Spatial::RingBuffer::relativeIndex(const int16_t counter) const
 {
-   uint16_t index = (counter + bufferSize - currentIndex) % bufferSize;
+   int16_t index = (counter + bufferSize - currentIndex) % bufferSize;
    return index;
 }

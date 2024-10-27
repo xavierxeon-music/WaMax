@@ -32,22 +32,42 @@ Spatial::Function::Function(const Math::Spherical& coords)
    const Math::Vector3 dir = Math::Vector3::fromSpherical(coords);
    const Math::Vector3 normDir = dir.norm();
 
-   const double peakDistance = 0.0;
+   const double peakDistance = 15.0;
 
    auto createParam = [&](bool invertValue)
    {
       Param param;
-      double value = earWeight * normDir.getY();
+
+      // max
+      param.max = earWeight * normDir.getY();
       if (invertValue)
-         value *= -1.0;
-      value += (1.0 - earWeight) * normDir.getZ();
-      value = valueClamp(value);
+         param.max *= -1.0;
+      param.max += (1.0 - earWeight) * normDir.getZ();
+      param.max = valueClamp(param.max);
+      if (normDir.getX() > 0.0)
+         param.max += 0.3 * std::pow(normDir.getX(), 2);
 
-      param.max = maxClamp(value);
-      param.peak = peakDistance + (30.0 * (1.0 - value));
+      // start
+      param.start = 14.0 * -normDir.getY();
+      if (invertValue)
+         param.start *= -1.0;
+      param.start = 16.0 + param.start;
 
-      param.start = param.peak - startClamp(value) + forwardClamp(normDir.getX());
-      param.end = param.peak - endClamp(value) + forwardClamp(normDir.getX());
+      // peak
+      param.peak = param.start + 2.0;
+
+      // end
+      param.end = param.start + 10.0;
+      if (invertValue && normDir.getY() > 0)
+      {
+         const double bulge = 8.0 * std::pow(normDir.getY(), 2);
+         param.end += bulge;
+      }
+      else if (!invertValue && normDir.getY() < 0)
+      {
+         const double bulge = 8.0 * std::pow(normDir.getY(), 2);
+         param.end += bulge;
+      }
 
       return param;
    };
