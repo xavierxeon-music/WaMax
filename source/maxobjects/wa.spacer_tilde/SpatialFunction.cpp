@@ -72,8 +72,8 @@ Spatial::Function::Function(const Math::Spherical& coords)
       return param;
    };
 
-   left = createParam(true);
-   right = createParam(false);
+   left = createParam(false);
+   right = createParam(true);
 
    fillCache();
 }
