@@ -7,6 +7,13 @@
 
 #include "MathGeneral.h"
 
+inline Math::Spherical::Spherical(const double& az, const double& el, const double& radius)
+   : az(az)
+   , el(el)
+   , radius(radius)
+{
+}
+
 inline bool Math::Spherical::operator<(const Spherical& other) const
 {
    if (az < other.az)
@@ -100,7 +107,7 @@ inline Math::Spherical Math::Vector3::toSpherical(const bool toDegree) const
 {
    const double radius = length();
    if (0.0 == radius)
-      return Spherical{0, 0, 0};
+      return Spherical();
 
    double el = std::acos(z / radius);
 
@@ -115,7 +122,7 @@ inline Math::Spherical Math::Vector3::toSpherical(const bool toDegree) const
       el = rad2Deg(el);
    }
 
-   return Spherical{az, el, radius};
+   return Spherical(az, el, radius);
 }
 
 inline double Math::Vector3::length() const

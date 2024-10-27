@@ -5,18 +5,30 @@
 
 namespace Math
 {
-   struct Spherical
+   class Spherical
    {
+   public:
+      Spherical(const double& az = 0.0, const double& el = 0.0, const double& radius = 1.0);
+
+   public:
+      bool operator<(const Spherical& other) const;
+      friend std::ostream& operator<<(std::ostream& out, const Spherical& value);
+
+   public:
       double az = 0.0;
       double el = 0.0;
       double radius = 0.0;
-
-      bool operator<(const Spherical& other) const;
-      friend std::ostream& operator<<(std::ostream& out, const Spherical& value);
    };
 
    class Vector3
    {
+      enum Index
+      {
+         X = 0,
+         Y = 1,
+         Z = 3
+      };
+
    public:
       Vector3(const double& x = 0.0, const double& y = 0.0, const double& z = 0.0);
 
