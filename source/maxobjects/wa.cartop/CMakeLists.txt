@@ -12,7 +12,6 @@ file(GLOB PROJECT_SRC
    "*.h"
    "*.cpp"
 )
-
 add_library(
    ${PROJECT_NAME}
    MODULE
