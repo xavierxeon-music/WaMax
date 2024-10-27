@@ -22,11 +22,7 @@ Spatial::Function::Function(const Math::Spherical& coords)
    , left()
    , right()
 {
-   static const Tools::Range maxClamp(0.1, 0.8);
    static const Tools::Mapper valueClamp(Tools::Range(-1.0, 1.0), Tools::Range(0.0, 1.0));
-   static const Tools::Mapper startClamp(Tools::Range(0, 1.0), Tools::Range(1.0, 3.0));
-   static const Tools::Mapper endClamp(Tools::Range(0, 1.0), Tools::Range(5.0, 10.0));
-   static const Tools::Mapper forwardClamp(Tools::Range(-1.0, 1.0), Tools::Range(-1.0, 1.0));
    static const double earWeight = 0.65;
 
    const Math::Vector3 dir = Math::Vector3::fromSpherical(coords);
@@ -58,16 +54,24 @@ Spatial::Function::Function(const Math::Spherical& coords)
 
       // end
       param.end = param.start + 10.0;
-      if (invertValue && normDir.getY() > 0)
+      auto getBulge = [&]()
       {
-         const double bulge = 8.0 * std::pow(normDir.getY(), 2);
-         param.end += bulge;
-      }
-      else if (!invertValue && normDir.getY() < 0)
-      {
-         const double bulge = 8.0 * std::pow(normDir.getY(), 2);
-         param.end += bulge;
-      }
+         if (invertValue)
+         {
+            if (normDir.getY() > 0)
+               return std::pow(normDir.getY(), 2);
+         }
+         else
+         {
+            if (normDir.getY() < 0)
+               return std::pow(normDir.getY(), 2);
+         }
+
+         return 0.0;
+      };
+
+      static const double bulgeScale = 4.0;
+      param.end += bulgeScale * getBulge();
 
       return param;
    };
