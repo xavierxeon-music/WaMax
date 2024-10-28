@@ -1,6 +1,6 @@
 #include "SpatialRingBuffer.h"
 
-#include <MathGeneral.h>
+#include <Math/MathGeneral.h>
 
 Spatial::RingBuffer::RingBuffer()
    : buffer{}

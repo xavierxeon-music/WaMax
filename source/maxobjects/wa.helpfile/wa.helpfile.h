@@ -1,6 +1,6 @@
 
-#ifndef WaHelpFileH
-#define WaHelpFileH
+#ifndef HelpFileH
+#define HelpFileH
 
 #include "c74_min.h"
 using namespace c74::min;
@@ -37,4 +37,4 @@ private:
    timer<timer_options::defer_delivery> loopTimer;
 };
 
-#endif // NOT  WaHelpFileH
+#endif // NOT HelpFileH

@@ -1,8 +1,8 @@
-#include "wa.sphere2cart.h"
+#include "wa.coord.sphere2cart.h"
 
 #include <MaxPatcher.h>
 
-Sphere2Cart::Sphere2Cart(const atoms& args)
+Coord::Sphere2Cart::Sphere2Cart(const atoms& args)
    : object<Sphere2Cart>()
    , spherical()
    , output{this, "(int) integer value"}
@@ -17,7 +17,7 @@ Sphere2Cart::Sphere2Cart(const atoms& args)
    listFunction(args, 0);
 }
 
-atoms Sphere2Cart::azFunction(const atoms& args, const int inlet)
+atoms Coord::Sphere2Cart::azFunction(const atoms& args, const int inlet)
 {
    spherical.az = args[0];
    calcluate();
@@ -25,7 +25,7 @@ atoms Sphere2Cart::azFunction(const atoms& args, const int inlet)
    return {};
 }
 
-atoms Sphere2Cart::elFunction(const atoms& args, const int inlet)
+atoms Coord::Sphere2Cart::elFunction(const atoms& args, const int inlet)
 {
    spherical.el = args[0];
    calcluate();
@@ -33,7 +33,7 @@ atoms Sphere2Cart::elFunction(const atoms& args, const int inlet)
    return {};
 }
 
-atoms Sphere2Cart::radiusFunction(const atoms& args, const int inlet)
+atoms Coord::Sphere2Cart::radiusFunction(const atoms& args, const int inlet)
 {
    spherical.radius = args[0];
    calcluate();
@@ -41,7 +41,7 @@ atoms Sphere2Cart::radiusFunction(const atoms& args, const int inlet)
    return {};
 }
 
-atoms Sphere2Cart::listFunction(const atoms& args, const int inlet)
+atoms Coord::Sphere2Cart::listFunction(const atoms& args, const int inlet)
 {
    if (args.size() > 0)
       spherical.az = args[0];
@@ -55,14 +55,14 @@ atoms Sphere2Cart::listFunction(const atoms& args, const int inlet)
    return {};
 }
 
-atoms Sphere2Cart::calculateFunction(const atoms& args, const int inlet)
+atoms Coord::Sphere2Cart::calculateFunction(const atoms& args, const int inlet)
 {
    calcluate();
 
    return {};
 }
 
-void Sphere2Cart::calcluate()
+void Coord::Sphere2Cart::calcluate()
 {
    const Math::Vector3 cartesian = Math::Vector3::fromSpherical(spherical, asDegrees);
 
@@ -70,4 +70,4 @@ void Sphere2Cart::calcluate()
    output.send(result);
 }
 
-MIN_EXTERNAL(Sphere2Cart);
+MIN_EXTERNAL(Coord::Sphere2Cart);

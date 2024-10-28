@@ -1,6 +1,5 @@
 #include "SpatialFunction.h"
 
-#include <MathVector3.h>
 #include <Tools.h>
 
 #include <cmath>

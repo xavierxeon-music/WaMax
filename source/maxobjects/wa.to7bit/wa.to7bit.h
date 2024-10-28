@@ -1,5 +1,5 @@
-#ifndef WaTo7BitH
-#define WaTo7BitH
+#ifndef To7BitH
+#define To7BitH
 
 #include "c74_min.h"
 using namespace c74::min;

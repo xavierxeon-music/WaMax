@@ -1,5 +1,5 @@
-#ifndef WaPush2DisplayH
-#define WaPush2DisplayH
+#ifndef Push2DisplayH
+#define Push2DisplayH
 
 #include <mutex>
 

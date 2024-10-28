@@ -1,6 +1,6 @@
 
-#ifndef WaFrom7BitH
-#define WaFrom7BitH
+#ifndef From7BitH
+#define From7BitH
 
 #include "c74_min.h"
 using namespace c74::min;
@@ -22,4 +22,4 @@ private:
    message<> listMessage;
 };
 
-#endif // NOT  WaFrom7BitH
+#endif // NOT From7BitH

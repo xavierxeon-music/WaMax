@@ -1,5 +1,5 @@
-#ifndef WaAppLauncherH
-#define WaAppLauncherH
+#ifndef AppLauncherH
+#define AppLauncherH
 
 #include "c74_min.h"
 using namespace c74::min;
@@ -50,4 +50,4 @@ private:
    message<> hostname;
 };
 
-#endif // NOT  WaAppLauncherH
+#endif // NOT AppLauncherH

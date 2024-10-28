@@ -1,7 +1,7 @@
 #ifndef SpatialFunctionH
 #define SpatialFunctionH
 
-#include "MathVector3.h"
+#include <Math/MathVector3.h>
 
 namespace Spatial
 {

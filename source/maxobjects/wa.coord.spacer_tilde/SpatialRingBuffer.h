@@ -1,12 +1,12 @@
 #ifndef SpatialRingBufferH
 #define SpatialRingBufferH
 
-#include "MathVector3.h"
+#include <Math/MathVector3.h>
+
 #include "SpatialFunction.h"
 
 namespace Spatial
 {
-
    class RingBuffer
    {
    public:

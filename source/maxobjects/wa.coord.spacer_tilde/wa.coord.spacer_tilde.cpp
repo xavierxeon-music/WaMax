@@ -1,10 +1,10 @@
-#include "wa.spacer_tilde.h"
+#include "wa.coord.spacer_tilde.h"
 
 #include <MaxPatcher.h>
 
 #include "SpatialFunction.h"
 
-Spacer::Spacer(const atoms& args)
+Coord::Spacer::Spacer(const atoms& args)
    : object<Spacer>()
    , sample_operator<1, 2>()
    , cartesian()
@@ -21,7 +21,7 @@ Spacer::Spacer(const atoms& args)
    listFunction(args, 0);
 }
 
-samples<2> Spacer::operator()(sample in)
+samples<2> Coord::Spacer::operator()(sample in)
 {
    buffer.add(in, spherical);
    const Spatial::Stereo stereo = buffer.convolve();
@@ -29,7 +29,7 @@ samples<2> Spacer::operator()(sample in)
    return {stereo.left, stereo.right};
 }
 
-atoms Spacer::xFunction(const atoms& args, const int inlet)
+atoms Coord::Spacer::xFunction(const atoms& args, const int inlet)
 {
    const double value = args[0];
    if (cartesian[0] != value)
@@ -41,7 +41,7 @@ atoms Spacer::xFunction(const atoms& args, const int inlet)
    return {};
 }
 
-atoms Spacer::yFunction(const atoms& args, const int inlet)
+atoms Coord::Spacer::yFunction(const atoms& args, const int inlet)
 {
    const double value = args[0];
    if (cartesian[1] != value)
@@ -53,7 +53,7 @@ atoms Spacer::yFunction(const atoms& args, const int inlet)
    return {};
 }
 
-atoms Spacer::zFunction(const atoms& args, const int inlet)
+atoms Coord::Spacer::zFunction(const atoms& args, const int inlet)
 {
    const double value = args[0];
    if (cartesian[2] != value)
@@ -65,7 +65,7 @@ atoms Spacer::zFunction(const atoms& args, const int inlet)
    return {};
 }
 
-atoms Spacer::listFunction(const atoms& args, const int inlet)
+atoms Coord::Spacer::listFunction(const atoms& args, const int inlet)
 {
    bool change = false;
    for (const int& index : {0, 1, 2})
@@ -86,4 +86,4 @@ atoms Spacer::listFunction(const atoms& args, const int inlet)
    return {};
 }
 
-MIN_EXTERNAL(Spacer);
+MIN_EXTERNAL(Coord::Spacer);
