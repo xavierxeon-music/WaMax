@@ -4,13 +4,13 @@
 		"appversion" : 		{
 			"major" : 8,
 			"minor" : 6,
-			"revision" : 0,
+			"revision" : 5,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 34.0, 115.0, 3211.0, 1451.0 ],
+		"rect" : [ 34.0, 115.0, 3157.0, 1451.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 1,
 		"default_fontsize" : 12.0,
@@ -39,6 +39,18 @@
 		"subpatcher_template" : "OpenGrid",
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
+				"box" : 				{
+					"id" : "obj-26",
+					"maxclass" : "newobj",
+					"numinlets" : 6,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 135.0, 195.0, 101.0, 22.0 ],
+					"text" : "scale 0. 1. -70. 0."
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"id" : "obj-23",
 					"maxclass" : "newobj",
@@ -190,6 +202,7 @@
 							"parameter_enum" : [ "val1", "val2" ],
 							"parameter_longname" : "live.text[15]",
 							"parameter_mmax" : 1,
+							"parameter_modmode" : 0,
 							"parameter_shortname" : "mute",
 							"parameter_type" : 2
 						}
@@ -244,6 +257,7 @@
 							"parameter_longname" : "live.dial[7]",
 							"parameter_mmax" : 0.0,
 							"parameter_mmin" : -70.0,
+							"parameter_modmode" : 0,
 							"parameter_shortname" : "live.dial[4]",
 							"parameter_type" : 0,
 							"parameter_unitstyle" : 4
@@ -264,6 +278,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 60.0, 60.0, 107.0, 22.0 ],
+					"style" : "wa.admin",
 					"text" : "wa.patch.bpatcher"
 				}
 
@@ -374,6 +389,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 570.0, 480.0, 42.0, 22.0 ],
+					"style" : "wa.send",
 					"text" : "send~"
 				}
 
@@ -409,6 +425,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 315.0, 480.0, 42.0, 22.0 ],
+					"style" : "wa.send",
 					"text" : "send~"
 				}
 
@@ -619,6 +636,13 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-26", 0 ],
+					"source" : [ "obj-23", 3 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-8", 0 ],
 					"source" : [ "obj-24", 0 ]
 				}
@@ -628,6 +652,13 @@
 				"patchline" : 				{
 					"destination" : [ "obj-6", 0 ],
 					"source" : [ "obj-25", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-12", 0 ],
+					"source" : [ "obj-26", 0 ]
 				}
 
 			}
@@ -732,22 +763,27 @@
 			"inherited_shortname" : 1
 		}
 ,
-		"dependency_cache" : [ 			{
-				"name" : "bpatcher_size.js",
-				"bootpath" : "/Volumes/ExternalData/_Home/GitHub/MusicProjects/Max/WaMaxPackage/javascript/setup",
-				"patcherrelativepath" : "../../javascript/setup",
-				"type" : "TEXT",
-				"implicit" : 1
+		"autosave" : 0,
+		"styles" : [ 			{
+				"name" : "wa.admin",
+				"default" : 				{
+					"accentcolor" : [ 0.239216, 0.254902, 0.278431, 1.0 ],
+					"bgcolor" : [ 0.784314, 0.145098, 0.023529, 1.0 ]
+				}
+,
+				"parentstyle" : "",
+				"multi" : 0
 			}
 , 			{
-				"name" : "wa.patch.bpatcher.maxpat",
-				"bootpath" : "/Volumes/ExternalData/_Home/GitHub/MusicProjects/Max/WaMaxPackage/patchers/setup",
-				"patcherrelativepath" : "../setup",
-				"type" : "JSON",
-				"implicit" : 1
+				"name" : "wa.send",
+				"default" : 				{
+					"accentcolor" : [ 0.701961, 0.415686, 0.886275, 1.0 ]
+				}
+,
+				"parentstyle" : "",
+				"multi" : 0
 			}
- ],
-		"autosave" : 0
+ ]
 	}
 
 }
