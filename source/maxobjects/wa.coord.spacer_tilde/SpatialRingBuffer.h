@@ -25,7 +25,7 @@ namespace Spatial
       int16_t relativeIndex(const int16_t counter) const;
 
    private:
-      Entry buffer[bufferSize];
+      Entry buffer[Function::length];
       int16_t currentIndex;
 
       Math::Spherical currentCoords;

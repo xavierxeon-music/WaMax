@@ -3,21 +3,10 @@
 
 #include <Math/MathVector3.h>
 
+#include "SpatialStereo.h"
+
 namespace Spatial
 {
-   enum class Ear
-   {
-      Left,
-      Right
-   };
-
-   struct Stereo
-   {
-      double left;
-      double right;
-   };
-
-   static constexpr int16_t bufferSize = 64;
 
    class Function
    {
@@ -31,6 +20,8 @@ namespace Spatial
 
          Param(const double& max = 0.0, const double& peak = 0.0, const double& start = 0.0, const double& end = 0.0);
       };
+
+      static constexpr int16_t length = 64;
 
    public:
       Function(const Math::Spherical& coords);
@@ -46,7 +37,7 @@ namespace Spatial
       void fillCache();
 
    private:
-      Stereo cache[bufferSize];
+      Stereo cache[length];
       Param left;
       Param right;
    };

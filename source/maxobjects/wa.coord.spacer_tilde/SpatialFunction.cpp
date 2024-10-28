@@ -121,7 +121,7 @@ const Spatial::Function::Param& Spatial::Function::getRightParam() const
 
 void Spatial::Function::fillCache()
 {
-   for (int index = 0; index < bufferSize; index++)
+   for (int index = 0; index < Function::length; index++)
    {
       auto getValue = [&](const Param& param)
       {

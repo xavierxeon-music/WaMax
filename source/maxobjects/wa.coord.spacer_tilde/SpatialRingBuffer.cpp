@@ -4,7 +4,7 @@
 
 Spatial::RingBuffer::RingBuffer()
    : buffer{}
-   , currentIndex(bufferSize)
+   , currentIndex(Function::length)
    , currentCoords{}
    , currentFunction()
    , lastValue(0.0)
@@ -14,7 +14,7 @@ Spatial::RingBuffer::RingBuffer()
 void Spatial::RingBuffer::add(const double& value, const Math::Spherical& coords)
 {
    currentIndex++;
-   if (currentIndex >= bufferSize)
+   if (currentIndex >= Function::length)
       currentIndex = 0;
 
    if (Math::signChange(lastValue, value))
@@ -30,27 +30,26 @@ void Spatial::RingBuffer::add(const double& value, const Math::Spherical& coords
 
 Spatial::Stereo Spatial::RingBuffer::convolve() const
 {
-   double left = 0;
-   double right = 0;
+   Stereo signal;
+   Stereo totalAmplitude;
 
-   for (int16_t counter = 0; counter < bufferSize; counter++)
+   for (int16_t counter = 0; counter < Function::length; counter++)
    {
       int16_t index = relativeIndex(counter);
       const Stereo& amplitude = buffer[counter].function.value(index);
+      totalAmplitude += amplitude;
 
-      const double& inValue = buffer[counter].value;
-      left += amplitude.left * inValue;
-      right += amplitude.right * inValue;
+      const double& sourceValue = buffer[counter].value;
+      signal += (amplitude * sourceValue);
    }
 
-   left /= 16.0;
-   right /= 16.0;
-
-   return Stereo{left, right};
+   const double max = totalAmplitude.max();
+   signal *= (1.0 / max);
+   return signal;
 }
 
 int16_t Spatial::RingBuffer::relativeIndex(const int16_t counter) const
 {
-   int16_t index = (counter + bufferSize - currentIndex) % bufferSize;
+   int16_t index = (counter + Function::length - currentIndex) % Function::length;
    return index;
 }
