@@ -1,6 +1,6 @@
 #include "SpatialFunction.h"
 
-#include <Tools.h>
+#include <Mapper.h>
 
 #include <cmath>
 
@@ -21,7 +21,7 @@ Spatial::Function::Function(const Math::Spherical& coords)
    , left()
    , right()
 {
-   static const Tools::Mapper valueClamp(Tools::Range(-1.0, 1.0), Tools::Range(0.0, 1.0));
+   static const Mapper valueClamp(Range(-1.0, 1.0), Range(0.0, 1.0));
    static const double earWeight = 0.65;
 
    const Math::Vector3 dir = Math::Vector3::fromSpherical(coords);
