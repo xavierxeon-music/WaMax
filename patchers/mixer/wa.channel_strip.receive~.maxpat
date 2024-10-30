@@ -2,42 +2,20 @@
 	"patcher" : 	{
 		"fileversion" : 1,
 		"appversion" : 		{
-			"major" : 8,
-			"minor" : 5,
-			"revision" : 5,
+			"major" : 9,
+			"minor" : 0,
+			"revision" : 0,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 34.0, 283.0, 2856.0, 1283.0 ],
-		"bglocked" : 0,
-		"openinpresentation" : 0,
-		"default_fontsize" : 12.0,
-		"default_fontface" : 0,
-		"default_fontname" : "Arial",
+		"rect" : [ 34.0, 106.0, 1332.0, 1029.0 ],
+		"openinpresentation" : 1,
 		"gridonopen" : 2,
 		"gridsize" : [ 15.0, 15.0 ],
 		"gridsnaponopen" : 2,
-		"objectsnaponopen" : 1,
-		"statusbarvisible" : 2,
-		"toolbarvisible" : 1,
-		"lefttoolbarpinned" : 0,
-		"toptoolbarpinned" : 0,
-		"righttoolbarpinned" : 0,
-		"bottomtoolbarpinned" : 0,
-		"toolbars_unpinned_last_save" : 0,
-		"tallnewobj" : 0,
-		"boxanimatetime" : 200,
-		"enablehscroll" : 1,
-		"enablevscroll" : 1,
-		"devicewidth" : 0.0,
-		"description" : "",
-		"digest" : "",
-		"tags" : "",
-		"style" : "",
 		"subpatcher_template" : "OpenGrid",
-		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
 					"id" : "obj-30",
@@ -46,7 +24,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 530.5, 480.0, 193.0, 22.0 ],
-					"text" : "set bus_right_drone"
+					"text" : "set bus_right_bus"
 				}
 
 			}
@@ -82,7 +60,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 275.5, 480.0, 193.0, 22.0 ],
-					"text" : "set bus_left_drone"
+					"text" : "set bus_left_bus"
 				}
 
 			}
@@ -153,7 +131,7 @@
 , 			{
 				"box" : 				{
 					"angle" : 270.0,
-					"bgcolor" : [ 0.592156862745098, 0.592156862745098, 0.592156862745098, 1.0 ],
+					"bgcolor" : [ 0.239216, 0.254902, 0.278431, 1.0 ],
 					"id" : "obj-17",
 					"maxclass" : "panel",
 					"mode" : 0,
@@ -340,17 +318,18 @@
 
 			}
  ],
+		"originid" : "pat-74",
 		"dependency_cache" : [ 			{
 				"name" : "bpatcher_size.js",
-				"bootpath" : "/Volumes/DATA/_Home/GitHub/MusicProjects/Max/WaMaxPackage/javascript/setup",
-				"patcherrelativepath" : "../../javascript/setup",
+				"bootpath" : "~/GitHub/MusicProjects/WaMaxPackageBase/javascript/patch",
+				"patcherrelativepath" : "../../javascript/patch",
 				"type" : "TEXT",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "wa.patch.bpatcher.maxpat",
-				"bootpath" : "/Volumes/DATA/_Home/GitHub/MusicProjects/Max/WaMaxPackage/patchers/setup",
-				"patcherrelativepath" : "../setup",
+				"bootpath" : "~/GitHub/MusicProjects/WaMaxPackageBase/patchers/patch",
+				"patcherrelativepath" : "../patch",
 				"type" : "JSON",
 				"implicit" : 1
 			}

@@ -2,42 +2,20 @@
 	"patcher" : 	{
 		"fileversion" : 1,
 		"appversion" : 		{
-			"major" : 8,
-			"minor" : 6,
-			"revision" : 1,
+			"major" : 9,
+			"minor" : 0,
+			"revision" : 0,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 34.0, 143.0, 3055.0, 1423.0 ],
-		"bglocked" : 0,
+		"rect" : [ 34.0, 106.0, 1332.0, 1029.0 ],
 		"openinpresentation" : 1,
-		"default_fontsize" : 12.0,
-		"default_fontface" : 0,
-		"default_fontname" : "Arial",
 		"gridonopen" : 2,
 		"gridsize" : [ 15.0, 15.0 ],
 		"gridsnaponopen" : 2,
-		"objectsnaponopen" : 1,
-		"statusbarvisible" : 2,
-		"toolbarvisible" : 1,
-		"lefttoolbarpinned" : 0,
-		"toptoolbarpinned" : 0,
-		"righttoolbarpinned" : 0,
-		"bottomtoolbarpinned" : 0,
-		"toolbars_unpinned_last_save" : 0,
-		"tallnewobj" : 0,
-		"boxanimatetime" : 200,
-		"enablehscroll" : 1,
-		"enablevscroll" : 1,
-		"devicewidth" : 0.0,
-		"description" : "",
-		"digest" : "",
-		"tags" : "",
-		"style" : "",
 		"subpatcher_template" : "OpenGrid",
-		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
 					"id" : "obj-52",
@@ -176,6 +154,7 @@
 							"parameter_longname" : "live.text",
 							"parameter_mmax" : 1,
 							"parameter_modmode" : 0,
+							"parameter_osc_name" : "<default>",
 							"parameter_shortname" : "live.text",
 							"parameter_type" : 2
 						}
@@ -263,6 +242,7 @@
 							"parameter_longname" : "live.text[8]",
 							"parameter_mmax" : 1,
 							"parameter_modmode" : 0,
+							"parameter_osc_name" : "<default>",
 							"parameter_shortname" : "solo",
 							"parameter_type" : 2
 						}
@@ -298,6 +278,7 @@
 							"parameter_longname" : "live.text[9]",
 							"parameter_mmax" : 1,
 							"parameter_modmode" : 0,
+							"parameter_osc_name" : "<default>",
 							"parameter_shortname" : "mute",
 							"parameter_type" : 2
 						}
@@ -376,6 +357,7 @@
 							"parameter_mmax" : 6.0,
 							"parameter_mmin" : -70.0,
 							"parameter_modmode" : 0,
+							"parameter_osc_name" : "<default>",
 							"parameter_shortname" : "live.gain~",
 							"parameter_type" : 0,
 							"parameter_unitstyle" : 4
@@ -415,7 +397,7 @@
 , 			{
 				"box" : 				{
 					"angle" : 270.0,
-					"bgcolor" : [ 0.592156862745098, 0.592156862745098, 0.592156862745098, 1.0 ],
+					"bgcolor" : [ 0.239216, 0.254902, 0.278431, 1.0 ],
 					"id" : "obj-5",
 					"maxclass" : "panel",
 					"mode" : 0,
@@ -595,6 +577,7 @@
 
 			}
  ],
+		"originid" : "pat-54",
 		"parameters" : 		{
 			"obj-11" : [ "live.text", "live.text", 0 ],
 			"obj-16" : [ "live.text[9]", "mute", 0 ],
@@ -614,28 +597,28 @@
 ,
 		"dependency_cache" : [ 			{
 				"name" : "_mixer.js",
-				"bootpath" : "/Volumes/ExternalData/_Home/GitHub/MusicProjects/Max/WaMaxPackage/javascript/mixer",
+				"bootpath" : "~/GitHub/MusicProjects/WaMaxPackageBase/javascript/mixer",
 				"patcherrelativepath" : "../../javascript/mixer",
 				"type" : "TEXT",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "bpatcher_size.js",
-				"bootpath" : "/Volumes/ExternalData/_Home/GitHub/MusicProjects/Max/WaMaxPackage/javascript/setup",
-				"patcherrelativepath" : "../../javascript/setup",
+				"bootpath" : "~/GitHub/MusicProjects/WaMaxPackageBase/javascript/patch",
+				"patcherrelativepath" : "../../javascript/patch",
 				"type" : "TEXT",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "mixer_master.js",
-				"bootpath" : "/Volumes/ExternalData/_Home/GitHub/MusicProjects/Max/WaMaxPackage/javascript/mixer",
+				"bootpath" : "~/GitHub/MusicProjects/WaMaxPackageBase/javascript/mixer",
 				"patcherrelativepath" : "../../javascript/mixer",
 				"type" : "TEXT",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "wa.patch.bpatcher.maxpat",
-				"bootpath" : "/Volumes/ExternalData/_Home/GitHub/MusicProjects/Max/WaMaxPackage/patchers/patch",
+				"bootpath" : "~/GitHub/MusicProjects/WaMaxPackageBase/patchers/patch",
 				"patcherrelativepath" : "../patch",
 				"type" : "JSON",
 				"implicit" : 1

@@ -2,42 +2,20 @@
 	"patcher" : 	{
 		"fileversion" : 1,
 		"appversion" : 		{
-			"major" : 8,
-			"minor" : 6,
-			"revision" : 4,
+			"major" : 9,
+			"minor" : 0,
+			"revision" : 0,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 34.0, 283.0, 3732.0, 1283.0 ],
-		"bglocked" : 0,
+		"rect" : [ 34.0, 106.0, 1332.0, 1029.0 ],
 		"openinpresentation" : 1,
-		"default_fontsize" : 12.0,
-		"default_fontface" : 0,
-		"default_fontname" : "Arial",
 		"gridonopen" : 2,
 		"gridsize" : [ 15.0, 15.0 ],
 		"gridsnaponopen" : 2,
-		"objectsnaponopen" : 1,
-		"statusbarvisible" : 2,
-		"toolbarvisible" : 1,
-		"lefttoolbarpinned" : 0,
-		"toptoolbarpinned" : 0,
-		"righttoolbarpinned" : 0,
-		"bottomtoolbarpinned" : 0,
-		"toolbars_unpinned_last_save" : 0,
-		"tallnewobj" : 0,
-		"boxanimatetime" : 200,
-		"enablehscroll" : 1,
-		"enablevscroll" : 1,
-		"devicewidth" : 0.0,
-		"description" : "",
-		"digest" : "",
-		"tags" : "",
-		"style" : "",
 		"subpatcher_template" : "OpenGrid",
-		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
 					"id" : "obj-5",
@@ -352,6 +330,7 @@
 							"parameter_longname" : "live.text[5]",
 							"parameter_mmax" : 1,
 							"parameter_modmode" : 0,
+							"parameter_osc_name" : "<default>",
 							"parameter_shortname" : "solo",
 							"parameter_type" : 2
 						}
@@ -386,6 +365,7 @@
 							"parameter_longname" : "live.text[4]",
 							"parameter_mmax" : 1,
 							"parameter_modmode" : 0,
+							"parameter_osc_name" : "<default>",
 							"parameter_shortname" : "mute",
 							"parameter_type" : 2
 						}
@@ -415,6 +395,7 @@
 							"parameter_mmax" : 100.0,
 							"parameter_mmin" : -100.0,
 							"parameter_modmode" : 3,
+							"parameter_osc_name" : "<default>",
 							"parameter_shortname" : "live.dial",
 							"parameter_type" : 0,
 							"parameter_unitstyle" : 6
@@ -531,6 +512,7 @@
 							"parameter_mmax" : 6.0,
 							"parameter_mmin" : -70.0,
 							"parameter_modmode" : 0,
+							"parameter_osc_name" : "<default>",
 							"parameter_shortname" : "live.gain~",
 							"parameter_type" : 0,
 							"parameter_unitstyle" : 4
@@ -559,7 +541,7 @@
 , 			{
 				"box" : 				{
 					"angle" : 270.0,
-					"bgcolor" : [ 0.592156862745098, 0.592156862745098, 0.592156862745098, 1.0 ],
+					"bgcolor" : [ 0.239216, 0.254902, 0.278431, 1.0 ],
 					"id" : "obj-2",
 					"maxclass" : "panel",
 					"mode" : 0,
@@ -829,6 +811,7 @@
 
 			}
  ],
+		"originid" : "pat-66",
 		"parameters" : 		{
 			"obj-15" : [ "live.dial[5]", "live.dial", 0 ],
 			"obj-16" : [ "live.text[4]", "mute", 0 ],
@@ -846,6 +829,35 @@
 			"inherited_shortname" : 1
 		}
 ,
+		"dependency_cache" : [ 			{
+				"name" : "_mixer.js",
+				"bootpath" : "~/GitHub/MusicProjects/WaMaxPackageBase/javascript/mixer",
+				"patcherrelativepath" : "../../javascript/mixer",
+				"type" : "TEXT",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "bpatcher_size.js",
+				"bootpath" : "~/GitHub/MusicProjects/WaMaxPackageBase/javascript/patch",
+				"patcherrelativepath" : "../../javascript/patch",
+				"type" : "TEXT",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "mixer_strip.js",
+				"bootpath" : "~/GitHub/MusicProjects/WaMaxPackageBase/javascript/mixer",
+				"patcherrelativepath" : "../../javascript/mixer",
+				"type" : "TEXT",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "wa.patch.bpatcher.maxpat",
+				"bootpath" : "~/GitHub/MusicProjects/WaMaxPackageBase/patchers/patch",
+				"patcherrelativepath" : "../patch",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+ ],
 		"autosave" : 0,
 		"styles" : [ 			{
 				"name" : "wa.admin",
