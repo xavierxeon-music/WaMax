@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SOURCE=$(pwd)
-TARGET=~/Documents/Max\ 8/Packages
+TARGET=~/Documents/Max\ 9/Packages
 
 if [ ! -d "$TARGET" ]
 then
