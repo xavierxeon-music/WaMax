@@ -1,5 +1,5 @@
 {
-   "name": "WaMaxPackage",
+   "name": "WaMaxPackageBase",
    "type": "filelist",
    "contents": [
       "wa.jit_project.maxsnip",
