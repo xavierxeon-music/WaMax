@@ -1,6 +1,7 @@
 autowatch = 1;
-inlets = 0;
-outlets = 0;
+
+inlets = 1;
+outlets = 1;
 
 
 var isAutomatic = false;
