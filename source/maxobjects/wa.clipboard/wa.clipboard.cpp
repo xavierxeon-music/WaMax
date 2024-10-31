@@ -20,13 +20,17 @@ Clipboard::Clipboard(const atoms& args)
 
 atoms Clipboard::sendToClipboardFunction(const atoms& args, const int inlet)
 {
-   const std::string text = args[0];
+   std::string text = args[0];
+   for (auto i = 1; i < args.size(); i++)
+   {
+      const std::string part = args[i];
+      text = text + " " + part;
+   }
+
    if (text.empty())
       return {};
 
-   cout << text << endl;
    SystemClipboard::write(text);
-
    return {};
 }
 
@@ -34,13 +38,12 @@ atoms Clipboard::getFromClipboardFunction(const atoms& args, const int inlet)
 {
    content.send(buffer);
    status.send(0);
-
    return {};
 }
 
 atoms Clipboard::timerFunction(const atoms& args, const int inlet)
 {
-   const std::string text = SystemClipboard::read();
+   std::string text = SystemClipboard::read();
    if (buffer != text)
    {
       buffer = text;
