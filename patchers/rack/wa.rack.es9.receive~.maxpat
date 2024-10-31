@@ -100,7 +100,7 @@
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "js es9_port 0"
+					"text" : "v8 es9_port 0"
 				}
 
 			}

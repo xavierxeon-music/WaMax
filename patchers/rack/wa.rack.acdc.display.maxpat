@@ -412,7 +412,7 @@
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "js acdc_display"
+					"text" : "v8 acdc_display"
 				}
 
 			}

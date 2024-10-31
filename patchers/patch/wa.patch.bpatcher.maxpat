@@ -112,7 +112,7 @@
 						"parameter_enable" : 0
 					}
 ,
-					"text" : "js bpatcher_size"
+					"text" : "v8 bpatcher_size"
 				}
 
 			}

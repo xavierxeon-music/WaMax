@@ -360,7 +360,7 @@
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "js sl3_device"
+					"text" : "v8 sl3_device"
 				}
 
 			}

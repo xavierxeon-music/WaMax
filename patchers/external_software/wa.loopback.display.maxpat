@@ -96,7 +96,7 @@
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "js audio_loopback_names"
+					"text" : "v8 audio_loopback_names"
 				}
 
 			}

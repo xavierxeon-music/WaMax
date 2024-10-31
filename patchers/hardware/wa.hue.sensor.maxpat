@@ -136,7 +136,7 @@
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "js hue"
+					"text" : "v8 hue"
 				}
 
 			}

@@ -230,7 +230,7 @@
 						"parameter_enable" : 0
 					}
 ,
-					"text" : "js mixer_strip #0"
+					"text" : "v8 mixer_strip #0"
 				}
 
 			}

@@ -88,7 +88,7 @@
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "js toggle"
+					"text" : "v8 toggle"
 				}
 
 			}

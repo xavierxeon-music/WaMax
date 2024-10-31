@@ -311,7 +311,7 @@
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "js push2_device"
+					"text" : "v8 push2_device"
 				}
 
 			}
@@ -388,7 +388,7 @@
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "js push2_device"
+					"text" : "v8 push2_device"
 				}
 
 			}

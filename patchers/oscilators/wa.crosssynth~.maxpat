@@ -2,42 +2,19 @@
 	"patcher" : 	{
 		"fileversion" : 1,
 		"appversion" : 		{
-			"major" : 8,
-			"minor" : 5,
-			"revision" : 5,
+			"major" : 9,
+			"minor" : 0,
+			"revision" : 0,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 34.0, 171.0, 3772.0, 1395.0 ],
-		"bglocked" : 0,
-		"openinpresentation" : 0,
-		"default_fontsize" : 12.0,
-		"default_fontface" : 0,
-		"default_fontname" : "Arial",
+		"rect" : [ 34.0, 171.0, 3372.0, 1395.0 ],
 		"gridonopen" : 2,
 		"gridsize" : [ 15.0, 15.0 ],
 		"gridsnaponopen" : 2,
-		"objectsnaponopen" : 1,
-		"statusbarvisible" : 2,
-		"toolbarvisible" : 1,
-		"lefttoolbarpinned" : 0,
-		"toptoolbarpinned" : 0,
-		"righttoolbarpinned" : 0,
-		"bottomtoolbarpinned" : 0,
-		"toolbars_unpinned_last_save" : 0,
-		"tallnewobj" : 0,
-		"boxanimatetime" : 200,
-		"enablehscroll" : 1,
-		"enablevscroll" : 1,
-		"devicewidth" : 0.0,
-		"description" : "",
-		"digest" : "",
-		"tags" : "",
-		"style" : "",
 		"subpatcher_template" : "OpenGrid",
-		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
 					"id" : "obj-7",
@@ -45,20 +22,20 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 495.0, 180.0, 68.0, 22.0 ],
+					"patching_rect" : [ 210.0, 135.0, 68.0, 22.0 ],
 					"text" : "normalize~"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"comment" : "signalBlend",
+					"comment" : "signalPhaseB",
 					"id" : "obj-8",
 					"index" : 3,
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 497.0, 255.0, 30.0, 30.0 ]
+					"patching_rect" : [ 210.0, 180.0, 30.0, 30.0 ]
 				}
 
 			}
@@ -69,20 +46,20 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 390.0, 180.0, 68.0, 22.0 ],
+					"patching_rect" : [ 120.0, 135.0, 68.0, 22.0 ],
 					"text" : "normalize~"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"comment" : "signalBlend",
+					"comment" : "signalPhaseA",
 					"id" : "obj-6",
 					"index" : 2,
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 392.0, 255.0, 30.0, 30.0 ]
+					"patching_rect" : [ 120.0, 180.0, 30.0, 30.0 ]
 				}
 
 			}
@@ -93,7 +70,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 288.0, 180.0, 68.0, 22.0 ],
+					"patching_rect" : [ 29.0, 135.0, 68.0, 22.0 ],
 					"text" : "normalize~"
 				}
 
@@ -102,10 +79,10 @@
 				"box" : 				{
 					"id" : "obj-4",
 					"maxclass" : "newobj",
-					"numinlets" : 3,
+					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "signal" ],
-					"patching_rect" : [ 288.0, 105.0, 133.0, 22.0 ],
+					"patching_rect" : [ 29.0, 90.0, 133.0, 22.0 ],
 					"text" : "pfft~ _crosssynth 512 4"
 				}
 
@@ -119,7 +96,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 345.0, 30.0, 30.0, 30.0 ]
+					"patching_rect" : [ 143.0, 30.0, 30.0, 30.0 ]
 				}
 
 			}
@@ -132,19 +109,19 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 289.0, 30.0, 30.0, 30.0 ]
+					"patching_rect" : [ 30.0, 30.0, 30.0, 30.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"comment" : "signalBlend",
+					"comment" : "signalPhaseMix",
 					"id" : "obj-2",
 					"index" : 1,
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 290.0, 255.0, 30.0, 30.0 ]
+					"patching_rect" : [ 29.0, 180.0, 30.0, 30.0 ]
 				}
 
 			}
@@ -205,7 +182,8 @@
 				}
 
 			}
- ]
+ ],
+		"originid" : "pat-54"
 	}
 
 }

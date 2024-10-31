@@ -1,2 +1,0 @@
-max objectfile wa.cpumeter wa.cpumeter;
-max definesubstitution wa.cpumeter bpatcher @name wa.cpumeter.maxpat;

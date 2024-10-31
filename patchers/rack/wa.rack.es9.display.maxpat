@@ -148,7 +148,7 @@
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "js es9_display"
+					"text" : "v8 es9_display"
 				}
 
 			}

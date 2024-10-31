@@ -51,7 +51,7 @@
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "js treedump.js",
+					"text" : "v8 treedump.js",
 					"varname" : "dump_script"
 				}
 

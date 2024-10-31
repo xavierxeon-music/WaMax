@@ -88,7 +88,7 @@
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "js lattice_gridcolor"
+					"text" : "v8 lattice_gridcolor"
 				}
 
 			}

@@ -1,6 +1,6 @@
 // helpers
 
-function print() {
+function debug() {
 
    for (var index = 0; index < arguments.length; index++)
       post(arguments[index]);

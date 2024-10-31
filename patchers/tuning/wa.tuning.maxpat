@@ -161,7 +161,7 @@
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "js tune"
+					"text" : "v8 tune"
 				}
 
 			}

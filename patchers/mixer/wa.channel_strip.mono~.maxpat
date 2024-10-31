@@ -259,7 +259,7 @@
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "js mixer_strip #0"
+					"text" : "v8 mixer_strip #0"
 				}
 
 			}

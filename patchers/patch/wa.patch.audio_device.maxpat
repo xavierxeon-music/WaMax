@@ -946,7 +946,7 @@
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "js audio_device_index"
+					"text" : "v8 audio_device_index"
 				}
 
 			}

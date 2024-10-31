@@ -64,7 +64,7 @@
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "js path"
+					"text" : "v8 path"
 				}
 
 			}

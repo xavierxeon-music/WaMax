@@ -2,42 +2,19 @@
 	"patcher" : 	{
 		"fileversion" : 1,
 		"appversion" : 		{
-			"major" : 8,
-			"minor" : 6,
-			"revision" : 3,
+			"major" : 9,
+			"minor" : 0,
+			"revision" : 0,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 34.0, 143.0, 2933.0, 1515.0 ],
-		"bglocked" : 0,
-		"openinpresentation" : 0,
-		"default_fontsize" : 12.0,
-		"default_fontface" : 0,
-		"default_fontname" : "Arial",
+		"rect" : [ 34.0, 87.0, 2933.0, 1479.0 ],
 		"gridonopen" : 2,
 		"gridsize" : [ 15.0, 15.0 ],
 		"gridsnaponopen" : 2,
-		"objectsnaponopen" : 1,
-		"statusbarvisible" : 2,
-		"toolbarvisible" : 1,
-		"lefttoolbarpinned" : 0,
-		"toptoolbarpinned" : 0,
-		"righttoolbarpinned" : 0,
-		"bottomtoolbarpinned" : 0,
-		"toolbars_unpinned_last_save" : 0,
-		"tallnewobj" : 0,
-		"boxanimatetime" : 200,
-		"enablehscroll" : 1,
-		"enablevscroll" : 1,
-		"devicewidth" : 0.0,
-		"description" : "",
-		"digest" : "",
-		"tags" : "",
-		"style" : "",
 		"subpatcher_template" : "OpenGrid",
-		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
 					"comment" : "debug",
@@ -239,13 +216,18 @@
 					"saved_object_attributes" : 					{
 						"autostart" : 1,
 						"defer" : 0,
-						"node_bin_path" : "",
-						"npm_bin_path" : "",
 						"watch" : 0
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "node.script hue_api_v2.node.js @autostart 1"
+					"text" : "node.script hue_api_v2.node.js @autostart 1",
+					"textfile" : 					{
+						"filename" : "hue_api_v2.node.js",
+						"flags" : 0,
+						"embed" : 0,
+						"autowatch" : 1
+					}
+
 				}
 
 			}
@@ -265,19 +247,26 @@
 			}
 , 			{
 				"box" : 				{
+					"filename" : "hue.bridge.js",
 					"id" : "obj-3",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 30.0, 165.0, 77.0, 22.0 ],
+					"patching_rect" : [ 30.0, 165.0, 81.0, 22.0 ],
 					"saved_object_attributes" : 					{
-						"filename" : "hue.bridge",
 						"parameter_enable" : 0
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "js hue.bridge"
+					"text" : "v8 hue.bridge",
+					"textfile" : 					{
+						"filename" : "hue.bridge.js",
+						"flags" : 0,
+						"embed" : 0,
+						"autowatch" : 1
+					}
+
 				}
 
 			}
@@ -440,6 +429,7 @@
 
 			}
  ],
+		"originid" : "pat-62",
 		"styles" : [ 			{
 				"name" : "wa.buffer",
 				"default" : 				{

@@ -259,7 +259,7 @@
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "js melody"
+					"text" : "v8 melody"
 				}
 
 			}

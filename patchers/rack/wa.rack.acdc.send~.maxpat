@@ -113,7 +113,7 @@
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "js acdc_port 1"
+					"text" : "v8 acdc_port 1"
 				}
 
 			}

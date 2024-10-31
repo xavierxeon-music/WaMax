@@ -124,7 +124,7 @@
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "js wave_terrain"
+					"text" : "v8 wave_terrain"
 				}
 
 			}
@@ -923,7 +923,7 @@
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "js wave_terrain"
+					"text" : "v8 wave_terrain"
 				}
 
 			}

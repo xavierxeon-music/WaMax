@@ -77,7 +77,7 @@
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "js qunantize"
+					"text" : "v8 qunantize"
 				}
 
 			}

@@ -89,7 +89,7 @@
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "js graphics.wave_terrain"
+					"text" : "v8 graphics.wave_terrain"
 				}
 
 			}

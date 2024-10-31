@@ -223,7 +223,7 @@
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "js pattern_trigger"
+					"text" : "v8 pattern_trigger"
 				}
 
 			}

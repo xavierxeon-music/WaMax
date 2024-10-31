@@ -443,7 +443,7 @@
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "js color_lookup"
+					"text" : "v8 color_lookup"
 				}
 
 			}

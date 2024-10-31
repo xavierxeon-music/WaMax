@@ -149,7 +149,7 @@
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "js tuning_system"
+					"text" : "v8 tuning_system"
 				}
 
 			}

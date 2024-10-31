@@ -201,7 +201,7 @@
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "js patch_title"
+					"text" : "v8 patch_title"
 				}
 
 			}

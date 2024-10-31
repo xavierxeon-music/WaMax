@@ -144,7 +144,7 @@
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "js bitify_store_route",
+					"text" : "v8 bitify_store_route",
 					"varname" : "js"
 				}
 

@@ -135,7 +135,7 @@
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "js audio_loopback"
+					"text" : "v8 audio_loopback"
 				}
 
 			}

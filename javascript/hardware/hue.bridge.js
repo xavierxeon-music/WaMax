@@ -1,5 +1,8 @@
 autowatch = 1;
 
+include("color.js");
+include("helper.js");
+
 // inlets and outlets
 inlets = 1;
 setinletassist(0, "reset/state");
@@ -11,16 +14,16 @@ setoutletassist(1, "devices");
 /////////////////////////////
 // vars / setup
 
-var hue = new Global("hue");
+let hue = new Global("hue");
 if (!hue.stateChange)
    hue.stateChange = {};
 
 
-var stateDict = new Dict("hue_state");
-var deviceMap = {};
-var stackMap = {};
+let stateDict = new Dict("hue_state");
+let deviceMap = {};
+let stackMap = {};
 
-var sendTask = new Task(sendStack);
+let sendTask = new Task(sendStack);
 sendTask.interval = 100; // 10 hz update rate
 sendTask.repeat();
 
@@ -35,7 +38,7 @@ hue.onOff = function (deviceName, on, duration) {
    if (!duration)
       duration = 0;
 
-   var payload = {
+   let payload = {
       "on": {
          "on": on
       },
@@ -49,13 +52,13 @@ hue.onOff = function (deviceName, on, duration) {
 
 hue.coloronly = function (deviceName, hexColor, duration) {
 
-   var color = new Color(hexColor);
+   let color = new Color(hexColor);
    [x, y, bright] = color.toCIE();
 
    if (!duration)
       duration = 0;
 
-   var payload = {
+   let payload = {
       "color": {
          "xy": {
             "x": x,
@@ -71,14 +74,14 @@ hue.coloronly = function (deviceName, hexColor, duration) {
 
 hue.colorbright = function (deviceName, hexColor, duration) {
 
-   var color = new Color(hexColor);
+   let color = new Color(hexColor);
    [x, y, bright] = color.toCIE();
 
    if (!duration)
       duration = duration;
 
 
-   var payload = {
+   let payload = {
       "dimming": {
          "brightness": Math.round(bright * 100)
       },
@@ -101,7 +104,7 @@ hue.brightness = function (deviceName, value, duration) {
       duration = 0;
 
 
-   var payload = {
+   let payload = {
       "dimming": {
          "brightness": value
       },
@@ -114,13 +117,13 @@ hue.brightness = function (deviceName, value, duration) {
 
 hue.gradient = function (deviceName, gradientList, duration) {
 
-   var points = []
-   for (var index = 0; index < gradientList.length; index++) {
+   let points = []
+   for (let index = 0; index < gradientList.length; index++) {
 
-      var color = new Color(gradientList[index]);
+      let color = new Color(gradientList[index]);
       [x, y, bright] = color.toCIE();
 
-      var entry = {
+      let entry = {
          "color": {
             "xy": {
                "x": x,
@@ -135,7 +138,7 @@ hue.gradient = function (deviceName, gradientList, duration) {
       duration = 0;
 
 
-   var payload = {
+   let payload = {
       "gradient": {
          "points": points,
       },
@@ -152,7 +155,7 @@ hue.gradient = function (deviceName, gradientList, duration) {
 function bang() {
 
    outlet(1, Object.keys(deviceMap));
-   for (var name in hue.stateChange) {
+   for (let name in hue.stateChange) {
       print("state change name", name);
    }
 }
@@ -169,14 +172,14 @@ function addStackPaylod(deviceName, payload) {
    if (!deviceName)
       return;
 
-   var id = deviceMap[deviceName];
+   let id = deviceMap[deviceName];
    if (!id)
       return;
 
    if (!stackMap[id])
       stackMap[id] = {};
 
-   for (var key in payload) {
+   for (let key in payload) {
       stackMap[id][key] = payload[key];
    }
 }
@@ -187,8 +190,8 @@ function sendStack() {
    if (0 == Object.keys(stackMap).length)
       return;
 
-   for (var id in stackMap) {
-      var payload = JSON.stringify(stackMap[id]);
+   for (let id in stackMap) {
+      let payload = JSON.stringify(stackMap[id]);
       payload = payload.replace('{"on":0}', '{"on":false}');
       payload = payload.replace('{"on":1}', '{"on":true}');
 
@@ -203,19 +206,19 @@ function status(group) {
    if ("light" != group) // TODO change for sensors, etc
       return;
 
-   var stateObject = JSON.parse(stateDict.stringify());
-   var data = stateObject["light"];
-   for (var index in data) {
-      var device = data[index];
-      var id = device["id"];
-      var name = device["metadata"]["name"];
+   let stateObject = JSON.parse(stateDict.stringify());
+   let data = stateObject["light"];
+   for (let index in data) {
+      let device = data[index];
+      let id = device["id"];
+      let name = device["metadata"]["name"];
       deviceMap[name] = id;
 
-      var callback = hue.stateChange[name];
+      let callback = hue.stateChange[name];
       if (!callback)
          continue;
 
-      var deviceState = {};
+      let deviceState = {};
       deviceState["on"] = device["on"]["on"];
       if ("dimming" in deviceState)
          deviceState["bright"] = device["dimming"]["brightness"];

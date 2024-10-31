@@ -220,7 +220,7 @@
 						"parameter_enable" : 0
 					}
 ,
-					"text" : "js mixer_master"
+					"text" : "v8 mixer_master"
 				}
 
 			}

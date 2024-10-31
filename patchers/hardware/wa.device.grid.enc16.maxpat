@@ -598,7 +598,7 @@
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "js grid_device"
+					"text" : "v8 grid_device"
 				}
 
 			}
@@ -921,7 +921,7 @@
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "js grid_device"
+					"text" : "v8 grid_device"
 				}
 
 			}

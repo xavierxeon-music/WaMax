@@ -131,7 +131,7 @@
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "js bitify_store_list 0",
+					"text" : "v8 bitify_store_list 0",
 					"varname" : "js"
 				}
 

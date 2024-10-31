@@ -204,7 +204,7 @@
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "js bitify_store_mapping #0_convert ",
+					"text" : "v8 bitify_store_mapping #0_convert ",
 					"varname" : "js"
 				}
 

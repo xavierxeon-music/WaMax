@@ -112,7 +112,7 @@
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "js lcd_matrix"
+					"text" : "v8 lcd_matrix"
 				}
 
 			}

@@ -124,7 +124,7 @@
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "js live.route_input"
+					"text" : "v8 live.route_input"
 				}
 
 			}

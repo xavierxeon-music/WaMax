@@ -64,7 +64,7 @@
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "js color_conversion"
+					"text" : "v8 color_conversion"
 				}
 
 			}

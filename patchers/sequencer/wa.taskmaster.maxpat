@@ -185,7 +185,7 @@
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "js taskmaster"
+					"text" : "v8 taskmaster"
 				}
 
 			}

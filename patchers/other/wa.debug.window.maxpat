@@ -138,7 +138,7 @@
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "js fit_jweb_to_bounds.js"
+					"text" : "v8 fit_jweb_to_bounds.js"
 				}
 
 			}

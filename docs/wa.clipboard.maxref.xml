@@ -28,14 +28,14 @@
 
 	<methodlist>
 
-		<method name='symbol'>
-			<digest>set </digest>
-			<description>set </description>
+		<method name='set'>
+			<digest>copy to clipboard </digest>
+			<description>copy to clipboard </description>
 		</method>
 
 		<method name='bang'>
-			<digest>get </digest>
-			<description>get </description>
+			<digest>read from clipboard </digest>
+			<description>read from clipboard </description>
 		</method>
 
 	</methodlist>

@@ -168,7 +168,7 @@
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "js encoder",
+					"text" : "v8 encoder",
 					"varname" : "js_encoder"
 				}
 
