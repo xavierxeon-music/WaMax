@@ -8,10 +8,8 @@ include_directories(
    "${C74_INCLUDES}"
 )
 
-# see https://github.com/Cycling74/min-devkit/tree/main/source/projects/min.environment
 file(GLOB PROJECT_SRC
    "*.h"
-   "*.c"
    "*.cpp"
 )
 
