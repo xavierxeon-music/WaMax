@@ -1,5 +1,7 @@
 //
 
+include("helper.js");
+
 var mixer = new Global("mixer");
 
 mixer.soloIdList = [];

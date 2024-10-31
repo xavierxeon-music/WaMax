@@ -216,7 +216,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 15.0, 90.0, 107.0, 22.0 ],
-					"style" : "wa.admin",
+					"style" : "wa.admin-1",
 					"text" : "wa.patch.bpatcher"
 				}
 
@@ -247,6 +247,7 @@
 			}
 , 			{
 				"box" : 				{
+					"filename" : "mixer_strip.js",
 					"id" : "obj-19",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -254,12 +255,18 @@
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 480.0, 240.0, 109.0, 22.0 ],
 					"saved_object_attributes" : 					{
-						"filename" : "mixer_strip",
 						"parameter_enable" : 0
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "v8 mixer_strip #0"
+					"text" : "v8 mixer_strip #0",
+					"textfile" : 					{
+						"filename" : "mixer_strip.js",
+						"flags" : 0,
+						"embed" : 0,
+						"autowatch" : 1
+					}
+
 				}
 
 			}
@@ -811,7 +818,7 @@
 
 			}
  ],
-		"originid" : "pat-66",
+		"originid" : "pat-42",
 		"parameters" : 		{
 			"obj-15" : [ "live.dial[5]", "live.dial", 0 ],
 			"obj-16" : [ "live.text[4]", "mute", 0 ],
@@ -830,29 +837,22 @@
 		}
 ,
 		"dependency_cache" : [ 			{
-				"name" : "_mixer.js",
-				"bootpath" : "~/GitHub/MusicProjects/WaMaxPackageBase/javascript/mixer",
-				"patcherrelativepath" : "../../javascript/mixer",
-				"type" : "TEXT",
-				"implicit" : 1
-			}
-, 			{
 				"name" : "bpatcher_size.js",
-				"bootpath" : "~/GitHub/MusicProjects/WaMaxPackageBase/javascript/patch",
+				"bootpath" : "/Volumes/ExternalData/_Home/GitHub/MusicProjects/WaMaxPackageBase/javascript/patch",
 				"patcherrelativepath" : "../../javascript/patch",
 				"type" : "TEXT",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "mixer_strip.js",
-				"bootpath" : "~/GitHub/MusicProjects/WaMaxPackageBase/javascript/mixer",
+				"bootpath" : "/Volumes/ExternalData/_Home/GitHub/MusicProjects/WaMaxPackageBase/javascript/mixer",
 				"patcherrelativepath" : "../../javascript/mixer",
 				"type" : "TEXT",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "wa.patch.bpatcher.maxpat",
-				"bootpath" : "~/GitHub/MusicProjects/WaMaxPackageBase/patchers/patch",
+				"bootpath" : "/Volumes/ExternalData/_Home/GitHub/MusicProjects/WaMaxPackageBase/patchers/patch",
 				"patcherrelativepath" : "../patch",
 				"type" : "JSON",
 				"implicit" : 1
@@ -864,6 +864,15 @@
 				"default" : 				{
 					"accentcolor" : [ 0.239216, 0.254902, 0.278431, 1.0 ],
 					"bgcolor" : [ 0.784314, 0.145098, 0.023529, 1.0 ]
+				}
+,
+				"parentstyle" : "",
+				"multi" : 0
+			}
+, 			{
+				"name" : "wa.admin-1",
+				"default" : 				{
+					"accentcolor" : [ 0.784314, 0.145098, 0.023529, 1.0 ]
 				}
 ,
 				"parentstyle" : "",

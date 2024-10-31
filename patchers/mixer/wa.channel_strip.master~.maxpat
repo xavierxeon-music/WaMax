@@ -209,18 +209,25 @@
 			}
 , 			{
 				"box" : 				{
+					"filename" : "mixer_master.js",
 					"id" : "obj-1",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 60.0, 750.0, 93.0, 22.0 ],
+					"numoutlets" : 0,
+					"patching_rect" : [ 60.0, 750.0, 97.0, 22.0 ],
 					"saved_object_attributes" : 					{
-						"filename" : "mixer_master",
 						"parameter_enable" : 0
 					}
 ,
-					"text" : "v8 mixer_master"
+					"style" : "wa.patcher",
+					"text" : "v8 mixer_master",
+					"textfile" : 					{
+						"filename" : "mixer_master.js",
+						"flags" : 0,
+						"embed" : 0,
+						"autowatch" : 1
+					}
+
 				}
 
 			}
@@ -311,6 +318,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
 					"patching_rect" : [ 315.0, 30.0, 96.0, 22.0 ],
+					"style" : "wa.receive",
 					"text" : "receive~ mixerR"
 				}
 
@@ -323,6 +331,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
 					"patching_rect" : [ 196.0, 30.0, 94.0, 22.0 ],
+					"style" : "wa.receive",
 					"text" : "receive~ mixerL"
 				}
 
@@ -378,6 +387,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 34.0, 138.5, 107.0, 22.0 ],
+					"style" : "wa.admin",
 					"text" : "wa.patch.bpatcher"
 				}
 
@@ -577,7 +587,7 @@
 
 			}
  ],
-		"originid" : "pat-54",
+		"originid" : "pat-18",
 		"parameters" : 		{
 			"obj-11" : [ "live.text", "live.text", 0 ],
 			"obj-16" : [ "live.text[9]", "mute", 0 ],
@@ -596,35 +606,56 @@
 		}
 ,
 		"dependency_cache" : [ 			{
-				"name" : "_mixer.js",
-				"bootpath" : "~/GitHub/MusicProjects/WaMaxPackageBase/javascript/mixer",
-				"patcherrelativepath" : "../../javascript/mixer",
-				"type" : "TEXT",
-				"implicit" : 1
-			}
-, 			{
 				"name" : "bpatcher_size.js",
-				"bootpath" : "~/GitHub/MusicProjects/WaMaxPackageBase/javascript/patch",
+				"bootpath" : "/Volumes/ExternalData/_Home/GitHub/MusicProjects/WaMaxPackageBase/javascript/patch",
 				"patcherrelativepath" : "../../javascript/patch",
 				"type" : "TEXT",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "mixer_master.js",
-				"bootpath" : "~/GitHub/MusicProjects/WaMaxPackageBase/javascript/mixer",
+				"bootpath" : "/Volumes/ExternalData/_Home/GitHub/MusicProjects/WaMaxPackageBase/javascript/mixer",
 				"patcherrelativepath" : "../../javascript/mixer",
 				"type" : "TEXT",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "wa.patch.bpatcher.maxpat",
-				"bootpath" : "~/GitHub/MusicProjects/WaMaxPackageBase/patchers/patch",
+				"bootpath" : "/Volumes/ExternalData/_Home/GitHub/MusicProjects/WaMaxPackageBase/patchers/patch",
 				"patcherrelativepath" : "../patch",
 				"type" : "JSON",
 				"implicit" : 1
 			}
  ],
-		"autosave" : 0
+		"autosave" : 0,
+		"styles" : [ 			{
+				"name" : "wa.admin",
+				"default" : 				{
+					"accentcolor" : [ 0.784314, 0.145098, 0.023529, 1.0 ]
+				}
+,
+				"parentstyle" : "",
+				"multi" : 0
+			}
+, 			{
+				"name" : "wa.patcher",
+				"default" : 				{
+					"accentcolor" : [ 0.439216, 0.74902, 0.254902, 1.0 ]
+				}
+,
+				"parentstyle" : "",
+				"multi" : 0
+			}
+, 			{
+				"name" : "wa.receive",
+				"default" : 				{
+					"accentcolor" : [ 0.960784, 0.827451, 0.156863, 1.0 ]
+				}
+,
+				"parentstyle" : "",
+				"multi" : 0
+			}
+ ]
 	}
 
 }

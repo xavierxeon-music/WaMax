@@ -1,5 +1,7 @@
 //  rgb color 
 
+include("helper.js");
+
 class Color {
 
    constructor(text) {
