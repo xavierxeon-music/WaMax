@@ -1,10 +1,8 @@
 //  rgb color 
 
-var __defined__Color;
-if (!__defined__Color) {
-   __defined__Color = 1;
+if (typeof this.Color === "undefined") {
 
-   class Color {
+   this.Color = class {
 
       constructor(text) {
          this.red = 0;

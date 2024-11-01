@@ -1,10 +1,8 @@
 // a scale
 
-var __defined__Scale;
-if (!__defined__Scale) {
-   __defined__Scale = 1;
+if (typeof this.Scale === "undefined") {
 
-   class Scale {
+   this.Scale = class {
 
       static startIndexMap = {
          "c": 0,

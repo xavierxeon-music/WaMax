@@ -1,10 +1,9 @@
 // helpers
 
-var __defined__Helper;
-if (!__defined__Helper) {
-   __defined__Helper = 1;
 
-   class Helper {
+if (typeof this.Helper === "undefined") {
+
+   this.Helper = class {
 
       static debug() {
 
@@ -79,5 +78,6 @@ if (!__defined__Helper) {
          return uuid;
       }
    }
-
 }
+
+

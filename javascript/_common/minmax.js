@@ -1,10 +1,8 @@
 // min, max and average 
 
-var __defined__MinMax;
-if (!__defined__MinMax) {
-   __defined__MinMax = 1;
+if (typeof this.MinMaxFinder === "undefined") {
 
-   class MinMaxFinder {
+   this.MinMaxFinder = class {
 
       constructor() {
 

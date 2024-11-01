@@ -1,10 +1,8 @@
 // max for live helpoer
 
-var __defined__M4L;
-if (!__defined__M4L) {
-   __defined__M4L = 1;
+if (typeof this.M4L === "undefined") {
 
-   class M4l {
+   this.M4L = class {
 
       static apiPrint(api) {
 

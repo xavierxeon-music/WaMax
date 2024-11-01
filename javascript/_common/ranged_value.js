@@ -1,10 +1,8 @@
 // 
 
-var __defined__RangedValue;
-if (!__defined__RangedValue) {
-   __defined__RangedValue = 1;
+if (typeof this.RangedValue === "undefined") {
 
-   class RangedValue {
+   this.RangedValue = class {
 
       constructor() {
 

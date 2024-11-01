@@ -1,11 +1,9 @@
 // json
 
 
-var __defined__Json;
-if (!__defined__Json) {
-   __defined__Json = 1;
+if (typeof this.Json === "undefined") {
 
-   class Json {
+   this.Json = class {
 
       static readFile = function (fileName) {
 
@@ -54,6 +52,6 @@ if (!__defined__Json) {
          dict.parse(text);
          //delete dict;
       }
-
    }
 }
+

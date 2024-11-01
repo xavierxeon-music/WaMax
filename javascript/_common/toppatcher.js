@@ -1,10 +1,8 @@
 //
 
-var __defined__TopPatcher;
-if (!__defined__TopPatcher) {
-   __defined__TopPatcher = 1;
+if (typeof this.TopPatcher === "undefined") {
 
-   class TopPatcher {
+   this.TopPatcher = class {
 
       static getPresentationRectanlge(object) {
 

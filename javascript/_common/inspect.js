@@ -1,10 +1,8 @@
 // inspect
 
-var __defined__Inspector;
-if (!__defined__Inspector) {
-   __defined__Inspector = 1;
+if (typeof this.Inspector === "undefined")
 
-   class Inspector {
+   this.Inspector = class {
 
       constructor(object) {
 
@@ -100,4 +98,3 @@ if (!__defined__Inspector) {
 
 
    }
-}

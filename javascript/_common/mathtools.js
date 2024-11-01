@@ -1,10 +1,8 @@
 // math
 
-var __defined__MathTools;
-if (!__defined__MathTools) {
-   __defined__MathTools = 1;
+if (typeof this.MathTools === "undefined") {
 
-   class MathTools {
+   this.MathTools = class {
 
       static powerOfTwo(value) {
 
