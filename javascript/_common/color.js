@@ -1,5 +1,7 @@
 //  rgb color 
 
+include("helper.js");
+
 if (typeof this.Color === "undefined") {
 
    this.Color = class {

@@ -19,21 +19,6 @@ if (typeof this.Scale === "undefined") {
          "b": 11
       }
 
-      static predefinedList = [
-         new Scale("c"),
-         new Scale("g"),
-         new Scale("d"),
-         new Scale("a"),
-         new Scale("e"),
-         new Scale("b"),
-         new Scale("f#"),
-         new Scale("f"),
-         new Scale("a#"),
-         new Scale("d#"),
-         new Scale("g#"),
-         new Scale("c#")
-      ];
-
       constructor(baseNote) {
 
          if (undefined == baseNote)
@@ -159,4 +144,19 @@ if (typeof this.Scale === "undefined") {
          return octaveC + scaleNote;
       }
    }
+
+   Scale.predefinedList = [
+      new Scale("c"),
+      new Scale("g"),
+      new Scale("d"),
+      new Scale("a"),
+      new Scale("e"),
+      new Scale("b"),
+      new Scale("f#"),
+      new Scale("f"),
+      new Scale("a#"),
+      new Scale("d#"),
+      new Scale("g#"),
+      new Scale("c#")
+   ];
 }

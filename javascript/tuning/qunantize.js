@@ -1,5 +1,7 @@
 autowatch = 1;
 
+include("scale.js");
+
 // inlets and outlets
 inlets = 1;
 setinletassist(0, "midinote, message");
