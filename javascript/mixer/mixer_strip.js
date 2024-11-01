@@ -11,7 +11,6 @@ setoutletassist(2, "unsolo");
 
 
 include("_mixer.js");
-include("helper.js");
 
 //////////////////////////////////////////
 

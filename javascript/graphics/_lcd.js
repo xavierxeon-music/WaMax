@@ -77,7 +77,7 @@ LCD.Screen.prototype.addObject = function (object) {
 
 LCD.Screen.prototype.removeObject = function (object) {
 
-   removeFromArray(this.objectList, callback);
+   Helper.removeFromArray(this.objectList, callback);
 }
 
 LCD.Screen.prototype.setBgColor = function (hexColor) {

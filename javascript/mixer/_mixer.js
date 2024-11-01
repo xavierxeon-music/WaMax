@@ -1,7 +1,4 @@
 //
-
-include("helper.js");
-
 var mixer = new Global("mixer");
 
 mixer.soloIdList = [];
@@ -17,7 +14,7 @@ mixer.addHandle = function (handle) {
 
 mixer.removeHandle = function (handle) {
 
-   removeFromArray(this.soloHandleList, handle);
+   Helper.removeFromArray(this.soloHandleList, handle);
 }
 
 mixer.hasSolo = function () {
@@ -49,7 +46,7 @@ mixer.enableSolo = function (id) {
 
 mixer.disableSolo = function (id) {
 
-   removeFromArray(this.soloIdList, id);
+   Helper.removeFromArray(this.soloIdList, id);
 
    //print("disableSolo", this.soloIdList);
    this.callHandles(false);
