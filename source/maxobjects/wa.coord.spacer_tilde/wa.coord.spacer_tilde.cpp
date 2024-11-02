@@ -24,10 +24,9 @@ Coord::Spacer::Spacer(const atoms& args)
 
 samples<2> Coord::Spacer::operator()(sample in)
 {
+   buffer.add(in, spherical);
    if (!active)
       return {in, in};
-
-   buffer.add(in, spherical);
 
    const Spatial::Stereo stereo = buffer.convolve();
    return {stereo.left, stereo.right};
