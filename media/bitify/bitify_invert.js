@@ -36,7 +36,7 @@ function setInvert() {
 
 
 //
-class InvertCanvas extends Canvas {
+class InvertCanvas extends WebCanvas {
 
    constructor() {
 

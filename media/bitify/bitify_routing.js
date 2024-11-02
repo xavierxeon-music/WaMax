@@ -33,7 +33,7 @@ function setRoute() {
 
 
 //
-class RountingCanvas extends Canvas {
+class RountingCanvas extends WebCanvas {
 
    constructor() {
 

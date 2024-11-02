@@ -33,7 +33,7 @@ function setMute() {
 }
 
 //
-class MuteCanvas extends Canvas {
+class MuteCanvas extends WebCanvas {
 
    constructor() {
 

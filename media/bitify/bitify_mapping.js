@@ -34,7 +34,7 @@ function setMapping() {
 }
 
 //
-class MappingCanvas extends Canvas {
+class MappingCanvas extends WebCanvas {
 
    constructor() {
 

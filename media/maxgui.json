@@ -66,7 +66,7 @@
    "_default": {
       "includes": [
          "./_maxgui/button.js",
-         "./_maxgui/canvas.js",
+         "./_maxgui/webcanvas.js",
          "./_maxgui/div.js",
          "./_maxgui/maxdummy.js",
          "./_maxgui/slider.js",

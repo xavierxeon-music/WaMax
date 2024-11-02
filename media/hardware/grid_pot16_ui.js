@@ -31,7 +31,7 @@ function color(id, hexColor) {
 }
 
 
-class GridCanvas extends Canvas {
+class GridCanvas extends WebCanvas {
 
    constructor() {
 

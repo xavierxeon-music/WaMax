@@ -1,6 +1,6 @@
 // canvas
 
-class Canvas extends BaseElement {
+class WebCanvas extends BaseElement {
 
    constructor(parent, width, height) {
 

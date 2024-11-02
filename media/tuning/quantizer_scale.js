@@ -59,7 +59,7 @@ class ClickBox {
    }
 }
 
-class CircleOfFiths extends Canvas {
+class CircleOfFiths extends WebCanvas {
 
    constructor(parent) {
 
