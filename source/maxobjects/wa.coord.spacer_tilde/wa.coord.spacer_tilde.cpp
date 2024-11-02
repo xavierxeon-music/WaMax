@@ -13,6 +13,7 @@ Coord::Spacer::Spacer(const atoms& args)
    , leftOutput{this, "(signal) left signal", "signal"}
    , rightOutput{this, "(signal) right signal", "signal"}
    , asDegrees{this, "asDegrees", true}
+   , active{this, "active", true}
    , xMessage{this, "x", "x value", Max::Patcher::minBind(this, &Spacer::xFunction)}
    , yMessage{this, "y", "y value", Max::Patcher::minBind(this, &Spacer::yFunction)}
    , zMessage{this, "z", "z value", Max::Patcher::minBind(this, &Spacer::zFunction)}
@@ -23,9 +24,12 @@ Coord::Spacer::Spacer(const atoms& args)
 
 samples<2> Coord::Spacer::operator()(sample in)
 {
-   buffer.add(in, spherical);
-   const Spatial::Stereo stereo = buffer.convolve();
+   if (!active)
+      return {in, in};
 
+   buffer.add(in, spherical);
+
+   const Spatial::Stereo stereo = buffer.convolve();
    return {stereo.left, stereo.right};
 }
 

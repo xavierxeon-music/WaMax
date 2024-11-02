@@ -37,6 +37,7 @@ namespace Coord
       outlet<> leftOutput;
       outlet<> rightOutput;
       attribute<bool> asDegrees;
+      attribute<bool> active;
       message<> xMessage;
       message<> yMessage;
       message<> zMessage;

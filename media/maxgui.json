@@ -69,7 +69,6 @@
          "./_maxgui/canvas.js",
          "./_maxgui/div.js",
          "./_maxgui/maxdummy.js",
-         "./_maxgui/ringbuffer.js",
          "./_maxgui/slider.js",
          "./_maxgui/tab.js",
          "./_maxgui/table.js",
