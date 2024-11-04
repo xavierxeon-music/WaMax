@@ -38,7 +38,7 @@ Spatial::Stereo Spatial::RingBuffer::convolve() const
    for (uint8_t counter = 0; counter < Function::length; counter++)
    {
       const Entry& entry = buffer[counter];
-      uint8_t index = relativeIndex(counter);
+      const uint8_t index = relativeIndex(counter);
 
       const Stereo& amplitude = entry.function.value(index);
       accumulatedAmplitude += amplitude;
