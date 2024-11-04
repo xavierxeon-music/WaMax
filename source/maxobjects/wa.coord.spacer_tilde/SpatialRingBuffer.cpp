@@ -1,5 +1,7 @@
 #include "SpatialRingBuffer.h"
 
+#include <thread>
+
 #include <Math/MathGeneral.h>
 
 Spatial::RingBuffer::RingBuffer()
@@ -31,25 +33,25 @@ void Spatial::RingBuffer::add(const double& value, const Math::Spherical& coords
 Spatial::Stereo Spatial::RingBuffer::convolve() const
 {
    Stereo signal;
-   Stereo totalAmplitude;
+   Stereo accumulatedAmplitude;
 
-   for (int16_t counter = 0; counter < Function::length; counter++)
+   for (uint8_t counter = 0; counter < Function::length; counter++)
    {
-      int16_t index = relativeIndex(counter);
-      const Stereo& amplitude = buffer[counter].function.value(index);
-      totalAmplitude += amplitude;
+      const Entry& entry = buffer[counter];
+      uint8_t index = relativeIndex(counter);
 
-      const double& sourceValue = buffer[counter].value;
-      signal += (amplitude * sourceValue);
+      const Stereo& amplitude = entry.function.value(index);
+      accumulatedAmplitude += amplitude;
+      signal += (amplitude * entry.value);
    }
 
-   const double max = totalAmplitude.max();
+   const double max = accumulatedAmplitude.max();
    signal *= (1.0 / max);
    return signal;
 }
 
-int16_t Spatial::RingBuffer::relativeIndex(const int16_t counter) const
+uint8_t Spatial::RingBuffer::relativeIndex(const uint8_t counter) const
 {
-   int16_t index = (counter + Function::length - currentIndex) % Function::length;
+   uint8_t index = (counter + Function::length - currentIndex) % Function::length;
    return index;
 }

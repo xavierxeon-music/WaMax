@@ -22,11 +22,11 @@ namespace Spatial
    public:
       void add(const double& value, const Math::Spherical& coords);
       Stereo convolve() const;
-      int16_t relativeIndex(const int16_t counter) const;
+      uint8_t relativeIndex(const uint8_t counter) const;
 
    private:
       Entry buffer[Function::length];
-      int16_t currentIndex;
+      uint8_t currentIndex;
 
       Math::Spherical currentCoords;
       Function currentFunction;

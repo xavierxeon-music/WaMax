@@ -21,7 +21,7 @@ namespace Spatial
          Param(const double& max = 0.0, const double& peak = 0.0, const double& start = 0.0, const double& end = 0.0);
       };
 
-      static constexpr int16_t length = 64;
+      static constexpr uint8_t length = 64;
 
    public:
       Function(const Math::Spherical& coords);
