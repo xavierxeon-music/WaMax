@@ -38,6 +38,14 @@ namespace Schema
       void makeLines(const QJsonObject patcherObject, const IdMap& idMap);
       void moveItems(const IdMap& idMap);
 
+      void wheelEvent(QWheelEvent* wheelEvent) override;
+      void mouseDoubleClickEvent(QMouseEvent* mouseEvent) override;
+
+      void keyPressEvent(QKeyEvent* event) override;
+      void keyReleaseEvent(QKeyEvent* event) override;
+
+      void updateZoom(bool save);
+
    private:
       QGraphicsScene* scene;
       QString patchFileName;
@@ -46,6 +54,8 @@ namespace Schema
       QBrush whiteBrush;
       QBrush grayBrush;
       QFont font;
+
+      double zoomLevel;
    };
 } // namespace Schema
 

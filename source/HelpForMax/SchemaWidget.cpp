@@ -8,6 +8,8 @@
 #include <QJsonDocument>
 #include <QJsonValue>
 #include <QMouseEvent>
+#include <QSettings>
+#include <QWheelEvent>
 
 Schema::Widget::Widget(QWidget* parent)
    : QGraphicsView(parent)
@@ -17,7 +19,7 @@ Schema::Widget::Widget(QWidget* parent)
    , whiteBrush(Qt::white)
    , grayBrush(QColor(230, 230, 230))
    , font()
-
+   , zoomLevel(1.0)
 {
    font.setPixelSize(10);
 
@@ -26,6 +28,12 @@ Schema::Widget::Widget(QWidget* parent)
 
    setScene(scene);
    setAlignment(Qt::AlignLeft | Qt::AlignTop);
+
+   {
+      QSettings settings;
+      zoomLevel = settings.value("Schema/Zoom", 1.0).toDouble();
+   }
+   updateZoom(false);
 }
 
 void Schema::Widget::slotLoad(const QString& patchFileName)
@@ -52,6 +60,8 @@ void Schema::Widget::slotLoad(const QString& patchFileName)
    IdMap idMap = makeObjects(patcherObject);
    moveItems(idMap);
    makeLines(patcherObject, idMap);
+
+   updateZoom(false);
 }
 
 Schema::Widget::IdMap Schema::Widget::makeObjects(const QJsonObject patcherObject)
@@ -160,37 +170,79 @@ void Schema::Widget::makeLines(const QJsonObject patcherObject, const IdMap& idM
 
 void Schema::Widget::moveItems(const IdMap& idMap)
 {
-   auto compileMinPoint = [&]()
-   {
-      QPointF minPoint;
-      bool first = true;
+   QPointF minPoint;
+   bool first = true;
 
-      for (Box box : idMap.values())
+   for (IdMap::const_iterator it = idMap.constBegin(); it != idMap.constEnd(); it++)
+   {
+      const Box& box = it.value();
+
+      const QPointF ipos = box.rectItem->pos();
+      if (first)
       {
-         const QPointF ipos = box.rectItem->pos();
-         if (first)
-         {
-            minPoint = ipos;
-            first = false;
-            continue;
-         }
-
-         if (minPoint.x() > ipos.x())
-            minPoint.setX(ipos.x());
-
-         if (minPoint.y() > ipos.y())
-            minPoint.setY(ipos.y());
+         minPoint = ipos;
+         first = false;
+         continue;
       }
-      return minPoint;
-   };
 
-   const QPointF minPoint = compileMinPoint();
-   for (Box box : idMap.values())
+      if (minPoint.x() > ipos.x())
+         minPoint.setX(ipos.x());
+
+      if (minPoint.y() > ipos.y())
+         minPoint.setY(ipos.y());
+   }
+
+   for (IdMap::const_iterator it = idMap.constBegin(); it != idMap.constEnd(); it++)
    {
+      const Box& box = it.value();
+
       const QPointF oldPos = box.rectItem->pos();
       QPointF newPos = oldPos - minPoint;
+
       box.rectItem->setPos(newPos);
       if (box.foregroundItem)
          box.foregroundItem->setPos(newPos + QPointF(5, 5));
    }
+}
+
+void Schema::Widget::wheelEvent(QWheelEvent* wheelEvent)
+{
+   const double delta = 0.001 * wheelEvent->angleDelta().y();
+   const double factor = std::pow(2.0, delta);
+
+   zoomLevel *= factor;
+   updateZoom(true);
+}
+
+void Schema::Widget::mouseDoubleClickEvent(QMouseEvent* mouseEvent)
+{
+   QGraphicsItem* item = itemAt(mouseEvent->pos());
+   if (!item)
+   {
+      zoomLevel = 1.0;
+      updateZoom(true);
+   }
+}
+
+void Schema::Widget::keyPressEvent(QKeyEvent* event)
+{
+   const bool enabled = Qt::ShiftModifier & event->modifiers();
+   setDragMode(enabled ? ScrollHandDrag : NoDrag);
+}
+
+void Schema::Widget::keyReleaseEvent(QKeyEvent* event)
+{
+   const bool enabled = Qt::ShiftModifier & event->modifiers();
+   setDragMode(enabled ? ScrollHandDrag : NoDrag);
+}
+
+void Schema::Widget::updateZoom(bool save)
+{
+   setTransform(QTransform::fromScale(zoomLevel, zoomLevel));
+
+   if (!save)
+      return;
+
+   QSettings settings;
+   settings.setValue("Schema/Zoom", zoomLevel);
 }
