@@ -27,13 +27,17 @@ endif()
 
 set(C74_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/../../externals")
 
-FILE(GLOB projects RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/*)
+FILE(GLOB PROJECT_LIST RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/*)
 
-foreach(project_dir ${projects})
-   set(project_path ${CMAKE_CURRENT_SOURCE_DIR}/${project_dir})
+if(WIN32)
+   list(REMOVE_ITEM PROJECT_LIST "wa.push2_display")
+endif()
+
+foreach(PROJECT_DIR ${PROJECT_LIST})
+   set(project_path ${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_DIR})
 
    if(EXISTS "${project_path}/CMakeLists.txt")
-      message("Generating: ${project_dir}")
+      message("Generating: ${PROJECT_DIR}")
       add_subdirectory(${project_path})
    endif()
 endforeach()

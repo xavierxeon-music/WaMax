@@ -1,6 +1,6 @@
 #include "ProcessWrapper.h"
 
-QStringList ProcessWrapper::getAppWindowTitles(const QString& appName) const
+QStringList ProcessWrapper::getAppWindowTitles(const QString& appName) 
 {
    QStringList titles;
    return titles;
