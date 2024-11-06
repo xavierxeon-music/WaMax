@@ -2,7 +2,7 @@
 
 #include <QDir>
 
-Patch::Info Package::Info::extractPatchName(const QString& patchFileName) const
+Patch::Info Package::Info::extractPatchInfo(const QString& patchFileName) const
 {
    QFileInfo patchFile(patchFileName);
    Patch::Info patchInfo;

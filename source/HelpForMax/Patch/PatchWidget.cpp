@@ -92,7 +92,7 @@ Patch::Widget::Widget(TabWidget* tabWidget, const Package::Info* packageInfo, co
    masterLayout->addWidget(editArea);
 
    // load content
-   patchInfo = packageInfo->extractPatchName(path);
+   patchInfo = packageInfo->extractPatchInfo(path);
    propagateDirty(false);
 
    File::Ref(this, packageInfo).read(patchInfo);
@@ -101,7 +101,7 @@ Patch::Widget::Widget(TabWidget* tabWidget, const Package::Info* packageInfo, co
 
 Patch::Widget::~Widget()
 {
-   tabWidget->forceDirtyCheck();
+   tabWidget->emitSignalCheckDirty();
 }
 
 const QString& Patch::Widget::getPath() const
@@ -212,7 +212,7 @@ void Patch::Widget::propagateDirty(bool isDirty)
       setWindowTitle(patchInfo.name);
    }
 
-   tabWidget->forceDirtyCheck();
+   tabWidget->emitSignalCheckDirty();
 }
 
 void Patch::Widget::setIcon(QLabel* iconLabel, Structure::PatchPart part)

@@ -13,7 +13,7 @@ namespace Package
    class Info
    {
    public:
-      Patch::Info extractPatchName(const QString& patchFileName) const;
+      Patch::Info extractPatchInfo(const QString& patchFileName) const;
       const QString& getPath() const;
       const QString& getName() const;
       const QString& getAuthor() const;

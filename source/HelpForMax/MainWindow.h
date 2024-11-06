@@ -15,8 +15,8 @@ class MainWindow : public QMainWindow
 public:
    MainWindow();
 
-public:
-   void checkDirty();
+private slots:
+   void slotCheckDirty();
 
 private:
    void populateMenuAndToolBar();

@@ -12,11 +12,23 @@ namespace Package
       Q_OBJECT
 
    public:
-      Model(QObject* parent);
+      Model(QObject* parent, const Info* packageInfo);
 
    public:
-      void create(const Info* info);
+      void create();
+      void update();
       QModelIndex find(const QString& patchFileName) const;
+
+   private:
+      enum DataRoles
+      {
+         RolePath = Qt::UserRole + 1,
+         RoleInfo = Qt::UserRole + 2
+
+      };
+
+   private:
+      const Info* packageInfo;
    };
 } // namespace Package
 

@@ -49,25 +49,17 @@ void Patch::TabWidget::populate(QMenu* patchMenu, QMenu* viewMenu, QToolBar* too
    toolBar->addAction(closePatchAction);
 }
 
-void Patch::TabWidget::forceDirtyCheck()
-{
-   for (QWidget* p = parentWidget(); p != nullptr; p = p->parentWidget())
-   {
-      MainWindow* mainWindow = qobject_cast<MainWindow*>(p);
-      if (mainWindow)
-      {
-         QTimer::singleShot(100, mainWindow, &MainWindow::checkDirty);
-         return;
-      }
-   }
-}
-
 void Patch::TabWidget::init()
 {
    for (const QString& patchPath : getCurrrentFiles())
    {
       slotLoadPatch(patchPath);
    }
+}
+
+void Patch::TabWidget::emitSignalCheckDirty()
+{
+   QTimer::singleShot(200, this, &TabWidget::signalCheckDirty);
 }
 
 void Patch::TabWidget::slotPromptLoadPatch()
@@ -89,7 +81,7 @@ void Patch::TabWidget::slotLoadPatch(const QString& patchFileName)
       return;
    }
 
-   const Patch::Info patchInfo = info->extractPatchName(patchFileName);
+   const Patch::Info patchInfo = info->extractPatchInfo(patchFileName);
    for (int index = 0; index < tabBar()->count(); index++)
    {
       if (patchInfo.name == tabText(index))
@@ -136,13 +128,13 @@ void Patch::TabWidget::slotClosePatch()
    patchWidget->deleteLater();
 }
 
-void Patch::TabWidget::slotCloseAllPatches(const Package::Info* info)
+void Patch::TabWidget::slotCloseAllPatches(const Package::Info* packageInfo)
 {
    QList<Widget*> deleteList;
    for (int index = 0; index < tabBar()->count(); index++)
    {
       Widget* patchWidget = qobject_cast<Widget*>(widget(index));
-      if (info && info != patchWidget->getPacakgeInfo())
+      if (packageInfo && packageInfo != patchWidget->getPacakgeInfo())
          continue;
 
       deleteList.append(patchWidget);

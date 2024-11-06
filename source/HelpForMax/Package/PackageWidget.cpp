@@ -11,8 +11,8 @@ Package::Widget::Widget(QWidget* parent, const Info* info)
 
    packageNameInfo->setText("<b>...</b>");
 
-   model = new Model(this);
-   model->create(info);
+   model = new Model(this, info);
+   model->create();
    packageTree->setModel(model);
 
    connect(packageTree, &QTreeView::doubleClicked, this, &Widget::slotItemDoubleClicked);
@@ -30,6 +30,11 @@ void Package::Widget::selectPatch(const QString& patchFileName)
       return;
 
    packageTree->selectionModel()->setCurrentIndex(index, QItemSelectionModel::SelectCurrent);
+}
+
+void Package::Widget::checkUpToDate()
+{
+   model->update();
 }
 
 void Package::Widget::slotItemDoubleClicked(const QModelIndex& index)

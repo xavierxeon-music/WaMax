@@ -22,18 +22,21 @@ namespace Patch
    public:
       TabWidget(QWidget* parent);
 
+   signals:
+      void signalCheckDirty();
+
    public:
       void populate(QMenu* patchMenu, QMenu* viewMenu, QToolBar* toolBar);
-      void forceDirtyCheck();
       void init();
+      void emitSignalCheckDirty();
 
    signals:
-      void signalTabSelected(const QString& patchPath, const Package::Info* info);
+      void signalTabSelected(const QString& patchPath, const Package::Info* packageInfo);
       void signalRefWritten(const QString& patchPath);
 
    public slots:
       void slotLoadPatch(const QString& patchFileName);
-      void slotCloseAllPatches(const Package::Info* info);
+      void slotCloseAllPatches(const Package::Info* packageInfo);
 
    private slots:
       void slotPromptLoadPatch();

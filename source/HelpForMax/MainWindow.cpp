@@ -47,6 +47,9 @@ MainWindow::MainWindow()
    schemaWidget = new Schema::Widget(this);
    addDock(schemaWidget, Qt::RightDockWidgetArea, "Schema");
 
+   connect(patchWidget, &Patch::TabWidget::signalCheckDirty, this, &MainWindow::slotCheckDirty);
+   connect(patchWidget, &Patch::TabWidget::signalCheckDirty, packageWidget, &Package::TabWidget::slotCheckDirty);
+
    connect(patchWidget, &Patch::TabWidget::signalTabSelected, schemaWidget, &Schema::Widget::slotLoad);
    connect(patchWidget, &Patch::TabWidget::signalRefWritten, packageWidget, &Package::TabWidget::slotRefWritten);
    connect(packageWidget, &Package::TabWidget::signalCloseAllPatches, patchWidget, &Patch::TabWidget::slotCloseAllPatches);
@@ -68,7 +71,7 @@ MainWindow::MainWindow()
    restoreState(settings.value("MainWidget/State").toByteArray());
 }
 
-void MainWindow::checkDirty()
+void MainWindow::slotCheckDirty()
 {
    bool dirty = false;
    for (Patch::Widget* widget : findChildren<Patch::Widget*>())

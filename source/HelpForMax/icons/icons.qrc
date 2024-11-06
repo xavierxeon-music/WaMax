@@ -21,5 +21,7 @@
         <file>MaxLinkActive.svg</file>
         <file>MaxLinkInactive.svg</file>
         <file>PackageLink.svg</file>
+        <file>HelpCurrent.svg</file>
+        <file>HelpOutdated.svg</file>
     </qresource>
 </RCC>

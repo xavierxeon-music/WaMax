@@ -4,36 +4,38 @@
 #include <QFileInfo>
 #include <QSettings>
 
+#include "FileRef.h"
 #include "PackageInfo.h"
 
-Package::Model::Model(QObject* parent)
+Package::Model::Model(QObject* parent, const Info* packageInfo)
    : QStandardItemModel(parent)
+   , packageInfo(packageInfo)
 {
 }
 
-void Package::Model::create(const Info* info)
+void Package::Model::create()
 {
    setHorizontalHeaderLabels({"Folder / Patch Name"});
 
    using FolderMap = QMap<QString, QStandardItem*>;
    FolderMap folderMap;
 
-   QDir packageDir(info->getPath() + "/patchers");
+   QDir packageDir(packageInfo->getPath() + "/patchers");
    for (const QFileInfo& folderInfo : packageDir.entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot, QDir::Name))
    {
       QDir patcherDir(folderInfo.canonicalFilePath());
-      for (const QFileInfo& patchInfo : patcherDir.entryInfoList(QDir::Files, QDir::Name))
+      for (const QFileInfo& patchFileInfo : patcherDir.entryInfoList(QDir::Files, QDir::Name))
       {
-         if (!patchInfo.fileName().endsWith(".maxpat"))
+         if (!patchFileInfo.fileName().endsWith(".maxpat"))
             continue;
 
-         if (patchInfo.fileName().startsWith("_"))
+         if (patchFileInfo.fileName().startsWith("_"))
             continue;
 
-         const QString patchPath = patchInfo.absoluteFilePath();
-         const QString patchName = patchInfo.fileName().replace(".maxpat", "");
+         const QString patchPath = patchFileInfo.absoluteFilePath();
+         Patch::Info patchInfo = packageInfo->extractPatchInfo(patchPath);
 
-         QString dirName = patchInfo.absolutePath();
+         QString dirName = patchFileInfo.absolutePath();
          int index = dirName.lastIndexOf("/");
          if (index < 0)
             continue;
@@ -50,11 +52,40 @@ void Package::Model::create(const Info* info)
 
          QStandardItem* dirItem = folderMap[dirName];
 
-         QStandardItem* patchItem = new QStandardItem(patchName);
+         QStandardItem* patchItem = new QStandardItem(patchInfo.name);
          patchItem->setEditable(false);
          dirItem->appendRow(patchItem);
 
-         patchItem->setData(patchPath);
+         patchItem->setData(patchPath, RolePath);
+         patchItem->setData(QVariant::fromValue(patchInfo), RoleInfo);
+      }
+   }
+
+   update();
+}
+
+void Package::Model::update()
+{
+   static const QIcon currentIcon(":/HelpCurrent.svg");
+   static const QIcon outdatedIcon(":/HelpOutdated.svg");
+
+   for (int folderRow = 0; folderRow < invisibleRootItem()->rowCount(); folderRow++)
+   {
+      QStandardItem* folderItem = invisibleRootItem()->child(folderRow, 0);
+      for (int patchRow = 0; patchRow < folderItem->rowCount(); patchRow++)
+      {
+         QStandardItem* patchItem = folderItem->child(patchRow, 0);
+
+         const QString path = patchItem->data(RolePath).toString();
+         const Patch::Info patchInfo = patchItem->data(RoleInfo).value<Patch::Info>();
+         const QString refPath = File::Ref(nullptr, packageInfo).getFilePath(patchInfo);
+
+         const QDateTime patchTime = QFileInfo(path).lastModified();
+         const QDateTime refTime = QFileInfo(refPath).lastModified();
+
+         const bool upToDate = refTime >= patchTime;
+
+         patchItem->setIcon(upToDate ? currentIcon : outdatedIcon);
       }
    }
 }
@@ -67,7 +98,7 @@ QModelIndex Package::Model::find(const QString& patchFileName) const
       for (int patchRow = 0; patchRow < folderItem->rowCount(); patchRow++)
       {
          QStandardItem* patchItem = folderItem->child(patchRow, 0);
-         if (patchItem->data().toString() == patchFileName)
+         if (patchItem->data(RolePath).toString() == patchFileName)
             return patchItem->index();
       }
    }

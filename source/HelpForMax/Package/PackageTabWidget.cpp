@@ -51,6 +51,18 @@ void Package::TabWidget::slotRefWritten(const QString& patchPath)
    socket->write(doc.toJson(QJsonDocument::Compact));
 }
 
+void Package::TabWidget::slotCheckDirty()
+{
+   for (int index = 0; index < tabBar()->count(); index++)
+   {
+      Widget* packageWidget = qobject_cast<Widget*>(widget(index));
+      if (!packageWidget)
+         continue;
+
+      packageWidget->checkUpToDate();
+   }
+}
+
 void Package::TabWidget::populate(QMenu* packageMenu, QToolBar* toolBar)
 {
    //

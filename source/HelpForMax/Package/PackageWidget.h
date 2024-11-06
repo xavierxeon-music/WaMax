@@ -22,6 +22,7 @@ namespace Package
    public:
       const Info* getPackageInfo() const;
       void selectPatch(const QString& patchFileName);
+      void checkUpToDate();
 
    private slots:
       void slotItemDoubleClicked(const QModelIndex& index);

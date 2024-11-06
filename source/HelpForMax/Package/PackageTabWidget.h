@@ -28,6 +28,7 @@ namespace Package
 
    public slots:
       void slotRefWritten(const QString& patchPath);
+      void slotCheckDirty();
 
    public:
       void populate(QMenu* packageMenu, QToolBar* toolBar);
