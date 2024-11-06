@@ -9,7 +9,7 @@
 
 TestClient::TestClient()
    : QDialog(nullptr)
-   , socketMap()
+   , socket(nullptr)
 {
    setupUi(this);
 
@@ -26,7 +26,7 @@ TestClient::TestClient()
       item->setData(0, Qt::UserRole + 1, patchPath);
    };
 
-   const QString packageDir = "/Users/waspe/GitHub/MusicProjects/WaMaxPackage";
+   const QString packageDir = QDir::homePath() + "/GitHub/MusicProjects/WaMaxPackageBase";
    addItem(packageDir + "/patchers/hardware/wa.grid.pot.maxpat");
    addItem(packageDir + "/patchers/audio/wa.wave_terrain~.maxpat");
    addItem(packageDir + "/patchers/mixer/wa.channel_strip.master~.maxpat");
@@ -45,10 +45,9 @@ void TestClient::slotSelectItemChanged(QTreeWidgetItem* current, QTreeWidgetItem
 
 void TestClient::sendData(const QString& patchPath)
 {
-   if (!socketMap.contains(patchPath))
+   if (!socket)
    {
-      QLocalSocket* socket = new QLocalSocket(this);
-      socketMap.insert(patchPath, socket);
+      socket = new QLocalSocket(this);
 
       auto receiveFunction = std::bind(&TestClient::receiveData, this, socket);
       connect(socket, &QLocalSocket::readyRead, receiveFunction);
@@ -59,9 +58,6 @@ void TestClient::sendData(const QString& patchPath)
       socket->connectToServer(HelpForMax::compileSockerName());
       socket->waitForConnected();
    }
-
-   QLocalSocket* socket = socketMap[patchPath];
-   socket->waitForConnected();
 
    QJsonObject object;
    object["patch"] = patchPath;

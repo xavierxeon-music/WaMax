@@ -24,7 +24,7 @@ private:
    void receiveData(QLocalSocket* socket);
 
 private:
-   SocketMap socketMap;
+   QLocalSocket* socket;
 };
 
 #endif // NOT TestClientH
