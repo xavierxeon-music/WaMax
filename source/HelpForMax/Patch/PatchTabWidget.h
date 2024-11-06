@@ -35,7 +35,7 @@ namespace Patch
       void signalRefWritten(const QString& patchPath);
 
    public slots:
-      void slotLoadPatch(const QString& patchFileName);
+      void slotShowPatch(const QString& patchFileName);
       void slotCloseAllPatches(const Package::Info* packageInfo);
 
    private slots:

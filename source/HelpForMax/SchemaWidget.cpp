@@ -17,17 +17,20 @@ Schema::Widget::Widget(QWidget* parent)
    , patchFileName()
    , blackPen(Qt::black)
    , whiteBrush(Qt::white)
-   , grayBrush(QColor(230, 230, 230))
+   , blackBrush(Qt::black)
    , font()
    , zoomLevel(1.0)
 {
    font.setPixelSize(10);
 
+   QBrush bgBrush = QApplication::palette().window();
+
    scene = new QGraphicsScene(this);
-   scene->setBackgroundBrush(whiteBrush);
+   scene->setBackgroundBrush(bgBrush);
 
    setScene(scene);
    setAlignment(Qt::AlignLeft | Qt::AlignTop);
+   setViewportMargins(10, 10, 0, 0);
 
    {
       QSettings settings;
@@ -58,7 +61,6 @@ void Schema::Widget::slotLoad(const QString& patchFileName)
    const QJsonObject patcherObject = object["patcher"].toObject();
 
    IdMap idMap = makeObjects(patcherObject);
-   moveItems(idMap);
    makeLines(patcherObject, idMap);
 
    updateZoom(false);
@@ -90,8 +92,10 @@ Schema::Widget::IdMap Schema::Widget::makeObjects(const QJsonObject patcherObjec
       patchRect.setWidth(patchRectData[2].toDouble());
       patchRect.setHeight(patchRectData[3].toDouble());
 
-      QGraphicsRectItem* rectItem = scene->addRect(QRectF(0, 0, patchRect.width(), patchRect.height()), blackPen, grayBrush);
-      rectItem->setPos(patchRect.x(), patchRect.y());
+      Box box;
+
+      box.rectItem = scene->addRect(QRectF(0, 0, patchRect.width(), patchRect.height()), blackPen, whiteBrush);
+      box.rectItem->setPos(patchRect.x(), patchRect.y());
 
       QString text = boxObject["text"].toString().simplified();
       if ("inlet" == className)
@@ -100,7 +104,7 @@ Schema::Widget::IdMap Schema::Widget::makeObjects(const QJsonObject patcherObjec
          text = "IN\n" + QString::number(index);
 
          const QString toolTip = boxObject["comment"].toString();
-         rectItem->setToolTip(toolTip);
+         box.rectItem->setToolTip(toolTip);
       }
       else if ("outlet" == className)
       {
@@ -108,22 +112,28 @@ Schema::Widget::IdMap Schema::Widget::makeObjects(const QJsonObject patcherObjec
          text = "OUT\n" + QString::number(index);
 
          const QString toolTip = boxObject["comment"].toString();
-         rectItem->setToolTip(toolTip);
+         box.rectItem->setToolTip(toolTip);
       }
       if (text.isEmpty())
          text = className;
 
-      QGraphicsItem* foregroundItem = nullptr;
-
       QGraphicsSimpleTextItem* textItem = scene->addSimpleText(text, font);
       textItem->setPos(patchRect.x() + 5, patchRect.y() + 5);
-      foregroundItem = textItem;
+      box.foregroundItems.append(textItem);
 
-      const int inletCount = boxObject["numinlets"].toInt();
-      const int outletCount = boxObject["numoutlets"].toInt();
+      QGraphicsRectItem* topBar = scene->addRect(QRectF(0, 0, patchRect.width(), 2), blackPen, blackBrush);
+      topBar->setPos(patchRect.x(), patchRect.y());
+      box.foregroundItems.append(topBar);
+
+      QGraphicsRectItem* bottomBar = scene->addRect(QRectF(0, patchRect.height(), patchRect.width(), 2), blackPen, blackBrush);
+      bottomBar->setPos(patchRect.x(), patchRect.y());
+      box.foregroundItems.append(bottomBar);
+
+      box.inletCount = boxObject["numinlets"].toInt();
+      box.outletCount = boxObject["numoutlets"].toInt();
 
       const QString id = boxObject["id"].toString();
-      idMap[id] = {rectItem, foregroundItem, inletCount, outletCount};
+      idMap[id] = box;
    }
 
    return idMap;
@@ -165,43 +175,6 @@ void Schema::Widget::makeLines(const QJsonObject patcherObject, const IdMap& idM
       const int destY = destRect.y();
 
       scene->addLine(sourceX, sourceY, destX, destY, blackPen);
-   }
-}
-
-void Schema::Widget::moveItems(const IdMap& idMap)
-{
-   QPointF minPoint;
-   bool first = true;
-
-   for (IdMap::const_iterator it = idMap.constBegin(); it != idMap.constEnd(); it++)
-   {
-      const Box& box = it.value();
-
-      const QPointF ipos = box.rectItem->pos();
-      if (first)
-      {
-         minPoint = ipos;
-         first = false;
-         continue;
-      }
-
-      if (minPoint.x() > ipos.x())
-         minPoint.setX(ipos.x());
-
-      if (minPoint.y() > ipos.y())
-         minPoint.setY(ipos.y());
-   }
-
-   for (IdMap::const_iterator it = idMap.constBegin(); it != idMap.constEnd(); it++)
-   {
-      const Box& box = it.value();
-
-      const QPointF oldPos = box.rectItem->pos();
-      QPointF newPos = oldPos - minPoint;
-
-      box.rectItem->setPos(newPos);
-      if (box.foregroundItem)
-         box.foregroundItem->setPos(newPos + QPointF(5, 5));
    }
 }
 

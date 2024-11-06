@@ -21,7 +21,7 @@ namespace Schema
       struct Box
       {
          QGraphicsRectItem* rectItem = nullptr;
-         QGraphicsItem* foregroundItem = nullptr;
+         QList<QGraphicsItem*> foregroundItems;
          int inletCount = 0;
          int outletCount = 0;
       };
@@ -36,7 +36,6 @@ namespace Schema
    private:
       IdMap makeObjects(const QJsonObject patcherObject);
       void makeLines(const QJsonObject patcherObject, const IdMap& idMap);
-      void moveItems(const IdMap& idMap);
 
       void wheelEvent(QWheelEvent* wheelEvent) override;
       void mouseDoubleClickEvent(QMouseEvent* mouseEvent) override;
@@ -52,7 +51,7 @@ namespace Schema
 
       QPen blackPen;
       QBrush whiteBrush;
-      QBrush grayBrush;
+      QBrush blackBrush;
       QFont font;
 
       double zoomLevel;

@@ -53,7 +53,7 @@ void Patch::TabWidget::init()
 {
    for (const QString& patchPath : getCurrrentFiles())
    {
-      slotLoadPatch(patchPath);
+      slotShowPatch(patchPath);
    }
 }
 
@@ -68,10 +68,10 @@ void Patch::TabWidget::slotPromptLoadPatch()
    if (patchFileName.isEmpty())
       return;
 
-   slotLoadPatch(patchFileName);
+   slotShowPatch(patchFileName);
 }
 
-void Patch::TabWidget::slotLoadPatch(const QString& patchFileName)
+void Patch::TabWidget::slotShowPatch(const QString& patchFileName)
 {
    Package::Info* info = Package::TabWidget::findOrCreate(patchFileName);
    if (!info)
@@ -85,11 +85,15 @@ void Patch::TabWidget::slotLoadPatch(const QString& patchFileName)
    for (int index = 0; index < tabBar()->count(); index++)
    {
       if (patchInfo.name == tabText(index))
+      {
+         setCurrentIndex(index);
          return;
+      }
    }
 
    Widget* patchWidget = new Patch::Widget(this, info, patchFileName);
-   addTab(patchWidget, patchInfo.name);
+   const int index = addTab(patchWidget, patchInfo.name);
+   setCurrentIndex(index);
 
    addRecentFile(patchFileName);
    addCurrentFile(patchFileName);
@@ -182,7 +186,7 @@ void Patch::TabWidget::slotTabChanged(int index)
 RecentTabWidget::Entry Patch::TabWidget::creatreEntry(const QFileInfo& fileInfo)
 {
    const QString patchName = fileInfo.completeBaseName();
-   auto openFunction = std::bind(&TabWidget::slotLoadPatch, this, fileInfo.absoluteFilePath());
+   auto openFunction = std::bind(&TabWidget::slotShowPatch, this, fileInfo.absoluteFilePath());
 
    Entry entry{patchName, openFunction};
    return entry;
