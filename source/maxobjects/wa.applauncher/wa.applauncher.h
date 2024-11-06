@@ -4,6 +4,10 @@
 #include "c74_min.h"
 using namespace c74::min;
 
+#ifdef WIN_VERSION
+#undef hypot 
+#endif
+
 #include <QString>
 
 #include "ProcessWrapper.h"
@@ -17,7 +21,7 @@ public:
    AppLauncher(const atoms& args = {});
 
 public:
-   static void setPackagePath(const char* external_path);
+   static void setPackagePath(const QString& external_path);
 
 private:
    atoms openFileFunction(const atoms& args, const int inlet);

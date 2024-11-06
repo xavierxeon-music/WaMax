@@ -6,6 +6,10 @@
 using namespace c74::min;
 using namespace c74::min::ui;
 
+#ifdef WIN_VERSION
+#undef hypot
+#endif
+
 #include "current.h"
 
 #include <QLocalSocket>

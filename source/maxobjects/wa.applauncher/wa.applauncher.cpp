@@ -32,7 +32,7 @@ AppLauncher::AppLauncher(const atoms& args)
 {
 }
 
-void AppLauncher::setPackagePath(const char* external_path)
+void AppLauncher::setPackagePath(const QString& external_path)
 {
    QFileInfo patchInfo(external_path);
    for (QDir dir = patchInfo.dir(); !dir.isRoot(); dir.cdUp())
@@ -97,7 +97,8 @@ atoms AppLauncher::launchFunction(const atoms& args, const int inlet)
    QStringList argumentList;
    for (size_t i = 0; i < args.size(); i++)
    {
-      const QString argument = QString::fromStdString(args[i]);
+      const std::string value = args[i];
+      const QString argument = QString::fromStdString(value);
       if (0 == i)
          appName = argument;
       else
@@ -120,7 +121,8 @@ atoms AppLauncher::pyhonFunction(const atoms& args, const int inlet)
    QStringList argumentList;
    for (auto i = 0; i < args.size(); i++)
    {
-      const QString argument = QString::fromStdString(args[i]);
+      const std::string value = args[i];
+      const QString argument = QString::fromStdString(value);
       argumentList.append(argument);
    }
 
@@ -137,7 +139,8 @@ atoms AppLauncher::stdinFunction(const atoms& args, const int inlet)
    QStringList data;
    for (auto i = 0; i < args.size(); i++)
    {
-      const QString argument = QString::fromStdString(args[i]);
+      const std::string value = args[i];
+      const QString argument = QString::fromStdString(value);
       data.append(argument);
    }
 
@@ -185,14 +188,14 @@ void ext_main(void* moduleRef)
    CFStringRef mac_path = CFURLCopyFileSystemPath(ext_url_ref, kCFURLPOSIXPathStyle);
    const char* external_path = CFStringGetCStringPtr(mac_path, CFStringGetSystemEncoding());
 
-   AppLauncher::setPackagePath(external_path);
+   AppLauncher::setPackagePath(QString::from(external_path));
 
    CFRelease(ext_url_ref);
    CFRelease(mac_path);
-#elif defined(__WINDOWS__)
-   const char* external_path[256];
-   GetModuleFileName(moduleRef, (LPCH)external_path, sizeof(external_path));
+#elif defined(WIN32)
+   wchar_t external_path[256];
+   GetModuleFileName((HMODULE)moduleRef, external_path, sizeof(external_path));
 
-   AppLauncher::setPackagePath(external_path);
+   AppLauncher::setPackagePath(QString::fromStdWString(external_path));
 #endif
 }
