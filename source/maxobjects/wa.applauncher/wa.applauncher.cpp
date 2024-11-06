@@ -193,8 +193,9 @@ void ext_main(void* moduleRef)
    CFRelease(ext_url_ref);
    CFRelease(mac_path);
 #elif defined(WIN32)
-   wchar_t external_path[256];
-   GetModuleFileName((HMODULE)moduleRef, external_path, sizeof(external_path));
+   constexpr int maxPathLength = 1024;
+   wchar_t external_path[maxPathLength];
+   GetModuleFileName((HMODULE)moduleRef, external_path, maxPathLength);
 
    AppLauncher::setPackagePath(QString::fromStdWString(external_path));
 #endif
