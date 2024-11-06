@@ -188,7 +188,7 @@ void ext_main(void* moduleRef)
    CFStringRef mac_path = CFURLCopyFileSystemPath(ext_url_ref, kCFURLPOSIXPathStyle);
    const char* external_path = CFStringGetCStringPtr(mac_path, CFStringGetSystemEncoding());
 
-   AppLauncher::setPackagePath(QString::from(external_path));
+   AppLauncher::setPackagePath(external_path);
 
    CFRelease(ext_url_ref);
    CFRelease(mac_path);
