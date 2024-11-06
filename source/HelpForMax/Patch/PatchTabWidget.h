@@ -49,6 +49,7 @@ namespace Patch
 
    private:
       Entry creatreEntry(const QFileInfo& fileInfo) override;
+      void updateTabNames();
    };
 } // namespace Patch
 

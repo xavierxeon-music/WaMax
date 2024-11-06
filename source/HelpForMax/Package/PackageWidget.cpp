@@ -14,8 +14,11 @@ Package::Widget::Widget(QWidget* parent, const Info* info)
    model = new Model(this, info);
    model->create();
    packageTree->setModel(model);
+   packageTree->setIndentation(0);
 
    connect(packageTree, &QTreeView::doubleClicked, this, &Widget::slotItemDoubleClicked);
+   connect(packageTree, &QTreeView::collapsed, this, &Widget::slotItemCollapsed);
+   connect(packageTree, &QTreeView::expanded, this, &Widget::slotItemExpanded);
 }
 
 const Package::Info* Package::Widget::getPackageInfo() const
@@ -45,4 +48,20 @@ void Package::Widget::slotItemDoubleClicked(const QModelIndex& index)
       return;
 
    emit signalPatchSeleted(path, info);
+}
+
+void Package::Widget::slotItemCollapsed(const QModelIndex& index)
+{
+   static const QIcon closedIcon(":/TreeClosed.svg");
+
+   QStandardItem* item = model->itemFromIndex(index);
+   item->setIcon(closedIcon);
+}
+
+void Package::Widget::slotItemExpanded(const QModelIndex& index)
+{
+   static const QIcon openIcon(":/TreeOpen.svg");
+
+   QStandardItem* item = model->itemFromIndex(index);
+   item->setIcon(openIcon);
 }

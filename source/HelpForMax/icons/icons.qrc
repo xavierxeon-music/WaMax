@@ -23,5 +23,7 @@
         <file>PackageLink.svg</file>
         <file>HelpCurrent.svg</file>
         <file>HelpOutdated.svg</file>
+        <file>TreeClosed.svg</file>
+        <file>TreeOpen.svg</file>
     </qresource>
 </RCC>

@@ -26,6 +26,8 @@ namespace Package
 
    private slots:
       void slotItemDoubleClicked(const QModelIndex& index);
+      void slotItemCollapsed(const QModelIndex& index);
+      void slotItemExpanded(const QModelIndex& index);
 
    private:
       const Info* info;

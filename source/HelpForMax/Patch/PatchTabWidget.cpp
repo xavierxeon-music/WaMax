@@ -59,7 +59,7 @@ void Patch::TabWidget::init()
 
 void Patch::TabWidget::emitSignalCheckDirty()
 {
-   QTimer::singleShot(200, this, &TabWidget::signalCheckDirty);
+   QTimer::singleShot(200, this, &TabWidget::updateTabNames);
 }
 
 void Patch::TabWidget::slotPromptLoadPatch()
@@ -190,4 +190,23 @@ RecentTabWidget::Entry Patch::TabWidget::creatreEntry(const QFileInfo& fileInfo)
 
    Entry entry{patchName, openFunction};
    return entry;
+}
+
+void Patch::TabWidget::updateTabNames()
+{
+   for (int index = 0; index < tabBar()->count(); index++)
+   {
+      QWidget* content = widget(index);
+      Widget* patchWidget = qobject_cast<Widget*>(content);
+      if (!patchWidget)
+         continue;
+
+      QString name = patchWidget->getPatchInfo().name;
+      if (patchWidget->isDirty())
+         name = "* " + name;
+
+      setTabText(index, name);
+   }
+
+   emit signalCheckDirty();
 }

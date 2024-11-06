@@ -28,6 +28,7 @@ namespace Patch
    public:
       const QString& getPath() const;
       const Package::Info* getPacakgeInfo() const;
+      const Patch::Info& getPatchInfo() const;
       virtual void writeRef();
       void openInMax();
       void openXML();

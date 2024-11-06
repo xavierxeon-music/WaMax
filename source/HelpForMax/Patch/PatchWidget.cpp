@@ -114,6 +114,11 @@ const Package::Info* Patch::Widget::getPacakgeInfo() const
    return packageInfo;
 }
 
+const Patch::Info& Patch::Widget::getPatchInfo() const
+{
+   return patchInfo;
+}
+
 void Patch::Widget::writeRef()
 {
    File::Ref(this, packageInfo).write(patchInfo);

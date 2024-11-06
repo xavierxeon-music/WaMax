@@ -43,11 +43,14 @@ void Package::Model::create()
 
          if (!folderMap.contains(dirName))
          {
-            QStandardItem* dirItem = new QStandardItem(dirName);
-            dirItem->setEditable(false);
-            invisibleRootItem()->appendRow(dirItem);
+            QStandardItem* folderItem = new QStandardItem(dirName);
+            folderItem->setEditable(false);
+            invisibleRootItem()->appendRow(folderItem);
 
-            folderMap[dirName] = dirItem;
+            folderMap[dirName] = folderItem;
+
+            static const QIcon closedIcon(":/TreeClosed.svg");
+            folderItem->setIcon(closedIcon);
          }
 
          QStandardItem* dirItem = folderMap[dirName];
@@ -95,6 +98,7 @@ QModelIndex Package::Model::find(const QString& patchFileName) const
    for (int folderRow = 0; folderRow < invisibleRootItem()->rowCount(); folderRow++)
    {
       QStandardItem* folderItem = invisibleRootItem()->child(folderRow, 0);
+
       for (int patchRow = 0; patchRow < folderItem->rowCount(); patchRow++)
       {
          QStandardItem* patchItem = folderItem->child(patchRow, 0);
