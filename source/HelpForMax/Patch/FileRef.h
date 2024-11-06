@@ -13,9 +13,9 @@ namespace File
       Ref(Patch::Structure* structure, const Package::Info* info);
 
    public:
-      void read(const QString& patchName) override;
-      void write(const QString& patchName) override;
-      QString getFilePath(const QString& patchName) override;
+      void read(const Patch::Info& patchInfo) override;
+      void write(const Patch::Info& patchInfo) override;
+      QString getFilePath(const Patch::Info& patchInfo) override;
 
    private:
       using TagMap = QMap<QString, QString>;

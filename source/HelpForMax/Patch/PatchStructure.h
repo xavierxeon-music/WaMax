@@ -10,6 +10,11 @@
 
 namespace Patch
 {
+   struct Info
+   {
+      QString name;
+      QString folder;
+   };
 
    class Structure
    {

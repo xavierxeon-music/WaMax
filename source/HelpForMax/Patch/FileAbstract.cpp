@@ -6,7 +6,7 @@ File::Abstract::Abstract(Patch::Structure* structure, const Package::Info* info)
 {
 }
 
-void File::Abstract::read(const QString& patchName)
+void File::Abstract::read(const Patch::Info& patchInfo)
 {
-   Q_UNUSED(patchName)
+   Q_UNUSED(patchInfo)
 }

@@ -16,9 +16,9 @@ namespace File
       Abstract(Patch::Structure* structure, const Package::Info* info);
 
    public:
-      virtual void read(const QString& patchName);
-      virtual void write(const QString& patchName) = 0;
-      virtual QString getFilePath(const QString& patchName) = 0;
+      virtual void read(const Patch::Info& patchInfo);
+      virtual void write(const Patch::Info& patchInfo) = 0;
+      virtual QString getFilePath(const Patch::Info& patchInfo) = 0;
 
    protected:
       Patch::Structure* structure;

@@ -11,8 +11,8 @@ namespace File
       Init(Patch::Structure* structure, const Package::Info* info);
 
    public:
-      void write(const QString& patchName) override;
-      QString getFilePath(const QString& patchName) override;
+      void write(const Patch::Info& patchInfo) override;
+      QString getFilePath(const Patch::Info& patchInfo) override;
    };
 } // namespace File
 

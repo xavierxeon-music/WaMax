@@ -89,15 +89,15 @@ void Patch::TabWidget::slotLoadPatch(const QString& patchFileName)
       return;
    }
 
-   const QString patchName = info->extractPatchName(patchFileName);
+   const Patch::Info patchInfo = info->extractPatchName(patchFileName);
    for (int index = 0; index < tabBar()->count(); index++)
    {
-      if (patchName == tabText(index))
+      if (patchInfo.name == tabText(index))
          return;
    }
 
    Widget* patchWidget = new Patch::Widget(this, info, patchFileName);
-   addTab(patchWidget, patchName);
+   addTab(patchWidget, patchInfo.name);
 
    addRecentFile(patchFileName);
    addCurrentFile(patchFileName);

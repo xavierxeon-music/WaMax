@@ -19,13 +19,13 @@
 #include "PatchModelTypedMessage.h"
 #include "PatchTabWidget.h"
 
-Patch::Widget::Widget(TabWidget* tabWidget, const Package::Info* info, const QString& patchFileName)
+Patch::Widget::Widget(TabWidget* tabWidget, const Package::Info* packageInfo, const QString& patchFileName)
    : QWidget(tabWidget)
    , Structure()
    , tabWidget(tabWidget)
-   , info(info)
+   , packageInfo(packageInfo)
    , path(patchFileName)
-   , name()
+   , patchInfo{}
    , modelList()
    , digest(nullptr)
 {
@@ -92,10 +92,10 @@ Patch::Widget::Widget(TabWidget* tabWidget, const Package::Info* info, const QSt
    masterLayout->addWidget(editArea);
 
    // load content
-   name = info->extractPatchName(path);
+   patchInfo = packageInfo->extractPatchName(path);
    propagateDirty(false);
 
-   File::Ref(this, info).read(name);
+   File::Ref(this, packageInfo).read(patchInfo);
    rebuild();
 }
 
@@ -111,14 +111,14 @@ const QString& Patch::Widget::getPath() const
 
 const Package::Info* Patch::Widget::getPacakgeInfo() const
 {
-   return info;
+   return packageInfo;
 }
 
 void Patch::Widget::writeRef()
 {
-   File::Ref(this, info).write(name);
-   File::Help(this, info).write(name);
-   File::Init(this, info).write(name);
+   File::Ref(this, packageInfo).write(patchInfo);
+   File::Help(this, packageInfo).write(patchInfo);
+   File::Init(this, packageInfo).write(patchInfo);
    propagateDirty(false);
 }
 
@@ -129,7 +129,7 @@ void Patch::Widget::openInMax()
 
 void Patch::Widget::openXML()
 {
-   const QString refPath = File::Ref(this, info).getFilePath(name);
+   const QString refPath = File::Ref(this, packageInfo).getFilePath(patchInfo);
    QDesktopServices::openUrl(QUrl::fromLocalFile(refPath));
 }
 
@@ -183,7 +183,7 @@ void Patch::Widget::rebuild()
 
    setDigest(&header.digest, Structure::PatchPart::Header);
 
-   patchNameLabel->setText(name);
+   patchNameLabel->setText(patchInfo.name);
 }
 
 void Patch::Widget::update()
@@ -204,12 +204,12 @@ void Patch::Widget::propagateDirty(bool isDirty)
    if (isDirty)
    {
       dirty = true;
-      setWindowTitle(bullet + name);
+      setWindowTitle(bullet + patchInfo.name);
    }
    else
    {
       dirty = false;
-      setWindowTitle(name);
+      setWindowTitle(patchInfo.name);
    }
 
    tabWidget->forceDirtyCheck();

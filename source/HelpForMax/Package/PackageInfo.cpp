@@ -2,12 +2,14 @@
 
 #include <QDir>
 
-QString Package::Info::extractPatchName(const QString& patchFileName) const
+Patch::Info Package::Info::extractPatchName(const QString& patchFileName) const
 {
-   QFileInfo patchInfo(patchFileName);
-   const QString patchName = patchInfo.fileName().replace(".maxpat", "");
+   QFileInfo patchFile(patchFileName);
+   Patch::Info patchInfo;
+   patchInfo.name = patchFile.fileName().replace(".maxpat", "");
+   patchInfo.folder = patchFile.dir().dirName();
 
-   return patchName;
+   return patchInfo;
 }
 
 const QString& Package::Info::getPath() const

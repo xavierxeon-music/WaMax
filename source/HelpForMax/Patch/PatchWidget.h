@@ -22,7 +22,7 @@ namespace Patch
       Q_OBJECT
 
    public:
-      Widget(TabWidget* tabWidget, const Package::Info* info, const QString& patchFileName);
+      Widget(TabWidget* tabWidget, const Package::Info* packageInfo, const QString& patchFileName);
       ~Widget();
 
    public:
@@ -52,9 +52,9 @@ namespace Patch
    private:
       TabWidget* tabWidget;
 
-      const Package::Info* info;
+      const Package::Info* packageInfo;
       QString path;
-      QString name;
+      Patch::Info patchInfo;
 
       Model::Abstract::List modelList;
       bool dirty;

@@ -11,11 +11,9 @@ File::Help::Help(Patch::Structure* structure, const Package::Info* info)
 {
 }
 
-void File::Help::write(const QString& patchName)
+void File::Help::write(const Patch::Info& patchInfo)
 {
-   const QString helpPath = getFilePath(patchName);
-
-   QFile file(getFilePath(helpPath));
+   QFile file(getFilePath(patchInfo));
    if (file.exists())
       return;
 
@@ -49,8 +47,12 @@ void File::Help::write(const QString& patchName)
    file.close();
 }
 
-QString File::Help::getFilePath(const QString& patchName)
+QString File::Help::getFilePath(const Patch::Info& patchInfo)
 {
-   const QString helpPath = info->getPath() + "/help/" + patchName + ".maxhelp";
+   QString helpPath = info->getPath() + "/help/";
+   if (!patchInfo.folder.isEmpty())
+      helpPath += patchInfo.folder + "/";
+   helpPath += patchInfo.name + ".maxhelp";
+
    return helpPath;
 }

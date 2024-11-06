@@ -7,9 +7,9 @@ File::Init::Init(Patch::Structure* structure, const Package::Info* info)
 {
 }
 
-void File::Init::write(const QString& patchName)
+void File::Init::write(const Patch::Info& patchInfo)
 {
-   const QString initPath = getFilePath(patchName);
+   const QString initPath = getFilePath(patchInfo);
 
    QFile file(initPath);
 
@@ -29,20 +29,24 @@ void File::Init::write(const QString& patchName)
 
       if (structure->header.patcherType == Patch::Structure::PatchType::Gui)
       {
-         stream << "max objectfile " << patchName << " " << patchName << ";\n";
-         stream << "max definesubstitution " << patchName << " bpatcher @name " << patchName << ".maxpat;\n";
+         stream << "max objectfile " << patchInfo.name << " " << patchInfo.name << ";\n";
+         stream << "max definesubstitution " << patchInfo.name << " bpatcher @name " << patchInfo.name << ".maxpat;\n";
       }
       else if (structure->header.patcherType == Patch::Structure::PatchType::Poly)
       {
-         stream << "max objectfile " << patchName << " " << patchName << ";\n";
-         stream << "max definesubstitution " << patchName << " poly~ " << patchName << " 16;\n";
+         stream << "max objectfile " << patchInfo.name << " " << patchInfo.name << ";\n";
+         stream << "max definesubstitution " << patchInfo.name << " poly~ " << patchInfo.name << " 16;\n";
       }
       file.close();
    }
 }
 
-QString File::Init::getFilePath(const QString& patchName)
+QString File::Init::getFilePath(const Patch::Info& patchInfo)
 {
-   const QString initPath = info->getPath() + "/init/" + patchName + ".txt";
+   QString initPath = info->getPath() + "/init/";
+   if (!patchInfo.folder.isEmpty())
+      initPath += patchInfo.folder + "/";
+   initPath += patchInfo.name + ".txt";
+
    return initPath;
 }

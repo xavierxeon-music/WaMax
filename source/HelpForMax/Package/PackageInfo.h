@@ -4,6 +4,8 @@
 #include <QFileInfo>
 #include <QString>
 
+#include "Patch/PatchStructure.h"
+
 namespace Package
 {
    class TabWidget;
@@ -11,7 +13,7 @@ namespace Package
    class Info
    {
    public:
-      QString extractPatchName(const QString& patchFileName) const;
+      Patch::Info extractPatchName(const QString& patchFileName) const;
       const QString& getPath() const;
       const QString& getName() const;
       const QString& getAuthor() const;
