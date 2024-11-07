@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
 <c74object name="wa.bitify.mapping~" patcher_type="gui">
-    <digest/>
+    <digest>function mapping</digest>
+    <description>map all possible 256 input values to output values<br/><br/></description>
     <metadatalist>
         <metadata name="author">Ralf Waspe</metadata>
         <metadata name="tag">WaMaxPackageBase</metadata>

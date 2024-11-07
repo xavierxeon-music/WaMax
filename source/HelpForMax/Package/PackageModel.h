@@ -12,20 +12,20 @@ namespace Package
       Q_OBJECT
 
    public:
+      enum DataRoles
+      {
+         RolePath = Qt::UserRole + 1,
+         RoleInfo = Qt::UserRole + 2,
+         RoleExpanded = Qt::UserRole + 3
+      };
+
+   public:
       Model(QObject* parent, const Info* packageInfo);
 
    public:
       void create();
-      void update();
+      void updateIcons();
       QModelIndex find(const QString& patchFileName) const;
-
-   private:
-      enum DataRoles
-      {
-         RolePath = Qt::UserRole + 1,
-         RoleInfo = Qt::UserRole + 2
-
-      };
 
    private:
       const Info* packageInfo;

@@ -29,13 +29,6 @@
    <item>
     <widget class="QTreeView" name="packageTree"/>
    </item>
-   <item>
-    <widget class="QLabel" name="packageNameInfo">
-     <property name="text">
-      <string>TextLabel</string>
-     </property>
-    </widget>
-   </item>
   </layout>
  </widget>
  <resources/>

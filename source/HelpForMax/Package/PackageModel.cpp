@@ -48,9 +48,6 @@ void Package::Model::create()
             invisibleRootItem()->appendRow(folderItem);
 
             folderMap[dirName] = folderItem;
-
-            static const QIcon closedIcon(":/TreeClosed.svg");
-            folderItem->setIcon(closedIcon);
          }
 
          QStandardItem* dirItem = folderMap[dirName];
@@ -64,17 +61,23 @@ void Package::Model::create()
       }
    }
 
-   update();
+   updateIcons();
 }
 
-void Package::Model::update()
+void Package::Model::updateIcons()
 {
    static const QIcon currentIcon(":/HelpCurrent.svg");
    static const QIcon outdatedIcon(":/HelpOutdated.svg");
 
+   static const QIcon closedIcon(":/TreeClosed.svg");
+   static const QIcon closedOutdatedIcon(":/TreeClosedOutdated.svg");
+   static const QIcon openIcon(":/TreeOpen.svg");
+
    for (int folderRow = 0; folderRow < invisibleRootItem()->rowCount(); folderRow++)
    {
       QStandardItem* folderItem = invisibleRootItem()->child(folderRow, 0);
+      bool folderUpToDate = true;
+
       for (int patchRow = 0; patchRow < folderItem->rowCount(); patchRow++)
       {
          QStandardItem* patchItem = folderItem->child(patchRow, 0);
@@ -87,9 +90,19 @@ void Package::Model::update()
          const QDateTime refTime = QFileInfo(refPath).lastModified();
 
          const bool upToDate = refTime >= patchTime;
+         if (!upToDate)
+            folderUpToDate = false;
 
          patchItem->setIcon(upToDate ? currentIcon : outdatedIcon);
       }
+
+      const bool expanded = folderItem->data(RoleExpanded).toBool();
+      if (expanded)
+         folderItem->setIcon(openIcon);
+      else if (folderUpToDate)
+         folderItem->setIcon(closedIcon);
+      else
+         folderItem->setIcon(closedOutdatedIcon);
    }
 }
 

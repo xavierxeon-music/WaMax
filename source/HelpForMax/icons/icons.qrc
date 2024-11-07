@@ -25,5 +25,6 @@
         <file>HelpOutdated.svg</file>
         <file>TreeClosed.svg</file>
         <file>TreeOpen.svg</file>
+        <file>TreeClosedOutdated.svg</file>
     </qresource>
 </RCC>

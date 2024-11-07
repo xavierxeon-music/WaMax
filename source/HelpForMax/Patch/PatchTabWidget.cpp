@@ -23,10 +23,11 @@ void Patch::TabWidget::populate(QMenu* patchMenu, QMenu* viewMenu, QToolBar* too
    //
    patchMenu->addAction(QIcon(":/PatchLoad.svg"), "Load", this, &TabWidget::slotPromptLoadPatch);
 
-   QAction* saveRefAction = patchMenu->addAction(QIcon(":/PatchSave.svg"), "Save", this, &TabWidget::slotWriteRef);
-   saveRefAction->setShortcut(QKeySequence::Save);
+   QAction* saveAction = patchMenu->addAction(QIcon(":/PatchSave.svg"), "Save", this, &TabWidget::slotWriteRef);
+   saveAction->setShortcut(QKeySequence::Save);
 
-   patchMenu->addAction(QIcon(":/PatchSaveAll.svg"), "SaveAll", this, &TabWidget::slotWriteAllRefs);
+   QAction* saveAllAction = patchMenu->addAction(QIcon(":/PatchSaveAll.svg"), "Save All", this, &TabWidget::slotWriteAllRefs);
+   saveAllAction->setShortcut(Qt::ShiftModifier | Qt::ControlModifier | Qt::Key_S);
    patchMenu->addSeparator();
 
    patchMenu->addMenu(getRecentMenu());
@@ -37,14 +38,15 @@ void Patch::TabWidget::populate(QMenu* patchMenu, QMenu* viewMenu, QToolBar* too
 
    //
    viewMenu->addSeparator();
-   viewMenu->addAction(QIcon(":/PatchOpenInMax.svg"), "Open In Max", this, &TabWidget::slotOpenInMax);
+   QAction* openInMaxAction = viewMenu->addAction(QIcon(":/PatchOpenInMax.svg"), "Open In Max", this, &TabWidget::slotOpenInMax);
+   openInMaxAction->setShortcuts(QKeySequence::Italic);
 
    QAction* showXMLAction = viewMenu->addAction(QIcon(":/PatchOpenRef.svg"), "Open XML", this, &TabWidget::slotOpenXML);
    showXMLAction->setShortcut(QKeySequence::Open);
    viewMenu->addSeparator();
 
    //
-   toolBar->addAction(saveRefAction);
+   toolBar->addAction(saveAction);
    toolBar->addSeparator();
    toolBar->addAction(closePatchAction);
 }

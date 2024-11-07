@@ -9,8 +9,6 @@ Package::Widget::Widget(QWidget* parent, const Info* info)
 {
    setupUi(this);
 
-   packageNameInfo->setText("<b>...</b>");
-
    model = new Model(this, info);
    model->create();
    packageTree->setModel(model);
@@ -37,7 +35,7 @@ void Package::Widget::selectPatch(const QString& patchFileName)
 
 void Package::Widget::checkUpToDate()
 {
-   model->update();
+   model->updateIcons();
 }
 
 void Package::Widget::slotItemDoubleClicked(const QModelIndex& index)
@@ -52,16 +50,16 @@ void Package::Widget::slotItemDoubleClicked(const QModelIndex& index)
 
 void Package::Widget::slotItemCollapsed(const QModelIndex& index)
 {
-   static const QIcon closedIcon(":/TreeClosed.svg");
-
    QStandardItem* item = model->itemFromIndex(index);
-   item->setIcon(closedIcon);
+   item->setData(false, Model::RoleExpanded);
+
+   model->updateIcons();
 }
 
 void Package::Widget::slotItemExpanded(const QModelIndex& index)
 {
-   static const QIcon openIcon(":/TreeOpen.svg");
-
    QStandardItem* item = model->itemFromIndex(index);
-   item->setIcon(openIcon);
+   item->setData(true, Model::RoleExpanded);
+
+   model->updateIcons();
 }
