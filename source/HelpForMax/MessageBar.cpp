@@ -1,5 +1,8 @@
 #include "MessageBar.h"
 
+#include <QApplication>
+#include <QTimer>
+
 #include "MessageChannel.h"
 
 Message::Bar* Message::Bar::me = nullptr;
