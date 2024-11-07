@@ -13,6 +13,7 @@
 
 Graph::Widget::Widget(QWidget* parent)
    : QGraphicsView(parent)
+   , Max::Patch()
    , scene(nullptr)
    , patchFileName()
    , blackPen(Qt::black)
@@ -41,7 +42,9 @@ Graph::Widget::Widget(QWidget* parent)
 
 void Graph::Widget::slotLoad(const QString& patchFileName)
 {
+   read(patchFileName);
    scene->clear();
+
    this->patchFileName = patchFileName;
 
    if (patchFileName.isEmpty())

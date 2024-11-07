@@ -14,12 +14,12 @@ namespace Graph
          using ConstPtrList = QList<const Vertex*>;
 
       public:
-         Vertex(const QString& name);
+         Vertex(const QString& name = QString());
 
       public:
          const QString& getName() const;
 
-      private:
+      protected:
          QString name;
       };
    } // namespace Symbolic

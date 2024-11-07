@@ -18,7 +18,7 @@ namespace Graph
          static const double invalidWeight;
 
       public:
-         Edge(Vertex* vertexA, Vertex* vertexB, const double& weightForward = 1.0, const double& weightBackward = Edge::invalidWeight);
+         Edge(Vertex* vertexA = nullptr, Vertex* vertexB = nullptr, const double& weightForward = 1.0, const double& weightBackward = Edge::invalidWeight);
          virtual ~Edge();
 
       public:
@@ -34,13 +34,11 @@ namespace Graph
       protected:
          Vertex* vertexA;
          Vertex* vertexB;
+         double weightForward;
+         double weightBackward;
 
       private:
          friend class Graph;
-
-      private:
-         double weightForward;
-         double weightBackward;
       };
    } // namespace Symbolic
 } // namespace Graph

@@ -6,9 +6,11 @@
 #include <QGraphicsScene>
 #include <QJsonObject>
 
+#include "GraphMaxPatch.h"
+
 namespace Graph
 {
-   class Widget : public QGraphicsView
+   class Widget : public QGraphicsView, public Max::Patch
    {
       Q_OBJECT
    public:
