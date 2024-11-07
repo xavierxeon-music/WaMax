@@ -194,6 +194,8 @@ RecentTabWidget::Entry Patch::TabWidget::creatreEntry(const QFileInfo& fileInfo)
 
 void Patch::TabWidget::updateTabNames()
 {
+   static const QString bullet = QString::fromUtf8("\u25cf") + QString(" ");
+
    for (int index = 0; index < tabBar()->count(); index++)
    {
       QWidget* content = widget(index);
@@ -203,7 +205,7 @@ void Patch::TabWidget::updateTabNames()
 
       QString name = patchWidget->getPatchInfo().name;
       if (patchWidget->isDirty())
-         name = "* " + name;
+         name = bullet + name;
 
       setTabText(index, name);
    }

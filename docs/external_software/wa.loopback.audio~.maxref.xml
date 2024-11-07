@@ -2,6 +2,7 @@
 <?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
 <c74object name="wa.loopback.audio~" patcher_type="standard">
     <digest>route audio</digest>
+    <description>route adui through loopback device</description>
     <metadatalist>
         <metadata name="author">Ralf Waspe</metadata>
         <metadata name="tag">WaMaxPackageBase</metadata>
