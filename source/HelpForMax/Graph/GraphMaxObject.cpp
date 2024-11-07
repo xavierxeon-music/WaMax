@@ -40,8 +40,15 @@ Graph::Max::Object::Object(const QJsonObject& boxObject)
       text = className;
       qDebug() << "NO TEXT" << className;
    }
-   else
+   else if ("newobj" == className)
    {
+      static const TypeMap typeMap = {{"patcherargs", Type::PatcherArgs},
+                                      {"route", Type::Route},
+                                      {"routepass", Type::RoutePass},
+                                      {"typeroute~", Type::TypeRoute}};
+
+      const QString typeString = text.split(" ", Qt::SkipEmptyParts).first();
+      type = typeMap.value(typeString, Type::Other);
    }
 
    inletCount = boxObject["numinlets"].toInt();

@@ -26,6 +26,8 @@ namespace Graph
             TypeRoute
          };
 
+         using TypeMap = QMap<QString, Type>;
+
       public:
          Object(const QJsonObject& boxObject);
 
