@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+<c74object name="wa.bitify.and~" patcher_type="standard">
+    <digest>add bits</digest>
+    <metadatalist>
+        <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMaxPackageBase</metadata>
+    </metadatalist>
+    <misc name="Outputs">
+        <entry name="multichannelsignal">
+            <digest/>
+        </entry>
+    </misc>
+    <objarglist/>
+    <attributelist/>
+    <methodlist/>
+    <seealsolist/>
+</c74object>
