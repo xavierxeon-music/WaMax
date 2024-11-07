@@ -20,25 +20,6 @@ namespace Graph
       void slotLoad(const QString& patchFileName);
 
    private:
-      struct Box
-      {
-         QGraphicsRectItem* rectItem = nullptr;
-         QList<QGraphicsItem*> foregroundItems;
-         int inletCount = 0;
-         int outletCount = 0;
-      };
-
-      enum DataKeys
-      {
-         KeyHelp = 1
-      };
-
-      using IdMap = QMap<QString, Box>;
-
-   private:
-      IdMap makeObjects(const QJsonObject patcherObject);
-      void makeLines(const QJsonObject patcherObject, const IdMap& idMap);
-
       void wheelEvent(QWheelEvent* wheelEvent) override;
       void mouseDoubleClickEvent(QMouseEvent* mouseEvent) override;
 
@@ -49,7 +30,6 @@ namespace Graph
 
    private:
       QGraphicsScene* scene;
-      QString patchFileName;
 
       QPen blackPen;
       QBrush whiteBrush;
