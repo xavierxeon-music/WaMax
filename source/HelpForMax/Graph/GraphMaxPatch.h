@@ -13,16 +13,11 @@ namespace Graph
       class Patch : public Symbolic::Graph
       {
       public:
-         enum DataKeys
-         {
-            KeyHelp = 1
-         };
-
-      public:
          Patch();
 
       public:
          void read(const QString& patchFileName);
+         void analyse();
 
       private:
          void readObjects(const QJsonObject patcherObject);

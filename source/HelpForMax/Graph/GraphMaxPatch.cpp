@@ -7,6 +7,7 @@
 
 #include "GraphMaxLine.h"
 #include "GraphMaxObject.h"
+#include "GraphSymbolicAlgorithm.h"
 
 Graph::Max::Patch::Patch()
    : Symbolic::Graph()
@@ -37,6 +38,19 @@ void Graph::Max::Patch::read(const QString& patchFileName)
 
    readObjects(patcherObject);
    readLines(patcherObject);
+}
+
+void Graph::Max::Patch::analyse()
+{
+   Symbolic::Algorithm algo(this);
+
+   for (int vertIndex = 0; vertIndex < vertexCount(); vertIndex++)
+   {
+      Max::Object* object = static_cast<Max::Object*>(getVertex(vertIndex));
+      Q_UNUSED(object)
+   }
+
+   qDebug() << __FUNCTION__;
 }
 
 void Graph::Max::Patch::readObjects(const QJsonObject patcherObject)

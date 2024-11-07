@@ -10,6 +10,7 @@ Graph::Max::Object::Object(const QJsonObject& boxObject)
    , comment()
    , inletCount(0)
    , outletCount(0)
+   , type(Type::Other)
 {
    className = boxObject["maxclass"].toString();
 
@@ -24,18 +25,24 @@ Graph::Max::Object::Object(const QJsonObject& boxObject)
    {
       const int index = boxObject["index"].toInt();
       text = "IN\n" + QString::number(index);
-
       comment = boxObject["comment"].toString();
+      type = Type::Inlet;
    }
    else if ("outlet" == className)
    {
       const int index = boxObject["index"].toInt();
       text = "OUT\n" + QString::number(index);
-
       comment = boxObject["comment"].toString();
+      type = Type::Outlet;
    }
-   if (text.isEmpty())
+   else if (text.isEmpty())
+   {
       text = className;
+      qDebug() << "NO TEXT" << className;
+   }
+   else
+   {
+   }
 
    inletCount = boxObject["numinlets"].toInt();
    outletCount = boxObject["numoutlets"].toInt();

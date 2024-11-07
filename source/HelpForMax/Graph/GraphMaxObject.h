@@ -15,6 +15,17 @@ namespace Graph
       public:
          using IdMap = QMap<QString, Object*>;
 
+         enum class Type
+         {
+            Other,
+            Inlet,
+            Outlet,
+            PatcherArgs,
+            Route,
+            RoutePass,
+            TypeRoute
+         };
+
       public:
          Object(const QJsonObject& boxObject);
 
@@ -25,6 +36,7 @@ namespace Graph
          QString comment;
          int inletCount;
          int outletCount;
+         Type type;
       };
    } // namespace Max
 } // namespace Graph

@@ -46,6 +46,8 @@ Graph::Widget::Widget(QWidget* parent)
 void Graph::Widget::slotLoad(const QString& patchFileName)
 {
    read(patchFileName);
+   analyse();
+
    scene->clear();
 
    for (int vertIndex = 0; vertIndex < vertexCount(); vertIndex++)
