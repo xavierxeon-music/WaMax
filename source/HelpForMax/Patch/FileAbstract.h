@@ -1,7 +1,7 @@
 #ifndef FileAbstractH
 #define FileAbstractH
 
-#include "PatchStructure.h"
+#include "PatchRefStructure.h"
 
 namespace Package
 {
@@ -13,7 +13,7 @@ namespace File
    class Abstract
    {
    public:
-      Abstract(const Package::Info* info, Patch::Structure* structure);
+      Abstract(const Package::Info* info, Patch::RefStructure* structure);
 
    public:
       virtual void read(const Patch::Info& patchInfo);
@@ -22,7 +22,7 @@ namespace File
 
    protected:
       const Package::Info* info;
-      Patch::Structure* structure;
+      Patch::RefStructure* structure;
    };
 } // namespace File
 

@@ -21,7 +21,7 @@
 
 Patch::Widget::Widget(TabWidget* tabWidget, const Package::Info* packageInfo, const QString& patchFileName)
    : QWidget(tabWidget)
-   , Structure()
+   , RefStructure()
    , tabWidget(tabWidget)
    , packageInfo(packageInfo)
    , path(patchFileName)
@@ -40,12 +40,12 @@ Patch::Widget::Widget(TabWidget* tabWidget, const Package::Info* packageInfo, co
       scrollArea->setWidgetResizable(true);
       scrollArea->setWidget(content);
 
-      setIcon(patchIcon, Structure::PatchPart::Header);
-      setIcon(argumentIcon, Structure::PatchPart::Argument);
-      setIcon(typedMessageIcon, Structure::PatchPart::MessageTyped);
-      setIcon(attributeIcon, Structure::PatchPart::Attribute);
-      setIcon(nameMessageIcon, Structure::PatchPart::MessageNamed);
-      setIcon(outputIcon, Structure::PatchPart::Output);
+      setIcon(patchIcon, RefStructure::PatchPart::Header);
+      setIcon(argumentIcon, RefStructure::PatchPart::Argument);
+      setIcon(typedMessageIcon, RefStructure::PatchPart::MessageTyped);
+      setIcon(attributeIcon, RefStructure::PatchPart::Attribute);
+      setIcon(nameMessageIcon, RefStructure::PatchPart::MessageNamed);
+      setIcon(outputIcon, RefStructure::PatchPart::Output);
 
       // set models
       Model::Header* headerModel = new Model::Header(this, this);
@@ -145,7 +145,7 @@ bool Patch::Widget::isDirty() const
 
 void Patch::Widget::slotSetPatchDigest()
 {
-   setDigest(&header.digest, Structure::PatchPart::Header);
+   setDigest(&header.digest, RefStructure::PatchPart::Header);
 }
 
 void Patch::Widget::slotSaveDigestText()
@@ -186,7 +186,7 @@ void Patch::Widget::rebuild()
    for (Model::Abstract* model : modelList)
       model->rebuild();
 
-   setDigest(&header.digest, Structure::PatchPart::Header);
+   setDigest(&header.digest, RefStructure::PatchPart::Header);
 
    patchNameLabel->setText(patchInfo.name);
 }
@@ -209,7 +209,7 @@ void Patch::Widget::propagateDirty(bool isDirty)
    tabWidget->emitSignalCheckDirty();
 }
 
-void Patch::Widget::setIcon(QLabel* iconLabel, Structure::PatchPart part)
+void Patch::Widget::setIcon(QLabel* iconLabel, RefStructure::PatchPart part)
 {
    iconLabel->setPixmap(partIcon(part).pixmap(16, 16));
 }

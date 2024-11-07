@@ -1,7 +1,7 @@
 #include "PatchModelTypedMessage.h"
 
-Patch::Model::TypedMessage::TypedMessage(QObject* parent, Structure* structure)
-   : Abstract(parent, structure, Structure::PatchPart::MessageTyped)
+Patch::Model::TypedMessage::TypedMessage(QObject* parent, RefStructure* structure)
+   : Abstract(parent, structure, RefStructure::PatchPart::MessageTyped)
 {
 }
 
@@ -13,8 +13,8 @@ void Patch::Model::TypedMessage::update()
       QStandardItem* activeItem = invisibleRootItem()->child(row, 1);
       QStandardItem* digestItem = invisibleRootItem()->child(row, 2);
 
-      const Structure::DataType type = typeItem->data().value<Structure::DataType>();
-      Structure::MessageTyped& message = structure->messageTypedMap[type];
+      const RefStructure::DataType type = typeItem->data().value<RefStructure::DataType>();
+      RefStructure::MessageTyped& message = structure->messageTypedMap[type];
 
       activeItem->setCheckState(message.active ? Qt::Checked : Qt::Unchecked);
 
@@ -30,9 +30,9 @@ void Patch::Model::TypedMessage::rebuild()
    clear();
    setHorizontalHeaderLabels({"Type", "Active", "Digest"});
 
-   for (const Structure::DataType& type : structure->dataTypeList())
+   for (const RefStructure::DataType& type : structure->dataTypeList())
    {
-      QStandardItem* typeItem = new QStandardItem(Structure::dataTypeName(type));
+      QStandardItem* typeItem = new QStandardItem(RefStructure::dataTypeName(type));
       typeItem->setEditable(false);
       typeItem->setData(QVariant::fromValue(type));
 
@@ -51,12 +51,12 @@ void Patch::Model::TypedMessage::rebuild()
    update();
 }
 
-Patch::Structure::Digest* Patch::Model::TypedMessage::getDigest(const QModelIndex& index)
+Patch::RefStructure::Digest* Patch::Model::TypedMessage::getDigest(const QModelIndex& index)
 {
    QStandardItem* typeItem = invisibleRootItem()->child(index.row(), 0);
-   const Structure::DataType type = typeItem->data().value<Structure::DataType>();
+   const RefStructure::DataType type = typeItem->data().value<RefStructure::DataType>();
 
-   Structure::MessageTyped& message = structure->messageTypedMap[type];
+   RefStructure::MessageTyped& message = structure->messageTypedMap[type];
    return &(message.digest);
 }
 
@@ -65,9 +65,9 @@ bool Patch::Model::TypedMessage::setData(const QModelIndex& index, const QVarian
    const bool result = QStandardItemModel::setData(index, value, role);
 
    QStandardItem* typeItem = invisibleRootItem()->child(index.row(), 0);
-   const Structure::DataType type = typeItem->data().value<Structure::DataType>();
+   const RefStructure::DataType type = typeItem->data().value<RefStructure::DataType>();
 
-   Structure::MessageTyped& message = structure->messageTypedMap[type];
+   RefStructure::MessageTyped& message = structure->messageTypedMap[type];
 
    if (Qt::EditRole == role)
    {

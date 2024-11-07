@@ -3,7 +3,7 @@
 
 #include <QStyledItemDelegate>
 
-#include "Patch/PatchStructure.h"
+#include "Patch/PatchRefStructure.h"
 
 namespace Delegate
 {
@@ -14,7 +14,7 @@ namespace Delegate
    public:
       struct Source
       {
-         virtual Patch::Structure::DataType getDataType(const int index) = 0;
+         virtual Patch::RefStructure::DataType getDataType(const int index) = 0;
       };
 
    public:

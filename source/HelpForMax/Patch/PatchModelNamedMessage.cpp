@@ -1,14 +1,14 @@
 #include "PatchModelNamedMessage.h"
 
-Patch::Model::NamedMessage::NamedMessage(QObject* parent, Structure* structure)
-   : Abstract(parent, structure, Structure::PatchPart::MessageNamed)
+Patch::Model::NamedMessage::NamedMessage(QObject* parent, RefStructure* structure)
+   : Abstract(parent, structure, RefStructure::PatchPart::MessageNamed)
 {
 }
 
 void Patch::Model::NamedMessage::update()
 {
    int row = 0;
-   for (Structure::AttributesAndMessageNamed::Map::const_iterator it = structure->messageNamedMap.constBegin(); it != structure->messageNamedMap.constEnd(); it++)
+   for (RefStructure::AttributesAndMessageNamed::Map::const_iterator it = structure->messageNamedMap.constBegin(); it != structure->messageNamedMap.constEnd(); it++)
    {
       QStandardItem* nameItem = invisibleRootItem()->child(row, 0);
       QStandardItem* typeItem = invisibleRootItem()->child(row, 1);
@@ -19,19 +19,19 @@ void Patch::Model::NamedMessage::update()
       if (!nameItem)
          continue;
 
-      const Structure::AttributesAndMessageNamed& messageNamed = it.value();
+      const RefStructure::AttributesAndMessageNamed& messageNamed = it.value();
 
       nameItem->setText(messageNamed.name);
       nameItem->setData(QVariant::fromValue(it));
 
-      typeItem->setText(Structure::dataTypeName(messageNamed.dataType));
+      typeItem->setText(RefStructure::dataTypeName(messageNamed.dataType));
 
-      if (0 != (messageNamed.patchParts & Structure::PatchPart::Attribute))
+      if (0 != (messageNamed.patchParts & RefStructure::PatchPart::Attribute))
          isAttributeItem->setCheckState(Qt::Checked);
       else
          isAttributeItem->setCheckState(Qt::Unchecked);
 
-      if (0 != (messageNamed.patchParts & Structure::PatchPart::MessageNamed))
+      if (0 != (messageNamed.patchParts & RefStructure::PatchPart::MessageNamed))
          isMessageItem->setCheckState(Qt::Checked);
       else
          isMessageItem->setCheckState(Qt::Unchecked);
@@ -50,7 +50,7 @@ void Patch::Model::NamedMessage::rebuild()
    clear();
    setHorizontalHeaderLabels({"Name", "Type", "At", "M", "Digest"});
 
-   for (Structure::AttributesAndMessageNamed::Map::const_iterator it = structure->messageNamedMap.constBegin(); it != structure->messageNamedMap.constEnd(); it++)
+   for (RefStructure::AttributesAndMessageNamed::Map::const_iterator it = structure->messageNamedMap.constBegin(); it != structure->messageNamedMap.constEnd(); it++)
    {
       QStandardItem* nameItem = new QStandardItem();
       nameItem->setData(QVariant::fromValue(it));
@@ -77,11 +77,11 @@ void Patch::Model::NamedMessage::rebuild()
    update();
 }
 
-Patch::Structure::Digest* Patch::Model::NamedMessage::getDigest(const QModelIndex& index)
+Patch::RefStructure::Digest* Patch::Model::NamedMessage::getDigest(const QModelIndex& index)
 {
    QStandardItem* nameItem = invisibleRootItem()->child(index.row(), 0);
 
-   Structure::AttributesAndMessageNamed& messageNamed = structure->messageNamedMap[nameItem->text()];
+   RefStructure::AttributesAndMessageNamed& messageNamed = structure->messageNamedMap[nameItem->text()];
    return &(messageNamed.digest);
 }
 
@@ -89,7 +89,7 @@ void Patch::Model::NamedMessage::createBeforeItem(const QModelIndex& index)
 {
    Q_UNUSED(index)
 
-   Structure::AttributesAndMessageNamed messageNamed;
+   RefStructure::AttributesAndMessageNamed messageNamed;
    messageNamed.name = "???";
 
    if (structure->messageNamedMap.contains(messageNamed.name))
@@ -102,7 +102,7 @@ void Patch::Model::NamedMessage::createBeforeItem(const QModelIndex& index)
 void Patch::Model::NamedMessage::removeItem(const QModelIndex& index)
 {
    QStandardItem* nameItem = invisibleRootItem()->child(index.row(), 0);
-   Structure::AttributesAndMessageNamed::Map::const_iterator it = nameItem->data().value<Structure::AttributesAndMessageNamed::Map::const_iterator>();
+   RefStructure::AttributesAndMessageNamed::Map::const_iterator it = nameItem->data().value<RefStructure::AttributesAndMessageNamed::Map::const_iterator>();
 
    structure->messageNamedMap.erase(it);
    structure->setDirty();
@@ -111,7 +111,7 @@ void Patch::Model::NamedMessage::removeItem(const QModelIndex& index)
 bool Patch::Model::NamedMessage::setData(const QModelIndex& index, const QVariant& value, int role)
 {
    QStandardItem* nameItem = invisibleRootItem()->child(index.row(), 0);
-   Structure::AttributesAndMessageNamed& messageNamed = structure->messageNamedMap[nameItem->text()];
+   RefStructure::AttributesAndMessageNamed& messageNamed = structure->messageNamedMap[nameItem->text()];
 
    qDebug() << nameItem->text() << value.toString();
 
@@ -127,13 +127,13 @@ bool Patch::Model::NamedMessage::setData(const QModelIndex& index, const QVarian
       }
       else if (1 == index.column())
       {
-         messageNamed.dataType = Structure::toDataType(value.toString());
+         messageNamed.dataType = RefStructure::toDataType(value.toString());
          structure->setDirty();
       }
    }
    else if (Qt::CheckStateRole == role)
    {
-      auto setFlag = [&](const Structure::PatchPart& part)
+      auto setFlag = [&](const RefStructure::PatchPart& part)
       {
          if (Qt::Checked == value.toInt())
             messageNamed.patchParts |= part;
@@ -143,19 +143,19 @@ bool Patch::Model::NamedMessage::setData(const QModelIndex& index, const QVarian
       };
 
       if (2 == index.column())
-         setFlag(Structure::PatchPart::Attribute);
+         setFlag(RefStructure::PatchPart::Attribute);
       else if (3 == index.column())
-         setFlag(Structure::PatchPart::MessageNamed);
+         setFlag(RefStructure::PatchPart::MessageNamed);
    }
 
    emit signalDataEdited();
    return result;
 }
 
-Patch::Structure::DataType Patch::Model::NamedMessage::getDataType(const int index)
+Patch::RefStructure::DataType Patch::Model::NamedMessage::getDataType(const int index)
 {
    QStandardItem* nameItem = invisibleRootItem()->child(index, 0);
-   const Structure::AttributesAndMessageNamed& messageNamed = structure->messageNamedMap.value(nameItem->text());
+   const RefStructure::AttributesAndMessageNamed& messageNamed = structure->messageNamedMap.value(nameItem->text());
 
    return messageNamed.dataType;
 }

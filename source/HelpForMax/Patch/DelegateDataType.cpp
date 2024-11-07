@@ -15,9 +15,9 @@ QWidget* Delegate::DataType::createEditor(QWidget* parent, const QStyleOptionVie
 
    QComboBox* comboBox = new QComboBox(parent);
    comboBox->setFrame(false);
-   for (const Patch::Structure::DataType& type : Patch::Structure::dataTypeList())
+   for (const Patch::RefStructure::DataType& type : Patch::RefStructure::dataTypeList())
    {
-      comboBox->addItem(Patch::Structure::dataTypeName(type));
+      comboBox->addItem(Patch::RefStructure::dataTypeName(type));
    }
 
    for (int index = 0; index < comboBox->count(); index++)
@@ -32,8 +32,8 @@ void Delegate::DataType::setEditorData(QWidget* editor, const QModelIndex& index
 {
    QComboBox* comboBox = qobject_cast<QComboBox*>(editor);
 
-   const Patch::Structure::DataType type = source->getDataType(index.row());
-   const int typeIndex = comboBox->findText(Patch::Structure::dataTypeName(type));
+   const Patch::RefStructure::DataType type = source->getDataType(index.row());
+   const int typeIndex = comboBox->findText(Patch::RefStructure::dataTypeName(type));
    comboBox->setCurrentIndex(typeIndex);
 }
 

@@ -2,7 +2,7 @@
 
 #include "Package/PackageInfo.h"
 
-File::Init::Init(const Package::Info* info, Patch::Structure* structure)
+File::Init::Init(const Package::Info* info, Patch::RefStructure* structure)
    : Abstract(info, structure)
 {
 }
@@ -13,7 +13,7 @@ void File::Init::write(const Patch::Info& patchInfo)
 
    QFile file(initPath);
 
-   if (structure->header.patcherType == Patch::Structure::PatchType::Standard) // delete file
+   if (structure->header.patcherType == Patch::RefStructure::PatchType::Standard) // delete file
    {
       if (!file.exists()) // nothing to delete
          return;
@@ -27,12 +27,12 @@ void File::Init::write(const Patch::Info& patchInfo)
 
       QTextStream stream(&file);
 
-      if (structure->header.patcherType == Patch::Structure::PatchType::Gui)
+      if (structure->header.patcherType == Patch::RefStructure::PatchType::Gui)
       {
          stream << "max objectfile " << patchInfo.name << " " << patchInfo.name << ";\n";
          stream << "max definesubstitution " << patchInfo.name << " bpatcher @name " << patchInfo.name << ".maxpat;\n";
       }
-      else if (structure->header.patcherType == Patch::Structure::PatchType::Poly)
+      else if (structure->header.patcherType == Patch::RefStructure::PatchType::Poly)
       {
          stream << "max objectfile " << patchInfo.name << " " << patchInfo.name << ";\n";
          stream << "max definesubstitution " << patchInfo.name << " poly~ " << patchInfo.name << " 16;\n";

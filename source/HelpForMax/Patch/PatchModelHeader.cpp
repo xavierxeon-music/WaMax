@@ -1,7 +1,7 @@
 #include "PatchModelHeader.h"
 
-Patch::Model::Header::Header(QObject* parent, Structure* structure)
-   : Abstract(parent, structure, Structure::PatchPart::Header)
+Patch::Model::Header::Header(QObject* parent, RefStructure* structure)
+   : Abstract(parent, structure, RefStructure::PatchPart::Header)
 {
 }
 
@@ -10,7 +10,7 @@ void Patch::Model::Header::update()
    QStandardItem* typeItem = invisibleRootItem()->child(0, 0);
    QStandardItem* digestItem = invisibleRootItem()->child(0, 1);
 
-   typeItem->setText(Structure::patchTypeName(structure->header.patcherType));
+   typeItem->setText(RefStructure::patchTypeName(structure->header.patcherType));
    updateDigestItem(digestItem, structure->header.digest);
 
    emit signalDataEdited();
@@ -33,7 +33,7 @@ void Patch::Model::Header::rebuild()
    update();
 }
 
-Patch::Structure::Digest* Patch::Model::Header::getDigest(const QModelIndex& index)
+Patch::RefStructure::Digest* Patch::Model::Header::getDigest(const QModelIndex& index)
 {
    Q_UNUSED(index)
 
@@ -47,7 +47,7 @@ bool Patch::Model::Header::setData(const QModelIndex& index, const QVariant& val
    {
       if (0 == index.column())
       {
-         Structure::PatchType patchType = Structure::toPatchType(value.toString());
+         RefStructure::PatchType patchType = RefStructure::toPatchType(value.toString());
          structure->header.patcherType = patchType;
          structure->setDirty();
       }
@@ -56,7 +56,7 @@ bool Patch::Model::Header::setData(const QModelIndex& index, const QVariant& val
    return result;
 }
 
-Patch::Structure::PatchType Patch::Model::Header::getPatchType(const int index)
+Patch::RefStructure::PatchType Patch::Model::Header::getPatchType(const int index)
 {
    Q_UNUSED(index)
 

@@ -1,7 +1,7 @@
 #include "PatchModelArgument.h"
 
-Patch::Model::Argument::Argument(QObject* parent, Structure* structure)
-   : Abstract(parent, structure, Structure::PatchPart::Argument)
+Patch::Model::Argument::Argument(QObject* parent, RefStructure* structure)
+   : Abstract(parent, structure, RefStructure::PatchPart::Argument)
    , Delegate::DataType::Source()
 {
 }
@@ -15,10 +15,10 @@ void Patch::Model::Argument::update()
       QStandardItem* optionalItem = invisibleRootItem()->child(row, 2);
       QStandardItem* digestItem = invisibleRootItem()->child(row, 3);
 
-      const Structure::Argument& argument = structure->argumentList.at(row);
+      const RefStructure::Argument& argument = structure->argumentList.at(row);
 
       nameItem->setText(argument.name);
-      typeItem->setText(Structure::dataTypeName(argument.dataType));
+      typeItem->setText(RefStructure::dataTypeName(argument.dataType));
       optionalItem->setCheckState(argument.optional ? Qt::Checked : Qt::Unchecked);
 
       updateDigestItem(digestItem, argument.digest);
@@ -57,15 +57,15 @@ void Patch::Model::Argument::rebuild()
    update();
 }
 
-Patch::Structure::Digest* Patch::Model::Argument::getDigest(const QModelIndex& index)
+Patch::RefStructure::Digest* Patch::Model::Argument::getDigest(const QModelIndex& index)
 {
-   Structure::Argument& argument = structure->argumentList[index.row()];
+   RefStructure::Argument& argument = structure->argumentList[index.row()];
    return &(argument.digest);
 }
 
 void Patch::Model::Argument::createBeforeItem(const QModelIndex& index)
 {
-   Structure::Argument argument;
+   RefStructure::Argument argument;
    argument.name = "???";
 
    if (index.isValid())
@@ -85,7 +85,7 @@ void Patch::Model::Argument::removeItem(const QModelIndex& index)
 bool Patch::Model::Argument::setData(const QModelIndex& index, const QVariant& value, int role)
 {
    const bool result = QStandardItemModel::setData(index, value, role);
-   Structure::Argument& argument = structure->argumentList[index.row()];
+   RefStructure::Argument& argument = structure->argumentList[index.row()];
 
    if (Qt::EditRole == role)
    {
@@ -96,7 +96,7 @@ bool Patch::Model::Argument::setData(const QModelIndex& index, const QVariant& v
       }
       else if (1 == index.column())
       {
-         argument.dataType = Structure::toDataType(value.toString());
+         argument.dataType = RefStructure::toDataType(value.toString());
          structure->setDirty();
       }
    }
@@ -110,9 +110,9 @@ bool Patch::Model::Argument::setData(const QModelIndex& index, const QVariant& v
    return result;
 }
 
-Patch::Structure::DataType Patch::Model::Argument::getDataType(const int index)
+Patch::RefStructure::DataType Patch::Model::Argument::getDataType(const int index)
 {
-   const Structure::Argument& argument = structure->argumentList.at(index);
+   const RefStructure::Argument& argument = structure->argumentList.at(index);
 
    return argument.dataType;
 }

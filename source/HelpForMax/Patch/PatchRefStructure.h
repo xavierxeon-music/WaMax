@@ -1,5 +1,5 @@
-#ifndef PatchStructureH
-#define PatchStructureH
+#ifndef PatchRefStructureH
+#define PatchRefStructureH
 
 #include <QObject>
 
@@ -16,7 +16,7 @@ namespace Patch
       QString folder;
    };
 
-   class Structure
+   class RefStructure
    {
       Q_GADGET
 
@@ -120,8 +120,8 @@ namespace Patch
       using SeeAlsoList = QStringList;
 
    public:
-      Structure();
-      virtual ~Structure();
+      RefStructure();
+      virtual ~RefStructure();
 
    public:
       virtual void clear();
@@ -153,6 +153,6 @@ namespace Patch
    };
 } // namespace Patch
 
-Q_DECLARE_OPERATORS_FOR_FLAGS(Patch::Structure::PatchParts)
+Q_DECLARE_OPERATORS_FOR_FLAGS(Patch::RefStructure::PatchParts)
 
-#endif // NOT PatchStructureH
+#endif // NOT PatchRefStructureH

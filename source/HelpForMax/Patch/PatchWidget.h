@@ -1,7 +1,7 @@
 #ifndef PatchWidgetH
 #define PatchWidgetH
 
-#include "PatchStructure.h"
+#include "PatchRefStructure.h"
 #include "ui_DigestWidget.h"
 #include "ui_PatchWidget.h"
 #include <QWidget>
@@ -17,7 +17,7 @@ namespace Patch
 {
    class TabWidget;
 
-   class Widget : public QWidget, private Structure, private Ui::PatchWidget, private Ui::DigestWidget
+   class Widget : public QWidget, private RefStructure, private Ui::PatchWidget, private Ui::DigestWidget
    {
       Q_OBJECT
 
@@ -48,7 +48,7 @@ namespace Patch
       void update();
       void setDirty() override;
       void propagateDirty(bool isDirty);
-      void setIcon(QLabel* iconLabel, Structure::PatchPart part);
+      void setIcon(QLabel* iconLabel, RefStructure::PatchPart part);
 
    private:
       TabWidget* tabWidget;

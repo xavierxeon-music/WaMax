@@ -1,13 +1,13 @@
 #include "PatchModelAbstract.h"
 
-Patch::Model::Abstract::Abstract(QObject* parent, Structure* structure, const Structure::PatchPart& part)
+Patch::Model::Abstract::Abstract(QObject* parent, RefStructure* structure, const RefStructure::PatchPart& part)
    : QStandardItemModel(parent)
    , structure(structure)
    , part(part)
 {
 }
 
-void Patch::Model::Abstract::updateDigestItem(QStandardItem* digestItem, const Structure::Digest& digest)
+void Patch::Model::Abstract::updateDigestItem(QStandardItem* digestItem, const RefStructure::Digest& digest)
 {
    QString description = digest.text;
    digestItem->setText(description);
@@ -28,7 +28,7 @@ void Patch::Model::Abstract::removeItem(const QModelIndex& index)
    Q_UNUSED(index)
 }
 
-const Patch::Structure::PatchPart& Patch::Model::Abstract::getPart() const
+const Patch::RefStructure::PatchPart& Patch::Model::Abstract::getPart() const
 {
    return part;
 }

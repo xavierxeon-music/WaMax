@@ -3,7 +3,7 @@
 
 #include <QStandardItemModel>
 
-#include "PatchStructure.h"
+#include "PatchRefStructure.h"
 
 namespace Patch
 {
@@ -16,7 +16,7 @@ namespace Patch
          using List = QList<Abstract*>;
 
       public:
-         Abstract(QObject* parent, Structure* structure, const Structure::PatchPart& part);
+         Abstract(QObject* parent, RefStructure* structure, const RefStructure::PatchPart& part);
 
       signals:
          void signalDataEdited();
@@ -24,17 +24,17 @@ namespace Patch
       public:
          virtual void update() = 0;
          virtual void rebuild() = 0;
-         virtual Structure::Digest* getDigest(const QModelIndex& index) = 0;
+         virtual RefStructure::Digest* getDigest(const QModelIndex& index) = 0;
          virtual void createBeforeItem(const QModelIndex& index);
          virtual void removeItem(const QModelIndex& index);
-         const Structure::PatchPart& getPart() const;
+         const RefStructure::PatchPart& getPart() const;
 
       protected:
-         void updateDigestItem(QStandardItem* digestItem, const Structure::Digest& digest);
+         void updateDigestItem(QStandardItem* digestItem, const RefStructure::Digest& digest);
 
       protected:
-         Structure* structure;
-         Structure::PatchPart part;
+         RefStructure* structure;
+         RefStructure::PatchPart part;
       };
    } // namespace Model
 } // namespace Patch

@@ -15,9 +15,9 @@ QWidget* Delegate::PatchType::createEditor(QWidget* parent, const QStyleOptionVi
 
    QComboBox* comboBox = new QComboBox(parent);
    comboBox->setFrame(false);
-   for (const Patch::Structure::PatchType& type : Patch::Structure::patchTypeList())
+   for (const Patch::RefStructure::PatchType& type : Patch::RefStructure::patchTypeList())
    {
-      comboBox->addItem(Patch::Structure::patchTypeName(type));
+      comboBox->addItem(Patch::RefStructure::patchTypeName(type));
    }
 
    for (int index = 0; index < comboBox->count(); index++)
@@ -32,8 +32,8 @@ void Delegate::PatchType::setEditorData(QWidget* editor, const QModelIndex& inde
 {
    QComboBox* comboBox = qobject_cast<QComboBox*>(editor);
 
-   const Patch::Structure::PatchType type = source->getPatchType(index.row());
-   const int typeIndex = comboBox->findText(Patch::Structure::patchTypeName(type));
+   const Patch::RefStructure::PatchType type = source->getPatchType(index.row());
+   const int typeIndex = comboBox->findText(Patch::RefStructure::patchTypeName(type));
    comboBox->setCurrentIndex(typeIndex);
 }
 

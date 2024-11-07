@@ -13,14 +13,14 @@ namespace Patch
          Q_OBJECT
 
       public:
-         Header(QObject* parent, Structure* structure);
+         Header(QObject* parent, RefStructure* structure);
 
       private:
          void update() override;
          void rebuild() override;
-         Structure::Digest* getDigest(const QModelIndex& index) override;
+         RefStructure::Digest* getDigest(const QModelIndex& index) override;
          bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole) override;
-         Patch::Structure::PatchType getPatchType(const int index) override;
+         Patch::RefStructure::PatchType getPatchType(const int index) override;
       };
    } // namespace Model
 } // namespace Patch

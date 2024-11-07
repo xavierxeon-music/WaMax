@@ -64,7 +64,7 @@ void Patch::TreeView::slotResizeColumns()
 
 void Patch::TreeView::slotItemClicked(const QModelIndex& index)
 {
-   Structure::Digest* digest = model->getDigest(index);
+   RefStructure::Digest* digest = model->getDigest(index);
    widget->setDigest(digest, model->getPart());
 }
 
