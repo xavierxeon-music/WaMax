@@ -205,18 +205,7 @@ void Patch::Widget::setDirty()
 
 void Patch::Widget::propagateDirty(bool isDirty)
 {
-   static const QString bullet = QString::fromUtf8("\u25cf") + QString(" ");
-   if (isDirty)
-   {
-      dirty = true;
-      setWindowTitle(bullet + patchInfo.name);
-   }
-   else
-   {
-      dirty = false;
-      setWindowTitle(patchInfo.name);
-   }
-
+   dirty = isDirty;
    tabWidget->emitSignalCheckDirty();
 }
 

@@ -1,0 +1,2 @@
+max objectfile wa.live_step.controller wa.live_step.controller;
+max definesubstitution wa.live_step.controller bpatcher @name wa.live_step.controller.maxpat;

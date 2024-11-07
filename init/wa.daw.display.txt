@@ -1,2 +1,0 @@
-max objectfile wa.daw.display wa.daw.display;
-max definesubstitution wa.daw.display bpatcher @name wa.daw.display.maxpat;

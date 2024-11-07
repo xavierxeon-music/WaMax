@@ -1,2 +1,0 @@
-max objectfile wa.bitify.matrix~ wa.bitify.matrix~;
-max definesubstitution wa.bitify.matrix~ bpatcher @name wa.bitify.matrix~.maxpat;

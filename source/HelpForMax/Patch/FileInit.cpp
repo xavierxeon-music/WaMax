@@ -43,9 +43,8 @@ void File::Init::write(const Patch::Info& patchInfo)
 
 QString File::Init::getFilePath(const Patch::Info& patchInfo)
 {
+   // do not use folder here!
    QString initPath = info->getPath() + "/init/";
-   if (!patchInfo.folder.isEmpty())
-      initPath += patchInfo.folder + "/";
    initPath += patchInfo.name + ".txt";
 
    return initPath;
