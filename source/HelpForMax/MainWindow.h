@@ -3,9 +3,9 @@
 
 #include <QMainWindow>
 
+#include "GraphWidget.h"
 #include "Package/PackageTabWidget.h"
 #include "Patch/PatchTabWidget.h"
-#include "SchemaWidget.h"
 #include "TestClient.h"
 
 class MainWindow : public QMainWindow
@@ -26,7 +26,7 @@ private:
 private:
    Package::TabWidget* packageWidget;
    Patch::TabWidget* patchWidget;
-   Schema::Widget* schemaWidget;
+   Graph::Widget* graphWidget;
 #ifdef TEST_CLIENT_AVAILABLE
    TestClient* testClient;
 #endif // TEST_CLIENT_AVAILABLE

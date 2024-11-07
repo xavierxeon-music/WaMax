@@ -6,8 +6,8 @@
 
 #include "Package/PackageInfo.h"
 
-File::Ref::Ref(Patch::Structure* structure, const Package::Info* info)
-   : Abstract(structure, info)
+File::Ref::Ref(const Package::Info* info, Patch::Structure* structure)
+   : Abstract(info, structure)
 {
 }
 

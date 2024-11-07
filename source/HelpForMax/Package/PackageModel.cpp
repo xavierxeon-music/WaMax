@@ -84,7 +84,7 @@ void Package::Model::updateIcons()
 
          const QString path = patchItem->data(RolePath).toString();
          const Patch::Info patchInfo = patchItem->data(RoleInfo).value<Patch::Info>();
-         const QString refPath = File::Ref(nullptr, packageInfo).getFilePath(patchInfo);
+         const QString refPath = File::Ref(packageInfo, nullptr).getFilePath(patchInfo);
 
          const QDateTime patchTime = QFileInfo(path).lastModified();
          const QDateTime refTime = QFileInfo(refPath).lastModified();

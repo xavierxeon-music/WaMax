@@ -1,4 +1,4 @@
-#include "SchemaWidget.h"
+#include "GraphWidget.h"
 
 #include <QApplication>
 #include <QDesktopServices>
@@ -11,7 +11,7 @@
 #include <QSettings>
 #include <QWheelEvent>
 
-Schema::Widget::Widget(QWidget* parent)
+Graph::Widget::Widget(QWidget* parent)
    : QGraphicsView(parent)
    , scene(nullptr)
    , patchFileName()
@@ -34,12 +34,12 @@ Schema::Widget::Widget(QWidget* parent)
 
    {
       QSettings settings;
-      zoomLevel = settings.value("Schema/Zoom", 1.0).toDouble();
+      zoomLevel = settings.value("Graph/Zoom", 1.0).toDouble();
    }
    updateZoom(false);
 }
 
-void Schema::Widget::slotLoad(const QString& patchFileName)
+void Graph::Widget::slotLoad(const QString& patchFileName)
 {
    scene->clear();
    this->patchFileName = patchFileName;
@@ -66,7 +66,7 @@ void Schema::Widget::slotLoad(const QString& patchFileName)
    updateZoom(false);
 }
 
-Schema::Widget::IdMap Schema::Widget::makeObjects(const QJsonObject patcherObject)
+Graph::Widget::IdMap Graph::Widget::makeObjects(const QJsonObject patcherObject)
 {
    static const QStringList skipList = {"comment", "panel"};
    const QJsonArray boxArray = patcherObject["boxes"].toArray();
@@ -139,7 +139,7 @@ Schema::Widget::IdMap Schema::Widget::makeObjects(const QJsonObject patcherObjec
    return idMap;
 }
 
-void Schema::Widget::makeLines(const QJsonObject patcherObject, const IdMap& idMap)
+void Graph::Widget::makeLines(const QJsonObject patcherObject, const IdMap& idMap)
 {
    const QJsonArray lineArray = patcherObject["lines"].toArray();
 
@@ -178,7 +178,7 @@ void Schema::Widget::makeLines(const QJsonObject patcherObject, const IdMap& idM
    }
 }
 
-void Schema::Widget::wheelEvent(QWheelEvent* wheelEvent)
+void Graph::Widget::wheelEvent(QWheelEvent* wheelEvent)
 {
    const double delta = 0.001 * wheelEvent->angleDelta().y();
    const double factor = std::pow(2.0, delta);
@@ -187,7 +187,7 @@ void Schema::Widget::wheelEvent(QWheelEvent* wheelEvent)
    updateZoom(true);
 }
 
-void Schema::Widget::mouseDoubleClickEvent(QMouseEvent* mouseEvent)
+void Graph::Widget::mouseDoubleClickEvent(QMouseEvent* mouseEvent)
 {
    QGraphicsItem* item = itemAt(mouseEvent->pos());
    if (!item)
@@ -197,19 +197,19 @@ void Schema::Widget::mouseDoubleClickEvent(QMouseEvent* mouseEvent)
    }
 }
 
-void Schema::Widget::keyPressEvent(QKeyEvent* event)
+void Graph::Widget::keyPressEvent(QKeyEvent* event)
 {
    const bool enabled = Qt::ShiftModifier & event->modifiers();
    setDragMode(enabled ? ScrollHandDrag : NoDrag);
 }
 
-void Schema::Widget::keyReleaseEvent(QKeyEvent* event)
+void Graph::Widget::keyReleaseEvent(QKeyEvent* event)
 {
    const bool enabled = Qt::ShiftModifier & event->modifiers();
    setDragMode(enabled ? ScrollHandDrag : NoDrag);
 }
 
-void Schema::Widget::updateZoom(bool save)
+void Graph::Widget::updateZoom(bool save)
 {
    setTransform(QTransform::fromScale(zoomLevel, zoomLevel));
 
@@ -217,5 +217,5 @@ void Schema::Widget::updateZoom(bool save)
       return;
 
    QSettings settings;
-   settings.setValue("Schema/Zoom", zoomLevel);
+   settings.setValue("Graph/Zoom", zoomLevel);
 }

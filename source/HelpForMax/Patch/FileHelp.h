@@ -8,7 +8,7 @@ namespace File
    class Help : public Abstract
    {
    public:
-      Help(Patch::Structure* structure, const Package::Info* info);
+      Help(const Package::Info* info);
 
    public:
       void write(const Patch::Info& patchInfo) override;

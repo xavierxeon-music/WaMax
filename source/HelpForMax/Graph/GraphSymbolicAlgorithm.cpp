@@ -1,17 +1,18 @@
-#include "../SDULibGraphAlgorithm.h"
+#include "GraphSymbolicAlgorithm.h"
 
+#include <QDebug>
 #include <QMap>
 #include <QQueue>
 
-#include "../SDULibGraphGraph.h"
+#include "GraphSymbolicGraph.h"
 
 // path
 
-const double SDULibGraph::Algorithm::Path::invalidDistance = std::numeric_limits<double>::max();
+const double Graph::Symbolic::Algorithm::Path::invalidDistance = std::numeric_limits<double>::max();
 
 // tree
 
-SDULibGraph::Algorithm::Tree::VertexData SDULibGraph::Algorithm::Tree::findData(const int vertexIndex) const
+Graph::Symbolic::Algorithm::Tree::VertexData Graph::Symbolic::Algorithm::Tree::findData(const int vertexIndex) const
 {
    for (const VertexData& data : verticies)
    {
@@ -22,7 +23,7 @@ SDULibGraph::Algorithm::Tree::VertexData SDULibGraph::Algorithm::Tree::findData(
    return VertexData{};
 }
 
-SDULibGraph::Algorithm::Path SDULibGraph::Algorithm::Tree::compilePath(const int vertexIndex) const
+Graph::Symbolic::Algorithm::Path Graph::Symbolic::Algorithm::Tree::compilePath(const int vertexIndex) const
 {
    Path path;
 
@@ -40,14 +41,14 @@ SDULibGraph::Algorithm::Path SDULibGraph::Algorithm::Tree::compilePath(const int
    return path;
 }
 
-int SDULibGraph::Algorithm::Tree::compileDepth(const int vertexIndex) const
+int Graph::Symbolic::Algorithm::Tree::compileDepth(const int vertexIndex) const
 {
    return findData(vertexIndex).depth;
 }
 
 // algorithm
 
-SDULibGraph::Algorithm::Algorithm(const Graph* graph)
+Graph::Symbolic::Algorithm::Algorithm(const Graph* graph)
    : graph(graph)
    , edgeMatrix()
 {
@@ -56,7 +57,7 @@ SDULibGraph::Algorithm::Algorithm(const Graph* graph)
 
    for (int edgeIndex = 0; edgeIndex < graph->edgeCount(); edgeIndex++)
    {
-      const Edge::Abstract* edge = graph->getEdge(edgeIndex);
+      const Edge* edge = graph->getEdge(edgeIndex);
 
       const int from = graph->vertexIndex(edge->getVertexA());
       const int to = graph->vertexIndex(edge->getVertexB());
@@ -69,7 +70,7 @@ SDULibGraph::Algorithm::Algorithm(const Graph* graph)
    }
 }
 
-SDULibGraph::Algorithm::Tree SDULibGraph::Algorithm::depthFirst(const Vertex* vertexStart) const
+Graph::Symbolic::Algorithm::Tree Graph::Symbolic::Algorithm::depthFirst(const Vertex* vertexStart) const
 {
    const int startIndex = graph->vertexIndex(vertexStart);
    QVector<bool> visited(graph->vertexCount(), false);
@@ -99,7 +100,7 @@ SDULibGraph::Algorithm::Tree SDULibGraph::Algorithm::depthFirst(const Vertex* ve
    return tree;
 }
 
-SDULibGraph::Algorithm::Tree SDULibGraph::Algorithm::breadthFirst(const Vertex* vertexStart) const
+Graph::Symbolic::Algorithm::Tree Graph::Symbolic::Algorithm::breadthFirst(const Vertex* vertexStart) const
 {
    const int startIndex = graph->vertexIndex(vertexStart);
    QVector<bool> visited(graph->vertexCount(), false);
@@ -137,7 +138,7 @@ SDULibGraph::Algorithm::Tree SDULibGraph::Algorithm::breadthFirst(const Vertex* 
    return tree;
 }
 
-SDULibGraph::Algorithm::Path::Map SDULibGraph::Algorithm::pathDijkstra(const Vertex* vertexStart) const
+Graph::Symbolic::Algorithm::Path::Map Graph::Symbolic::Algorithm::pathDijkstra(const Vertex* vertexStart) const
 {
    QVector<double> distances(graph->vertexCount(), Path::invalidDistance);
    const int startIndex = graph->vertexIndex(vertexStart);
@@ -202,7 +203,7 @@ SDULibGraph::Algorithm::Path::Map SDULibGraph::Algorithm::pathDijkstra(const Ver
    return pathMap;
 }
 
-SDULibGraph::Algorithm::TreeEdges SDULibGraph::Algorithm::compileTreeEdges(const Tree& tree) const
+Graph::Symbolic::Algorithm::TreeEdges Graph::Symbolic::Algorithm::compileTreeEdges(const Tree& tree) const
 {
    TreeEdges treeEdges;
 
@@ -213,13 +214,12 @@ SDULibGraph::Algorithm::TreeEdges SDULibGraph::Algorithm::compileTreeEdges(const
          continue;
 
       treeEdges.treeEdges.append(edgeIndex);
-      qDebug() << edgeIndex;
    }
 
    return treeEdges;
 }
 
-SDULibGraph::Algorithm::IndexList SDULibGraph::Algorithm::topologicalSort() const
+Graph::Symbolic::Algorithm::IndexList Graph::Symbolic::Algorithm::topologicalSort() const
 {
    QVector<int> in_degree(graph->vertexCount(), 0);
    QQueue<int> startNodes;
@@ -258,12 +258,12 @@ SDULibGraph::Algorithm::IndexList SDULibGraph::Algorithm::topologicalSort() cons
       visitedNodeCount++;
    }
 
-   //qDebug() << visitedNodeCount << graph->vertexCount();
+   qDebug() << visitedNodeCount << graph->vertexCount();
 
    return list;
 }
 
-int SDULibGraph::Algorithm::findEdgeIndex(const int vertexIndexA, const int vertexIndexB) const
+int Graph::Symbolic::Algorithm::findEdgeIndex(const int vertexIndexA, const int vertexIndexB) const
 {
    if (-1 == vertexIndexA || -1 == vertexIndexB)
       return -1;
@@ -274,7 +274,7 @@ int SDULibGraph::Algorithm::findEdgeIndex(const int vertexIndexA, const int vert
    return graph->findEdgeIndex(vertexA, vertexB);
 }
 
-SDULibGraph::Algorithm::IndexList SDULibGraph::Algorithm::compileAdjacencyList(const int vertexIndex) const
+Graph::Symbolic::Algorithm::IndexList Graph::Symbolic::Algorithm::compileAdjacencyList(const int vertexIndex) const
 {
    IndexList indexList;
 

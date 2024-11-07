@@ -24,6 +24,7 @@ set(CMAKE_AUTORCC ON)
 #
 include_directories(
    ${CMAKE_CURRENT_SOURCE_DIR}
+   ${CMAKE_CURRENT_SOURCE_DIR}/Graph
    ${CMAKE_CURRENT_SOURCE_DIR}/Package
    ${CMAKE_CURRENT_SOURCE_DIR}/Patch
 )

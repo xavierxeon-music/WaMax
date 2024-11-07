@@ -13,7 +13,7 @@ namespace File
    class Abstract
    {
    public:
-      Abstract(Patch::Structure* structure, const Package::Info* info);
+      Abstract(const Package::Info* info, Patch::Structure* structure);
 
    public:
       virtual void read(const Patch::Info& patchInfo);
@@ -21,8 +21,8 @@ namespace File
       virtual QString getFilePath(const Patch::Info& patchInfo) = 0;
 
    protected:
-      Patch::Structure* structure;
       const Package::Info* info;
+      Patch::Structure* structure;
    };
 } // namespace File
 

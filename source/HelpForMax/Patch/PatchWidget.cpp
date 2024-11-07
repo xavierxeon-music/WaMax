@@ -95,7 +95,7 @@ Patch::Widget::Widget(TabWidget* tabWidget, const Package::Info* packageInfo, co
    patchInfo = packageInfo->extractPatchInfo(path);
    propagateDirty(false);
 
-   File::Ref(this, packageInfo).read(patchInfo);
+   File::Ref(packageInfo, this).read(patchInfo);
    rebuild();
 }
 
@@ -121,9 +121,9 @@ const Patch::Info& Patch::Widget::getPatchInfo() const
 
 void Patch::Widget::writeRef()
 {
-   File::Ref(this, packageInfo).write(patchInfo);
-   File::Help(this, packageInfo).write(patchInfo);
-   File::Init(this, packageInfo).write(patchInfo);
+   File::Ref(packageInfo, this).write(patchInfo);
+   File::Help(packageInfo).write(patchInfo);
+   File::Init(packageInfo, this).write(patchInfo);
    propagateDirty(false);
 }
 
@@ -134,7 +134,7 @@ void Patch::Widget::openInMax()
 
 void Patch::Widget::openXML()
 {
-   const QString refPath = File::Ref(this, packageInfo).getFilePath(patchInfo);
+   const QString refPath = File::Ref(packageInfo, this).getFilePath(patchInfo);
    QDesktopServices::openUrl(QUrl::fromLocalFile(refPath));
 }
 

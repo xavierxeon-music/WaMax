@@ -1,12 +1,12 @@
-#ifndef SchemaWidgetH
-#define SchemaWidgetH
+#ifndef GraphWidgetH
+#define GraphWidgetH
 
 #include <QGraphicsView>
 
 #include <QGraphicsScene>
 #include <QJsonObject>
 
-namespace Schema
+namespace Graph
 {
    class Widget : public QGraphicsView
    {
@@ -56,6 +56,6 @@ namespace Schema
 
       double zoomLevel;
    };
-} // namespace Schema
+} // namespace Graph
 
-#endif // NOT SchemaWidgetH
+#endif // NOT GraphWidgetH

@@ -17,7 +17,7 @@ MainWindow::MainWindow()
    : QMainWindow(nullptr)
    , packageWidget(nullptr)
    , patchWidget(nullptr)
-   , schemaWidget(nullptr)
+   , graphWidget(nullptr)
 #ifdef TEST_CLIENT_AVAILABLE
    , testClient(nullptr)
 #endif // TEST_CLIENT_AVAILABLE
@@ -45,13 +45,13 @@ MainWindow::MainWindow()
    packageWidget = new Package::TabWidget(this);
    addDock(packageWidget, Qt::LeftDockWidgetArea, "Package");
 
-   schemaWidget = new Schema::Widget(this);
-   addDock(schemaWidget, Qt::RightDockWidgetArea, "Schema");
+   graphWidget = new Graph::Widget(this);
+   addDock(graphWidget, Qt::RightDockWidgetArea, "Schema");
 
    connect(patchWidget, &Patch::TabWidget::signalCheckDirty, this, &MainWindow::slotCheckDirty);
    connect(patchWidget, &Patch::TabWidget::signalCheckDirty, packageWidget, &Package::TabWidget::slotCheckDirty);
 
-   connect(patchWidget, &Patch::TabWidget::signalTabSelected, schemaWidget, &Schema::Widget::slotLoad);
+   connect(patchWidget, &Patch::TabWidget::signalTabSelected, graphWidget, &Graph::Widget::slotLoad);
    connect(patchWidget, &Patch::TabWidget::signalRefWritten, packageWidget, &Package::TabWidget::slotRefWritten);
    connect(packageWidget, &Package::TabWidget::signalCloseAllPatches, patchWidget, &Patch::TabWidget::slotCloseAllPatches);
    connect(packageWidget, &Package::TabWidget::signalPatchSeleted, patchWidget, &Patch::TabWidget::slotShowPatch);
@@ -116,7 +116,7 @@ void MainWindow::populateMenuAndToolBar()
    };
 
    QAction* packageAction = addViewToggle(packageWidget, "Package", QIcon(":/PackageGeneral.svg"));
-   QAction* schemmaAction = addViewToggle(schemaWidget, "Schema", QIcon(":/OverviewGeneral.svg"));
+   QAction* schemmaAction = addViewToggle(graphWidget, "Schema", QIcon(":/OverviewGeneral.svg"));
    schemmaAction->setShortcut(QKeySequence::Print);
 
 #ifdef TEST_CLIENT_AVAILABLE

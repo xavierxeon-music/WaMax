@@ -10,7 +10,7 @@ namespace File
    class Ref : public Abstract
    {
    public:
-      Ref(Patch::Structure* structure, const Package::Info* info);
+      Ref(const Package::Info* info, Patch::Structure* structure);
 
    public:
       void read(const Patch::Info& patchInfo) override;
@@ -34,6 +34,8 @@ namespace File
 
       QByteArray domToMaxFile(QByteArray domXML) const;
       QByteArray maxFileToDom(QByteArray maxXML) const;
+
+   private:
    };
 } // namespace File
 

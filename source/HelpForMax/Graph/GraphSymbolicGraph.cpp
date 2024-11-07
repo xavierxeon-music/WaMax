@@ -1,12 +1,12 @@
-#include "../SDULibGraphGraph.h"
+#include "GraphSymbolicGraph.h"
 
-SDULibGraph::Graph::Graph()
+Graph::Symbolic::Graph::Graph()
    : vertexList()
    , edgeList()
 {
 }
 
-int SDULibGraph::Graph::addVertex(Vertex* vertex)
+int Graph::Symbolic::Graph::addVertex(Vertex* vertex)
 {
    if (vertexList.contains(vertex))
       return -1;
@@ -15,20 +15,20 @@ int SDULibGraph::Graph::addVertex(Vertex* vertex)
    return vertexList.count() - 1;
 }
 
-bool SDULibGraph::Graph::removeVertex(Vertex* vertex, bool deleteVertex)
+bool Graph::Symbolic::Graph::removeVertex(Vertex* vertex, bool deleteVertex)
 {
    if (!vertexList.contains(vertex))
       return false;
 
    vertexList.removeAll(vertex);
 
-   Edge::Abstract::PtrList edgeRemoveList; // do not remove element from list while iterating
-   for (Edge::Abstract* edge : edgeList)
+   Edge::PtrList edgeRemoveList; // do not remove element from list while iterating
+   for (Edge* edge : edgeList)
    {
       if (edge->linksVertex(vertex))
          edgeRemoveList.append(edge);
    }
-   for (Edge::Abstract* edge : edgeRemoveList)
+   for (Edge* edge : edgeRemoveList)
    {
       edgeList.removeAll(edge);
    }
@@ -39,7 +39,7 @@ bool SDULibGraph::Graph::removeVertex(Vertex* vertex, bool deleteVertex)
    return true;
 }
 
-int SDULibGraph::Graph::vertexIndex(const Vertex* constVertex) const
+int Graph::Symbolic::Graph::vertexIndex(const Vertex* constVertex) const
 {
    Vertex* vertex = const_cast<Vertex*>(constVertex);
 
@@ -49,12 +49,12 @@ int SDULibGraph::Graph::vertexIndex(const Vertex* constVertex) const
    return vertexList.indexOf(vertex);
 }
 
-int SDULibGraph::Graph::vertexCount() const
+int Graph::Symbolic::Graph::vertexCount() const
 {
    return vertexList.count();
 }
 
-SDULibGraph::Vertex* SDULibGraph::Graph::getVertex(int vertexIndex) const
+Graph::Symbolic::Vertex* Graph::Symbolic::Graph::getVertex(int vertexIndex) const
 {
    if (vertexIndex < 0 || vertexIndex >= vertexList.count())
       return nullptr;
@@ -62,7 +62,7 @@ SDULibGraph::Vertex* SDULibGraph::Graph::getVertex(int vertexIndex) const
    return vertexList.at(vertexIndex);
 }
 
-int SDULibGraph::Graph::addEdge(Edge::Abstract* edge)
+int Graph::Symbolic::Graph::addEdge(Edge* edge)
 {
    if (edgeList.contains(edge))
       return -1;
@@ -71,7 +71,7 @@ int SDULibGraph::Graph::addEdge(Edge::Abstract* edge)
    return edgeList.count() - 1;
 }
 
-bool SDULibGraph::Graph::removeEdge(Edge::Abstract* edge, bool deleteEdge)
+bool Graph::Symbolic::Graph::removeEdge(Edge* edge, bool deleteEdge)
 {
    if (!edgeList.contains(edge))
       return false;
@@ -84,9 +84,9 @@ bool SDULibGraph::Graph::removeEdge(Edge::Abstract* edge, bool deleteEdge)
    return true;
 }
 
-int SDULibGraph::Graph::edgeIndex(const Edge::Abstract* constEdge) const
+int Graph::Symbolic::Graph::edgeIndex(const Edge* constEdge) const
 {
-   Edge::Abstract* edge = const_cast<Edge::Abstract*>(constEdge);
+   Edge* edge = const_cast<Edge*>(constEdge);
 
    if (!edgeList.contains(edge))
       return -1;
@@ -94,12 +94,12 @@ int SDULibGraph::Graph::edgeIndex(const Edge::Abstract* constEdge) const
    return edgeList.indexOf(edge);
 }
 
-int SDULibGraph::Graph::edgeCount() const
+int Graph::Symbolic::Graph::edgeCount() const
 {
    return edgeList.count();
 }
 
-SDULibGraph::Edge::Abstract* SDULibGraph::Graph::getEdge(int edgeIndex) const
+Graph::Symbolic::Edge* Graph::Symbolic::Graph::getEdge(int edgeIndex) const
 {
    if (edgeIndex < 0 || edgeIndex >= edgeList.count())
       return nullptr;
@@ -107,11 +107,11 @@ SDULibGraph::Edge::Abstract* SDULibGraph::Graph::getEdge(int edgeIndex) const
    return edgeList.at(edgeIndex);
 }
 
-int SDULibGraph::Graph::findEdgeIndex(const Vertex* vertexA, const Vertex* vertexB) const
+int Graph::Symbolic::Graph::findEdgeIndex(const Vertex* vertexA, const Vertex* vertexB) const
 {
    for (int edgeIndex = 0; edgeIndex < edgeList.count(); edgeIndex++)
    {
-      const Edge::Abstract* edge = edgeList.at(edgeIndex);
+      const Edge* edge = edgeList.at(edgeIndex);
       if (edge->getVertexA() == vertexA && edge->getVertexB() == vertexB)
          return edgeIndex;
    }
@@ -119,14 +119,14 @@ int SDULibGraph::Graph::findEdgeIndex(const Vertex* vertexA, const Vertex* verte
    return -1;
 }
 
-void SDULibGraph::Graph::clear(bool deleteAll)
+void Graph::Symbolic::Graph::clear(bool deleteAll)
 {
    if (deleteAll)
    {
       for (const Vertex* vertex : vertexList)
          delete vertex;
 
-      for (const Edge::Abstract* edge : edgeList)
+      for (const Edge* edge : edgeList)
          delete edge;
    }
 

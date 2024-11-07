@@ -2,8 +2,8 @@
 
 #include "Package/PackageInfo.h"
 
-File::Init::Init(Patch::Structure* structure, const Package::Info* info)
-   : Abstract(structure, info)
+File::Init::Init(const Package::Info* info, Patch::Structure* structure)
+   : Abstract(info, structure)
 {
 }
 

@@ -1,8 +1,8 @@
 #include "FileAbstract.h"
 
-File::Abstract::Abstract(Patch::Structure* structure, const Package::Info* info)
-   : structure(structure)
-   , info(info)
+File::Abstract::Abstract(const Package::Info* info, Patch::Structure* structure)
+   : info(info)
+   , structure(structure)
 {
 }
 

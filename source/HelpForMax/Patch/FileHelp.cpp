@@ -6,8 +6,8 @@
 
 #include "Package/PackageInfo.h"
 
-File::Help::Help(Patch::Structure* structure, const Package::Info* info)
-   : Abstract(structure, info)
+File::Help::Help(const Package::Info* info)
+   : Abstract(info, nullptr)
 {
 }
 
