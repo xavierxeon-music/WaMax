@@ -27,9 +27,9 @@ TestClient::TestClient()
    };
 
    const QString packageDir = QDir::homePath() + "/GitHub/MusicProjects/WaMaxPackageBase";
-   addItem(packageDir + "/patchers/hardware/wa.grid.pot.maxpat");
    addItem(packageDir + "/patchers/audio/wa.wave_terrain~.maxpat");
-   addItem(packageDir + "/patchers/mixer/wa.channel_strip.master~.maxpat");
+   addItem(packageDir + "/patchers/oscilators/wa.ringbuffer.granular_mk1~.maxpat");
+   addItem(packageDir + "/patchers/oscilators/wa.sound.image~.maxpat");
 
    connect(selectTree, &QTreeWidget::currentItemChanged, this, &TestClient::slotSelectItemChanged);
 }

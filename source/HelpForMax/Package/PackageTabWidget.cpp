@@ -15,7 +15,7 @@ Package::TabWidget* Package::TabWidget::me = nullptr;
 
 Package::TabWidget::TabWidget(QWidget* parent)
    : RecentTabWidget(parent, "Package")
-   , infoMap()
+   , packageInfoBuffer()
    , server(nullptr)
    , socket()
    , linkEnabled(false)
@@ -119,15 +119,15 @@ Package::Info* Package::TabWidget::findOrCreate(const QString& someFileInPackage
 
 Package::Info* Package::TabWidget::get(const QString& packagePath)
 {
-   if (infoMap.contains(packagePath))
-      return infoMap.value(packagePath);
+   if (packageInfoBuffer.contains(packagePath))
+      return packageInfoBuffer.value(packagePath);
 
    QFile file(packagePath + "/package-info.json");
    if (!file.open(QIODevice::ReadOnly))
       return nullptr;
 
    Info* info = new Info(packagePath);
-   infoMap[packagePath] = info;
+   packageInfoBuffer[packagePath] = info;
 
    const QJsonDocument doc = QJsonDocument::fromJson(file.readAll());
    file.close();

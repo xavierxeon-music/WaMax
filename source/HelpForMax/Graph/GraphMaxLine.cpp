@@ -17,6 +17,7 @@ Graph::Max::Line::Line(const QJsonObject& lineObject, const Object::IdMap& idMap
 
       Object* sourceObject = idMap[sourceId];
       const int sourceOffset = sourceArray.at(1).toInt();
+      qDebug() << sourceObject->getName() << sourceObject;
 
       const int outletDist = sourceObject->patchRect.width() / sourceObject->outletCount;
       sourceX = 10 + sourceObject->patchRect.x() + (outletDist * sourceOffset);

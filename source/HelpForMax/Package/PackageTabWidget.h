@@ -49,7 +49,7 @@ namespace Package
 
    private:
       static TabWidget* me;
-      QMap<QString, Info*> infoMap;
+      QMap<QString, Info*> packageInfoBuffer;
       QLocalServer* server;
       QPointer<QLocalSocket> socket;
 

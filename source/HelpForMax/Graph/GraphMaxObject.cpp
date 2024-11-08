@@ -38,7 +38,7 @@ Graph::Max::Object::Object(const QJsonObject& boxObject)
    else if (text.isEmpty())
    {
       text = className;
-      qDebug() << "NO TEXT" << className;
+      // qDebug() << "NO TEXT" << className;
    }
    else if ("newobj" == className)
    {
