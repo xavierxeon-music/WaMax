@@ -1,12 +1,12 @@
-#ifndef GraphSymbolicAlgorithmH
-#define GraphSymbolicAlgorithmH
+#ifndef GraphAbstractAlgorithmH
+#define GraphAbstractAlgorithmH
 
-#include "GraphSymbolicEdge.h"
-#include "GraphSymbolicVertex.h"
+#include "GraphAbstractEdge.h"
+#include "GraphAbstractVertex.h"
 
 namespace Graph
 {
-   namespace Symbolic
+   namespace Abstract
    {
       class Graph;
 
@@ -83,7 +83,7 @@ namespace Graph
          const Graph* graph;
          EdgeData::Matrix edgeMatrix;
       };
-   } // namespace Symbolic
+   } // namespace Abstract
 } // namespace Graph
 
-#endif // NOT GraphSymbolicAlgorithmH
+#endif // NOT GraphAbstractAlgorithmH

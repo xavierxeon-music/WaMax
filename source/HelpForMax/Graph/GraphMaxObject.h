@@ -1,7 +1,7 @@
 #ifndef GraphMaxObjectH
 #define GraphMaxObjectH
 
-#include "GraphSymbolicVertex.h"
+#include "GraphAbstractVertex.h"
 
 #include <QJsonObject>
 #include <QRectF>
@@ -10,9 +10,10 @@ namespace Graph
 {
    namespace Max
    {
-      class Object : public Symbolic::Vertex
+      class Object : public Abstract::Vertex
       {
       public:
+         using List = QList<Object*>;
          using IdMap = QMap<QString, Object*>;
 
          enum class Type
@@ -25,8 +26,6 @@ namespace Graph
             RoutePass,
             TypeRoute
          };
-
-         using TypeMap = QMap<QString, Type>;
 
       public:
          Object(const QJsonObject& boxObject);

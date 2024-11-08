@@ -1,7 +1,7 @@
 #ifndef GraphMaxLineH
 #define GraphMaxLineH
 
-#include "GraphSymbolicEdge.h"
+#include "GraphAbstractEdge.h"
 
 #include <QJsonObject>
 
@@ -11,7 +11,7 @@ namespace Graph
 {
    namespace Max
    {
-      class Line : public Symbolic::Edge
+      class Line : public Abstract::Edge
       {
       public:
          Line(const QJsonObject& lineObject, const Object::IdMap& idMap);
@@ -21,6 +21,7 @@ namespace Graph
          int sourceY;
          int destX;
          int destY;
+         bool isParamLine;
       };
    } // namespace Max
 } // namespace Graph

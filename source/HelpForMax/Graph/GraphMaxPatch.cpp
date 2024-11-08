@@ -5,12 +5,10 @@
 #include <QJsonDocument>
 #include <QJsonValue>
 
-#include "GraphMaxLine.h"
-#include "GraphMaxObject.h"
-#include "GraphSymbolicAlgorithm.h"
+#include "GraphAbstractAlgorithm.h"
 
 Graph::Max::Patch::Patch()
-   : Symbolic::Graph()
+   : Symbolic::Graph<Object, Line>()
    , idMap()
 {
 }
@@ -38,19 +36,61 @@ void Graph::Max::Patch::read(const QString& patchFileName)
 
    readObjects(patcherObject);
    readLines(patcherObject);
+
+   analyse();
+}
+
+Graph::Max::Object::List Graph::Max::Patch::findAll(const Object::Type& type) const
+{
+   const QList<Object::Type> typeList = {type};
+   return findAll(typeList);
+}
+
+Graph::Max::Object::List Graph::Max::Patch::findAll(const QList<Object::Type>& typeList) const
+{
+   Object::List list;
+   for (int vertIndex = 0; vertIndex < vertexCount(); vertIndex++)
+   {
+      Max::Object* object = getVertexCast(vertIndex);
+      if (typeList.contains(object->type))
+         list.append(object);
+   }
+   return list;
 }
 
 void Graph::Max::Patch::analyse()
 {
-   Symbolic::Algorithm algo(this);
+   static const QList<Object::Type> sourceTypeList = {Object::Type::PatcherArgs, Object::Type::Inlet};
+   static const QList<Object::Type> targetTypeList = {Object::Type::Route, Object::Type::RoutePass, Object::Type::TypeRoute};
 
-   for (int vertIndex = 0; vertIndex < vertexCount(); vertIndex++)
+   Abstract::Algorithm algo(this);
+   const Object::List sources = findAll(sourceTypeList);
+   const Object::List targets = findAll(targetTypeList);
+
+   for (Object* source : sources)
    {
-      Max::Object* object = static_cast<Max::Object*>(getVertex(vertIndex));
-      Q_UNUSED(object)
-   }
+      const Abstract::Algorithm::Tree tree = algo.depthFirst(source);
+      for (Object* target : targets)
+      {
+         const int targetIndex = vertexIndex(target);
+         const Abstract::Algorithm::Path path = tree.compilePath(targetIndex);
+         const int depth = path.verticies.count();
+         if (0 == depth)
+            continue;
+         for (int index = 1; index < path.verticies.count(); index++)
+         {
+            const int vertexIndexA = path.verticies.at(index);
+            const int vertexIndexB = path.verticies.at(index - 1);
 
-   qDebug() << __FUNCTION__;
+            Object* objectA = getVertexCast(vertexIndexA);
+            Object* objectB = getVertexCast(vertexIndexB);
+
+            const int edgeIndex = findEdgeIndex(objectA, objectB);
+            Line* line = getEdgeCast(edgeIndex);
+            line->isParamLine = true;
+         }
+      }
+   }
 }
 
 void Graph::Max::Patch::readObjects(const QJsonObject patcherObject)

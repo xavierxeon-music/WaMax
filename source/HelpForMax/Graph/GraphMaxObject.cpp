@@ -3,7 +3,7 @@
 #include <QJsonArray>
 
 Graph::Max::Object::Object(const QJsonObject& boxObject)
-   : Symbolic::Vertex()
+   : Abstract::Vertex()
    , patchRect()
    , className()
    , text()
@@ -42,6 +42,7 @@ Graph::Max::Object::Object(const QJsonObject& boxObject)
    }
    else if ("newobj" == className)
    {
+      using TypeMap = QMap<QString, Type>;
       static const TypeMap typeMap = {{"patcherargs", Type::PatcherArgs},
                                       {"route", Type::Route},
                                       {"routepass", Type::RoutePass},
@@ -50,6 +51,17 @@ Graph::Max::Object::Object(const QJsonObject& boxObject)
       const QString typeString = text.split(" ", Qt::SkipEmptyParts).first();
       type = typeMap.value(typeString, Type::Other);
    }
+
+   using NameMap = QMap<Type, QString>;
+   static const NameMap nameMap = {{Type::Inlet, "Inlet"},
+                                   {Type::Outlet, "Outlet"},
+                                   {Type::PatcherArgs, "PatcherArgs"},
+                                   {Type::Route, "Route"},
+                                   {Type::RoutePass, "RoutePass"},
+                                   {Type::TypeRoute, "TypeRoute"}};
+
+   const QString id = boxObject["id"].toString();
+   name = nameMap.value(type, "Other") + " (" + id + ") " + comment;
 
    inletCount = boxObject["numinlets"].toInt();
    outletCount = boxObject["numoutlets"].toInt();

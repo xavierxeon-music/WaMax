@@ -19,6 +19,7 @@ Graph::Widget::Widget(QWidget* parent)
    , Max::Patch()
    , scene(nullptr)
    , blackPen(Qt::black)
+   , bluePen(Qt::blue)
    , whiteBrush(Qt::white)
    , blackBrush(Qt::black)
    , font()
@@ -46,32 +47,34 @@ Graph::Widget::Widget(QWidget* parent)
 void Graph::Widget::slotLoad(const QString& patchFileName)
 {
    read(patchFileName);
-   analyse();
-
    scene->clear();
 
    for (int vertIndex = 0; vertIndex < vertexCount(); vertIndex++)
    {
-      Max::Object* object = static_cast<Max::Object*>(getVertex(vertIndex));
+      Max::Object* object = getVertexCast(vertIndex);
       const QRectF& patchRect = object->patchRect;
 
       QGraphicsRectItem* rectItem = scene->addRect(QRectF(0, 0, patchRect.width(), patchRect.height()), blackPen, whiteBrush);
+      rectItem->setToolTip(object->comment);
       rectItem->setPos(patchRect.x(), patchRect.y());
 
       QGraphicsRectItem* topBar = scene->addRect(QRectF(0, 0, patchRect.width(), 2), blackPen, blackBrush);
+      topBar->setToolTip(object->comment);
       topBar->setPos(patchRect.x(), patchRect.y());
 
       QGraphicsRectItem* bottomBar = scene->addRect(QRectF(0, patchRect.height(), patchRect.width(), 2), blackPen, blackBrush);
+      bottomBar->setToolTip(object->comment);
       bottomBar->setPos(patchRect.x(), patchRect.y());
 
       QGraphicsSimpleTextItem* textItem = scene->addSimpleText(object->text, font);
+      textItem->setToolTip(object->comment);
       textItem->setPos(patchRect.x() + 5, patchRect.y() + 5);
    }
 
    for (int lineIndex = 0; lineIndex < edgeCount(); lineIndex++)
    {
-      Max::Line* line = static_cast<Max::Line*>(getEdge(lineIndex));
-      scene->addLine(line->sourceX, line->sourceY, line->destX, line->destY, blackPen);
+      Max::Line* line = getEdgeCast(lineIndex);
+      scene->addLine(line->sourceX, line->sourceY, line->destX, line->destY, line->isParamLine ? bluePen : blackPen);
    }
 
    updateZoom(false);

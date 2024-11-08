@@ -1,18 +1,18 @@
-#include "GraphSymbolicAlgorithm.h"
+#include "GraphAbstractAlgorithm.h"
 
 #include <QDebug>
 #include <QMap>
 #include <QQueue>
 
-#include "GraphSymbolicGraph.h"
+#include "GraphAbstractGraph.h"
 
 // path
 
-const double Graph::Symbolic::Algorithm::Path::invalidDistance = std::numeric_limits<double>::max();
+const double Graph::Abstract::Algorithm::Path::invalidDistance = std::numeric_limits<double>::max();
 
 // tree
 
-Graph::Symbolic::Algorithm::Tree::VertexData Graph::Symbolic::Algorithm::Tree::findData(const int vertexIndex) const
+Graph::Abstract::Algorithm::Tree::VertexData Graph::Abstract::Algorithm::Tree::findData(const int vertexIndex) const
 {
    for (const VertexData& data : verticies)
    {
@@ -23,7 +23,7 @@ Graph::Symbolic::Algorithm::Tree::VertexData Graph::Symbolic::Algorithm::Tree::f
    return VertexData{};
 }
 
-Graph::Symbolic::Algorithm::Path Graph::Symbolic::Algorithm::Tree::compilePath(const int vertexIndex) const
+Graph::Abstract::Algorithm::Path Graph::Abstract::Algorithm::Tree::compilePath(const int vertexIndex) const
 {
    Path path;
 
@@ -41,14 +41,14 @@ Graph::Symbolic::Algorithm::Path Graph::Symbolic::Algorithm::Tree::compilePath(c
    return path;
 }
 
-int Graph::Symbolic::Algorithm::Tree::compileDepth(const int vertexIndex) const
+int Graph::Abstract::Algorithm::Tree::compileDepth(const int vertexIndex) const
 {
    return findData(vertexIndex).depth;
 }
 
 // algorithm
 
-Graph::Symbolic::Algorithm::Algorithm(const Graph* graph)
+Graph::Abstract::Algorithm::Algorithm(const Graph* graph)
    : graph(graph)
    , edgeMatrix()
 {
@@ -70,7 +70,7 @@ Graph::Symbolic::Algorithm::Algorithm(const Graph* graph)
    }
 }
 
-Graph::Symbolic::Algorithm::Tree Graph::Symbolic::Algorithm::depthFirst(const Vertex* vertexStart) const
+Graph::Abstract::Algorithm::Tree Graph::Abstract::Algorithm::depthFirst(const Vertex* vertexStart) const
 {
    const int startIndex = graph->vertexIndex(vertexStart);
    QVector<bool> visited(graph->vertexCount(), false);
@@ -100,7 +100,7 @@ Graph::Symbolic::Algorithm::Tree Graph::Symbolic::Algorithm::depthFirst(const Ve
    return tree;
 }
 
-Graph::Symbolic::Algorithm::Tree Graph::Symbolic::Algorithm::breadthFirst(const Vertex* vertexStart) const
+Graph::Abstract::Algorithm::Tree Graph::Abstract::Algorithm::breadthFirst(const Vertex* vertexStart) const
 {
    const int startIndex = graph->vertexIndex(vertexStart);
    QVector<bool> visited(graph->vertexCount(), false);
@@ -138,7 +138,7 @@ Graph::Symbolic::Algorithm::Tree Graph::Symbolic::Algorithm::breadthFirst(const 
    return tree;
 }
 
-Graph::Symbolic::Algorithm::Path::Map Graph::Symbolic::Algorithm::pathDijkstra(const Vertex* vertexStart) const
+Graph::Abstract::Algorithm::Path::Map Graph::Abstract::Algorithm::pathDijkstra(const Vertex* vertexStart) const
 {
    QVector<double> distances(graph->vertexCount(), Path::invalidDistance);
    const int startIndex = graph->vertexIndex(vertexStart);
@@ -203,7 +203,7 @@ Graph::Symbolic::Algorithm::Path::Map Graph::Symbolic::Algorithm::pathDijkstra(c
    return pathMap;
 }
 
-Graph::Symbolic::Algorithm::TreeEdges Graph::Symbolic::Algorithm::compileTreeEdges(const Tree& tree) const
+Graph::Abstract::Algorithm::TreeEdges Graph::Abstract::Algorithm::compileTreeEdges(const Tree& tree) const
 {
    TreeEdges treeEdges;
 
@@ -219,7 +219,7 @@ Graph::Symbolic::Algorithm::TreeEdges Graph::Symbolic::Algorithm::compileTreeEdg
    return treeEdges;
 }
 
-Graph::Symbolic::Algorithm::IndexList Graph::Symbolic::Algorithm::topologicalSort() const
+Graph::Abstract::Algorithm::IndexList Graph::Abstract::Algorithm::topologicalSort() const
 {
    QVector<int> in_degree(graph->vertexCount(), 0);
    QQueue<int> startNodes;
@@ -263,7 +263,7 @@ Graph::Symbolic::Algorithm::IndexList Graph::Symbolic::Algorithm::topologicalSor
    return list;
 }
 
-int Graph::Symbolic::Algorithm::findEdgeIndex(const int vertexIndexA, const int vertexIndexB) const
+int Graph::Abstract::Algorithm::findEdgeIndex(const int vertexIndexA, const int vertexIndexB) const
 {
    if (-1 == vertexIndexA || -1 == vertexIndexB)
       return -1;
@@ -274,7 +274,7 @@ int Graph::Symbolic::Algorithm::findEdgeIndex(const int vertexIndexA, const int 
    return graph->findEdgeIndex(vertexA, vertexB);
 }
 
-Graph::Symbolic::Algorithm::IndexList Graph::Symbolic::Algorithm::compileAdjacencyList(const int vertexIndex) const
+Graph::Abstract::Algorithm::IndexList Graph::Abstract::Algorithm::compileAdjacencyList(const int vertexIndex) const
 {
    IndexList indexList;
 

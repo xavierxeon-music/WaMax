@@ -1,11 +1,11 @@
-#ifndef GraphSymbolicVertexH
-#define GraphSymbolicVertexH
+#ifndef GraphAbstractVertexH
+#define GraphAbstractVertexH
 
 #include <QList>
 
 namespace Graph
 {
-   namespace Symbolic
+   namespace Abstract
    {
       class Vertex
       {
@@ -22,7 +22,7 @@ namespace Graph
       protected:
          QString name;
       };
-   } // namespace Symbolic
+   } // namespace Abstract
 } // namespace Graph
 
-#endif // NOT GraphSymbolicVertexH
+#endif // NOT GraphAbstractVertexH

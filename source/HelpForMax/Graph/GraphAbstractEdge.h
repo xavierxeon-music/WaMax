@@ -1,11 +1,11 @@
-#ifndef GraphSymbolicEdgeH
-#define GraphSymbolicEdgeH
+#ifndef GraphAbstractEdgeH
+#define GraphAbstractEdgeH
 
 #include <QList>
 
 namespace Graph
 {
-   namespace Symbolic
+   namespace Abstract
    {
       class Vertex;
       class Graph;
@@ -40,7 +40,7 @@ namespace Graph
       private:
          friend class Graph;
       };
-   } // namespace Symbolic
+   } // namespace Abstract
 } // namespace Graph
 
-#endif // NOT GraphSymbolicEdgeH
+#endif // NOT GraphAbstractEdgeH

@@ -1,39 +1,28 @@
 #ifndef GraphSymbolicGraphH
 #define GraphSymbolicGraphH
 
-#include "GraphSymbolicEdge.h"
-#include "GraphSymbolicVertex.h"
+#include "GraphAbstractGraph.h"
 
 namespace Graph
 {
    namespace Symbolic
    {
-      class Graph
+      template <typename VertexType, typename EdgeType>
+      class Graph : public Abstract::Graph
       {
       public:
          Graph();
 
       public:
-         int addVertex(Vertex* vertex);
-         bool removeVertex(Vertex* vertex, bool deleteVertex = false);
-         int vertexIndex(const Vertex* vertex) const;
-         int vertexCount() const;
-         Vertex* getVertex(int vertexIndex) const;
-
-         int addEdge(Edge* edge);
-         bool removeEdge(Edge* edge, bool deleteEdge = false);
-         int edgeIndex(const Edge* edge) const;
-         int edgeCount() const;
-         Edge* getEdge(int edgeIndex) const;
-         int findEdgeIndex(const Vertex* vertexA, const Vertex* vertexB) const;
-
-         void clear(bool deleteAll = false);
-
-      private:
-         Vertex::PrtList vertexList;
-         Edge::PtrList edgeList;
+         VertexType* getVertexCast(int vertexIndex) const;
+         EdgeType* getEdgeCast(int edgeIndex) const;
       };
    } // namespace Symbolic
+
 } // namespace Graph
+
+#ifndef GraphSymbolicGraphHPP
+#include "GraphSymbolicGraph.hpp"
+#endif // NOT GraphSymbolicGraphHPP
 
 #endif // NOT GraphSymbolicGraphH

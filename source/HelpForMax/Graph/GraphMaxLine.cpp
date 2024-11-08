@@ -3,11 +3,12 @@
 #include <QJsonArray>
 
 Graph::Max::Line::Line(const QJsonObject& lineObject, const Object::IdMap& idMap)
-   : Symbolic::Edge()
+   : Abstract::Edge()
    , sourceX(0)
    , sourceY(0)
    , destX(0)
    , destY(0)
+   , isParamLine(false)
 {
    // source
    {

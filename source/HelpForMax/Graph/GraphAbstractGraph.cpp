@@ -1,12 +1,12 @@
-#include "GraphSymbolicGraph.h"
+#include "GraphAbstractGraph.h"
 
-Graph::Symbolic::Graph::Graph()
+Graph::Abstract::Graph::Graph()
    : vertexList()
    , edgeList()
 {
 }
 
-int Graph::Symbolic::Graph::addVertex(Vertex* vertex)
+int Graph::Abstract::Graph::addVertex(Vertex* vertex)
 {
    if (vertexList.contains(vertex))
       return -1;
@@ -15,7 +15,7 @@ int Graph::Symbolic::Graph::addVertex(Vertex* vertex)
    return vertexList.count() - 1;
 }
 
-bool Graph::Symbolic::Graph::removeVertex(Vertex* vertex, bool deleteVertex)
+bool Graph::Abstract::Graph::removeVertex(Vertex* vertex, bool deleteVertex)
 {
    if (!vertexList.contains(vertex))
       return false;
@@ -39,7 +39,7 @@ bool Graph::Symbolic::Graph::removeVertex(Vertex* vertex, bool deleteVertex)
    return true;
 }
 
-int Graph::Symbolic::Graph::vertexIndex(const Vertex* constVertex) const
+int Graph::Abstract::Graph::vertexIndex(const Vertex* constVertex) const
 {
    Vertex* vertex = const_cast<Vertex*>(constVertex);
 
@@ -49,12 +49,12 @@ int Graph::Symbolic::Graph::vertexIndex(const Vertex* constVertex) const
    return vertexList.indexOf(vertex);
 }
 
-int Graph::Symbolic::Graph::vertexCount() const
+int Graph::Abstract::Graph::vertexCount() const
 {
    return vertexList.count();
 }
 
-Graph::Symbolic::Vertex* Graph::Symbolic::Graph::getVertex(int vertexIndex) const
+Graph::Abstract::Vertex* Graph::Abstract::Graph::getVertex(int vertexIndex) const
 {
    if (vertexIndex < 0 || vertexIndex >= vertexList.count())
       return nullptr;
@@ -62,7 +62,7 @@ Graph::Symbolic::Vertex* Graph::Symbolic::Graph::getVertex(int vertexIndex) cons
    return vertexList.at(vertexIndex);
 }
 
-int Graph::Symbolic::Graph::addEdge(Edge* edge)
+int Graph::Abstract::Graph::addEdge(Edge* edge)
 {
    if (edgeList.contains(edge))
       return -1;
@@ -71,7 +71,7 @@ int Graph::Symbolic::Graph::addEdge(Edge* edge)
    return edgeList.count() - 1;
 }
 
-bool Graph::Symbolic::Graph::removeEdge(Edge* edge, bool deleteEdge)
+bool Graph::Abstract::Graph::removeEdge(Edge* edge, bool deleteEdge)
 {
    if (!edgeList.contains(edge))
       return false;
@@ -84,7 +84,7 @@ bool Graph::Symbolic::Graph::removeEdge(Edge* edge, bool deleteEdge)
    return true;
 }
 
-int Graph::Symbolic::Graph::edgeIndex(const Edge* constEdge) const
+int Graph::Abstract::Graph::edgeIndex(const Edge* constEdge) const
 {
    Edge* edge = const_cast<Edge*>(constEdge);
 
@@ -94,12 +94,12 @@ int Graph::Symbolic::Graph::edgeIndex(const Edge* constEdge) const
    return edgeList.indexOf(edge);
 }
 
-int Graph::Symbolic::Graph::edgeCount() const
+int Graph::Abstract::Graph::edgeCount() const
 {
    return edgeList.count();
 }
 
-Graph::Symbolic::Edge* Graph::Symbolic::Graph::getEdge(int edgeIndex) const
+Graph::Abstract::Edge* Graph::Abstract::Graph::getEdge(int edgeIndex) const
 {
    if (edgeIndex < 0 || edgeIndex >= edgeList.count())
       return nullptr;
@@ -107,7 +107,7 @@ Graph::Symbolic::Edge* Graph::Symbolic::Graph::getEdge(int edgeIndex) const
    return edgeList.at(edgeIndex);
 }
 
-int Graph::Symbolic::Graph::findEdgeIndex(const Vertex* vertexA, const Vertex* vertexB) const
+int Graph::Abstract::Graph::findEdgeIndex(const Vertex* vertexA, const Vertex* vertexB) const
 {
    for (int edgeIndex = 0; edgeIndex < edgeList.count(); edgeIndex++)
    {
@@ -119,7 +119,7 @@ int Graph::Symbolic::Graph::findEdgeIndex(const Vertex* vertexA, const Vertex* v
    return -1;
 }
 
-void Graph::Symbolic::Graph::clear(bool deleteAll)
+void Graph::Abstract::Graph::clear(bool deleteAll)
 {
    if (deleteAll)
    {
