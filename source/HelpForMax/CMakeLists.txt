@@ -43,7 +43,7 @@ list(FILTER SOURCE_FILES EXCLUDE REGEX "${PROJECT_SOURCE_DIR}/build/.*")
 if(APPLE)
 
    set(MACOSX_BUNDLE_ICON_FILE HelpForMax.icns)
-   set(APP_ICON ${CMAKE_CURRENT_SOURCE_DIR}/icons/HelpForMax.icns)
+   set(APP_ICON ${CMAKE_CURRENT_SOURCE_DIR}/_Resources/HelpForMax.icns)
    set_source_files_properties(${APP_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
 
    set(CMAKE_OSX_DEPLOYMENT_TARGET "14.0")
