@@ -18,8 +18,8 @@ Graph::Widget::Widget(QWidget* parent)
    : QGraphicsView(parent)
    , Max::Patch()
    , scene(nullptr)
-   , blackPen(Qt::black)
-   , bluePen(Qt::blue)
+   , blackPen(Qt::black, 2.0)
+   , bluePen(Qt::blue, 2.0)
    , whiteBrush(Qt::white)
    , blackBrush(Qt::black)
    , font()
@@ -49,6 +49,12 @@ void Graph::Widget::slotLoad(const QString& patchFileName)
    read(patchFileName);
    scene->clear();
 
+   for (int lineIndex = 0; lineIndex < edgeCount(); lineIndex++)
+   {
+      Max::Line* line = getEdgeCast(lineIndex);
+      scene->addLine(line->sourceX, line->sourceY, line->destX, line->destY, line->isParamLine ? bluePen : blackPen);
+   }
+
    for (int vertIndex = 0; vertIndex < vertexCount(); vertIndex++)
    {
       Max::Object* object = getVertexCast(vertIndex);
@@ -69,12 +75,6 @@ void Graph::Widget::slotLoad(const QString& patchFileName)
       QGraphicsSimpleTextItem* textItem = scene->addSimpleText(object->text, font);
       textItem->setToolTip(object->comment);
       textItem->setPos(patchRect.x() + 5, patchRect.y() + 5);
-   }
-
-   for (int lineIndex = 0; lineIndex < edgeCount(); lineIndex++)
-   {
-      Max::Line* line = getEdgeCast(lineIndex);
-      scene->addLine(line->sourceX, line->sourceY, line->destX, line->destY, line->isParamLine ? bluePen : blackPen);
    }
 
    updateZoom(false);
