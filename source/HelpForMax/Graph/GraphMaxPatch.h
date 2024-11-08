@@ -22,11 +22,14 @@ namespace Graph
          void analyse();
 
       private:
-         void readObjects(const QJsonObject patcherObject);
-         void readLines(const QJsonObject patcherObject);
+         using TypeBuffer = QMap<Object::Type, Object::List>;
 
       private:
-         Object::IdMap idMap;
+         Object::IdMap readObjects(const QJsonObject patcherObject);
+         void readLines(const QJsonObject patcherObject, const Object::IdMap& idMap);
+
+      private:
+         TypeBuffer typeBuffer;
       };
    } // namespace Max
 } // namespace Graph

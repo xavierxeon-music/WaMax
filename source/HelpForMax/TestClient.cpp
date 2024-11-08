@@ -26,7 +26,9 @@ TestClient::TestClient()
       item->setData(0, Qt::UserRole + 1, patchPath);
    };
 
-   const QString packageDir = QDir::homePath() + "/GitHub/MusicProjects/WaMaxPackageBase";
+   const QFileInfo packageInfo(QDir::homePath() + "/GitHub/MusicProjects/WaMaxPackageBase");
+   const QString packageDir = packageInfo.canonicalFilePath();
+
    addItem(packageDir + "/patchers/audio/wa.wave_terrain~.maxpat");
    addItem(packageDir + "/patchers/oscilators/wa.ringbuffer.granular_mk1~.maxpat");
    addItem(packageDir + "/patchers/oscilators/wa.sound.image~.maxpat");

@@ -8,9 +8,10 @@ Graph::Max::Object::Object(const QJsonObject& boxObject)
    , className()
    , text()
    , comment()
-   , inletCount(0)
-   , outletCount(0)
+   , inlets(0)
+   , outlets(0)
    , type(Type::Other)
+   , id()
 {
    className = boxObject["maxclass"].toString();
 
@@ -60,9 +61,9 @@ Graph::Max::Object::Object(const QJsonObject& boxObject)
                                    {Type::RoutePass, "RoutePass"},
                                    {Type::TypeRoute, "TypeRoute"}};
 
-   const QString id = boxObject["id"].toString();
+   id = boxObject["id"].toString();
    name = nameMap.value(type, "Other") + " (" + id + ") " + comment;
 
-   inletCount = boxObject["numinlets"].toInt();
-   outletCount = boxObject["numoutlets"].toInt();
+   inlets.count = boxObject["numinlets"].toInt();
+   outlets.count = boxObject["numoutlets"].toInt();
 }

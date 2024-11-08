@@ -27,6 +27,12 @@ namespace Graph
             TypeRoute
          };
 
+         struct Ports
+         {
+            int count = 0;
+            QList<int> connected;
+         };
+
       public:
          Object(const QJsonObject& boxObject);
 
@@ -35,9 +41,10 @@ namespace Graph
          QString className;
          QString text;
          QString comment;
-         int inletCount;
-         int outletCount;
+         Ports inlets;
+         Ports outlets;
          Type type;
+         QString id;
       };
    } // namespace Max
 } // namespace Graph

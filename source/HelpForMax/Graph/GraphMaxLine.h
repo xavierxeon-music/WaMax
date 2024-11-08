@@ -17,11 +17,14 @@ namespace Graph
          Line(const QJsonObject& lineObject, const Object::IdMap& idMap);
 
       public:
+         bool isParamLine;
+         int sourceOutlet;
+         int destInlet;
+
          int sourceX;
          int sourceY;
          int destX;
          int destY;
-         bool isParamLine;
       };
    } // namespace Max
 } // namespace Graph

@@ -25,6 +25,9 @@ Graph::Widget::Widget(QWidget* parent)
    , font()
    , zoomLevel(1.0)
 {
+   setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
+   setInteractive(false);
+
    font.setPixelSize(10);
 
    QBrush bgBrush = QApplication::palette().window();
@@ -60,20 +63,25 @@ void Graph::Widget::slotLoad(const QString& patchFileName)
       Max::Object* object = getVertexCast(vertIndex);
       const QRectF& patchRect = object->patchRect;
 
+      QString toolTip = object->comment;
+      if (!toolTip.isEmpty())
+         toolTip += " ";
+      toolTip += "(" + object->id + ")";
+
       QGraphicsRectItem* rectItem = scene->addRect(QRectF(0, 0, patchRect.width(), patchRect.height()), blackPen, whiteBrush);
-      rectItem->setToolTip(object->comment);
+      rectItem->setToolTip(toolTip);
       rectItem->setPos(patchRect.x(), patchRect.y());
 
       QGraphicsRectItem* topBar = scene->addRect(QRectF(0, 0, patchRect.width(), 2), blackPen, blackBrush);
-      topBar->setToolTip(object->comment);
+      topBar->setToolTip(toolTip);
       topBar->setPos(patchRect.x(), patchRect.y());
 
       QGraphicsRectItem* bottomBar = scene->addRect(QRectF(0, patchRect.height(), patchRect.width(), 2), blackPen, blackBrush);
-      bottomBar->setToolTip(object->comment);
+      bottomBar->setToolTip(toolTip);
       bottomBar->setPos(patchRect.x(), patchRect.y());
 
       QGraphicsSimpleTextItem* textItem = scene->addSimpleText(object->text, font);
-      textItem->setToolTip(object->comment);
+      textItem->setToolTip(toolTip);
       textItem->setPos(patchRect.x() + 5, patchRect.y() + 5);
    }
 

@@ -9,13 +9,13 @@
 
 Graph::Max::Patch::Patch()
    : Symbolic::Graph<Object, Line>()
-   , idMap()
+   , typeBuffer()
 {
 }
 
 void Graph::Max::Patch::read(const QString& patchFileName)
 {
-   idMap.clear();
+   typeBuffer.clear();
    clear(true);
 
    if (patchFileName.isEmpty())
@@ -34,68 +34,80 @@ void Graph::Max::Patch::read(const QString& patchFileName)
 
    const QJsonObject patcherObject = object["patcher"].toObject();
 
-   readObjects(patcherObject);
-   readLines(patcherObject);
+   const Object::IdMap idMap = readObjects(patcherObject);
+   readLines(patcherObject, idMap);
 
    analyse();
 }
 
 Graph::Max::Object::List Graph::Max::Patch::findAll(const Object::Type& type) const
 {
-   const QList<Object::Type> typeList = {type};
-   return findAll(typeList);
+   return typeBuffer.value(type, Object::List());
 }
 
 Graph::Max::Object::List Graph::Max::Patch::findAll(const QList<Object::Type>& typeList) const
 {
    Object::List list;
-   for (int vertIndex = 0; vertIndex < vertexCount(); vertIndex++)
+   for (const Object::Type& type : typeList)
    {
-      Max::Object* object = getVertexCast(vertIndex);
-      if (typeList.contains(object->type))
-         list.append(object);
+      if (!typeBuffer.contains(type))
+         continue;
+
+      list.append(typeBuffer.value(type));
    }
+
    return list;
 }
 
 void Graph::Max::Patch::analyse()
 {
    static const QList<Object::Type> sourceTypeList = {Object::Type::PatcherArgs, Object::Type::Inlet};
-   static const QList<Object::Type> targetTypeList = {Object::Type::Route, Object::Type::RoutePass, Object::Type::TypeRoute};
+   static const QList<Object::Type> processTypeList = {Object::Type::Route, Object::Type::RoutePass, Object::Type::TypeRoute};
 
    Abstract::Algorithm algo(this);
    const Object::List sources = findAll(sourceTypeList);
-   const Object::List targets = findAll(targetTypeList);
+   const Object::List processors = findAll(processTypeList);
 
    for (Object* source : sources)
    {
-      const Abstract::Algorithm::Tree tree = algo.depthFirst(source);
-      for (Object* target : targets)
+      const Abstract::Algorithm::Tree tree = algo.breadthFirst(source);
+      for (Object* processor : processors)
       {
-         const int targetIndex = vertexIndex(target);
+         const int targetIndex = vertexIndex(processor);
          const Abstract::Algorithm::Path path = tree.compilePath(targetIndex);
          const int depth = path.verticies.count();
          if (0 == depth)
             continue;
+
          for (int index = 1; index < path.verticies.count(); index++)
          {
             const int vertexIndexA = path.verticies.at(index);
             const int vertexIndexB = path.verticies.at(index - 1);
 
-            Object* objectA = getVertexCast(vertexIndexA);
-            Object* objectB = getVertexCast(vertexIndexB);
+            Object* inletObject = getVertexCast(vertexIndexB);
+            if (!processTypeList.contains(inletObject->type))
+               continue;
 
-            const int edgeIndex = findEdgeIndex(objectA, objectB);
+            Object* outletObject = getVertexCast(vertexIndexA);
+            if (!sourceTypeList.contains(outletObject->type) && !processTypeList.contains(outletObject->type))
+               continue;
+
+            const int edgeIndex = findEdgeIndex(outletObject, inletObject);
             Line* line = getEdgeCast(edgeIndex);
+            if (line->isParamLine)
+               continue;
+
             line->isParamLine = true;
          }
       }
    }
 }
 
-void Graph::Max::Patch::readObjects(const QJsonObject patcherObject)
+Graph::Max::Object::IdMap Graph::Max::Patch::readObjects(const QJsonObject patcherObject)
 {
    static const QStringList skipList = {"comment", "panel"};
+
+   Object::IdMap idMap;
    const QJsonArray boxArray = patcherObject["boxes"].toArray();
 
    for (int index = 0; index < boxArray.size(); index++)
@@ -113,12 +125,15 @@ void Graph::Max::Patch::readObjects(const QJsonObject patcherObject)
       Object* object = new Object(boxObject);
       addVertex(object);
 
-      const QString id = boxObject["id"].toString();
-      idMap[id] = object;
+      typeBuffer[object->type].append(object);
+
+      idMap[object->id] = object;
    }
+
+   return idMap;
 }
 
-void Graph::Max::Patch::readLines(const QJsonObject patcherObject)
+void Graph::Max::Patch::readLines(const QJsonObject patcherObject, const Object::IdMap& idMap)
 {
    const QJsonArray lineArray = patcherObject["lines"].toArray();
 
