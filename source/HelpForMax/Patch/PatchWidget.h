@@ -1,9 +1,9 @@
 #ifndef PatchWidgetH
 #define PatchWidgetH
 
+#include "../_Forms/ui_DigestWidget.h"
+#include "../_Forms/ui_PatchWidget.h"
 #include "PatchRefStructure.h"
-#include "ui_DigestWidget.h"
-#include "ui_PatchWidget.h"
 #include <QWidget>
 
 #include "PatchModelAbstract.h"

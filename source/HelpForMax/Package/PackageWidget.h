@@ -1,7 +1,7 @@
 #ifndef PackageViewH
 #define PackageViewH
 
-#include "ui_PackageWidget.h"
+#include "../_Forms/ui_PackageWidget.h"
 #include <QWidget>
 
 namespace Package

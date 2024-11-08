@@ -1,7 +1,7 @@
 #ifndef TestClientH
 #define TestClientH
 
-#include "ui_TestClient.h"
+#include "_Forms/ui_TestClient.h"
 #include <QDialog>
 
 #include <QLocalSocket>
@@ -12,9 +12,6 @@ class TestClient : public QDialog, private Ui::TestClient
 
 public:
    TestClient();
-
-private:
-   using SocketMap = QMap<QString, QLocalSocket*>;
 
 private slots:
    void slotSelectItemChanged(QTreeWidgetItem* current, QTreeWidgetItem* previous);
