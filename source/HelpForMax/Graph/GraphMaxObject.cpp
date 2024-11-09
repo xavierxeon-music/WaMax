@@ -64,7 +64,9 @@ Graph::Max::Object::Object(const QJsonObject& boxObject)
                                    {Type::Unpack, "Unpack"}};
 
    id = boxObject["id"].toString();
-   name = nameMap.value(type, "Other") + " (" + id + ") " + comment;
+   name = nameMap.value(type, "Other") + " (" + id + ")";
+   if (!comment.isEmpty())
+      name += " " + comment;
 
    inlets.count = boxObject["numinlets"].toInt();
    outlets.count = boxObject["numoutlets"].toInt();

@@ -76,27 +76,36 @@ void Graph::Max::Patch::analyse()
          const int targetIndex = vertexIndex(processor);
          const Abstract::Algorithm::Path path = tree.compilePath(targetIndex);
          const int depth = path.verticies.count();
-         if (0 == depth)
+
+         auto pathIsValid = [&]()
+         {
+            if (0 == depth)
+               return false;
+
+            for (int index = 0; index < depth; index++)
+            {
+               const int vertexIndexA = path.verticies.at(index);
+               Object* outletObject = getVertexCast(vertexIndexA);
+
+               if (!sourceTypeList.contains(outletObject->type) && !processTypeList.contains(outletObject->type))
+                  return false;
+            }
+            return true;
+         };
+
+         if (!pathIsValid())
             continue;
 
-         for (int index = 1; index < path.verticies.count(); index++)
+         for (int index = 1; index < depth; index++)
          {
             const int vertexIndexA = path.verticies.at(index);
-            const int vertexIndexB = path.verticies.at(index - 1);
-
-            Object* inletObject = getVertexCast(vertexIndexB);
-            if (!processTypeList.contains(inletObject->type))
-               continue;
-
             Object* outletObject = getVertexCast(vertexIndexA);
-            if (!sourceTypeList.contains(outletObject->type) && !processTypeList.contains(outletObject->type))
-               continue;
+
+            const int vertexIndexB = path.verticies.at(index - 1);
+            Object* inletObject = getVertexCast(vertexIndexB);
 
             const int edgeIndex = findEdgeIndex(outletObject, inletObject);
             Line* line = getEdgeCast(edgeIndex);
-            if (line->isParamLine)
-               continue;
-
             line->isParamLine = true;
          }
       }
