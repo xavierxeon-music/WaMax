@@ -14,7 +14,7 @@
 #include "MaxLine.h"
 #include "MaxObject.h"
 
-Graph::Widget::Widget(QWidget* parent)
+Structure::Widget::Widget(QWidget* parent)
    : QGraphicsView(parent)
    , scene(nullptr)
    , blackBorderPen(Qt::black)
@@ -47,7 +47,7 @@ Graph::Widget::Widget(QWidget* parent)
    updateZoom(false);
 }
 
-void Graph::Widget::slotLoad(Max::Patcher* patcher)
+void Structure::Widget::slotLoad(Max::Patcher* patcher)
 {
    scene->clear();
    if (!patcher)
@@ -89,7 +89,7 @@ void Graph::Widget::slotLoad(Max::Patcher* patcher)
    updateZoom(false);
 }
 
-void Graph::Widget::wheelEvent(QWheelEvent* wheelEvent)
+void Structure::Widget::wheelEvent(QWheelEvent* wheelEvent)
 {
    const double delta = 0.001 * wheelEvent->angleDelta().y();
    const double factor = std::pow(2.0, delta);
@@ -98,7 +98,7 @@ void Graph::Widget::wheelEvent(QWheelEvent* wheelEvent)
    updateZoom(true);
 }
 
-void Graph::Widget::mouseDoubleClickEvent(QMouseEvent* mouseEvent)
+void Structure::Widget::mouseDoubleClickEvent(QMouseEvent* mouseEvent)
 {
    QGraphicsItem* item = itemAt(mouseEvent->pos());
    if (!item)
@@ -108,19 +108,19 @@ void Graph::Widget::mouseDoubleClickEvent(QMouseEvent* mouseEvent)
    }
 }
 
-void Graph::Widget::keyPressEvent(QKeyEvent* event)
+void Structure::Widget::keyPressEvent(QKeyEvent* event)
 {
    const bool enabled = Qt::ShiftModifier & event->modifiers();
    setDragMode(enabled ? ScrollHandDrag : NoDrag);
 }
 
-void Graph::Widget::keyReleaseEvent(QKeyEvent* event)
+void Structure::Widget::keyReleaseEvent(QKeyEvent* event)
 {
    const bool enabled = Qt::ShiftModifier & event->modifiers();
    setDragMode(enabled ? ScrollHandDrag : NoDrag);
 }
 
-void Graph::Widget::updateZoom(bool save)
+void Structure::Widget::updateZoom(bool save)
 {
    setTransform(QTransform::fromScale(zoomLevel, zoomLevel));
 

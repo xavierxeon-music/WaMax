@@ -18,7 +18,7 @@ namespace Patch
 {
    class TabWidget;
 
-   class Widget : public QWidget, public Graph::Max::Patcher, private RefStructure, private Ui::PatchWidget, private Ui::DigestWidget
+   class Widget : public QWidget, public Max::Patcher, private RefStructure, private Ui::PatchWidget, private Ui::DigestWidget
    {
       Q_OBJECT
 

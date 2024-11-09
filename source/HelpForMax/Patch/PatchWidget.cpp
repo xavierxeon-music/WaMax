@@ -21,7 +21,7 @@
 
 Patch::Widget::Widget(TabWidget* tabWidget, const Package::Info* packageInfo, const QString& patchFileName)
    : QWidget(tabWidget)
-   , ::Graph::Max::Patcher()
+   , Max::Patcher()
    , RefStructure()
    , tabWidget(tabWidget)
    , packageInfo(packageInfo)

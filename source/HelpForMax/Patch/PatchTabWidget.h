@@ -33,7 +33,7 @@ namespace Patch
       void emitSignalCheckDirty();
 
    signals:
-      void signalTabSelected(Graph::Max::Patcher* patcher);
+      void signalTabSelected(Max::Patcher* patcher);
       void signalRefWritten(const QString& patchPath);
 
    public slots:
