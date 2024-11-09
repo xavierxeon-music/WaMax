@@ -63,6 +63,18 @@ void Package::TabWidget::slotCheckDirty()
    }
 }
 
+void Package::TabWidget::createActions()
+{
+   auto addAction = [&](QIcon icon, QString text, QString objectName, auto slotFunction)
+   {
+      QAction* action = new QAction(icon, text, this);
+      action->setObjectName(objectName);
+      connect(action, &QAction::triggered, this, slotFunction);
+
+      return action;
+   };
+}
+
 void Package::TabWidget::populate(QMenu* packageMenu, QToolBar* toolBar)
 {
    //

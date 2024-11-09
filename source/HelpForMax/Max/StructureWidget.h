@@ -16,8 +16,8 @@ namespace Structure
    public:
       Widget(QWidget* parent);
 
-   public slots:
-      void slotLoad(Max::Patcher* patcher);
+   public:
+      void load(Max::Patcher* patcher);
 
    private:
       void wheelEvent(QWheelEvent* wheelEvent) override;

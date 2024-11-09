@@ -8,6 +8,7 @@
 #include <QWidget>
 
 #include "PatchModelAbstract.h"
+#include "StructureWidget.h"
 
 namespace Package
 {
@@ -53,6 +54,7 @@ namespace Patch
 
    private:
       TabWidget* tabWidget;
+      Structure::Widget* structureWidget;
 
       const Package::Info* packageInfo;
       QString path;

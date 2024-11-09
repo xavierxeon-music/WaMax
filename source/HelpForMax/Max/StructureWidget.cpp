@@ -47,7 +47,7 @@ Structure::Widget::Widget(QWidget* parent)
    updateZoom(false);
 }
 
-void Structure::Widget::slotLoad(Max::Patcher* patcher)
+void Structure::Widget::load(Max::Patcher* patcher)
 {
    scene->clear();
    if (!patcher)

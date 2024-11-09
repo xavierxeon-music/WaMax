@@ -1,12 +1,12 @@
 <MenuAndTooBar>
-   <ToolBar>
+   <ToolBar Name="Toolbar">
       <Action Name="Package.Link"/>
-      <Menu Name="Patch.Suggesions"/>
+      <Action Name="Patch.Suggesions"/>
       <Sperator/>
       <Action Name="Patch.Save"/>
       <Action Name="Patch.Close"/>    
       <Spacer/>
-      <Action Name="Package.ShowDock"/>
+      <Action Name="Main.ShowPackage"/>
       <Action Name="Patch.ShowStructure"/>
    </ToolBar>   
    <Menu Name="Patch">
@@ -27,14 +27,14 @@
       <Action Name="Package.Close"/>            
    </Menu>
    <Menu Name="View">
-      <Action Name="Package.ShowDock"/>
+      <Action Name="Main.ShowPackage"/>
       <Action Name="Patch.ShowStructure"/>
       <Action Name="Main.ShowTestClient"/>      
       <Sperator/>
-      <Menu Name="Patch.ShowSuggesions"/>
+      <Action Name="Patch.ShowSuggesions"/>
       <Sperator/>
       <Action Name="Patch.Max"/>            
       <Action Name="Patch.XML"/>      
+      <Sperator/>
    </Menu>
-
 </MenuAndTooBar>

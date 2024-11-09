@@ -31,6 +31,7 @@ namespace Package
       void slotCheckDirty();
 
    public:
+      void createActions();
       void populate(QMenu* packageMenu, QToolBar* toolBar);
       static Info* findOrCreate(const QString& someFileInPackage);
       void init();

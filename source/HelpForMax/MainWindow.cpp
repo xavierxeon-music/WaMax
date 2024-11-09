@@ -3,6 +3,7 @@
 #include <QApplication>
 #include <QCloseEvent>
 #include <QDockWidget>
+#include <QDomElement>
 #include <QMenu>
 #include <QMenuBar>
 #include <QMessageBox>
@@ -17,7 +18,6 @@ MainWindow::MainWindow()
    : QMainWindow(nullptr)
    , packageWidget(nullptr)
    , patchWidget(nullptr)
-   , structureWidget(nullptr)
 #ifdef TEST_CLIENT_AVAILABLE
    , testClient(nullptr)
 #endif // TEST_CLIENT_AVAILABLE
@@ -45,13 +45,9 @@ MainWindow::MainWindow()
    packageWidget = new Package::TabWidget(this);
    addDock(packageWidget, Qt::LeftDockWidgetArea, "Package");
 
-   structureWidget = new Structure::Widget(this);
-   addDock(structureWidget, Qt::RightDockWidgetArea, "Schema");
-
    connect(patchWidget, &Patch::TabWidget::signalCheckDirty, this, &MainWindow::slotCheckDirty);
    connect(patchWidget, &Patch::TabWidget::signalCheckDirty, packageWidget, &Package::TabWidget::slotCheckDirty);
 
-   connect(patchWidget, &Patch::TabWidget::signalTabSelected, structureWidget, &Structure::Widget::slotLoad);
    connect(patchWidget, &Patch::TabWidget::signalRefWritten, packageWidget, &Package::TabWidget::slotRefWritten);
    connect(packageWidget, &Package::TabWidget::signalCloseAllPatches, patchWidget, &Patch::TabWidget::slotCloseAllPatches);
    connect(packageWidget, &Package::TabWidget::signalPatchSeleted, patchWidget, &Patch::TabWidget::slotShowPatch);
@@ -61,10 +57,14 @@ MainWindow::MainWindow()
    addDock(testClient, Qt::TopDockWidgetArea, "Test");
 #endif // TEST_CLIENT_AVAILABLE
 
-   populateMenuAndToolBar();
-
    packageWidget->init();
    patchWidget->init();
+
+   createActions();
+   packageWidget->createActions();
+   patchWidget->createActions();
+
+   populateMenuAndToolBar();
 
    QSettings settings;
    qDebug() << "SETTINGS @" << settings.fileName();
@@ -83,75 +83,137 @@ void MainWindow::slotCheckDirty()
    setWindowModified(dirty);
 }
 
-void MainWindow::populateMenuAndToolBar()
+void MainWindow::createActions()
 {
-   // patch
-   QMenu* patchMenu = menuBar()->addMenu("Patch");
-
-   // package
-   QMenu* packageMenu = menuBar()->addMenu("Package");
-
-   // view
-   QMenu* viewMenu = menuBar()->addMenu("View");
-   auto addViewToggle = [&](QWidget* widget, const QString& name, const QIcon& icon = QIcon())
+   auto addAction = [&](QIcon icon, QString text, QString objectName, auto slotFunction)
    {
-      auto toggleFunction = std::bind(&MainWindow::toogleDock, this, widget, name, std::placeholders::_1);
-      QAction* viewAction = viewMenu->addAction(name, toggleFunction);
+      QAction* action = new QAction(icon, text, this);
+      action->setObjectName(objectName);
+      connect(action, &QAction::triggered, this, slotFunction);
+
+      return action;
+   };
+
+   auto addViewToggle = [&](QWidget* widget, const QString& text, QString objectName, const QIcon& icon = QIcon())
+   {
+      QAction* viewAction = new QAction(icon, text, this);
+      viewAction->setObjectName(objectName);
       viewAction->setCheckable(true);
+
+      auto toggleFunction = std::bind(&MainWindow::toogleDock, this, widget, text, std::placeholders::_1);
+      connect(viewAction, &QAction::triggered, toggleFunction);
 
       if (!icon.isNull())
          viewAction->setIcon(icon);
 
       QSettings dockSettings;
-      const bool enabled = dockSettings.value("DockEnabled/" + name).toBool();
+      const bool enabled = dockSettings.value("DockEnabled/" + text).toBool();
 
       widget->setVisible(enabled);
       viewAction->setChecked(enabled);
 
-      const QSize size = dockSettings.value("DockSize/" + name).toSize();
+      const QSize size = dockSettings.value("DockSize/" + text).toSize();
       if (enabled && size.width() > 0 && size.height() > 0)
          widget->resize(size);
 
       return viewAction;
    };
 
-   QAction* packageAction = addViewToggle(packageWidget, "Package", QIcon(":/PackageGeneral.svg"));
-   QAction* schemmaAction = addViewToggle(structureWidget, "Structure", QIcon(":/OverviewGeneral.svg"));
-   schemmaAction->setShortcut(QKeySequence::Print);
+   //
+   addViewToggle(packageWidget, "Package", "Main.ShowPackage", QIcon(":/PackageGeneral.svg"));
 
 #ifdef TEST_CLIENT_AVAILABLE
-   addViewToggle(testClient, "TestClient");
+   addViewToggle(testClient, "Test Client", "Main.ShowTestClient");
 #endif // TEST_CLIENT_AVAILABLE
+}
 
-   viewMenu->addSeparator();
-   QAction* suggestAction = viewMenu->addAction(QIcon(":/PatchSuggest.svg"), "Suggestions", patchWidget, &Patch::TabWidget::slotShowSuggestions);
-   suggestAction->setCheckable(true);
+void MainWindow::populateMenuAndToolBar()
+{
+   QFile file(":/MenuAndToolBar.xml");
+   if (!file.open(QIODevice::ReadOnly))
+      return;
 
-   //
-   auto spacer = [&]()
+   const QByteArray content = file.readAll();
+   file.close();
+
+   QDomDocument doc;
+   QDomDocument::ParseResult result = doc.setContent(content);
+   if (!result.errorMessage.isEmpty())
    {
-      QWidget* widget = new QWidget(this);
-      widget->setMinimumWidth(100);
-      widget->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
+      qWarning() << "unable to read xml" << result.errorMessage;
+      return;
+   }
 
-      return widget;
+   auto createToolBar = [&](QDomElement thingElement)
+   {
+      const QString name = thingElement.attribute("Name");
+      QToolBar* toolBar = addToolBar(name);
+      toolBar->setObjectName(name);
+      toolBar->setMovable(false);
+      toolBar->setIconSize(QSize(24, 24));
+
+      for (QDomElement contentElement = thingElement.firstChildElement(); !contentElement.isNull(); contentElement = contentElement.nextSiblingElement())
+      {
+         const QString what = contentElement.tagName();
+         if ("Action" == what)
+         {
+            const QString name = contentElement.attribute("Name");
+            QAction* action = findChild<QAction*>(name, Qt::FindChildrenRecursively);
+            if (action)
+               toolBar->addAction(action);
+         }
+         else if ("Sperator" == what)
+         {
+            toolBar->addSeparator();
+         }
+         else if ("Spacer" == what)
+         {
+            QWidget* widget = new QWidget(this);
+            widget->setMinimumWidth(100);
+            widget->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
+            toolBar->addWidget(widget);
+         }
+      }
    };
 
-   QToolBar* toolBar = addToolBar("Toolbar");
-   toolBar->setObjectName("Toolbar");
-   toolBar->setMovable(false);
-   toolBar->setIconSize(QSize(24, 24));
+   auto createMenu = [&](QDomElement thingElement)
+   {
+      const QString name = thingElement.attribute("Name");
+      QMenu* menu = menuBar()->addMenu(name);
 
-   packageWidget->populate(packageMenu, toolBar);
-   toolBar->addSeparator();
+      for (QDomElement contentElement = thingElement.firstChildElement(); !contentElement.isNull(); contentElement = contentElement.nextSiblingElement())
+      {
+         const QString what = contentElement.tagName();
+         if ("Action" == what)
+         {
+            const QString name = contentElement.attribute("Name");
+            QAction* action = findChild<QAction*>(name, Qt::FindChildrenRecursively);
+            if (action)
+               menu->addAction(action);
+         }
+         else if ("Sperator" == what)
+         {
+            menu->addSeparator();
+         }
+         else if ("Menu" == what)
+         {
+            const QString name = contentElement.attribute("Name");
+            QMenu* subMenu = findChild<QMenu*>(name, Qt::FindChildrenRecursively);
+            if (subMenu)
+               menu->addMenu(subMenu);
+         }
+      }
+   };
 
-   patchWidget->populate(patchMenu, viewMenu, toolBar);
-   toolBar->addAction(suggestAction);
-
-   toolBar->addWidget(spacer());
-
-   toolBar->addAction(packageAction);
-   toolBar->addAction(schemmaAction);
+   const QDomElement rootElement = doc.documentElement();
+   for (QDomElement thingElement = rootElement.firstChildElement(); !thingElement.isNull(); thingElement = thingElement.nextSiblingElement())
+   {
+      const QString what = thingElement.tagName();
+      if ("ToolBar" == what)
+         createToolBar(thingElement);
+      else if ("Menu" == what)
+         createMenu(thingElement);
+   }
 }
 
 void MainWindow::closeEvent(QCloseEvent* ce)

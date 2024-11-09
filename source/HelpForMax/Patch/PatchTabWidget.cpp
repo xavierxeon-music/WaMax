@@ -18,39 +18,42 @@ Patch::TabWidget::TabWidget(QWidget* parent)
    connect(this, &QTabWidget::currentChanged, this, &TabWidget::slotTabChanged);
 }
 
-void Patch::TabWidget::populate(QMenu* patchMenu, QMenu* viewMenu, QToolBar* toolBar)
+void Patch::TabWidget::createActions()
 {
-   //
-   patchMenu->addAction(QIcon(":/PatchLoad.svg"), "Load", this, &TabWidget::slotPromptLoadPatch);
+   auto addAction = [&](QIcon icon, QString text, QString objectName, auto slotFunction)
+   {
+      QAction* action = new QAction(icon, text, this);
+      action->setObjectName(objectName);
+      connect(action, &QAction::triggered, this, slotFunction);
 
-   QAction* saveAction = patchMenu->addAction(QIcon(":/PatchSave.svg"), "Save", this, &TabWidget::slotWriteRef);
+      return action;
+   };
+
+   //
+   addAction(QIcon(":/PatchLoad.svg"), "Load", "Patch.Load", &TabWidget::slotPromptLoadPatch);
+
+   QAction* saveAction = addAction(QIcon(":/PatchSave.svg"), "Save", "Patch.Save", &TabWidget::slotWriteRef);
    saveAction->setShortcut(QKeySequence::Save);
 
-   QAction* saveAllAction = patchMenu->addAction(QIcon(":/PatchSaveAll.svg"), "Save All", this, &TabWidget::slotWriteAllRefs);
+   QAction* saveAllAction = addAction(QIcon(":/PatchSaveAll.svg"), "Save All", "Patch.SaveAll", &TabWidget::slotWriteAllRefs);
    saveAllAction->setShortcut(Qt::ShiftModifier | Qt::ControlModifier | Qt::Key_S);
-   patchMenu->addSeparator();
 
-   patchMenu->addMenu(getRecentMenu());
-   patchMenu->addSeparator();
-
-   QAction* closePatchAction = patchMenu->addAction(QIcon(":/PatchClose.svg"), "Close", this, &TabWidget::slotClosePatch);
-   closePatchAction->setShortcut(QKeySequence::Close);
+   QAction* closeAction = addAction(QIcon(":/PatchClose.svg"), "Close", "Patch.Close", &TabWidget::slotClosePatch);
+   closeAction->setShortcut(QKeySequence::Close);
 
    //
+   QAction* suggestAction = addAction(QIcon(":/PatchSuggest.svg"), "Suggestions", "Patch.ShowSuggesions", &TabWidget::slotShowSuggestions);
+   suggestAction->setCheckable(true);
 
-   //
-   viewMenu->addSeparator();
-   QAction* openInMaxAction = viewMenu->addAction(QIcon(":/PatchOpenInMax.svg"), "Open In Max", this, &TabWidget::slotOpenInMax);
+   QAction* structureAction = addAction(QIcon(":/OverviewGeneral.svg"), "Structure", "Patch.ShowStructure", &TabWidget::slotShowStructure);
+   structureAction->setCheckable(true);
+   structureAction->setShortcut(QKeySequence::Print);
+
+   QAction* openInMaxAction = addAction(QIcon(":/PatchOpenInMax.svg"), "Open In Max", "Patch.Max", &TabWidget::slotOpenInMax);
    openInMaxAction->setShortcuts(QKeySequence::Italic);
 
-   QAction* showXMLAction = viewMenu->addAction(QIcon(":/PatchOpenRef.svg"), "Open XML", this, &TabWidget::slotOpenXML);
+   QAction* showXMLAction = addAction(QIcon(":/PatchOpenRef.svg"), "Open XML", "Patch.XML", &TabWidget::slotOpenXML);
    showXMLAction->setShortcut(QKeySequence::Open);
-   viewMenu->addSeparator();
-
-   //
-   toolBar->addAction(saveAction);
-   toolBar->addSeparator();
-   toolBar->addAction(closePatchAction);
 }
 
 void Patch::TabWidget::init()
@@ -155,10 +158,6 @@ void Patch::TabWidget::slotCloseAllPatches(const Package::Info* packageInfo)
    }
 }
 
-void Patch::TabWidget::slotShowSuggestions(bool enabled)
-{
-}
-
 void Patch::TabWidget::slotOpenInMax()
 {
    Widget* patchWidget = qobject_cast<Widget*>(currentWidget());
@@ -171,6 +170,14 @@ void Patch::TabWidget::slotOpenXML()
    Widget* patchWidget = qobject_cast<Widget*>(currentWidget());
    if (patchWidget)
       patchWidget->openXML();
+}
+
+void Patch::TabWidget::slotShowSuggestions(bool enabled)
+{
+}
+
+void Patch::TabWidget::slotShowStructure(bool enabled)
+{
 }
 
 void Patch::TabWidget::slotTabChanged(int index)

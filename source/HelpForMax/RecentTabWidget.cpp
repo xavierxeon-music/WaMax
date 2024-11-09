@@ -13,6 +13,7 @@ RecentTabWidget::RecentTabWidget(QWidget* parent, const QString& settingsKey)
    setDocumentMode(true);
 
    recentMenu = new QMenu("Recent", parent);
+   recentMenu->setObjectName(settingsKey + ".Recent");
 
    auto populateFunction = std::bind(&RecentTabWidget::populateRecentMenu, this);
    QObject::connect(recentMenu, &QMenu::aboutToShow, populateFunction);

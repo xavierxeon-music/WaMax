@@ -39,7 +39,7 @@ namespace Patch
       void slotToolVisibilityChanged();
 
    public:
-      void populate(QMenu* patchMenu, QMenu* viewMenu, QToolBar* toolBar);
+      void createActions();
       void init();
       void emitSignalCheckDirty();
       const ToolsVisible& getToolsVisible() const;
@@ -51,7 +51,6 @@ namespace Patch
    public slots:
       void slotShowPatch(const QString& patchFileName);
       void slotCloseAllPatches(const Package::Info* packageInfo);
-      void slotShowSuggestions(bool enabled);
 
    private slots:
       void slotPromptLoadPatch();
@@ -60,6 +59,8 @@ namespace Patch
       void slotWriteAllRefs();
       void slotOpenInMax();
       void slotOpenXML();
+      void slotShowSuggestions(bool enabled);
+      void slotShowStructure(bool enabled);
       void slotTabChanged(int index);
 
    private:

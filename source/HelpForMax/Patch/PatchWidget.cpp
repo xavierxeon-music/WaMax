@@ -24,6 +24,7 @@ Patch::Widget::Widget(TabWidget* tabWidget, const Package::Info* packageInfo, co
    , Max::Patcher()
    , RefStructure()
    , tabWidget(tabWidget)
+   , structureWidget(nullptr)
    , packageInfo(packageInfo)
    , path(patchFileName)
    , patchInfo{}
@@ -87,16 +88,21 @@ Patch::Widget::Widget(TabWidget* tabWidget, const Package::Info* packageInfo, co
       connect(digestEdit, &QLineEdit::editingFinished, this, &Widget::slotSaveDigestText);
       connect(descriptionEdit, &QTextEdit::textChanged, this, &Widget::slotSaveDigestDescription);
    }
+
+   structureWidget = new Structure::Widget(this);
+
    QHBoxLayout* masterLayout = new QHBoxLayout(this);
    masterLayout->setContentsMargins(0, 0, 0, 0);
    masterLayout->addWidget(scrollArea);
    masterLayout->addWidget(editArea);
+   masterLayout->addWidget(structureWidget);
 
    // load content
    patchInfo = packageInfo->extractPatchInfo(path);
    propagateDirty(false);
 
    readPatch(path);
+   structureWidget->load(this);
 
    File::Ref(packageInfo, this).read(patchInfo);
    rebuild();
