@@ -6,6 +6,8 @@
 #include <QMenu>
 #include <QToolBar>
 
+#include "MaxPatcher.h"
+
 namespace Package
 {
    class Info;
@@ -31,7 +33,7 @@ namespace Patch
       void emitSignalCheckDirty();
 
    signals:
-      void signalTabSelected(const QString& patchPath, const Package::Info* packageInfo);
+      void signalTabSelected(Graph::Max::Patcher* patcher);
       void signalRefWritten(const QString& patchPath);
 
    public slots:

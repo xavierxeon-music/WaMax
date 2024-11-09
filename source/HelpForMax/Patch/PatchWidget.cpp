@@ -21,6 +21,7 @@
 
 Patch::Widget::Widget(TabWidget* tabWidget, const Package::Info* packageInfo, const QString& patchFileName)
    : QWidget(tabWidget)
+   , ::Graph::Max::Patcher()
    , RefStructure()
    , tabWidget(tabWidget)
    , packageInfo(packageInfo)
@@ -94,6 +95,8 @@ Patch::Widget::Widget(TabWidget* tabWidget, const Package::Info* packageInfo, co
    // load content
    patchInfo = packageInfo->extractPatchInfo(path);
    propagateDirty(false);
+
+   readPatch(path);
 
    File::Ref(packageInfo, this).read(patchInfo);
    rebuild();

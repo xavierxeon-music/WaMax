@@ -10,3 +10,8 @@ void File::Abstract::read(const Patch::Info& patchInfo)
 {
    Q_UNUSED(patchInfo)
 }
+
+void File::Abstract::write(const Patch::Info& patchInfo)
+{
+   Q_UNUSED(patchInfo)
+}

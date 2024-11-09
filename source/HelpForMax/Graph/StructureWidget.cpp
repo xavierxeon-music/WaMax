@@ -1,4 +1,4 @@
-#include "GraphWidget.h"
+#include "StructureWidget.h"
 
 #include <QApplication>
 #include <QDesktopServices>
@@ -11,12 +11,11 @@
 #include <QSettings>
 #include <QWheelEvent>
 
-#include "GraphMaxLine.h"
-#include "GraphMaxObject.h"
+#include "MaxLine.h"
+#include "MaxObject.h"
 
 Graph::Widget::Widget(QWidget* parent)
    : QGraphicsView(parent)
-   , Max::Patch()
    , scene(nullptr)
    , blackBorderPen(Qt::black)
    , blackLinePen(Qt::black, 3.0, Qt::DotLine)
@@ -48,20 +47,21 @@ Graph::Widget::Widget(QWidget* parent)
    updateZoom(false);
 }
 
-void Graph::Widget::slotLoad(const QString& patchFileName)
+void Graph::Widget::slotLoad(Max::Patcher* patcher)
 {
-   read(patchFileName);
    scene->clear();
+   if (!patcher)
+      return;
 
-   for (int lineIndex = 0; lineIndex < edgeCount(); lineIndex++)
+   for (int lineIndex = 0; lineIndex < patcher->edgeCount(); lineIndex++)
    {
-      Max::Line* line = getEdgeCast(lineIndex);
+      Max::Line* line = patcher->getEdgeCast(lineIndex);
       scene->addLine(line->sourceX, line->sourceY, line->destX, line->destY, line->isParamLine ? blueLinePen : blackLinePen);
    }
 
-   for (int vertIndex = 0; vertIndex < vertexCount(); vertIndex++)
+   for (int vertIndex = 0; vertIndex < patcher->vertexCount(); vertIndex++)
    {
-      Max::Object* object = getVertexCast(vertIndex);
+      Max::Object* object = patcher->getVertexCast(vertIndex);
       const QRectF& patchRect = object->patchRect;
 
       QString toolTip = object->comment;

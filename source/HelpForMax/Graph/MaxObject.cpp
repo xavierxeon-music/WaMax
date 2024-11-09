@@ -1,9 +1,9 @@
-#include "GraphMaxObject.h"
+#include "MaxObject.h"
 
 #include <QJsonArray>
 
-Graph::Max::Object::Object(const QJsonObject& boxObject)
-   : Abstract::Vertex()
+Max::Object::Object(const QJsonObject& boxObject)
+   : Structure::Vertex()
    , patchRect()
    , className()
    , text()

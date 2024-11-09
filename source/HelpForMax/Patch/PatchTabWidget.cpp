@@ -172,17 +172,12 @@ void Patch::TabWidget::slotTabChanged(int index)
    if (index < 0)
    {
       // no tab left
-      emit signalTabSelected("", nullptr);
+      emit signalTabSelected(nullptr);
       return;
    }
 
-   const Widget* patchWidget = qobject_cast<Widget*>(widget(index));
-
-   const QString& path = patchWidget->getPath();
-   if (path.isEmpty())
-      return;
-
-   emit signalTabSelected(path, patchWidget->getPacakgeInfo());
+   Widget* patchWidget = qobject_cast<Widget*>(widget(index));
+   emit signalTabSelected(patchWidget);
 }
 
 RecentTabWidget::Entry Patch::TabWidget::creatreEntry(const QFileInfo& fileInfo)

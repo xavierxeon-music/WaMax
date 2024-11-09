@@ -17,7 +17,7 @@ namespace File
 
    public:
       virtual void read(const Patch::Info& patchInfo);
-      virtual void write(const Patch::Info& patchInfo) = 0;
+      virtual void write(const Patch::Info& patchInfo);
       virtual QString getFilePath(const Patch::Info& patchInfo) = 0;
 
    protected:

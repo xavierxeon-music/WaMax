@@ -1,9 +1,9 @@
-#include "GraphMaxLine.h"
+#include "MaxLine.h"
 
 #include <QJsonArray>
 
-Graph::Max::Line::Line(const QJsonObject& lineObject, const Object::IdMap& idMap)
-   : Abstract::Edge()
+Max::Line::Line(const QJsonObject& lineObject, const Object::IdMap& idMap)
+   : Structure::Edge()
    , isParamLine(false)
    , sourceOutlet(0)
    , destInlet(0)

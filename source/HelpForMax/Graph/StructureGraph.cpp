@@ -1,12 +1,12 @@
-#include "GraphAbstractGraph.h"
+#include "StructureGraph.h"
 
-Graph::Abstract::Graph::Graph()
+Structure::Graph::Graph()
    : vertexList()
    , edgeList()
 {
 }
 
-int Graph::Abstract::Graph::addVertex(Vertex* vertex)
+int Structure::Graph::addVertex(Vertex* vertex)
 {
    if (vertexList.contains(vertex))
       return -1;
@@ -15,7 +15,7 @@ int Graph::Abstract::Graph::addVertex(Vertex* vertex)
    return vertexList.count() - 1;
 }
 
-bool Graph::Abstract::Graph::removeVertex(Vertex* vertex, bool deleteVertex)
+bool Structure::Graph::removeVertex(Vertex* vertex, bool deleteVertex)
 {
    if (!vertexList.contains(vertex))
       return false;
@@ -39,7 +39,7 @@ bool Graph::Abstract::Graph::removeVertex(Vertex* vertex, bool deleteVertex)
    return true;
 }
 
-int Graph::Abstract::Graph::vertexIndex(const Vertex* constVertex) const
+int Structure::Graph::vertexIndex(const Vertex* constVertex) const
 {
    Vertex* vertex = const_cast<Vertex*>(constVertex);
 
@@ -49,12 +49,12 @@ int Graph::Abstract::Graph::vertexIndex(const Vertex* constVertex) const
    return vertexList.indexOf(vertex);
 }
 
-int Graph::Abstract::Graph::vertexCount() const
+int Structure::Graph::vertexCount() const
 {
    return vertexList.count();
 }
 
-Graph::Abstract::Vertex* Graph::Abstract::Graph::getVertex(int vertexIndex) const
+Structure::Vertex* Structure::Graph::getVertex(int vertexIndex) const
 {
    if (vertexIndex < 0 || vertexIndex >= vertexList.count())
       return nullptr;
@@ -62,7 +62,7 @@ Graph::Abstract::Vertex* Graph::Abstract::Graph::getVertex(int vertexIndex) cons
    return vertexList.at(vertexIndex);
 }
 
-int Graph::Abstract::Graph::addEdge(Edge* edge)
+int Structure::Graph::addEdge(Edge* edge)
 {
    if (edgeList.contains(edge))
       return -1;
@@ -71,7 +71,7 @@ int Graph::Abstract::Graph::addEdge(Edge* edge)
    return edgeList.count() - 1;
 }
 
-bool Graph::Abstract::Graph::removeEdge(Edge* edge, bool deleteEdge)
+bool Structure::Graph::removeEdge(Edge* edge, bool deleteEdge)
 {
    if (!edgeList.contains(edge))
       return false;
@@ -84,7 +84,7 @@ bool Graph::Abstract::Graph::removeEdge(Edge* edge, bool deleteEdge)
    return true;
 }
 
-int Graph::Abstract::Graph::edgeIndex(const Edge* constEdge) const
+int Structure::Graph::edgeIndex(const Edge* constEdge) const
 {
    Edge* edge = const_cast<Edge*>(constEdge);
 
@@ -94,12 +94,12 @@ int Graph::Abstract::Graph::edgeIndex(const Edge* constEdge) const
    return edgeList.indexOf(edge);
 }
 
-int Graph::Abstract::Graph::edgeCount() const
+int Structure::Graph::edgeCount() const
 {
    return edgeList.count();
 }
 
-Graph::Abstract::Edge* Graph::Abstract::Graph::getEdge(int edgeIndex) const
+Structure::Edge* Structure::Graph::getEdge(int edgeIndex) const
 {
    if (edgeIndex < 0 || edgeIndex >= edgeList.count())
       return nullptr;
@@ -107,7 +107,7 @@ Graph::Abstract::Edge* Graph::Abstract::Graph::getEdge(int edgeIndex) const
    return edgeList.at(edgeIndex);
 }
 
-int Graph::Abstract::Graph::findEdgeIndex(const Vertex* vertexA, const Vertex* vertexB) const
+int Structure::Graph::findEdgeIndex(const Vertex* vertexA, const Vertex* vertexB) const
 {
    for (int edgeIndex = 0; edgeIndex < edgeList.count(); edgeIndex++)
    {
@@ -119,7 +119,7 @@ int Graph::Abstract::Graph::findEdgeIndex(const Vertex* vertexA, const Vertex* v
    return -1;
 }
 
-void Graph::Abstract::Graph::clear(bool deleteAll)
+void Structure::Graph::clear(bool deleteAll)
 {
    if (deleteAll)
    {

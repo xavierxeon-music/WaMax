@@ -1,19 +1,19 @@
-#include "GraphMaxPatch.h"
+#include "MaxPatcher.h"
 
 #include <QFile>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonValue>
 
-#include "GraphAbstractAlgorithm.h"
+#include "StructureAlgorithm.h"
 
-Graph::Max::Patch::Patch()
-   : Symbolic::Graph<Object, Line>()
+Max::Patcher::Patcher()
+   : Structure::Graph()
    , typeBuffer()
 {
 }
 
-void Graph::Max::Patch::read(const QString& patchFileName)
+void Max::Patcher::readPatch(const QString& patchFileName)
 {
    typeBuffer.clear();
    clear(true);
@@ -40,12 +40,12 @@ void Graph::Max::Patch::read(const QString& patchFileName)
    analyse();
 }
 
-Graph::Max::Object::List Graph::Max::Patch::findAll(const Object::Type& type) const
+Max::Object::List Max::Patcher::findAll(const Object::Type& type) const
 {
    return typeBuffer.value(type, Object::List());
 }
 
-Graph::Max::Object::List Graph::Max::Patch::findAll(const QList<Object::Type>& typeList) const
+Max::Object::List Max::Patcher::findAll(const QList<Object::Type>& typeList) const
 {
    Object::List list;
    for (const Object::Type& type : typeList)
@@ -59,22 +59,22 @@ Graph::Max::Object::List Graph::Max::Patch::findAll(const QList<Object::Type>& t
    return list;
 }
 
-void Graph::Max::Patch::analyse()
+void Max::Patcher::analyse()
 {
    static const QList<Object::Type> sourceTypeList = {Object::Type::PatcherArgs, Object::Type::Inlet};
    static const QList<Object::Type> processTypeList = {Object::Type::Route, Object::Type::RoutePass, Object::Type::TypeRoute, Object::Type::Unpack};
 
-   Abstract::Algorithm algo(this);
+   Structure::Algorithm algo(this);
    const Object::List sources = findAll(sourceTypeList);
    const Object::List processors = findAll(processTypeList);
 
    for (Object* source : sources)
    {
-      const Abstract::Algorithm::Tree tree = algo.breadthFirst(source);
+      const Structure::Algorithm::Tree tree = algo.breadthFirst(source);
       for (Object* processor : processors)
       {
          const int targetIndex = vertexIndex(processor);
-         const Abstract::Algorithm::Path path = tree.compilePath(targetIndex);
+         const Structure::Algorithm::Path path = tree.compilePath(targetIndex);
          const int depth = path.verticies.count();
 
          auto pathIsValid = [&]()
@@ -112,7 +112,19 @@ void Graph::Max::Patch::analyse()
    }
 }
 
-Graph::Max::Object::IdMap Graph::Max::Patch::readObjects(const QJsonObject patcherObject)
+Max::Object* Max::Patcher::getVertexCast(int vertexIndex) const
+{
+   Object* vertex = static_cast<Object*>(getVertex(vertexIndex));
+   return vertex;
+}
+
+Max::Line* Max::Patcher::getEdgeCast(int edgeIndex) const
+{
+   Line* edge = static_cast<Line*>(getEdge(edgeIndex));
+   return edge;
+}
+
+Max::Object::IdMap Max::Patcher::readObjects(const QJsonObject patcherObject)
 {
    static const QStringList skipList = {"comment", "panel"};
 
@@ -142,7 +154,7 @@ Graph::Max::Object::IdMap Graph::Max::Patch::readObjects(const QJsonObject patch
    return idMap;
 }
 
-void Graph::Max::Patch::readLines(const QJsonObject patcherObject, const Object::IdMap& idMap)
+void Max::Patcher::readLines(const QJsonObject patcherObject, const Object::IdMap& idMap)
 {
    const QJsonArray lineArray = patcherObject["lines"].toArray();
 
