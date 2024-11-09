@@ -123,6 +123,10 @@ void MainWindow::populateMenuAndToolBar()
    addViewToggle(testClient, "TestClient");
 #endif // TEST_CLIENT_AVAILABLE
 
+   viewMenu->addSeparator();
+   QAction* suggestAction = viewMenu->addAction(QIcon(":/PatchSuggest.svg"), "Suggestions", patchWidget, &Patch::TabWidget::slotShowSuggestions);
+   suggestAction->setCheckable(true);
+
    //
    auto spacer = [&]()
    {
@@ -136,11 +140,14 @@ void MainWindow::populateMenuAndToolBar()
    QToolBar* toolBar = addToolBar("Toolbar");
    toolBar->setObjectName("Toolbar");
    toolBar->setMovable(false);
+   toolBar->setIconSize(QSize(24, 24));
 
    packageWidget->populate(packageMenu, toolBar);
    toolBar->addSeparator();
 
    patchWidget->populate(patchMenu, viewMenu, toolBar);
+   toolBar->addAction(suggestAction);
+
    toolBar->addWidget(spacer());
 
    toolBar->addAction(packageAction);

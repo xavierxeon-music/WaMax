@@ -37,6 +37,8 @@ void Patch::TabWidget::populate(QMenu* patchMenu, QMenu* viewMenu, QToolBar* too
    closePatchAction->setShortcut(QKeySequence::Close);
 
    //
+
+   //
    viewMenu->addSeparator();
    QAction* openInMaxAction = viewMenu->addAction(QIcon(":/PatchOpenInMax.svg"), "Open In Max", this, &TabWidget::slotOpenInMax);
    openInMaxAction->setShortcuts(QKeySequence::Italic);
@@ -151,6 +153,10 @@ void Patch::TabWidget::slotCloseAllPatches(const Package::Info* packageInfo)
       removeCurrentFile(patchWidget->getPath());
       patchWidget->deleteLater();
    }
+}
+
+void Patch::TabWidget::slotShowSuggestions(bool enabled)
+{
 }
 
 void Patch::TabWidget::slotOpenInMax()

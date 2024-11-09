@@ -39,6 +39,7 @@ namespace Patch
    public slots:
       void slotShowPatch(const QString& patchFileName);
       void slotCloseAllPatches(const Package::Info* packageInfo);
+      void slotShowSuggestions(bool enabled);
 
    private slots:
       void slotPromptLoadPatch();

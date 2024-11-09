@@ -13,8 +13,14 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
+  <layout class="QGridLayout" name="gridLayout_2">
+   <item row="3" column="1">
+    <widget class="QTreeView" name="treeView"/>
+   </item>
+   <item row="5" column="1">
+    <widget class="QTreeView" name="treeView_2"/>
+   </item>
+   <item row="0" column="1" colspan="2">
     <layout class="QHBoxLayout" name="horizontalLayout_5">
      <item>
       <widget class="QLabel" name="patchIcon">
@@ -45,7 +51,65 @@
      </item>
     </layout>
    </item>
-   <item>
+   <item row="8" column="2">
+    <widget class="Patch::TreeView" name="namedMessageTree"/>
+   </item>
+   <item row="5" column="2">
+    <widget class="Patch::TreeView" name="typedMessageTree"/>
+   </item>
+   <item row="7" column="1" colspan="2">
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QLabel" name="attributeIcon">
+       <property name="text">
+        <string>?</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="nameMessageIcon">
+       <property name="text">
+        <string>?</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="namedMessageInfo">
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;ATTRIBUTES &amp;amp; NAMED MESSAGES &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_3">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QToolButton" name="namedMessageAddButton">
+       <property name="text">
+        <string>+</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="namedMessageRemoveButton">
+       <property name="text">
+        <string>-</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="1" column="1" colspan="2">
     <layout class="QGridLayout" name="gridLayout">
      <item row="0" column="0">
       <widget class="QLabel" name="metaTagInfo">
@@ -72,7 +136,7 @@
      </item>
     </layout>
    </item>
-   <item>
+   <item row="2" column="1" colspan="2">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QLabel" name="argumentIcon">
@@ -126,10 +190,10 @@
      </item>
     </layout>
    </item>
-   <item>
-    <widget class="Patch::TreeView" name="argumentTree"/>
+   <item row="8" column="1">
+    <widget class="QTreeView" name="treeView_3"/>
    </item>
-   <item>
+   <item row="4" column="1" colspan="2">
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <widget class="QLabel" name="typedMessageIcon">
@@ -160,65 +224,7 @@
      </item>
     </layout>
    </item>
-   <item>
-    <widget class="Patch::TreeView" name="typedMessageTree"/>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_3">
-     <item>
-      <widget class="QLabel" name="attributeIcon">
-       <property name="text">
-        <string>?</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="nameMessageIcon">
-       <property name="text">
-        <string>?</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="namedMessageInfo">
-       <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;ATTRIBUTES &amp;amp; NAMED MESSAGES &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_3">
-       <property name="orientation">
-        <enum>Qt::Orientation::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QToolButton" name="namedMessageAddButton">
-       <property name="text">
-        <string>+</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QToolButton" name="namedMessageRemoveButton">
-       <property name="text">
-        <string>-</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <widget class="Patch::TreeView" name="namedMessageTree"/>
-   </item>
-   <item>
+   <item row="10" column="1" colspan="2">
     <layout class="QHBoxLayout" name="horizontalLayout_4">
      <item>
       <widget class="QLabel" name="outputIcon">
@@ -263,7 +269,13 @@
      </item>
     </layout>
    </item>
-   <item>
+   <item row="3" column="2">
+    <widget class="Patch::TreeView" name="argumentTree"/>
+   </item>
+   <item row="11" column="1">
+    <widget class="QTreeView" name="treeView_4"/>
+   </item>
+   <item row="11" column="2">
     <widget class="Patch::TreeView" name="outputTree"/>
    </item>
   </layout>
