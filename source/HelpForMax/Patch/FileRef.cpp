@@ -90,7 +90,7 @@ void File::Ref::readContent(const QByteArray& content)
          for (const QDomElement& outletElement : compileAllDirectChildElements(outputListElement, "entry"))
          {
             const QString name = outletElement.attribute("name");
-            const Patch::RefStructure::DataType dataType = Patch::RefStructure::toDataType(name);
+            const Max::DataType dataType = Max::toDataType(name);
 
             Patch::RefStructure::Output& output = structure->outputMap[dataType];
             output.active = true;
@@ -109,7 +109,7 @@ void File::Ref::readContent(const QByteArray& content)
             Patch::RefStructure::Argument argument;
             argument.name = arguemntElement.attribute("name");
             argument.optional = ("1" == arguemntElement.attribute("optional"));
-            argument.dataType = Patch::RefStructure::toDataType(arguemntElement.attribute("type"));
+            argument.dataType = Max::toDataType(arguemntElement.attribute("type"));
 
             readDigest(arguemntElement, argument.digest);
 
@@ -129,7 +129,7 @@ void File::Ref::readContent(const QByteArray& content)
             {
                Patch::RefStructure::AttributesAndMessageNamed attribute;
                attribute.name = name;
-               attribute.dataType = Patch::RefStructure::toDataType(attributeElement.attribute("type"));
+               attribute.dataType = Max::toDataType(attributeElement.attribute("type"));
 
                readDigest(attributeElement, attribute.digest);
 
@@ -151,7 +151,7 @@ void File::Ref::readContent(const QByteArray& content)
             const QString name = messageElement.attribute("name");
             if (isStandard)
             {
-               const Patch::RefStructure::DataType dataType = Patch::RefStructure::toDataType(name);
+               const Max::DataType dataType = Max::toDataType(name);
                Patch::RefStructure::MessageTyped& message = structure->messageTypedMap[dataType];
 
                message.active = true;
@@ -167,7 +167,7 @@ void File::Ref::readContent(const QByteArray& content)
 
                   const QDomElement argListElement = messageElement.firstChildElement("arglist");
                   const QDomElement& arguemntElement = argListElement.firstChildElement("arg");
-                  message.dataType = Patch::RefStructure::toDataType(arguemntElement.attribute("type"));
+                  message.dataType = Max::toDataType(arguemntElement.attribute("type"));
 
                   structure->messageNamedMap[name] = message;
                }
@@ -220,7 +220,7 @@ QByteArray File::Ref::writeContent(const QString& patchName)
             continue;
 
          QDomElement outputElement = createSubElement(outputListElement, "entry");
-         outputElement.setAttribute("name", Patch::RefStructure::dataTypeName(output.dataType));
+         outputElement.setAttribute("name", Max::dataTypeName(output.dataType));
 
          addDigest(outputElement, it.value().digest);
       }
@@ -233,7 +233,7 @@ QByteArray File::Ref::writeContent(const QString& patchName)
          QDomElement arguemntElement = createSubElement(objArgListElement, "objarg");
          arguemntElement.setAttribute("name", argument.name);
          arguemntElement.setAttribute("optional", argument.optional);
-         arguemntElement.setAttribute("type", Patch::RefStructure::dataTypeName(argument.dataType));
+         arguemntElement.setAttribute("type", Max::dataTypeName(argument.dataType));
 
          addDigest(arguemntElement, argument.digest);
       }
@@ -246,7 +246,7 @@ QByteArray File::Ref::writeContent(const QString& patchName)
       for (Patch::RefStructure::AttributesAndMessageNamed::Map::const_iterator it = structure->messageNamedMap.constBegin(); it != structure->messageNamedMap.constEnd(); it++)
       {
          const Patch::RefStructure::AttributesAndMessageNamed& messageNamed = it.value();
-         const QString typeName = Patch::RefStructure::dataTypeName(messageNamed.dataType);
+         const QString typeName = Max::dataTypeName(messageNamed.dataType);
 
          if (0 != (messageNamed.patchParts & Patch::RefStructure::PatchPart::MessageNamed))
          {
@@ -277,7 +277,7 @@ QByteArray File::Ref::writeContent(const QString& patchName)
       for (Patch::RefStructure::MessageTyped::Map::const_iterator it = structure->messageTypedMap.constBegin(); it != structure->messageTypedMap.constEnd(); it++)
       {
          const Patch::RefStructure::MessageTyped& messageTyped = it.value();
-         const QString typeName = Patch::RefStructure::dataTypeName(messageTyped.dataType);
+         const QString typeName = Max::dataTypeName(messageTyped.dataType);
 
          if (!messageTyped.active)
             continue;

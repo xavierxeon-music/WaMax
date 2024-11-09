@@ -47,7 +47,8 @@ Graph::Max::Object::Object(const QJsonObject& boxObject)
       static const TypeMap typeMap = {{"patcherargs", Type::PatcherArgs},
                                       {"route", Type::Route},
                                       {"routepass", Type::RoutePass},
-                                      {"typeroute~", Type::TypeRoute}};
+                                      {"typeroute~", Type::TypeRoute},
+                                      {"unpack", Type::Unpack}};
 
       const QString typeString = text.split(" ", Qt::SkipEmptyParts).first();
       type = typeMap.value(typeString, Type::Other);
@@ -59,7 +60,8 @@ Graph::Max::Object::Object(const QJsonObject& boxObject)
                                    {Type::PatcherArgs, "PatcherArgs"},
                                    {Type::Route, "Route"},
                                    {Type::RoutePass, "RoutePass"},
-                                   {Type::TypeRoute, "TypeRoute"}};
+                                   {Type::TypeRoute, "TypeRoute"},
+                                   {Type::Unpack, "Unpack"}};
 
    id = boxObject["id"].toString();
    name = nameMap.value(type, "Other") + " (" + id + ") " + comment;

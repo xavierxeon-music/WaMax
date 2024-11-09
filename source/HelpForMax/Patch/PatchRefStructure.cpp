@@ -4,18 +4,6 @@
 
 const QList<QByteArray> Patch::RefStructure::descriptionMaxTags = {"o", "m", "at", "ar", "b", "u", "i"};
 
-using DataTypeNameMap = QMap<Patch::RefStructure::DataType, QString>;
-static const DataTypeNameMap dataTypeNameMap = {{Patch::RefStructure::DataType::Anything, "anything"}, // must be max names!
-                                                {Patch::RefStructure::DataType::Bang, "bang"},
-                                                {Patch::RefStructure::DataType::Integer, "int"},
-                                                {Patch::RefStructure::DataType::Float, "float"},
-                                                {Patch::RefStructure::DataType::Symbol, "symbol"},
-                                                {Patch::RefStructure::DataType::List, "list"},
-                                                {Patch::RefStructure::DataType::Signal, "signal"},
-                                                {Patch::RefStructure::DataType::MultiSignal, "multichannelsignal"},
-                                                {Patch::RefStructure::DataType::Dictionary, "dictionary"},
-                                                {Patch::RefStructure::DataType::Matrix, "matrix"}};
-
 using PatchTypeNameMap = QMap<Patch::RefStructure::PatchType, QString>;
 static const PatchTypeNameMap patchTypeNameMap = {{Patch::RefStructure::PatchType::Standard, "standard"},
                                                   {Patch::RefStructure::PatchType::Gui, "gui"},
@@ -38,7 +26,7 @@ Patch::RefStructure::RefStructure()
    , messageTypedMap()
    , messageNamedMap()
 {
-   for (const DataType& dataType : dataTypeNameMap.keys())
+   for (const Max::DataType& dataType : Max::dataTypeList())
    {
       {
          RefStructure::MessageTyped message;
@@ -68,27 +56,6 @@ void Patch::RefStructure::clear()
 
 void Patch::RefStructure::setDirty()
 {
-}
-
-QString Patch::RefStructure::dataTypeName(const DataType& type)
-{
-   return dataTypeNameMap.value(type, "anything");
-}
-
-Patch::RefStructure::DataType Patch::RefStructure::toDataType(const QString& name)
-{
-   for (DataTypeNameMap ::const_iterator it = dataTypeNameMap.constBegin(); it != dataTypeNameMap.constEnd(); it++)
-   {
-      if (name == it.value())
-         return it.key();
-   }
-
-   return DataType::Anything;
-}
-
-QList<Patch::RefStructure::DataType> Patch::RefStructure::dataTypeList()
-{
-   return dataTypeNameMap.keys();
 }
 
 QString Patch::RefStructure::patchTypeName(const PatchType& type)

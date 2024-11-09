@@ -8,6 +8,8 @@
 #include <QString>
 #include <QStringList>
 
+#include "MaxDataType.h"
+
 namespace Patch
 {
    struct Info
@@ -21,21 +23,6 @@ namespace Patch
       Q_GADGET
 
    public:
-      enum class DataType
-      {
-         Anything,
-         Symbol,
-         Float,
-         Integer,
-         Bang,
-         List,
-         Signal,
-         MultiSignal,
-         Dictionary,
-         Matrix
-      };
-      Q_ENUM(DataType)
-
       enum class PatchType
       {
          Standard,
@@ -77,31 +64,31 @@ namespace Patch
 
       struct Output
       {
-         DataType dataType = DataType::Anything;
+         Max::DataType dataType = Max::DataType::Anything;
          bool active = false;
          Digest digest;
 
          using List = QList<Output>;
-         using Map = QMap<DataType, Output>;
+         using Map = QMap<Max::DataType, Output>;
       };
 
-      struct Input
+      struct AbstractMessage
       {
          QString name;
-         DataType dataType = DataType::Symbol;
+         Max::DataType dataType = Max::DataType::Symbol;
          Digest digest;
       };
 
-      struct MessageTyped : Input
+      struct MessageTyped : AbstractMessage
       {
          bool active = false;
 
          using List = QList<MessageTyped>;
-         using Map = QMap<DataType, MessageTyped>;
+         using Map = QMap<Max::DataType, MessageTyped>;
       };
 
       // attributes and things in patcherargs with @
-      struct AttributesAndMessageNamed : Input
+      struct AttributesAndMessageNamed : AbstractMessage
       {
          PatchParts patchParts = PatchPart::Undefined;
 
@@ -110,7 +97,7 @@ namespace Patch
       };
 
       // things in patcherargs without @
-      struct Argument : Input
+      struct Argument : AbstractMessage
       {
          bool optional = false;
 
@@ -126,11 +113,6 @@ namespace Patch
    public:
       virtual void clear();
       virtual void setDirty();
-
-      // message type
-      static QString dataTypeName(const DataType& type);
-      static DataType toDataType(const QString& name);
-      static QList<DataType> dataTypeList();
 
       // patcher type
       static QString patchTypeName(const PatchType& type);

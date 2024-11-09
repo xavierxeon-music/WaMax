@@ -13,7 +13,7 @@ void Patch::Model::TypedMessage::update()
       QStandardItem* activeItem = invisibleRootItem()->child(row, 1);
       QStandardItem* digestItem = invisibleRootItem()->child(row, 2);
 
-      const RefStructure::DataType type = typeItem->data().value<RefStructure::DataType>();
+      const Max::DataType type = typeItem->data().value<Max::DataType>();
       RefStructure::MessageTyped& message = structure->messageTypedMap[type];
 
       activeItem->setCheckState(message.active ? Qt::Checked : Qt::Unchecked);
@@ -30,9 +30,9 @@ void Patch::Model::TypedMessage::rebuild()
    clear();
    setHorizontalHeaderLabels({"Type", "Active", "Digest"});
 
-   for (const RefStructure::DataType& type : structure->dataTypeList())
+   for (const Max::DataType& type : Max::dataTypeList())
    {
-      QStandardItem* typeItem = new QStandardItem(RefStructure::dataTypeName(type));
+      QStandardItem* typeItem = new QStandardItem(Max::dataTypeName(type));
       typeItem->setEditable(false);
       typeItem->setData(QVariant::fromValue(type));
 
@@ -54,7 +54,7 @@ void Patch::Model::TypedMessage::rebuild()
 Patch::RefStructure::Digest* Patch::Model::TypedMessage::getDigest(const QModelIndex& index)
 {
    QStandardItem* typeItem = invisibleRootItem()->child(index.row(), 0);
-   const RefStructure::DataType type = typeItem->data().value<RefStructure::DataType>();
+   const Max::DataType type = typeItem->data().value<Max::DataType>();
 
    RefStructure::MessageTyped& message = structure->messageTypedMap[type];
    return &(message.digest);
@@ -65,7 +65,7 @@ bool Patch::Model::TypedMessage::setData(const QModelIndex& index, const QVarian
    const bool result = QStandardItemModel::setData(index, value, role);
 
    QStandardItem* typeItem = invisibleRootItem()->child(index.row(), 0);
-   const RefStructure::DataType type = typeItem->data().value<RefStructure::DataType>();
+   const Max::DataType type = typeItem->data().value<Max::DataType>();
 
    RefStructure::MessageTyped& message = structure->messageTypedMap[type];
 

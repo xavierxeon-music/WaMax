@@ -62,7 +62,7 @@ Graph::Max::Object::List Graph::Max::Patch::findAll(const QList<Object::Type>& t
 void Graph::Max::Patch::analyse()
 {
    static const QList<Object::Type> sourceTypeList = {Object::Type::PatcherArgs, Object::Type::Inlet};
-   static const QList<Object::Type> processTypeList = {Object::Type::Route, Object::Type::RoutePass, Object::Type::TypeRoute};
+   static const QList<Object::Type> processTypeList = {Object::Type::Route, Object::Type::RoutePass, Object::Type::TypeRoute, Object::Type::Unpack};
 
    Abstract::Algorithm algo(this);
    const Object::List sources = findAll(sourceTypeList);

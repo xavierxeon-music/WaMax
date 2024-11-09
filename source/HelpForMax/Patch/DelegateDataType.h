@@ -14,7 +14,7 @@ namespace Delegate
    public:
       struct Source
       {
-         virtual Patch::RefStructure::DataType getDataType(const int index) = 0;
+         virtual Max::DataType getDataType(const int index) = 0;
       };
 
    public:

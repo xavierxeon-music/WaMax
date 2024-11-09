@@ -18,8 +18,9 @@ Graph::Widget::Widget(QWidget* parent)
    : QGraphicsView(parent)
    , Max::Patch()
    , scene(nullptr)
-   , blackPen(Qt::black, 2.0)
-   , bluePen(Qt::blue, 2.0)
+   , blackBorderPen(Qt::black)
+   , blackLinePen(Qt::black, 3.0, Qt::DotLine)
+   , blueLinePen(Qt::blue, 3.0, Qt::DotLine)
    , whiteBrush(Qt::white)
    , blackBrush(Qt::black)
    , font()
@@ -55,7 +56,7 @@ void Graph::Widget::slotLoad(const QString& patchFileName)
    for (int lineIndex = 0; lineIndex < edgeCount(); lineIndex++)
    {
       Max::Line* line = getEdgeCast(lineIndex);
-      scene->addLine(line->sourceX, line->sourceY, line->destX, line->destY, line->isParamLine ? bluePen : blackPen);
+      scene->addLine(line->sourceX, line->sourceY, line->destX, line->destY, line->isParamLine ? blueLinePen : blackLinePen);
    }
 
    for (int vertIndex = 0; vertIndex < vertexCount(); vertIndex++)
@@ -68,15 +69,15 @@ void Graph::Widget::slotLoad(const QString& patchFileName)
          toolTip += " ";
       toolTip += "(" + object->id + ")";
 
-      QGraphicsRectItem* rectItem = scene->addRect(QRectF(0, 0, patchRect.width(), patchRect.height()), blackPen, whiteBrush);
+      QGraphicsRectItem* rectItem = scene->addRect(QRectF(0, 0, patchRect.width(), patchRect.height()), blackBorderPen, whiteBrush);
       rectItem->setToolTip(toolTip);
       rectItem->setPos(patchRect.x(), patchRect.y());
 
-      QGraphicsRectItem* topBar = scene->addRect(QRectF(0, 0, patchRect.width(), 2), blackPen, blackBrush);
+      QGraphicsRectItem* topBar = scene->addRect(QRectF(0, 0, patchRect.width(), 2), blackBorderPen, blackBrush);
       topBar->setToolTip(toolTip);
       topBar->setPos(patchRect.x(), patchRect.y());
 
-      QGraphicsRectItem* bottomBar = scene->addRect(QRectF(0, patchRect.height(), patchRect.width(), 2), blackPen, blackBrush);
+      QGraphicsRectItem* bottomBar = scene->addRect(QRectF(0, patchRect.height(), patchRect.width(), 2), blackBorderPen, blackBrush);
       bottomBar->setToolTip(toolTip);
       bottomBar->setPos(patchRect.x(), patchRect.y());
 

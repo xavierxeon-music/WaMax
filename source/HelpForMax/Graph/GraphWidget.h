@@ -31,8 +31,9 @@ namespace Graph
    private:
       QGraphicsScene* scene;
 
-      QPen blackPen;
-      QPen bluePen;
+      QPen blackBorderPen;
+      QPen blackLinePen;
+      QPen blueLinePen;
       QBrush whiteBrush;
       QBrush blackBrush;
       QFont font;
