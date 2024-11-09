@@ -26,5 +26,7 @@
         <file>TreeClosed.svg</file>
         <file>TreeOpen.svg</file>
         <file>TreeClosedOutdated.svg</file>
+        <file>PatchSuggest.svg</file>
+        <file>MenuAndToolBar.xml</file>
     </qresource>
 </RCC>
