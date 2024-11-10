@@ -10,14 +10,12 @@
 #include "FileHelp.h"
 #include "FileInit.h"
 #include "FileRef.h"
-
-#include "Package/PackageInfo.h"
+#include "PackageInfo.h"
 #include "PatchModelArgument.h"
 #include "PatchModelHeader.h"
 #include "PatchModelNamedMessage.h"
 #include "PatchModelOutput.h"
 #include "PatchModelTypedMessage.h"
-#include "PatchTabWidget.h"
 
 Patch::Widget::Widget(TabWidget* tabWidget, const Package::Info* packageInfo, const QString& patchFileName)
    : QSplitter(tabWidget)
@@ -148,6 +146,12 @@ void Patch::Widget::openXML()
 bool Patch::Widget::isDirty() const
 {
    return dirty;
+}
+
+void Patch::Widget::setToolsVisible(TabWidget::ToolsVisible toolsVisible)
+{
+   const bool showSuggestions = TabWidget::ToolVisibility::Suggestions & toolsVisible;
+   structureWidget->setVisible(TabWidget::ToolVisibility::Structure & toolsVisible);
 }
 
 void Patch::Widget::slotSetPatchDigest()

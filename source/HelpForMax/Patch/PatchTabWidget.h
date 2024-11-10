@@ -69,9 +69,12 @@ namespace Patch
    private:
       Entry creatreEntry(const QFileInfo& fileInfo) override;
       void updateTabNames();
+      void toggleVisibility(bool enabled, const ToolVisibility& value);
+      void writeSettings();
 
    private:
       ToolsVisible toolsVisible;
+      QList<int> splitterSizes;
    };
 } // namespace Patch
 

@@ -12,8 +12,25 @@
 
 Patch::TabWidget::TabWidget(QWidget* parent)
    : RecentTabWidget(parent, "Patch")
+   , toolsVisible(ToolVisibility::None)
+   , splitterSizes()
 {
    connect(this, &QTabWidget::currentChanged, this, &TabWidget::slotTabChanged);
+
+   {
+      QSettings settings;
+
+      toolsVisible = settings.value("Patch/Tools", static_cast<int>(ToolVisibility::None)).value<ToolsVisible>();
+
+      const int count = settings.beginReadArray("Patch/Splitter");
+      for (int index = 0; index < count; index++)
+      {
+         settings.setArrayIndex(index);
+         const int value = settings.value("Width").toInt();
+         splitterSizes.append(value);
+      }
+      settings.endArray();
+   }
 }
 
 void Patch::TabWidget::createActions()
@@ -42,9 +59,11 @@ void Patch::TabWidget::createActions()
    //
    QAction* suggestAction = addAction(QIcon(":/PatchSuggest.svg"), "Suggestions", "Patch.ShowSuggesions", &TabWidget::slotShowSuggestions);
    suggestAction->setCheckable(true);
+   suggestAction->setChecked(toolsVisible & ToolVisibility::Suggestions);
 
    QAction* structureAction = addAction(QIcon(":/OverviewGeneral.svg"), "Structure", "Patch.ShowStructure", &TabWidget::slotShowStructure);
    structureAction->setCheckable(true);
+   structureAction->setChecked(toolsVisible & ToolVisibility::Structure);
    structureAction->setShortcut(QKeySequence::Print);
 
    QAction* openInMaxAction = addAction(QIcon(":/PatchOpenInMax.svg"), "Open In Max", "Patch.Max", &TabWidget::slotOpenInMax);
@@ -97,23 +116,10 @@ void Patch::TabWidget::slotShowPatch(const QString& patchFileName)
    }
 
    Widget* patchWidget = new Patch::Widget(this, info, patchFileName);
+   if (!splitterSizes.isEmpty())
+      patchWidget->setSizes(splitterSizes);
 
-   {
-      QSettings settings;
-      QList<int> targetSizes;
-
-      const int count = settings.beginReadArray("Patch/Splitter");
-      for (int index = 0; index < count; index++)
-      {
-         settings.setArrayIndex(index);
-         const int value = settings.value("Width").toInt();
-         targetSizes.append(value);
-      }
-      settings.endArray();
-
-      if (!targetSizes.isEmpty())
-         patchWidget->setSizes(targetSizes);
-   }
+   patchWidget->setToolsVisible(toolsVisible);
 
    connect(patchWidget, &QSplitter::splitterMoved, this, &TabWidget::slotTabSplitterChanged);
 
@@ -192,10 +198,14 @@ void Patch::TabWidget::slotOpenXML()
 
 void Patch::TabWidget::slotShowSuggestions(bool enabled)
 {
+   toggleVisibility(enabled, ToolVisibility::Suggestions);
+   writeSettings();
 }
 
 void Patch::TabWidget::slotShowStructure(bool enabled)
 {
+   toggleVisibility(enabled, ToolVisibility::Structure);
+   writeSettings();
 }
 
 void Patch::TabWidget::slotTabChanged(int index)
@@ -222,17 +232,8 @@ void Patch::TabWidget::slotTabSplitterChanged()
    if (!sourcePatchWidget)
       return;
 
-   const QList<int> targetSizes = sourcePatchWidget->sizes();
-   {
-      QSettings settings;
-      settings.beginWriteArray("Patch/Splitter");
-      for (int index = 0; index < targetSizes.count(); index++)
-      {
-         settings.setArrayIndex(index);
-         settings.setValue("Width", targetSizes.at(index));
-      }
-      settings.endArray();
-   }
+   splitterSizes = sourcePatchWidget->sizes();
+   writeSettings();
 
    for (int index = 0; index < tabBar()->count(); index++)
    {
@@ -243,7 +244,7 @@ void Patch::TabWidget::slotTabSplitterChanged()
       if (patchWidget == sourcePatchWidget)
          continue;
 
-      patchWidget->setSizes(targetSizes);
+      patchWidget->setSizes(splitterSizes);
    }
 }
 
@@ -275,4 +276,38 @@ void Patch::TabWidget::updateTabNames()
    }
 
    emit signalCheckDirty();
+}
+
+void Patch::TabWidget::toggleVisibility(bool enabled, const ToolVisibility& value)
+{
+   if (enabled)
+      toolsVisible |= value;
+   else
+   {
+      toolsVisible &= ~(int)value;
+   }
+
+   for (int index = 0; index < tabBar()->count(); index++)
+   {
+      Widget* patchWidget = qobject_cast<Widget*>(widget(index));
+      if (!patchWidget)
+         continue;
+
+      patchWidget->setToolsVisible(toolsVisible);
+   }
+}
+
+void Patch::TabWidget::writeSettings()
+{
+   QSettings settings;
+
+   settings.setValue("Patch/Tools", static_cast<int>(toolsVisible));
+
+   settings.beginWriteArray("Patch/Splitter");
+   for (int index = 0; index < splitterSizes.count(); index++)
+   {
+      settings.setArrayIndex(index);
+      settings.setValue("Width", splitterSizes.at(index));
+   }
+   settings.endArray();
 }
