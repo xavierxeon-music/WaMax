@@ -151,6 +151,9 @@ bool Patch::Widget::isDirty() const
 void Patch::Widget::setToolsVisible(TabWidget::ToolsVisible toolsVisible)
 {
    const bool showSuggestions = TabWidget::ToolVisibility::Suggestions & toolsVisible;
+   for (QTreeView* treeView : {argumentSuggestTree, typedMessageSuggestTree, namedMessageSuggestTree, outputSuggestTree})
+      treeView->setVisible(showSuggestions);
+
    structureWidget->setVisible(TabWidget::ToolVisibility::Structure & toolsVisible);
 }
 
