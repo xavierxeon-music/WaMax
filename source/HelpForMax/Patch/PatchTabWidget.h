@@ -6,6 +6,7 @@
 #include <QMenu>
 #include <QToolBar>
 
+#include "Locker.h"
 #include "MaxPatcher.h"
 
 namespace Package
@@ -31,12 +32,13 @@ namespace Patch
       Q_ENUM(ToolVisibility)
       Q_DECLARE_FLAGS(ToolsVisible, ToolVisibility)
 
+      using SplitterLocker = Locker<"Splitter">;
+
    public:
       TabWidget(QWidget* parent);
 
    signals:
       void signalCheckDirty();
-      void slotToolVisibilityChanged();
 
    public:
       void createActions();
@@ -62,6 +64,7 @@ namespace Patch
       void slotShowSuggestions(bool enabled);
       void slotShowStructure(bool enabled);
       void slotTabChanged(int index);
+      void slotTabSplitterChanged();
 
    private:
       Entry creatreEntry(const QFileInfo& fileInfo) override;

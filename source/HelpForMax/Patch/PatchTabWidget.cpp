@@ -2,11 +2,9 @@
 
 #include <QDesktopServices>
 #include <QFileDialog>
-#include <QMenu>
 #include <QSettings>
 #include <QTimer>
 
-#include "MainWindow.h"
 #include "MessageBar.h"
 #include "PackageInfo.h"
 #include "PackageTabWidget.h"
@@ -99,6 +97,26 @@ void Patch::TabWidget::slotShowPatch(const QString& patchFileName)
    }
 
    Widget* patchWidget = new Patch::Widget(this, info, patchFileName);
+
+   {
+      QSettings settings;
+      QList<int> targetSizes;
+
+      const int count = settings.beginReadArray("Patch/Splitter");
+      for (int index = 0; index < count; index++)
+      {
+         settings.setArrayIndex(index);
+         const int value = settings.value("Width").toInt();
+         targetSizes.append(value);
+      }
+      settings.endArray();
+
+      if (!targetSizes.isEmpty())
+         patchWidget->setSizes(targetSizes);
+   }
+
+   connect(patchWidget, &QSplitter::splitterMoved, this, &TabWidget::slotTabSplitterChanged);
+
    const int index = addTab(patchWidget, patchInfo.name);
    setCurrentIndex(index);
 
@@ -191,6 +209,42 @@ void Patch::TabWidget::slotTabChanged(int index)
 
    Widget* patchWidget = qobject_cast<Widget*>(widget(index));
    emit signalTabSelected(patchWidget);
+}
+
+void Patch::TabWidget::slotTabSplitterChanged()
+{
+   if (SplitterLocker::engaged())
+      return;
+
+   SplitterLocker locker;
+
+   Widget* sourcePatchWidget = qobject_cast<Widget*>(sender());
+   if (!sourcePatchWidget)
+      return;
+
+   const QList<int> targetSizes = sourcePatchWidget->sizes();
+   {
+      QSettings settings;
+      settings.beginWriteArray("Patch/Splitter");
+      for (int index = 0; index < targetSizes.count(); index++)
+      {
+         settings.setArrayIndex(index);
+         settings.setValue("Width", targetSizes.at(index));
+      }
+      settings.endArray();
+   }
+
+   for (int index = 0; index < tabBar()->count(); index++)
+   {
+      Widget* patchWidget = qobject_cast<Widget*>(widget(index));
+      if (!patchWidget)
+         continue;
+
+      if (patchWidget == sourcePatchWidget)
+         continue;
+
+      patchWidget->setSizes(targetSizes);
+   }
 }
 
 RecentTabWidget::Entry Patch::TabWidget::creatreEntry(const QFileInfo& fileInfo)

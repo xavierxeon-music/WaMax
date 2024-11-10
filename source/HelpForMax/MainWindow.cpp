@@ -54,7 +54,7 @@ MainWindow::MainWindow()
 
 #ifdef TEST_CLIENT_AVAILABLE
    testClient = new TestClient;
-   addDock(testClient, Qt::TopDockWidgetArea, "Test");
+   addDock(testClient, Qt::RightDockWidgetArea, "Test");
 #endif // TEST_CLIENT_AVAILABLE
 
    packageWidget->init();

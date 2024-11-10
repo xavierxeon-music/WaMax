@@ -20,7 +20,7 @@
 #include "PatchTabWidget.h"
 
 Patch::Widget::Widget(TabWidget* tabWidget, const Package::Info* packageInfo, const QString& patchFileName)
-   : QWidget(tabWidget)
+   : QSplitter(tabWidget)
    , Max::Patcher()
    , RefStructure()
    , tabWidget(tabWidget)
@@ -91,11 +91,9 @@ Patch::Widget::Widget(TabWidget* tabWidget, const Package::Info* packageInfo, co
 
    structureWidget = new Structure::Widget(this);
 
-   QHBoxLayout* masterLayout = new QHBoxLayout(this);
-   masterLayout->setContentsMargins(0, 0, 0, 0);
-   masterLayout->addWidget(scrollArea);
-   masterLayout->addWidget(editArea);
-   masterLayout->addWidget(structureWidget);
+   addWidget(scrollArea);
+   addWidget(editArea);
+   addWidget(structureWidget);
 
    // load content
    patchInfo = packageInfo->extractPatchInfo(path);

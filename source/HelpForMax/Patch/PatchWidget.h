@@ -5,7 +5,7 @@
 #include "../_Forms/ui_PatchWidget.h"
 #include "MaxPatcher.h"
 #include "PatchRefStructure.h"
-#include <QWidget>
+#include <QSplitter>
 
 #include "PatchModelAbstract.h"
 #include "StructureWidget.h"
@@ -19,7 +19,7 @@ namespace Patch
 {
    class TabWidget;
 
-   class Widget : public QWidget, public Max::Patcher, private RefStructure, private Ui::PatchWidget, private Ui::DigestWidget
+   class Widget : public QSplitter, public Max::Patcher, private RefStructure, private Ui::PatchWidget, private Ui::DigestWidget
    {
       Q_OBJECT
 
