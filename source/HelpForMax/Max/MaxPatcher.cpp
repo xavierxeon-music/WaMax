@@ -5,10 +5,10 @@
 #include <QJsonDocument>
 #include <QJsonValue>
 
-#include "StructureAlgorithm.h"
+#include "DiscreteMathsAlgorithm.h"
 
 Max::Patcher::Patcher()
-   : Structure::Graph()
+   : DiscreteMaths::Graph()
    , typeBuffer()
 {
 }
@@ -64,17 +64,17 @@ void Max::Patcher::analyse()
    static const QList<Object::Type> sourceTypeList = {Object::Type::PatcherArgs, Object::Type::Inlet};
    static const QList<Object::Type> processTypeList = {Object::Type::Route, Object::Type::RoutePass, Object::Type::TypeRoute, Object::Type::Unpack};
 
-   Structure::Algorithm algo(this);
+   DiscreteMaths::Algorithm algo(this);
    const Object::List sources = findAll(sourceTypeList);
    const Object::List processors = findAll(processTypeList);
 
    for (Object* source : sources)
    {
-      const Structure::Algorithm::Tree tree = algo.breadthFirst(source);
+      const DiscreteMaths::Algorithm::Tree tree = algo.breadthFirst(source);
       for (Object* processor : processors)
       {
          const int targetIndex = vertexIndex(processor);
-         const Structure::Algorithm::Path path = tree.compilePath(targetIndex);
+         const DiscreteMaths::Algorithm::Path path = tree.compilePath(targetIndex);
          const int depth = path.verticies.count();
 
          auto pathIsValid = [&]()

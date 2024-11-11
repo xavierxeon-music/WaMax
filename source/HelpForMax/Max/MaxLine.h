@@ -1,7 +1,7 @@
 #ifndef MaxLineH
 #define MaxLineH
 
-#include "StructureEdge.h"
+#include "DiscreteMathsEdge.h"
 
 #include <QJsonObject>
 
@@ -9,7 +9,7 @@
 
 namespace Max
 {
-   class Line : public Structure::Edge
+   class Line : public DiscreteMaths::Edge
    {
    public:
       Line(const QJsonObject& lineObject, const Object::IdMap& idMap);

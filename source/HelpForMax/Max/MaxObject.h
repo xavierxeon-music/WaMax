@@ -1,14 +1,14 @@
 #ifndef MaxObjectH
 #define MaxObjectH
 
-#include "StructureVertex.h"
+#include "DiscreteMathsVertex.h"
 
 #include <QJsonObject>
 #include <QRectF>
 
 namespace Max
 {
-   class Object : public Structure::Vertex
+   class Object : public DiscreteMaths::Vertex
    {
    public:
       using List = QList<Object*>;

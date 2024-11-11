@@ -3,7 +3,7 @@
 #include <QJsonArray>
 
 Max::Line::Line(const QJsonObject& lineObject, const Object::IdMap& idMap)
-   : Structure::Edge()
+   : DiscreteMaths::Edge()
    , isParamLine(false)
    , sourceOutlet(0)
    , destInlet(0)
