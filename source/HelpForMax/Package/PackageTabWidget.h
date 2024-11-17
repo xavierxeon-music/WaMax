@@ -31,8 +31,8 @@ namespace Package
       void slotCheckDirty();
 
    public:
-      void populate(QMenu* packageMenu, QToolBar* toolBar);
       static Info* findOrCreate(const QString& someFileInPackage);
+      void createActions();
       void init();
 
    private slots:
@@ -49,7 +49,7 @@ namespace Package
 
    private:
       static TabWidget* me;
-      QMap<QString, Info*> infoMap;
+      QMap<QString, Info*> packageInfoBuffer;
       QLocalServer* server;
       QPointer<QLocalSocket> socket;
 

@@ -1,16 +1,17 @@
-#include "GraphMaxObject.h"
+#include "MaxObject.h"
 
 #include <QJsonArray>
 
-Graph::Max::Object::Object(const QJsonObject& boxObject)
-   : Abstract::Vertex()
+Max::Object::Object(const QJsonObject& boxObject)
+   : DiscreteMaths::Vertex()
    , patchRect()
    , className()
    , text()
    , comment()
-   , inletCount(0)
-   , outletCount(0)
+   , inlets(0)
+   , outlets(0)
    , type(Type::Other)
+   , id()
 {
    className = boxObject["maxclass"].toString();
 
@@ -38,7 +39,7 @@ Graph::Max::Object::Object(const QJsonObject& boxObject)
    else if (text.isEmpty())
    {
       text = className;
-      qDebug() << "NO TEXT" << className;
+      // qDebug() << "NO TEXT" << className;
    }
    else if ("newobj" == className)
    {
@@ -46,7 +47,8 @@ Graph::Max::Object::Object(const QJsonObject& boxObject)
       static const TypeMap typeMap = {{"patcherargs", Type::PatcherArgs},
                                       {"route", Type::Route},
                                       {"routepass", Type::RoutePass},
-                                      {"typeroute~", Type::TypeRoute}};
+                                      {"typeroute~", Type::TypeRoute},
+                                      {"unpack", Type::Unpack}};
 
       const QString typeString = text.split(" ", Qt::SkipEmptyParts).first();
       type = typeMap.value(typeString, Type::Other);
@@ -58,11 +60,14 @@ Graph::Max::Object::Object(const QJsonObject& boxObject)
                                    {Type::PatcherArgs, "PatcherArgs"},
                                    {Type::Route, "Route"},
                                    {Type::RoutePass, "RoutePass"},
-                                   {Type::TypeRoute, "TypeRoute"}};
+                                   {Type::TypeRoute, "TypeRoute"},
+                                   {Type::Unpack, "Unpack"}};
 
-   const QString id = boxObject["id"].toString();
-   name = nameMap.value(type, "Other") + " (" + id + ") " + comment;
+   id = boxObject["id"].toString();
+   name = nameMap.value(type, "Other") + " (" + id + ")";
+   if (!comment.isEmpty())
+      name += " " + comment;
 
-   inletCount = boxObject["numinlets"].toInt();
-   outletCount = boxObject["numoutlets"].toInt();
+   inlets.count = boxObject["numinlets"].toInt();
+   outlets.count = boxObject["numoutlets"].toInt();
 }

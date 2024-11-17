@@ -3,10 +3,13 @@
 
 #include "../_Forms/ui_DigestWidget.h"
 #include "../_Forms/ui_PatchWidget.h"
+#include "MaxPatcher.h"
 #include "PatchRefStructure.h"
-#include <QWidget>
+#include <QSplitter>
 
 #include "PatchModelAbstract.h"
+#include "PatchTabWidget.h"
+#include "StructureWidget.h"
 
 namespace Package
 {
@@ -15,9 +18,7 @@ namespace Package
 
 namespace Patch
 {
-   class TabWidget;
-
-   class Widget : public QWidget, private RefStructure, private Ui::PatchWidget, private Ui::DigestWidget
+   class Widget : public QSplitter, public Max::Patcher, private RefStructure, private Ui::PatchWidget, private Ui::DigestWidget
    {
       Q_OBJECT
 
@@ -33,6 +34,7 @@ namespace Patch
       void openInMax();
       void openXML();
       bool isDirty() const;
+      void setToolsVisible(TabWidget::ToolsVisible toolsVisible);
 
    private:
       friend class TreeView;
@@ -52,6 +54,7 @@ namespace Patch
 
    private:
       TabWidget* tabWidget;
+      Structure::Widget* structureWidget;
 
       const Package::Info* packageInfo;
       QString path;

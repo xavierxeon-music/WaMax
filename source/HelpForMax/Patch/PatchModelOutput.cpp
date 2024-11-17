@@ -13,7 +13,7 @@ void Patch::Model::Output::update()
       QStandardItem* activeItem = invisibleRootItem()->child(row, 1);
       QStandardItem* digestItem = invisibleRootItem()->child(row, 2);
 
-      const RefStructure::DataType type = typeItem->data().value<RefStructure::DataType>();
+      const Max::DataType type = typeItem->data().value<Max::DataType>();
       const RefStructure::Output& output = structure->outputMap[type];
 
       activeItem->setCheckState(output.active ? Qt::Checked : Qt::Unchecked);
@@ -30,9 +30,9 @@ void Patch::Model::Output::rebuild()
    clear();
    setHorizontalHeaderLabels({"Type", "Active", "Digest"});
 
-   for (const RefStructure::DataType& type : structure->dataTypeList())
+   for (const Max::DataType& type : Max::dataTypeList())
    {
-      QStandardItem* typeItem = new QStandardItem(RefStructure::dataTypeName(type));
+      QStandardItem* typeItem = new QStandardItem(Max::dataTypeName(type));
       typeItem->setEditable(false);
       typeItem->setData(QVariant::fromValue(type));
 
@@ -54,7 +54,7 @@ void Patch::Model::Output::rebuild()
 Patch::RefStructure::Digest* Patch::Model::Output::getDigest(const QModelIndex& index)
 {
    QStandardItem* typeItem = invisibleRootItem()->child(index.row(), 0);
-   const RefStructure::DataType type = typeItem->data().value<RefStructure::DataType>();
+   const Max::DataType type = typeItem->data().value<Max::DataType>();
 
    RefStructure::Output& output = structure->outputMap[type];
    return &(output.digest);
@@ -65,7 +65,7 @@ bool Patch::Model::Output::setData(const QModelIndex& index, const QVariant& val
    const bool result = QStandardItemModel::setData(index, value, role);
 
    QStandardItem* typeItem = invisibleRootItem()->child(index.row(), 0);
-   const RefStructure::DataType type = typeItem->data().value<RefStructure::DataType>();
+   const Max::DataType type = typeItem->data().value<Max::DataType>();
 
    RefStructure::Output& output = structure->outputMap[type];
 

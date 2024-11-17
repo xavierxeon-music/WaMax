@@ -15,7 +15,7 @@ Package::TabWidget* Package::TabWidget::me = nullptr;
 
 Package::TabWidget::TabWidget(QWidget* parent)
    : RecentTabWidget(parent, "Package")
-   , infoMap()
+   , packageInfoBuffer()
    , server(nullptr)
    , socket()
    , linkEnabled(false)
@@ -63,27 +63,6 @@ void Package::TabWidget::slotCheckDirty()
    }
 }
 
-void Package::TabWidget::populate(QMenu* packageMenu, QToolBar* toolBar)
-{
-   //
-   packageMenu->addAction(QIcon(":/PackageLoad.svg"), "Load", this, &TabWidget::slotLoadPackage);
-   linkAction = packageMenu->addAction(linkMap.value(false), "Link", this, &TabWidget::slotLinkToMax);
-   linkAction->setCheckable(true);
-
-   QSettings settings;
-   linkEnabled = settings.value("Package/Link").toBool();
-   linkAction->setChecked(linkEnabled);
-
-   packageMenu->addSeparator();
-   packageMenu->addMenu(getRecentMenu());
-
-   packageMenu->addSeparator();
-   packageMenu->addAction(QIcon(":/PackageClose.svg"), "Close", this, &TabWidget::slotClosePackage);
-
-   //
-   toolBar->addAction(linkAction);
-}
-
 Package::Info* Package::TabWidget::findOrCreate(const QString& someFileInPackage)
 {
    if (!me)
@@ -117,17 +96,49 @@ Package::Info* Package::TabWidget::findOrCreate(const QString& someFileInPackage
    return me->get(path);
 }
 
+void Package::TabWidget::createActions()
+{
+   auto addAction = [&](QIcon icon, QString text, QString objectName, auto slotFunction)
+   {
+      QAction* action = new QAction(icon, text, this);
+      action->setObjectName(objectName);
+      connect(action, &QAction::triggered, this, slotFunction);
+
+      return action;
+   };
+
+   //
+   addAction(QIcon(":/PackageLoad.svg"), "Load", "Package.Load", &TabWidget::slotLoadPackage);
+
+   linkAction = addAction(linkMap.value(false), "Link", "Package.Link", &TabWidget::slotLinkToMax);
+   linkAction->setCheckable(true);
+
+   QSettings settings;
+   linkEnabled = settings.value("Package/Link").toBool();
+   linkAction->setChecked(linkEnabled);
+
+   addAction(QIcon(":/PackageClose.svg"), "Close", "Package.Close", &TabWidget::slotClosePackage);
+}
+
+void Package::TabWidget::init()
+{
+   for (const QString& packagePath : getCurrrentFiles())
+   {
+      findOrCreate(packagePath + "/");
+   }
+}
+
 Package::Info* Package::TabWidget::get(const QString& packagePath)
 {
-   if (infoMap.contains(packagePath))
-      return infoMap.value(packagePath);
+   if (packageInfoBuffer.contains(packagePath))
+      return packageInfoBuffer.value(packagePath);
 
    QFile file(packagePath + "/package-info.json");
    if (!file.open(QIODevice::ReadOnly))
       return nullptr;
 
    Info* info = new Info(packagePath);
-   infoMap[packagePath] = info;
+   packageInfoBuffer[packagePath] = info;
 
    const QJsonDocument doc = QJsonDocument::fromJson(file.readAll());
    file.close();
@@ -149,14 +160,6 @@ Package::Info* Package::TabWidget::get(const QString& packagePath)
    addCurrentFile(info->path);
 
    return info;
-}
-
-void Package::TabWidget::init()
-{
-   for (const QString& packagePath : getCurrrentFiles())
-   {
-      findOrCreate(packagePath + "/");
-   }
 }
 
 void Package::TabWidget::slotLoadPackage()

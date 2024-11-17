@@ -1,5 +1,6 @@
 autowatch = 1;
 
+include("color.js");
 include("helper.js");
 
 // inlets and outlets

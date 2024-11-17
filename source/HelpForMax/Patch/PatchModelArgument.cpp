@@ -18,7 +18,7 @@ void Patch::Model::Argument::update()
       const RefStructure::Argument& argument = structure->argumentList.at(row);
 
       nameItem->setText(argument.name);
-      typeItem->setText(RefStructure::dataTypeName(argument.dataType));
+      typeItem->setText(Max::dataTypeName(argument.dataType));
       optionalItem->setCheckState(argument.optional ? Qt::Checked : Qt::Unchecked);
 
       updateDigestItem(digestItem, argument.digest);
@@ -96,7 +96,7 @@ bool Patch::Model::Argument::setData(const QModelIndex& index, const QVariant& v
       }
       else if (1 == index.column())
       {
-         argument.dataType = RefStructure::toDataType(value.toString());
+         argument.dataType = Max::toDataType(value.toString());
          structure->setDirty();
       }
    }
@@ -110,7 +110,7 @@ bool Patch::Model::Argument::setData(const QModelIndex& index, const QVariant& v
    return result;
 }
 
-Patch::RefStructure::DataType Patch::Model::Argument::getDataType(const int index)
+Max::DataType Patch::Model::Argument::getDataType(const int index)
 {
    const RefStructure::Argument& argument = structure->argumentList.at(index);
 

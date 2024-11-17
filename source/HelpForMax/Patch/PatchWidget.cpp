@@ -10,19 +10,19 @@
 #include "FileHelp.h"
 #include "FileInit.h"
 #include "FileRef.h"
-
-#include "Package/PackageInfo.h"
+#include "PackageInfo.h"
 #include "PatchModelArgument.h"
 #include "PatchModelHeader.h"
 #include "PatchModelNamedMessage.h"
 #include "PatchModelOutput.h"
 #include "PatchModelTypedMessage.h"
-#include "PatchTabWidget.h"
 
 Patch::Widget::Widget(TabWidget* tabWidget, const Package::Info* packageInfo, const QString& patchFileName)
-   : QWidget(tabWidget)
+   : QSplitter(tabWidget)
+   , Max::Patcher()
    , RefStructure()
    , tabWidget(tabWidget)
+   , structureWidget(nullptr)
    , packageInfo(packageInfo)
    , path(patchFileName)
    , patchInfo{}
@@ -86,14 +86,19 @@ Patch::Widget::Widget(TabWidget* tabWidget, const Package::Info* packageInfo, co
       connect(digestEdit, &QLineEdit::editingFinished, this, &Widget::slotSaveDigestText);
       connect(descriptionEdit, &QTextEdit::textChanged, this, &Widget::slotSaveDigestDescription);
    }
-   QHBoxLayout* masterLayout = new QHBoxLayout(this);
-   masterLayout->setContentsMargins(0, 0, 0, 0);
-   masterLayout->addWidget(scrollArea);
-   masterLayout->addWidget(editArea);
+
+   structureWidget = new Structure::Widget(this);
+
+   addWidget(scrollArea);
+   addWidget(editArea);
+   addWidget(structureWidget);
 
    // load content
    patchInfo = packageInfo->extractPatchInfo(path);
    propagateDirty(false);
+
+   readPatch(path);
+   structureWidget->load(this);
 
    File::Ref(packageInfo, this).read(patchInfo);
    rebuild();
@@ -141,6 +146,15 @@ void Patch::Widget::openXML()
 bool Patch::Widget::isDirty() const
 {
    return dirty;
+}
+
+void Patch::Widget::setToolsVisible(TabWidget::ToolsVisible toolsVisible)
+{
+   const bool showSuggestions = TabWidget::ToolVisibility::Suggestions & toolsVisible;
+   for (QTreeView* treeView : {argumentSuggestTree, typedMessageSuggestTree, namedMessageSuggestTree, outputSuggestTree})
+      treeView->setVisible(showSuggestions);
+
+   structureWidget->setVisible(TabWidget::ToolVisibility::Structure & toolsVisible);
 }
 
 void Patch::Widget::slotSetPatchDigest()

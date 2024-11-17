@@ -1,23 +1,23 @@
-#ifndef GraphWidgetH
-#define GraphWidgetH
+#ifndef StructureWidgetH
+#define StructureWidgetH
 
 #include <QGraphicsView>
 
 #include <QGraphicsScene>
 #include <QJsonObject>
 
-#include "GraphMaxPatch.h"
+#include "MaxPatcher.h"
 
-namespace Graph
+namespace Structure
 {
-   class Widget : public QGraphicsView, public Max::Patch
+   class Widget : public QGraphicsView
    {
       Q_OBJECT
    public:
       Widget(QWidget* parent);
 
-   public slots:
-      void slotLoad(const QString& patchFileName);
+   public:
+      void load(Max::Patcher* patcher);
 
    private:
       void wheelEvent(QWheelEvent* wheelEvent) override;
@@ -31,14 +31,15 @@ namespace Graph
    private:
       QGraphicsScene* scene;
 
-      QPen blackPen;
-      QPen bluePen;
+      QPen blackBorderPen;
+      QPen blackLinePen;
+      QPen blueLinePen;
       QBrush whiteBrush;
       QBrush blackBrush;
       QFont font;
 
       double zoomLevel;
    };
-} // namespace Graph
+} // namespace Structure
 
 #endif // NOT GraphWidgetH

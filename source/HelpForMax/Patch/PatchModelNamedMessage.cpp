@@ -24,7 +24,7 @@ void Patch::Model::NamedMessage::update()
       nameItem->setText(messageNamed.name);
       nameItem->setData(QVariant::fromValue(it));
 
-      typeItem->setText(RefStructure::dataTypeName(messageNamed.dataType));
+      typeItem->setText(Max::dataTypeName(messageNamed.dataType));
 
       if (0 != (messageNamed.patchParts & RefStructure::PatchPart::Attribute))
          isAttributeItem->setCheckState(Qt::Checked);
@@ -127,7 +127,7 @@ bool Patch::Model::NamedMessage::setData(const QModelIndex& index, const QVarian
       }
       else if (1 == index.column())
       {
-         messageNamed.dataType = RefStructure::toDataType(value.toString());
+         messageNamed.dataType = Max::toDataType(value.toString());
          structure->setDirty();
       }
    }
@@ -152,7 +152,7 @@ bool Patch::Model::NamedMessage::setData(const QModelIndex& index, const QVarian
    return result;
 }
 
-Patch::RefStructure::DataType Patch::Model::NamedMessage::getDataType(const int index)
+Max::DataType Patch::Model::NamedMessage::getDataType(const int index)
 {
    QStandardItem* nameItem = invisibleRootItem()->child(index, 0);
    const RefStructure::AttributesAndMessageNamed& messageNamed = structure->messageNamedMap.value(nameItem->text());

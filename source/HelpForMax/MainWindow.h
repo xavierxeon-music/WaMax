@@ -3,7 +3,6 @@
 
 #include <QMainWindow>
 
-#include "GraphWidget.h"
 #include "Package/PackageTabWidget.h"
 #include "Patch/PatchTabWidget.h"
 #include "TestClient.h"
@@ -19,6 +18,7 @@ private slots:
    void slotCheckDirty();
 
 private:
+   void createActions();
    void populateMenuAndToolBar();
    void closeEvent(QCloseEvent* ce) override;
    void toogleDock(QWidget* widget, const QString& name, bool enabled);
@@ -26,7 +26,6 @@ private:
 private:
    Package::TabWidget* packageWidget;
    Patch::TabWidget* patchWidget;
-   Graph::Widget* graphWidget;
 #ifdef TEST_CLIENT_AVAILABLE
    TestClient* testClient;
 #endif // TEST_CLIENT_AVAILABLE
