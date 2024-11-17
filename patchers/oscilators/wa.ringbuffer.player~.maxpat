@@ -4,13 +4,13 @@
 		"appversion" : 		{
 			"major" : 9,
 			"minor" : 0,
-			"revision" : 0,
+			"revision" : 2,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 59.0, 106.0, 1000.0, 780.0 ],
+		"rect" : [ 37.0, 115.0, 3369.0, 1451.0 ],
 		"gridonopen" : 2,
 		"gridsize" : [ 15.0, 15.0 ],
 		"gridsnaponopen" : 2,
@@ -46,8 +46,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "multichannelsignal" ],
-					"patching_rect" : [ 30.0, 165.0, 152.0, 22.0 ],
-					"text" : "wa.ringbuffer.mcplayer #1"
+					"patching_rect" : [ 30.0, 165.0, 159.0, 22.0 ],
+					"text" : "wa.ringbuffer.mcplayer~ #1"
 				}
 
 			}
@@ -175,7 +175,7 @@
 
 			}
  ],
-		"originid" : "pat-1606",
+		"originid" : "pat-128",
 		"styles" : [ 			{
 				"name" : "wa.receive",
 				"default" : 				{
