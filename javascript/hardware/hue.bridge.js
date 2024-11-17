@@ -1,5 +1,7 @@
 autowatch = 1;
 
+include("helper.js");
+
 // inlets and outlets
 inlets = 1;
 setinletassist(0, "reset/state");
@@ -153,7 +155,7 @@ function bang() {
 
    outlet(1, Object.keys(deviceMap));
    for (let name in hue.stateChange) {
-      print("state change name", name);
+      Helper.debug("state change name", name);
    }
 }
 
