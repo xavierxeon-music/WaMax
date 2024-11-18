@@ -1,7 +1,7 @@
 #ifndef SpatialRingBufferH
 #define SpatialRingBufferH
 
-#include <Math/MathVector3.h>
+#include <MathVector3.h>
 
 #include "SpatialFunction.h"
 

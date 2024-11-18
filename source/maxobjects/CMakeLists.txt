@@ -6,12 +6,7 @@ project(${THIS_FOLDER_NAME})
 
 if(APPLE)
    if(${CMAKE_GENERATOR} MATCHES "Xcode")
-      if(${XCODE_VERSION} VERSION_LESS 10)
-         message(STATUS "Xcode 10 or higher is required. Please install from the Mac App Store.")
-         return()
-      elseif(${XCODE_VERSION} VERSION_GREATER_EQUAL 12)
-         set(C74_BUILD_FAT YES)
-      endif()
+      set(C74_BUILD_FAT YES)
    endif()
 
    if(NOT CMAKE_OSX_ARCHITECTURES)

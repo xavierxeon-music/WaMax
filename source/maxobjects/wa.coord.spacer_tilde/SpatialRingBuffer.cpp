@@ -2,7 +2,7 @@
 
 #include <thread>
 
-#include <Math/MathGeneral.h>
+#include <MathGeneral.h>
 
 Spatial::RingBuffer::RingBuffer()
    : buffer{}

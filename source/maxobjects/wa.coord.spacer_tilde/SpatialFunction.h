@@ -1,7 +1,7 @@
 #ifndef SpatialFunctionH
 #define SpatialFunctionH
 
-#include <Math/MathVector3.h>
+#include <MathVector3.h>
 
 #include "SpatialStereo.h"
 

@@ -12,6 +12,9 @@ file(GLOB PROJECT_SRC
    "*.h"
    "*.cpp"
 )
+
+find_package(WaMath REQUIRED)
+
 add_library(
    ${PROJECT_NAME}
    MODULE

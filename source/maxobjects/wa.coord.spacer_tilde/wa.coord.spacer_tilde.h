@@ -5,7 +5,7 @@
 #include "c74_min.h"
 using namespace c74::min;
 
-#include <Math/MathVector3.h>
+#include <MathVector3.h>
 
 #include "SpatialRingBuffer.h"
 
