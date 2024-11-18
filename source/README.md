@@ -1,7 +1,14 @@
-# MAX SDK
+# WaMaxPackageBase
+
+## MAX SDK
 
 * C examples: https://github.com/Cycling74/max-sdk.git
 * C++ examples: https://github.com/Cycling74/min-devkit
+
+## wa cmake package
+
+put the content of https://github.com/xavierxeon-helper/CMakePackages.git
+in your CMAKE_PREFIX_PATH
 
 ## windows build
 
