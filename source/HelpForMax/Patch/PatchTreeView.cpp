@@ -14,7 +14,7 @@ Patch::TreeView::TreeView(QWidget* parent)
    setRootIsDecorated(false);
    setUniformRowHeights(true);
 
-   connect(this, &QAbstractItemView::clicked, this, &TreeView::slotItemClicked);
+   connect(this, &QAbstractItemView::clicked, this, &TreeView::slotUpdateDigest);
 }
 
 void Patch::TreeView::init(Widget* widget, Model::Abstract* model, int forceRowHeight)
@@ -26,6 +26,7 @@ void Patch::TreeView::init(Widget* widget, Model::Abstract* model, int forceRowH
    setModel(model);
 
    connect(model, &Model::Abstract::signalDataEdited, this, &TreeView::slotResizeColumns);
+   connect(model, &Model::Abstract::signalUpdateDigest, this, &TreeView::slotUpdateDigest);
 }
 
 void Patch::TreeView::setButtons(QToolButton* addButton, QToolButton* removeButton)
@@ -62,7 +63,7 @@ void Patch::TreeView::slotResizeColumns()
    QTimer::singleShot(10, this, resizeIternal);
 }
 
-void Patch::TreeView::slotItemClicked(const QModelIndex& index)
+void Patch::TreeView::slotUpdateDigest(const QModelIndex& index)
 {
    RefStructure::Digest* digest = model->getDigest(index);
    widget->setDigest(digest, model->getPart());

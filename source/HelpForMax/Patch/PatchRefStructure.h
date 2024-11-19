@@ -40,7 +40,8 @@ namespace Patch
          Attribute = 0x04,
          MessageTyped = 0x08,
          MessageNamed = 0x10,
-         Output = 0x20
+         Output = 0x20,
+         Other = 0x40
       };
       Q_ENUM(PatchPart)
       Q_DECLARE_FLAGS(PatchParts, PatchPart)

@@ -46,6 +46,7 @@ Patch::Widget::Widget(TabWidget* tabWidget, const Package::Info* packageInfo, co
       setIcon(attributeIcon, RefStructure::PatchPart::Attribute);
       setIcon(nameMessageIcon, RefStructure::PatchPart::MessageNamed);
       setIcon(outputIcon, RefStructure::PatchPart::Output);
+      setIcon(otherIcon, RefStructure::PatchPart::Other);
 
       // set models
       Model::Header* headerModel = new Model::Header(this, this);
@@ -201,8 +202,6 @@ void Patch::Widget::rebuild()
       model->rebuild();
 
    setDigest(&header.digest, RefStructure::PatchPart::Header);
-
-   patchNameLabel->setText(patchInfo.name);
 }
 
 void Patch::Widget::update()

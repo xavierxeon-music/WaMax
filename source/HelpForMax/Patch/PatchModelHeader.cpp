@@ -25,7 +25,7 @@ void Patch::Model::Header::rebuild()
    QStandardItem* typeItem = new QStandardItem();
 
    QStandardItem* digestItem = new QStandardItem();
-   digestItem->setEditable(false);
+   //digestItem->setEditable(false);
 
    invisibleRootItem()->appendRow({typeItem, digestItem});
    endResetModel();
@@ -50,6 +50,11 @@ bool Patch::Model::Header::setData(const QModelIndex& index, const QVariant& val
          RefStructure::PatchType patchType = RefStructure::toPatchType(value.toString());
          structure->header.patcherType = patchType;
          structure->setDirty();
+      }
+      else if (1 == index.column())
+      {
+         structure->header.digest.text = value.toString();
+         emit signalUpdateDigest(index);
       }
    }
 

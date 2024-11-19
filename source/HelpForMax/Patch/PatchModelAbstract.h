@@ -20,6 +20,7 @@ namespace Patch
 
       signals:
          void signalDataEdited();
+         void signalUpdateDigest(const QModelIndex& index);
 
       public:
          virtual void update() = 0;

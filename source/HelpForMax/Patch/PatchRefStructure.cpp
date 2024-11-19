@@ -99,7 +99,8 @@ QIcon Patch::RefStructure::partIcon(const PatchPart& part)
       return QIcon(":/DocMessageNamed.svg");
    else if (PatchPart::Output == part)
       return QIcon(":/DocOutput.svg");
-
+   else if (PatchPart::Other == part)
+      return QIcon(":/OverviewGeneral.svg");
    return QIcon();
 }
 
