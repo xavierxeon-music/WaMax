@@ -12,7 +12,12 @@ namespace c74
 
 FourierPeaks::FourierPeaks(const atoms& args)
    : object<FourierPeaks>()
+   , sample_operator<2, 0>()
+   , inputAmplitude{this, "(signal) amplitude, bang"}
+   , inputBin{this, "(signal) bin"}
+   , content{this, "(list) peaks"}
    , dspsetup(this, "dspsetup", Max::Patcher::minBind(this, &FourierPeaks::dspSetupFunction))
+   , bangMessage(this, "bang", "", Max::Patcher::minBind(this, &FourierPeaks::calculateFunction))
    , peaks()
 {
    // peaks demo
@@ -29,6 +34,11 @@ FourierPeaks::FourierPeaks(const atoms& args)
 
       std::sort(peaks.begin(), peaks.end(), std::greater<Peak>());
    }
+}
+
+void FourierPeaks::operator()(sample amplitude, sample bin)
+{
+   // do something
 }
 
 atoms FourierPeaks::dspSetupFunction(const atoms& args, const int inlet)
@@ -52,6 +62,12 @@ atoms FourierPeaks::dspSetupFunction(const atoms& args, const int inlet)
    cout << "fftsize: " << fftsize << endl;
 
    //long vectorSize = sp[0]->s_n;
+   return {};
+}
+
+atoms FourierPeaks::calculateFunction(const atoms& args, const int inlet)
+{
+   // do something
    return {};
 }
 
