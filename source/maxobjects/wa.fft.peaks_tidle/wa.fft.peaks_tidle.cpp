@@ -58,9 +58,7 @@ atoms FourierPeaks::dspSetupFunction(const atoms& args, const int inlet)
    cout << "ffthop: " << ffthop << endl;
    cout << "fftsize: " << fftsize << endl;
 
-   //long vectorSize = sp[0]->s_n;
-
-   //peaks.resize(peakCount);
+   peaks.resize(fftsize);
 
    return {};
 }
@@ -70,6 +68,16 @@ atoms FourierPeaks::calculateFunction(const atoms& args, const int inlet)
    //std::sort(peaks.begin(), peaks.end(), std::greater<Peak>());
    cout << "minIndex: " << minIndex << endl;
    cout << "maxIndex: " << maxIndex << endl;
+
+   if (peakCount > peaks.size())
+      return {};
+
+   atoms result(peakCount, 0);
+   for (int i = 0; i < peakCount; i++)
+   {
+      //result[i] = peaks[i].index;
+   }
+   content.send(result);
    return {};
 }
 
