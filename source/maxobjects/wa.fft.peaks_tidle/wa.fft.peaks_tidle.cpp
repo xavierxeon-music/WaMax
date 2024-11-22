@@ -19,26 +19,23 @@ FourierPeaks::FourierPeaks(const atoms& args)
    , dspsetup(this, "dspsetup", Max::Patcher::minBind(this, &FourierPeaks::dspSetupFunction))
    , bangMessage(this, "bang", "", Max::Patcher::minBind(this, &FourierPeaks::calculateFunction))
    , peaks()
+   , peakCount(1)
 {
-   // peaks demo
-   {
-      std::srand(std::time(nullptr));
-
-      peaks.resize(100);
-
-      for (int index = 0; index < 100; index++)
-      {
-         const double value = std::rand() / static_cast<double>(RAND_MAX);
-         peaks[index] = Peak{index, value};
-      }
-
-      std::sort(peaks.begin(), peaks.end(), std::greater<Peak>());
-   }
+   if (args.size() > 0)
+      peakCount = args[0];
 }
 
-void FourierPeaks::operator()(sample amplitude, sample bin)
+sample FourierPeaks::operator()(sample amplitude, sample bin)
 {
-   // do something
+   const int index = std::round(bin);
+   //          peaks[index] = Peak{index, value};
+
+   if (minIndex == -1 || index < minIndex)
+      minIndex = index;
+   if (maxIndex == -1 || index > maxIndex)
+      maxIndex = index;
+
+   return 0;
 }
 
 atoms FourierPeaks::dspSetupFunction(const atoms& args, const int inlet)
@@ -62,12 +59,17 @@ atoms FourierPeaks::dspSetupFunction(const atoms& args, const int inlet)
    cout << "fftsize: " << fftsize << endl;
 
    //long vectorSize = sp[0]->s_n;
+
+   //peaks.resize(peakCount);
+
    return {};
 }
 
 atoms FourierPeaks::calculateFunction(const atoms& args, const int inlet)
 {
-   // do something
+   //std::sort(peaks.begin(), peaks.end(), std::greater<Peak>());
+   cout << "minIndex: " << minIndex << endl;
+   cout << "maxIndex: " << maxIndex << endl;
    return {};
 }
 

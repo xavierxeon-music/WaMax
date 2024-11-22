@@ -15,7 +15,7 @@ public:
    FourierPeaks(const atoms& args = {});
 
 public:
-   void operator()(sample amplitude, sample bin);
+   sample operator()(sample amplitude, sample bin);
 
 private:
    atoms dspSetupFunction(const atoms& args, const int inlet);
@@ -27,7 +27,12 @@ private:
    outlet<> content;
    message<> dspsetup;
    message<> bangMessage;
+
    Peak::List peaks;
+   int peakCount;
+
+   int minIndex = -1;
+   int maxIndex = -1;
 };
 
 #endif // FourierPeaksH
