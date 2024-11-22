@@ -10,12 +10,24 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 34.0, 134.0, 2135.0, 1001.0 ],
+		"rect" : [ 34.0, 134.0, 2941.0, 1001.0 ],
 		"gridonopen" : 2,
 		"gridsize" : [ 15.0, 15.0 ],
 		"gridsnaponopen" : 2,
 		"subpatcher_template" : "OpenGrid",
 		"boxes" : [ 			{
+				"box" : 				{
+					"id" : "obj-9",
+					"maxclass" : "button",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "bang" ],
+					"parameter_enable" : 0,
+					"patching_rect" : [ 720.0, 225.0, 24.0, 24.0 ]
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"id" : "obj-7",
 					"maxclass" : "newobj",
@@ -172,7 +184,7 @@
 
 			}
  ],
-		"originid" : "pat-26",
+		"originid" : "pat-176",
 		"styles" : [ 			{
 				"name" : "wa.patcher",
 				"default" : 				{
