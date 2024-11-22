@@ -1,6 +1,12 @@
 #include "wa.fft.peaks_tidle.h"
 
+namespace c74
+{
+   namespace max
+   {
 #include <r_pfft.h> // public pfft struct in r_pfft.h
+   } // namespace max
+} // namespace c74
 
 #include <MaxPatcher.h>
 
@@ -35,7 +41,7 @@ atoms FourierPeaks::dspSetupFunction(const atoms& args, const int inlet)
       return {};
    }
 
-   t_pfftpub* pfft = (t_pfftpub*)symbol_pfft->s_thing;
+   c74::max::t_pfftpub* pfft = (c74::max::t_pfftpub*)symbol_pfft->s_thing;
 
    int fullspect = pfft->x_fullspect ? 1 : 0;
    long ffthop = pfft->x_ffthop;
