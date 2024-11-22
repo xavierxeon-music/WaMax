@@ -15,6 +15,10 @@ public:
    FourierPeaks(const atoms& args = {});
 
 private:
+   atoms dspSetupFunction(const atoms& args, const int inlet);
+
+private:
+   message<> dspsetup;
    Peak::List peaks;
 };
 
