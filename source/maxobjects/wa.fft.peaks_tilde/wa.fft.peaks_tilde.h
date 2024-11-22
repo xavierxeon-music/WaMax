@@ -4,6 +4,14 @@
 #include "c74_min.h"
 using namespace c74::min;
 
+namespace c74
+{
+   namespace max
+   {
+#include <r_pfft.h> // public pfft struct in r_pfft.h
+   } // namespace max
+} // namespace c74
+
 #include "Peak.h"
 
 class FourierPeaks : public object<FourierPeaks>, public sample_operator<2, 0>
@@ -18,21 +26,17 @@ public:
    sample operator()(sample amplitude, sample bin);
 
 private:
-   atoms dspSetupFunction(const atoms& args, const int inlet);
+   void setup();
    atoms calculateFunction(const atoms& args, const int inlet);
 
 private:
    inlet<> inputAmplitude;
    inlet<> inputBin;
    outlet<> content;
-   message<> dspsetup;
    message<> bangMessage;
 
    Peak::List peaks;
    int peakCount;
-
-   int minIndex = -1;
-   int maxIndex = -1;
 };
 
 #endif // FourierPeaksH

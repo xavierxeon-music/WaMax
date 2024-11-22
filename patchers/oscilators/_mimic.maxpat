@@ -4,18 +4,53 @@
 		"appversion" : 		{
 			"major" : 9,
 			"minor" : 0,
-			"revision" : 0,
+			"revision" : 2,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 34.0, 106.0, 1732.0, 1029.0 ],
+		"rect" : [ 34.0, 162.0, 3344.0, 973.0 ],
 		"gridonopen" : 2,
 		"gridsize" : [ 15.0, 15.0 ],
 		"gridsnaponopen" : 2,
 		"subpatcher_template" : "OpenGrid",
 		"boxes" : [ 			{
+				"box" : 				{
+					"id" : "obj-29",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 209.0, 405.0, 50.0, 22.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-28",
+					"maxclass" : "button",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "bang" ],
+					"parameter_enable" : 0,
+					"patching_rect" : [ 240.0, 255.0, 24.0, 24.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-18",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 240.0, 345.0, 96.0, 22.0 ],
+					"text" : "wa.fft.peaks~ 10"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"id" : "obj-12",
 					"maxclass" : "newobj",
@@ -101,7 +136,7 @@
 						"appversion" : 						{
 							"major" : 9,
 							"minor" : 0,
-							"revision" : 0,
+							"revision" : 2,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
@@ -200,7 +235,7 @@
 
 							}
  ],
-						"originid" : "pat-42"
+						"originid" : "pat-8"
 					}
 ,
 					"patching_rect" : [ 630.0, 345.0, 126.0, 22.0 ],
@@ -595,6 +630,13 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-29", 1 ],
+					"source" : [ "obj-18", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-22", 0 ],
 					"order" : 1,
 					"source" : [ "obj-19", 0 ]
@@ -671,6 +713,13 @@
 				"patchline" : 				{
 					"destination" : [ "obj-20", 0 ],
 					"source" : [ "obj-25", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-18", 0 ],
+					"source" : [ "obj-28", 0 ]
 				}
 
 			}
@@ -754,6 +803,23 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-13", 0 ],
+					"order" : 0,
+					"source" : [ "obj-7", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-18", 1 ],
+					"order" : 1,
+					"source" : [ "obj-7", 2 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-18", 0 ],
+					"order" : 1,
 					"source" : [ "obj-7", 0 ]
 				}
 
@@ -761,6 +827,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-20", 0 ],
+					"order" : 0,
 					"source" : [ "obj-7", 2 ]
 				}
 
@@ -773,7 +840,7 @@
 
 			}
  ],
-		"originid" : "pat-40",
+		"originid" : "pat-6",
 		"styles" : [ 			{
 				"name" : "wa.buffer",
 				"default" : 				{

@@ -17,18 +17,6 @@
 		"subpatcher_template" : "OpenGrid",
 		"boxes" : [ 			{
 				"box" : 				{
-					"id" : "obj-9",
-					"maxclass" : "button",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "bang" ],
-					"parameter_enable" : 0,
-					"patching_rect" : [ 720.0, 225.0, 24.0, 24.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"id" : "obj-7",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -92,11 +80,11 @@
 				"box" : 				{
 					"comment" : "frequncy",
 					"id" : "obj-3",
-					"index" : 2,
+					"index" : 0,
 					"maxclass" : "inlet",
 					"numinlets" : 0,
 					"numoutlets" : 1,
-					"outlettype" : [ "float" ],
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 585.0, 41.0, 30.0, 30.0 ]
 				}
 
@@ -105,11 +93,11 @@
 				"box" : 				{
 					"comment" : "source, active ",
 					"id" : "obj-1",
-					"index" : 1,
+					"index" : 0,
 					"maxclass" : "inlet",
 					"numinlets" : 0,
 					"numoutlets" : 1,
-					"outlettype" : [ "signal" ],
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 150.0, 15.0, 30.0, 30.0 ]
 				}
 
@@ -118,7 +106,7 @@
 				"box" : 				{
 					"comment" : "",
 					"id" : "obj-2",
-					"index" : 1,
+					"index" : 0,
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
@@ -184,7 +172,16 @@
 
 			}
  ],
-		"originid" : "pat-176",
+		"originid" : "pat-78",
+		"dependency_cache" : [ 			{
+				"name" : "_mimic.maxpat",
+				"bootpath" : "/Volumes/ExternalData/_Home/GitHub/MusicProjects/WaMaxPackageBase/patchers/oscilators",
+				"patcherrelativepath" : ".",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+ ],
+		"autosave" : 0,
 		"styles" : [ 			{
 				"name" : "wa.patcher",
 				"default" : 				{
