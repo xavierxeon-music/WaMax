@@ -3,8 +3,6 @@ autowatch = 1;
 inlets = 1;
 outlets = 2;
 
-include("helper.js");
-
 let resizeToContent = false;
 let padding = 0;
 
@@ -19,9 +17,6 @@ function bang() {
 
    let size = compileContentSize(contentPatch);
    let bpatcher = findBPatcher(contentPatch);
-
-   Helper.debug("size: " + size);
-   Helper.debug("bpatcher: " + bpatcher);
 
    if (!bpatcher)
       return;
