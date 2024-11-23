@@ -4,18 +4,30 @@
 		"appversion" : 		{
 			"major" : 9,
 			"minor" : 0,
-			"revision" : 0,
+			"revision" : 2,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 59.0, 106.0, 1000.0, 780.0 ],
+		"rect" : [ 35.0, 171.0, 3764.0, 1395.0 ],
 		"gridonopen" : 2,
 		"gridsize" : [ 15.0, 15.0 ],
 		"gridsnaponopen" : 2,
 		"subpatcher_template" : "wa.main_template",
 		"boxes" : [ 			{
+				"box" : 				{
+					"id" : "obj-15",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "jit_matrix", "" ],
+					"patching_rect" : [ 211.0, 270.0, 150.0, 22.0 ],
+					"text" : "jit.matrix 4 char 3840 2160"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"comment" : "",
 					"id" : "obj-14",
@@ -48,7 +60,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "jit_matrix" ],
-					"patching_rect" : [ 255.0, 210.0, 30.0, 30.0 ]
+					"patching_rect" : [ 211.0, 221.0, 30.0, 30.0 ]
 				}
 
 			}
@@ -109,8 +121,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 448.0, 214.0, 111.0, 22.0 ],
-					"text" : "sprintf %s/%s.\\,mp4"
+					"patching_rect" : [ 448.0, 214.0, 108.0, 22.0 ],
+					"text" : "sprintf %s/%s.mp4"
 				}
 
 			}
@@ -231,7 +243,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 180.0, 270.0, 31.0, 22.0 ],
+					"patching_rect" : [ 164.5, 270.0, 31.0, 22.0 ],
 					"text" : "stop"
 				}
 
@@ -310,7 +322,7 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-144", 2 ],
+					"destination" : [ "obj-15", 0 ],
 					"source" : [ "obj-12", 0 ]
 				}
 
@@ -325,8 +337,15 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-150", 0 ],
-					"midpoints" : [ 81.0, 204.0, 189.5, 204.0 ],
+					"midpoints" : [ 81.0, 204.0, 174.0, 204.0 ],
 					"source" : [ "obj-145", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-144", 2 ],
+					"source" : [ "obj-15", 0 ]
 				}
 
 			}
@@ -455,7 +474,7 @@
 
 			}
  ],
-		"originid" : "pat-243",
+		"originid" : "pat-240",
 		"styles" : [ 			{
 				"name" : "wa.buffer",
 				"default" : 				{
