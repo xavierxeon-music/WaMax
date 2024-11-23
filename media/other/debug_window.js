@@ -81,8 +81,10 @@ function resizeTable(width, height) {
    if (height < 150)
       height = 150;
 
-   height -= 20; // title bar
+   width -= 2; // margin
    document.body.style["width"] = width.toString() + "px";
+
+   height -= 30; // title bar
    scroll.forceHeigth(height.toString() + "px");
 
    //updateTable();

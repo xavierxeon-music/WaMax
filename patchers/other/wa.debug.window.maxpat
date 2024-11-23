@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 34.0, 115.0, 3772.0, 1451.0 ],
+		"rect" : [ 1325.0, 530.0, 1781.0, 696.0 ],
 		"openinpresentation" : 1,
 		"gridonopen" : 2,
 		"gridsize" : [ 15.0, 15.0 ],
@@ -22,20 +22,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 148.0, 538.0, 38.0, 22.0 ],
+					"patching_rect" : [ 120.0, 540.0, 38.0, 22.0 ],
 					"text" : "zl.reg"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-1",
-					"maxclass" : "newobj",
-					"numinlets" : 2,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 129.0, 450.0, 55.0, 22.0 ],
-					"text" : "zl.slice 2"
 				}
 
 			}
@@ -46,7 +34,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 129.0, 495.0, 117.0, 22.0 ],
+					"patching_rect" : [ 120.0, 495.0, 117.0, 22.0 ],
 					"text" : "prepend resizeTable"
 				}
 
@@ -58,7 +46,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 129.0, 405.0, 162.0, 22.0 ],
+					"patching_rect" : [ 120.0, 450.0, 162.0, 22.0 ],
 					"style" : "wa.admin-1",
 					"text" : "wa.patch.bpatcher @mode 1"
 				}
@@ -392,13 +380,6 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-25", 0 ],
-					"source" : [ "obj-1", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-8", 0 ],
 					"source" : [ "obj-10", 0 ]
 				}
@@ -470,6 +451,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-10", 0 ],
+					"midpoints" : [ 120.5, 300.0, 462.0, 300.0, 462.0, 444.0, 458.5, 444.0 ],
 					"source" : [ "obj-19", 3 ]
 				}
 
@@ -491,6 +473,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-26", 0 ],
+					"midpoints" : [ 56.5, 537.0, 129.5, 537.0 ],
 					"source" : [ "obj-19", 0 ]
 				}
 
@@ -581,7 +564,7 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-1", 0 ],
+					"destination" : [ "obj-25", 0 ],
 					"source" : [ "obj-39", 1 ]
 				}
 
@@ -623,7 +606,7 @@
 
 			}
  ],
-		"originid" : "pat-164",
+		"originid" : "pat-176",
 		"styles" : [ 			{
 				"name" : "wa.admin",
 				"default" : 				{

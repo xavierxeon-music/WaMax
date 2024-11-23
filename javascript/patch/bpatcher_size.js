@@ -64,7 +64,7 @@ function getsize() {
    let w = r[2] - r[0];
    let h = r[3] - r[1];
 
-   outlet(1, 0, 0, w, h);
+   outlet(1, w, h);
 }
 
 
