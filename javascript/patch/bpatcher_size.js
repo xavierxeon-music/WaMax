@@ -1,75 +1,96 @@
 autowatch = 1;
 
 inlets = 1;
-outlets = 1;
+outlets = 2;
 
+include("helper.js");
 
-var isAutomatic = false;
-var padding = 0;
+let resizeToContent = false;
+let padding = 0;
 
 function bang() {
 
-   var size = compileContentSize();
-
-   var bpatcherList = findBPatchers();
-
-   if (!isAutomatic)
+   if (!resizeToContent)
       return;
 
-   for (var index = 0; index < bpatcherList.length; index++) {
+   // patch where the wa.patch.bpatcher is included
+   let contentPatch = patcher.parentpatcher;
+   contentPatch.setattr("presentation", 1);
 
-      var bpatcher = bpatcherList[index];
-      if (null === bpatcher)
-         return;
+   let size = compileContentSize(contentPatch);
+   let bpatcher = findBPatcher(contentPatch);
 
-      var boxSize = bpatcher.getboxattr("patching_rect");
-      var changed = false;
+   Helper.debug("size: " + size);
+   Helper.debug("bpatcher: " + bpatcher);
 
-      if (boxSize[2] != size[0]) {
-         boxSize[2] = size[0];
-         changed = true;
-      }
+   if (!bpatcher)
+      return;
 
-      if (boxSize[3] != size[1]) {
-         boxSize[3] = size[1];
-         changed = true;
-      }
-      if (changed)
-         bpatcher.setboxattr("patching_rect", boxSize);
+   let boxSize = bpatcher.getboxattr("patching_rect");
+   let changed = false;
+
+   if (boxSize[2] != size[0]) {
+      boxSize[2] = size[0];
+      changed = true;
    }
+
+   if (boxSize[3] != size[1]) {
+      boxSize[3] = size[1];
+      changed = true;
+   }
+   if (changed)
+      bpatcher.setboxattr("patching_rect", boxSize);
+
 
    outlet(0, "bang");
 }
 
-function automatic(value) {
+function mode(value) {
 
-   isAutomatic = (1 == value);
+   resizeToContent = (0 == value);
 }
 
-function compileContentSize() {
+function getsize() {
 
-   var top = -1;
-   var left = -1;
-   var right = -1;
-   var bottom = -1;
 
    // patch where the wa.patch.bpatcher is included
-   var contentPatch = patcher.parentpatcher;
+   let contentPatch = this.patcher.parentpatcher;
 
-   for (var obj = contentPatch.firstobject; obj !== null; obj = obj.nextobject) {
+   let bpatcher = findBPatcher(contentPatch);
+   if (!bpatcher)
+      return;
 
-      var isPresentation = obj.getattr("presentation");
+   let r = bpatcher.rect;
+   let w = r[2] - r[0];
+   let h = r[3] - r[1];
+
+   outlet(1, 0, 0, w, h);
+}
+
+
+compileContentSize.local = 1;
+function compileContentSize(contentPatch) {
+
+   let top = -1;
+   let left = -1;
+   let right = -1;
+   let bottom = -1;
+
+
+   for (let obj = contentPatch.firstobject; obj !== null; obj = obj.nextobject) {
+
+      let isPresentation = obj.getattr("presentation");
       if (0 === isPresentation)
          continue;
 
-      var obj_rect = obj.getattr("presentation_rect");
+      let obj_rect = obj.getattr("presentation_rect");
       if (null === obj_rect || undefined === obj_rect)
          continue;
 
-      var oLeft = obj_rect[0];
-      var oTop = obj_rect[1];
-      var oRight = oLeft + obj_rect[2];
-      var oBottom = oTop + obj_rect[3];
+      let oLeft = obj_rect[0];
+      let oTop = obj_rect[1];
+      let oRight = oLeft + obj_rect[2];
+      let oBottom = oTop + obj_rect[3];
 
       if (-1 === left || left > oLeft) {
          left = oLeft;
@@ -83,41 +104,31 @@ function compileContentSize() {
       if (-1 === bottom || bottom < oBottom) {
          bottom = oBottom;
       }
-
    }
 
-   var width = padding + right - left;
-   var height = padding + bottom - top;
+   let width = padding + right - left;
+   let height = padding + bottom - top;
 
    return [width, height];
 }
-compileContentSize.local = 1;
 
-function findBPatchers() {
+findBPatcher.local = 1;
+function findBPatcher(contentPatch) {
 
-   // patch where the wa.patch.bpatcher is included
-   var contentPatch = patcher.parentpatcher;
+   for (let includingPatch = contentPatch.parentpatcher; includingPatch !== null; includingPatch = includingPatch.parentpatcher) {
 
-   var bpatcherList = [];
+      for (let child = includingPatch.firstobject; child !== null; child = child.nextobject) {
 
-   // the patch that includes content patch
-   var includingPatch = contentPatch.parentpatcher;
-   if (null === includingPatch)
-      return bpatcherList;
+         if ("jpatcher" !== child.maxclass)
+            continue;
 
-   contentPatch.setattr("presentation", 1);
+         let patchName = child.getattr("name");
+         if (patchName !== contentPatch.name)
+            continue;
 
-   for (var child = includingPatch.firstobject; child !== null; child = child.nextobject) {
-
-      if ("patcher" !== child.maxclass)
-         continue;
-
-      var patchName = child.getattr("name");
-      if (patchName !== contentPatch.name)
-         continue;
-
-      bpatcherList.push(child);
+         return child;
+      }
    }
-   return bpatcherList;
+
+   return undefined;
 }
-findBPatchers.local = 1;

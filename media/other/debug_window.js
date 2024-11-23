@@ -29,14 +29,14 @@ class MessageBuffer {
 
 // 
 
-let numberOfColumns = 50;
+let numberOfRows = 50;
 
-const messageBuffer = new MessageBuffer(numberOfColumns, ["", ""]);
+const messageBuffer = new MessageBuffer(numberOfRows, ["", ""]);
 const tableElements = new Array(length).fill(undefined);
 
 function updateTable() {
 
-   for (let index = 0; index < numberOfColumns; index++) {
+   for (let index = 0; index < numberOfRows; index++) {
 
       let content = messageBuffer.get(index);
       let rows = tableElements[index];
@@ -73,9 +73,25 @@ function clearMessages() {
    updateTable();
 }
 
+max.bindInlet('resizeTable', resizeTable);
+function resizeTable(width, height) {
+
+   if (width < 250)
+      width = 250;
+   if (height < 150)
+      height = 150;
+
+   height -= 20; // title bar
+   document.body.style["width"] = width.toString() + "px";
+   scroll.forceHeigth(height.toString() + "px");
+
+   //updateTable();
+}
+
+
 
 // gui
-setupDocument(250, 1, 1);
+setupDocument(undefined, 1, 1);
 
 // top
 let title = new Title("console");
@@ -90,14 +106,13 @@ title.addButton("clear", clearMessages);
 
 // table
 let scroll = new Div();
-scroll.forceHeigth("145px");
-
 let table = new Table(scroll, ["60px", "auto"]);
-for (let index = 0; index < numberOfColumns; index++) {
+for (let index = 0; index < numberOfRows; index++) {
    let rows = table.addRow(["", ""]);
-   tableElements[numberOfColumns - (1 + index)] = rows;
+   tableElements[numberOfRows - (1 + index)] = rows;
 }
 
+resizeTable(250, 200);
 updateTable();
 
 // name

@@ -1,6 +1,8 @@
 // inspect
 
-if (typeof this.Inspector === "undefined")
+include("helper.js");
+
+if (typeof this.Inspector === "undefined") {
 
    this.Inspector = class {
 
@@ -73,28 +75,27 @@ if (typeof this.Inspector === "undefined")
             name = ",.." + name;
 
          if (obj === null) {
-            print(name + " : NULL");
+            Helper.debug(name + " : NULL");
          }
          else if (obj === undefined) {
-            print(name + " : UNDEFINED");
+            Helper.debug(name + " : UNDEFINED");
          }
          else if (typeof obj == "number") {
-            print(name + " :" + obj, " (NUMBER)");
+            Helper.debug(name + " :" + obj, " (NUMBER)");
          }
          else if (typeof obj == "string") {
-            print(name + " :" + obj, "  (STRING)");
+            Helper.debug(name + " :" + obj, "  (STRING)");
          }
          else if (typeof obj == "object") {
-            print(name + " is  (OBJECT)");
+            Helper.debug(name + " is  (OBJECT)");
             for (var key in obj) {
-               printObject(obj[key], name + "," + key, indent + 1);
+               Inspector.printObject(obj[key], name + "," + key, indent + 1);
             }
          }
          else {
-            print(name + " is " + typeof obj);
+            Helper.debug(name + " is " + typeof obj);
 
          }
       }
-
-
    }
+}
