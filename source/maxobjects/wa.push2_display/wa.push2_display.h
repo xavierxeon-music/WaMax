@@ -40,7 +40,8 @@ private:
    mutex bufferMutex;
 
    inlet<> input;
-   outlet<> output; // needs matrix output !
+   outlet<> output;  // needs matrix output !
+   outlet<> output2; // needs matrix output !
    timer<timer_options::defer_delivery> updateTimer;
 };
 

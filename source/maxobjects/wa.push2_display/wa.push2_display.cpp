@@ -20,6 +20,7 @@ Push2Display::Push2Display()
    , bufferMutex()
    , input{this, "(matrix) Input", "matrix"}
    , output{this, "(matrix) output", "matrix"}
+   , output2{this, "other output"}
    , updateTimer{this, Max::Patcher::minBind(this, &Push2Display::timerFunction)}
 {
    libusb_init(&context);
@@ -89,6 +90,8 @@ void Push2Display::setColor(int x, int y, ushort color)
 
 atoms Push2Display::timerFunction(const atoms& args, const int inlet)
 {
+   output2.send(nullptr != device ? 1 : 0);
+
    if (!bindDevice())
    {
       updateTimer.delay(1000);
