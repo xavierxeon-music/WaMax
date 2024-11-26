@@ -84,7 +84,7 @@ void MaxScreen::touchPointsUpdated(const QList<QObject*>& touchPoints)
 {
    static const QStringList propertyNames = {
       "pointId",
-      "pressed",
+      //"pressed",
       "x",
       "y",
       //"pressure",
