@@ -11,7 +11,6 @@ endif()
 message(STATUS "CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
 
 find_package(Qt6 REQUIRED COMPONENTS Gui Svg Network Qml Quick)
-qt_standard_project_setup(REQUIRES 6.8)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
@@ -28,8 +27,6 @@ file(GLOB SOURCE_FILES
 
 qt_add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
-# target_precompile_headers(${PROJECT_NAME} PUBLIC ${PROJECT_NAME}.precompiled.h)
-# target_sources(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}.precompiled.h)
 set_target_properties(${PROJECT_NAME} PROPERTIES
    WIN32_EXECUTABLE TRUE
    MACOSX_BUNDLE TRUE
@@ -40,6 +37,10 @@ if(APPLE)
    set(APP_ICON ${CMAKE_CURRENT_SOURCE_DIR}/Icons/${PROJECT_NAME}.icns)
    set_source_files_properties(${APP_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
    target_sources(${PROJECT_NAME} PRIVATE ${APP_ICON})
+
+   if(CMAKE_BUILD_TYPE STREQUAL "Release")
+      set(CMAKE_RUNTIME_OUTPUT_DIRECTORY $ENV{HOME}/Applications)
+   endif()
 endif()
 
 # QML
