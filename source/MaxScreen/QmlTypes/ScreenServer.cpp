@@ -145,20 +145,8 @@ void ScreenServer::sendTouchPointUpdates()
    if (tpMap.isEmpty())
       return;
 
-   QByteArray data;
-   {
-      QDataStream stream(&data, QIODevice::WriteOnly);
-      tpMap.save(stream);
-   }
-
-   {
-      QDataStream stream(&data, QIODevice::ReadOnly);
-      char marker;
-      stream >> marker;
-
-      if ('t' == marker)
-         tpMap.load(stream);
-   }
+   QDataStream stream(socket);
+   tpMap.dump(stream);
 }
 
 void ScreenServer::sendWindowSize()
@@ -166,18 +154,6 @@ void ScreenServer::sendWindowSize()
    if (socket.isNull())
       return;
 
-   QByteArray data;
-   {
-      QDataStream stream(&data, QIODevice::WriteOnly);
-      screenSize.save(stream);
-   }
-
-   {
-      QDataStream stream(&data, QIODevice::ReadOnly);
-      char marker;
-      stream >> marker;
-
-      if ('s' == marker)
-         screenSize.load(stream);
-   }
+   QDataStream stream(socket);
+   screenSize.dump(stream);
 }

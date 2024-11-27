@@ -10,7 +10,7 @@ public:
 
 public:
    void update(const int width, const int height);
-   void save(QDataStream& stream);
+   void dump(QDataStream& stream);
    void load(QDataStream& stream);
 
 private:

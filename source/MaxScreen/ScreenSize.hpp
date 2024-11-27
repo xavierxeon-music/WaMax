@@ -17,7 +17,7 @@ inline void ScreenSize::update(const int _width, const int _height)
    height = _height;
 }
 
-inline void ScreenSize::save(QDataStream& stream)
+inline void ScreenSize::dump(QDataStream& stream)
 {
    static const char marker = 's';
    stream << marker << width << height;
@@ -25,13 +25,10 @@ inline void ScreenSize::save(QDataStream& stream)
 
 inline void ScreenSize::load(QDataStream& stream)
 {
-   int _width = 0;
-   stream >> _width;
+   stream >> width;
+   stream >> height;
 
-   int _height = 0;
-   stream >> _height;
-
-   qDebug() << _width << _height;
+   qDebug() << width << height;
 }
 
 #endif // NOT ScreenSizeHPP

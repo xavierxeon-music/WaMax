@@ -16,7 +16,7 @@ public:
    public:
       void startUpdates();
       void update(const QObject* qmlTouchPoint);
-      void save(QDataStream& stream);
+      void dump(QDataStream& stream);
       void load(QDataStream& stream);
    };
 
@@ -25,13 +25,17 @@ public:
 
 public:
    bool isPressed() const;
-   const double& getX() const;
-   const double& getY() const;
+   const int& getX() const;
+   const int& getY() const;
+   const int& getStartX() const;
+   const int& getStartY() const;
 
 private:
    bool pressed;
-   double x;
-   double y;
+   int x;
+   int y;
+   int startX;
+   int startY;
 };
 
 #ifndef TouchPointHPP
