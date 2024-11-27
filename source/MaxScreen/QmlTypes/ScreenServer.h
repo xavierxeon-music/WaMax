@@ -56,6 +56,8 @@ private:
    Rainbow rainbow;
    ScreenSize screenSize;
    TouchPoint::Map tpMap;
+   QByteArray imageBuffer;
+   qsizetype imageSize;
 };
 
 #endif // NOT ScreenServerH

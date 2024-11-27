@@ -45,7 +45,7 @@ inline void TouchPoint::Map::dump(QDataStream& stream)
    for (Map::const_iterator it = constBegin(); it != constEnd(); it++)
    {
       const TouchPoint& touchPoint = it.value();
-      stream << it.key() << touchPoint.pressed << touchPoint.x << touchPoint.y << touchPoint.startX << touchPoint.startY;
+      //stream << it.key() << touchPoint.pressed << touchPoint.x << touchPoint.y << touchPoint.startX << touchPoint.startY;
 
       if (!touchPoint.pressed)
          deleteList.append(it.key());
@@ -75,7 +75,7 @@ inline void TouchPoint::Map::load(QDataStream& stream)
 
       insert(id, touchPoint);
 
-      qDebug() << id << touchPoint.pressed << touchPoint.x << touchPoint.y << touchPoint.startX << touchPoint.startY;
+      // qDebug() << id << touchPoint.pressed << touchPoint.x << touchPoint.y << touchPoint.startX << touchPoint.startY;
    }
 }
 

@@ -9,6 +9,8 @@
 #include <QQmlApplicationEngine>
 #include <QTimer>
 
+#include <Convertor.h>
+
 #include "ImageDisplay.h"
 
 ScreenServer::ScreenServer(QObject* parent)
@@ -18,6 +20,8 @@ ScreenServer::ScreenServer(QObject* parent)
    , rainbow(300)
    , screenSize()
    , tpMap()
+   , imageBuffer()
+   , imageSize(-1)
 {
    QTimer* colorTimer = new QTimer(this);
    connect(colorTimer, &QTimer::timeout, this, &ScreenServer::slotChangeColor);
@@ -120,12 +124,25 @@ void ScreenServer::slotSocketClosed()
 
 void ScreenServer::slotSocketRead()
 {
-   QImage image;
+   imageBuffer.append(socket->readAll());
+   if (imageSize < 0)
+   {
+      Convertor<qsizetype> convertor;
+      std::memcpy(convertor.bytes, imageBuffer.constData(), sizeof(qsizetype));
 
-   QDataStream stream(socket);
-   stream >> image;
+      imageBuffer = imageBuffer.mid(sizeof(qsizetype));
+      imageSize = convertor.data;
+   }
 
-   ImageDisplay::push(image);
+   if (imageBuffer.size() >= imageSize)
+   {
+      QByteArray imageData = imageBuffer.left(imageSize);
+      imageBuffer = imageBuffer.mid(imageSize);
+      imageSize = -1;
+
+      QImage image = QImage::fromData(imageData);
+      ImageDisplay::push(image);
+   }
 }
 
 void ScreenServer::slotChangeColor()

@@ -28,7 +28,7 @@ inline void ScreenSize::load(QDataStream& stream)
    stream >> width;
    stream >> height;
 
-   qDebug() << width << height;
+   //qDebug() << width << height;
 }
 
 inline const int& ScreenSize::getWidth() const

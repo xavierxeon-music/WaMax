@@ -10,11 +10,13 @@ endif()
 
 message(STATUS "CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
 
-find_package(Qt6 REQUIRED COMPONENTS Core Network)
+find_package(Qt6 REQUIRED COMPONENTS Widgets Network)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
 
-# C++
+find_package(WaTools REQUIRED)
+
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/..)
 
@@ -22,6 +24,7 @@ file(GLOB SOURCE_FILES
    ${CMAKE_CURRENT_SOURCE_DIR}/*.h
    ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/*.hpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/*.ui
 )
 
 qt_add_executable(${PROJECT_NAME} ${SOURCE_FILES})
@@ -31,4 +34,4 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
    MACOSX_BUNDLE TRUE
 )
 
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Core Qt6::Network)
+target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Widgets Qt6::Network)
