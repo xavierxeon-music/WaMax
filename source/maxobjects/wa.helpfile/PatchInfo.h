@@ -1,9 +1,9 @@
-#ifndef CurrentH
-#define CurrentH
+#ifndef PatchInfoH
+#define PatchInfoH
 
 #include <QString>
 
-class Current
+class PatchInfo
 {
 public:
    enum class State
@@ -15,7 +15,7 @@ public:
    };
 
 public:
-   Current(const QString& patchPath);
+   PatchInfo(const QString& patchPath);
 
 public:
    bool checkState();
@@ -27,4 +27,4 @@ public:
    QString packagePath;
 };
 
-#endif // NOT CurrentH
+#endif // NOT PatchInfoH

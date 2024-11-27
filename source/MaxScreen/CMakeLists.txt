@@ -51,6 +51,7 @@ file(GLOB QML_FILES
    ${CMAKE_CURRENT_SOURCE_DIR}/QmlTypes/*.cpp
 )
 
-qt_add_qml_module(${PROJECT_NAME} URI MaxScreen VERSION 1.0 SOURCES ${QML_FILES})
+qt_add_qml_module(${PROJECT_NAME} URI ScreenServer VERSION 1.0 SOURCES ${QML_FILES})
+#target_link_libraries(${PROJECT_NAME}Qml PRIVATE Qt6::Gui Qt6::Quick)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Gui Qt6::Svg Qt6::Network Qt6::Qml Qt6::Quick)
+target_link_libraries(${PROJECT_NAME} PRIVATE  Qt6::Gui Qt6::Svg Qt6::Network Qt6::Qml Qt6::Quick)

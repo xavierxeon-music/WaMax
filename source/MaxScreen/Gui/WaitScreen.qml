@@ -1,12 +1,12 @@
 import QtQuick
 import QtQuick.Layouts
 
-import MaxScreen
+import ScreenServer
 
 Rectangle
 {
     id: infoWindow
-    color: MaxScreen.bgColor
+    color: ScreenServer.bgColor
 
     ColumnLayout
     {
@@ -48,7 +48,7 @@ Rectangle
                 }
                 Text
                 {
-                    text: MaxScreen.getHostName()
+                    text: ScreenServer.getHostName()
                     font.pointSize: 24
                     color: "#ffffff"
                 }
@@ -64,7 +64,7 @@ Rectangle
                 }
                 Text
                 {
-                    text: MaxScreen.getPort()
+                    text: ScreenServer.getPort()
                     font.pointSize: 24
                     color: "#ffffff"
                 }

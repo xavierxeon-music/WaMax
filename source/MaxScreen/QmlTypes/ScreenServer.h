@@ -1,5 +1,5 @@
-#ifndef MaxScreenH
-#define MaxScreenH
+#ifndef ScreenServerH
+#define ScreenServerH
 
 #include <QTcpServer>
 
@@ -10,33 +10,20 @@
 #include <QVector2D>
 
 #include "Rainbow.h"
+#include "ScreenSize.h"
+#include "TouchPoint.h"
 
-class MaxScreen : public QTcpServer
+class ScreenServer : public QTcpServer
 {
    Q_OBJECT
-   QML_NAMED_ELEMENT(MaxScreen)
+   QML_NAMED_ELEMENT(ScreenServer)
    QML_SINGLETON
 
    Q_PROPERTY(int stackId READ getStackId NOTIFY signalStackIdChanged)
    Q_PROPERTY(QColor bgColor READ getBgColor NOTIFY signalColorChanged)
 
 public:
-   struct TouchPoint
-   {
-      int pointId;
-      bool pressed;
-      double x;
-      double y;
-      double pressure;
-      QVector2D velocity;
-      double startX;
-      double startY;
-
-      using Map = QMap<int, TouchPoint>;
-   };
-
-public:
-   MaxScreen(QObject* parent = nullptr); // needs default constructor for automatic creation via engine
+   ScreenServer(QObject* parent = nullptr); // needs default constructor for automatic creation via engine
 
 signals:
    void signalStackIdChanged();
@@ -59,16 +46,17 @@ private slots:
    void slotSetDisplay(const QImage& image);
    void slotResetDisplay();
    void slotChangeColor();
+   void sendTouchPointUpdates();
 
 private:
    void sendWindowSize();
-   void sendPackage(const QJsonObject& object);
 
 private:
    QPointer<QTcpSocket> socket;
    int stackId;
    Rainbow rainbow;
-   QSize screenSize;
+   ScreenSize screenSize;
+   TouchPoint::Map tpMap;
 };
 
-#endif // NOT MaxScreenH
+#endif // NOT ScreenServerH

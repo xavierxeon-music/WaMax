@@ -17,7 +17,7 @@ HelpFile::HelpFile(const atoms& args)
    , setfile(this, "setfile", "set current patch file", Max::Patcher::minBind(this, &HelpFile::setFileFunction))
    , loopTimer(this, Max::Patcher::minBind(this, &HelpFile::timerFunction))
    , socket()
-   , current("")
+   , currentPatch("")
 {
    loopTimer.delay(10);
 }
@@ -32,17 +32,17 @@ atoms HelpFile::paintFunction(const atoms& args, const int inlet)
 
    // field
    color highlight = color{0.7, 0.3, 0.3, 1.0};
-   if (Current::State::NotInPackage == current.state)
+   if (PatchInfo::State::NotInPackage == currentPatch.state)
       highlight = color{0.3, 0.3, 0.7, 1.0};
-   else if (Current::State::HelpFileOutdated == current.state)
+   else if (PatchInfo::State::HelpFileOutdated == currentPatch.state)
       highlight = color{0.7, 0.7, 0.3, 1.0};
-   else if (Current::State::UpToDate == current.state)
+   else if (PatchInfo::State::UpToDate == currentPatch.state)
       highlight = color{0.3, 0.7, 0.3, 1.0};
 
    rect<fill>{render, highlight, position{5.0, 5.0}, size{30.0, 30.0}};
 
    // the H
-   if (Current::State::HelpFileOutdated == current.state || Current::State::UpToDate == current.state)
+   if (PatchInfo::State::HelpFileOutdated == currentPatch.state || PatchInfo::State::UpToDate == currentPatch.state)
    {
       rect<fill>{render, bg, position{10.0, 10.0}, size{5.0, 20.0}};
       rect<fill>{render, bg, position{25.0, 10.0}, size{5.0, 20.0}};
@@ -85,9 +85,9 @@ atoms HelpFile::setFileFunction(const atoms& args, const int inlet)
    }
 #endif
 
-   current = Current(filePath);
-   current.checkState();
-   //cout << "SET FILE " << current.patchPath.toStdString() << " " << (int)current.state << endl;
+   currentPatch = PatchInfo(filePath);
+   currentPatch.checkState();
+   //cout << "SET FILE " << currentPatch.patchPath.toStdString() << " " << (int)currentPatch.state << endl;
    sendData();
    redraw();
 
@@ -99,7 +99,7 @@ atoms HelpFile::timerFunction(const atoms& args, const int inlet)
    if (QLocalSocket::UnconnectedState == socket.state())
       socket.connectToServer(HelpForMax::compileSockerName());
 
-   if (Current::State::Initial != current.state || Current::State::NotInPackage != current.state)
+   if (PatchInfo::State::Initial != currentPatch.state || PatchInfo::State::NotInPackage != currentPatch.state)
    {
       auto readRead = [&]()
       {
@@ -127,11 +127,11 @@ atoms HelpFile::timerFunction(const atoms& args, const int inlet)
 
 void HelpFile::sendData()
 {
-   if (Current::State::NotInPackage == current.state)
+   if (PatchInfo::State::NotInPackage == currentPatch.state)
       return;
 
    QJsonObject object;
-   object["patch"] = current.patchPath;
+   object["patch"] = currentPatch.patchPath;
 
    QJsonDocument doc(object);
    socket.write(doc.toJson(QJsonDocument::Compact));
@@ -144,10 +144,10 @@ void HelpFile::receiveData()
    const QJsonObject object = doc.object();
 
    const QString path = object["patch"].toString();
-   if (path != current.patchPath)
+   if (path != currentPatch.patchPath)
       return;
 
-   current.checkState();
+   currentPatch.checkState();
    redraw();
 }
 

@@ -10,7 +10,7 @@ using namespace c74::min::ui;
 #undef hypot
 #endif
 
-#include "current.h"
+#include "PatchInfo.h"
 
 #include <QLocalSocket>
 
@@ -33,7 +33,7 @@ private:
 
 private:
    QLocalSocket socket;
-   Current current;
+   PatchInfo currentPatch;
 
    message<> paint;
    message<> dblclick;

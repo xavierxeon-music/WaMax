@@ -1,9 +1,9 @@
-#include "current.h"
+#include "PatchInfo.h"
 
 #include <QDir>
 #include <QFileInfo>
 
-Current::Current(const QString& patchPath)
+PatchInfo::PatchInfo(const QString& patchPath)
    : state(State::Initial)
    , patchPath(patchPath)
    , helpPath()
@@ -11,7 +11,7 @@ Current::Current(const QString& patchPath)
 {
 }
 
-bool Current::checkState()
+bool PatchInfo::checkState()
 {
    if (patchPath.isEmpty())
       return false;

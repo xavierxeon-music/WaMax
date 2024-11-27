@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Window
 import QtQuick.Layouts
 
-import MaxScreen
+import ScreenServer
 
 Window
 {
@@ -21,7 +21,7 @@ Window
 
     function sendWindowSize(){
 
-        MaxScreen.setWindowSize(mainWindow.width, mainWindow.height)
+        ScreenServer.setWindowSize(mainWindow.width, mainWindow.height)
     }
 
     onWidthChanged: mainWindow.sendWindowSize();
@@ -34,7 +34,7 @@ Window
 
         StackLayout
         {
-            currentIndex: MaxScreen.stackId
+            currentIndex: ScreenServer.stackId
 
             WaitScreen
             {
@@ -51,7 +51,7 @@ Window
     MultiPointTouchArea
     {
         anchors.fill: parent
-        onTouchUpdated: (touchPoints) => MaxScreen.touchPointsUpdated(touchPoints);
+        onTouchUpdated: (touchPoints) => ScreenServer.touchPointsUpdated(touchPoints);
 
         focus: true
         Keys.onSpacePressed: mainWindow.toogleFullScreen()
