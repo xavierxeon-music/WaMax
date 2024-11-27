@@ -98,11 +98,12 @@ void ScreenServer::slotNewConnection()
 {
    socket = nextPendingConnection();
    connect(socket, &QTcpSocket::disconnected, this, &ScreenServer::slotSocketClosed);
+   connect(socket, &QTcpSocket::readyRead, this, &ScreenServer::slotSocketRead);
 
    stackId = 1;
    emit signalStackIdChanged();
 
-   QImage image(64, 64, QImage::Format_ARGB32);
+   QImage image(64, 64, QImage::Format_RGB32);
    image.fill(QColor(255, 255, 255));
    ImageDisplay::push(image);
 
@@ -117,18 +118,14 @@ void ScreenServer::slotSocketClosed()
    emit signalStackIdChanged();
 }
 
-void ScreenServer::slotSetDisplay(const QImage& image)
+void ScreenServer::slotSocketRead()
 {
-   stackId = 1;
-   emit signalStackIdChanged();
+   QImage image;
+
+   QDataStream stream(socket);
+   stream >> image;
 
    ImageDisplay::push(image);
-}
-
-void ScreenServer::slotResetDisplay()
-{
-   stackId = 0;
-   emit signalStackIdChanged();
 }
 
 void ScreenServer::slotChangeColor()

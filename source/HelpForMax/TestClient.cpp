@@ -54,7 +54,7 @@ void TestClient::sendData(const QString& patchPath)
       auto receiveFunction = std::bind(&TestClient::receiveData, this, socket);
       connect(socket, &QLocalSocket::readyRead, receiveFunction);
 
-      socket->connectToServer(HelpForMax::compileSockerName());
+      socket->connectToServer(HelpForMax::compileSocketName());
       socket->waitForConnected();
    }
 

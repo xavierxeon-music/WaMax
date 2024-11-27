@@ -29,8 +29,8 @@ Package::TabWidget::TabWidget(QWidget* parent)
 
    server = new QLocalServer(this);
    connect(server, &QLocalServer::newConnection, this, &TabWidget::slotNewConnection);
-   qDebug() << "Server @" << HelpForMax::compileSockerName();
-   server->listen(HelpForMax::compileSockerName());
+   qDebug() << "Server @" << HelpForMax::compileSocketName();
+   server->listen(HelpForMax::compileSocketName());
 }
 
 Package::TabWidget::~TabWidget()

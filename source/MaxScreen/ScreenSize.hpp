@@ -31,4 +31,14 @@ inline void ScreenSize::load(QDataStream& stream)
    qDebug() << width << height;
 }
 
+inline const int& ScreenSize::getWidth() const
+{
+   return width;
+}
+
+inline const int& ScreenSize::getHeight() const
+{
+   return height;
+}
+
 #endif // NOT ScreenSizeHPP

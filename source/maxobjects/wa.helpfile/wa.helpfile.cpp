@@ -12,12 +12,12 @@
 HelpFile::HelpFile(const atoms& args)
    : object<HelpFile>()
    , ui_operator::ui_operator(this, args)
+   , socket()
+   , currentPatch("")
    , paint{this, "paint", Max::Patcher::minBind(this, &HelpFile::paintFunction)}
    , dblclick(this, "mousedoubleclick", Max::Patcher::minBind(this, &HelpFile::mouseDoubleClickFunction))
    , setfile(this, "setfile", "set current patch file", Max::Patcher::minBind(this, &HelpFile::setFileFunction))
    , loopTimer(this, Max::Patcher::minBind(this, &HelpFile::timerFunction))
-   , socket()
-   , currentPatch("")
 {
    loopTimer.delay(10);
 }
@@ -97,11 +97,11 @@ atoms HelpFile::setFileFunction(const atoms& args, const int inlet)
 atoms HelpFile::timerFunction(const atoms& args, const int inlet)
 {
    if (QLocalSocket::UnconnectedState == socket.state())
-      socket.connectToServer(HelpForMax::compileSockerName());
+      socket.connectToServer(HelpForMax::compileSocketName());
 
    if (PatchInfo::State::Initial != currentPatch.state || PatchInfo::State::NotInPackage != currentPatch.state)
    {
-      auto readRead = [&]()
+      auto readyRead = [&]()
       {
          if (socket.state() != QLocalSocket::ConnectedState)
             return false;
@@ -115,7 +115,7 @@ atoms HelpFile::timerFunction(const atoms& args, const int inlet)
          return true;
       };
 
-      if (readRead())
+      if (readyRead())
          receiveData();
    }
 

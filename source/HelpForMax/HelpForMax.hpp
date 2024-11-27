@@ -16,7 +16,7 @@ HelpForMax::HelpForMax()
 {
 }
 
-QString HelpForMax::compileSockerName()
+QString HelpForMax::compileSocketName()
 {
    const QString socketPath = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
 
@@ -26,7 +26,7 @@ QString HelpForMax::compileSockerName()
 
 bool HelpForMax::isServerActive()
 {
-   const QString socketName = compileSockerName();
+   const QString socketName = compileSocketName();
    if (!QFile::exists(socketName))
       return false;
 

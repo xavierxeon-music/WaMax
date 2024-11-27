@@ -43,8 +43,7 @@ public:
 private slots:
    void slotNewConnection();
    void slotSocketClosed();
-   void slotSetDisplay(const QImage& image);
-   void slotResetDisplay();
+   void slotSocketRead();
    void slotChangeColor();
    void sendTouchPointUpdates();
 

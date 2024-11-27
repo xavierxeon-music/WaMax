@@ -9,7 +9,7 @@ public:
    inline HelpForMax();
 
 public:
-   inline static QString compileSockerName();
+   inline static QString compileSocketName();
    inline static bool isServerActive();
    inline static void startApplication();
 };
