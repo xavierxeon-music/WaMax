@@ -9,8 +9,7 @@
 #include <QQmlApplicationEngine>
 #include <QTimer>
 
-#include <Convertor.h>
-
+#include "Convertor.h"
 #include "ImageDisplay.h"
 
 ScreenServer::ScreenServer(QObject* parent)
@@ -132,6 +131,8 @@ void ScreenServer::slotSocketRead()
 
       imageBuffer = imageBuffer.mid(sizeof(qsizetype));
       imageSize = convertor.data;
+
+      //qDebug() << imageSize;
    }
 
    if (imageBuffer.size() >= imageSize)
@@ -141,7 +142,8 @@ void ScreenServer::slotSocketRead()
       imageSize = -1;
 
       QImage image = QImage::fromData(imageData);
-      ImageDisplay::push(image);
+      if (!image.isNull())
+         ImageDisplay::push(image);
    }
 }
 

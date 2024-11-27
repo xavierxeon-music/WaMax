@@ -19,6 +19,7 @@ public:
 
 public:
    MaxScreen(const atoms& args = {});
+   ~MaxScreen();
 
 public:
    template <typename matrix_type>
@@ -33,14 +34,15 @@ private:
    void receiveData();
 
 private:
-   QTcpSocket socket;
-   QString hostName;
+   QTcpSocket* socket;
    QImage buffer;
    mutex bufferMutex;
    ScreenSize screenSize;
    TouchPoint::Map tpMap;
 
    inlet<> input;
+   outlet<> output; // needs matrix output !
+   attribute<symbol> hostName;
    timer<timer_options::defer_delivery> loopTimer;
 };
 

@@ -39,7 +39,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::slotTryConnect()
 {
-   socket->connectToHost(local ? "127.0.0.1" : "192.168.1.106", 6667);
+   socket->connectToHost(local ? "127.0.0.1" : "192.168.1.109", 6667);
 }
 
 void MainWindow::slotStateChanged(QAbstractSocket::SocketState socketState)

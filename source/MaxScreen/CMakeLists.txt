@@ -14,7 +14,6 @@ find_package(Qt6 REQUIRED COMPONENTS Gui Svg Network Qml Quick)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-find_package(WaTools REQUIRED)
 
 # C++
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})

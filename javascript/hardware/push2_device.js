@@ -9,6 +9,10 @@ setinletassist(0, "lookup");
 outlets = 1;
 setoutletassist(0, "id");
 
+include("json.js")
+include("color.js")
+include("helper.js")
+
 include("_push2.js");
 var device = new Push2Device();
 
