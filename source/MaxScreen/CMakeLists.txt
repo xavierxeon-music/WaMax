@@ -10,7 +10,7 @@ endif()
 
 message(STATUS "CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
 
-find_package(Qt6 REQUIRED COMPONENTS Gui Svg Network Qml Quick)
+find_package(Qt6 REQUIRED COMPONENTS Widgets Svg Network QuickWidgets)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
@@ -56,6 +56,6 @@ file(GLOB QML_FILES
 )
 
 qt_add_qml_module(${PROJECT_NAME} URI ScreenServer VERSION 1.0 SOURCES ${QML_FILES})
-#target_link_libraries(${PROJECT_NAME}Qml PRIVATE Qt6::Gui Qt6::Quick)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE  Qt6::Gui Qt6::Svg Qt6::Network Qt6::Qml Qt6::Quick)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE  Qt6::Widgets Qt6::Svg Qt6::Network Qt6::QuickWidgets)

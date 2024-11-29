@@ -4,15 +4,15 @@ import QtQuick.Layouts
 
 import ScreenServer
 
-Window
+Item
 {
     id: mainWindow
 
     visible: true
-    visibility: "FullScreen"
 
     function toogleFullScreen(){
 
+        return;
         if(5 == mainWindow.visibility)
             mainWindow.visibility = "Maximized";
         else
