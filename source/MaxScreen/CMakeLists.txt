@@ -42,6 +42,9 @@ if(APPLE)
    if(CMAKE_BUILD_TYPE STREQUAL "Release")
       set(CMAKE_RUNTIME_OUTPUT_DIRECTORY $ENV{HOME}/Applications)
    endif()
+elseif(WIN32)
+   set(APP_ICON "${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_NAME}.rc")
+   target_sources(${PROJECT_NAME} PRIVATE ${APP_ICON})
 endif()
 
 # QML
