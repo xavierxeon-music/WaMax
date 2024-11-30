@@ -35,7 +35,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 
 if(APPLE)
    set(MACOSX_BUNDLE_ICON_FILE ${PROJECT_NAME}Icon.icns)
-   set(APP_ICON ${CMAKE_CURRENT_SOURCE_DIR}/Icons/${PROJECT_NAME}Icon.icns)
+   set(APP_ICON ${CMAKE_CURRENT_SOURCE_DIR}/Icons/${PROJECT_NAME}.icns)
    set_source_files_properties(${APP_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
    target_sources(${PROJECT_NAME} PRIVATE ${APP_ICON})
 
