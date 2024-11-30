@@ -59,3 +59,5 @@ qt_add_qml_module(${PROJECT_NAME} URI ScreenServer VERSION 1.0 SOURCES ${QML_FIL
 
 
 target_link_libraries(${PROJECT_NAME} PRIVATE  Qt6::Widgets Qt6::Svg Qt6::Network Qt6::QuickWidgets)
+
+include(${CMAKE_CURRENT_LIST_DIR}/Test/build.cmake)
