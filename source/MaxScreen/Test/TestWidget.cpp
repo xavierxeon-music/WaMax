@@ -3,8 +3,6 @@
 #include <QFileDialog>
 #include <QImage>
 
-#include "TestClient.h"
-
 Test::Widget::Widget(QWidget* parent)
    : QWidget(parent)
    , client(nullptr)
@@ -12,10 +10,13 @@ Test::Widget::Widget(QWidget* parent)
    setupUi(this);
 
    client = new Client(this);
+   connect(client, &Client::signalSizeChanged, this, &Widget::slotSizeChanged);
 
    connect(connectButton, &QAbstractButton::clicked, this, &Widget::slotConnectToServer);
    connect(imageSelectButton, &QAbstractButton::clicked, this, &Widget::slotSelectImage);
    connect(imageSendButton, &QAbstractButton::clicked, this, &Widget::slotSendImage);
+
+   imageInfo->setText("/Users/waspe/Library/CloudStorage/Dropbox/Pictures/Space/Andromeda_Galaxy_(with_h-alpha).jpg");
 }
 
 void Test::Widget::slotConnectToServer()
@@ -43,4 +44,10 @@ void Test::Widget::slotSendImage()
       return;
 
    client->sendImage(image);
+}
+
+void Test::Widget::slotSizeChanged(const ScreenSize& screenSize)
+{
+   widthSpin->setValue(screenSize.getWidth());
+   heightSpin->setValue(screenSize.getHeight());
 }

@@ -25,6 +25,7 @@ MainWindow::MainWindow()
    view = new QQuickWidget(this);
    view->setSizePolicy(QSizePolicy::Policy::MinimumExpanding, QSizePolicy::Policy::MinimumExpanding);
    view->setResizeMode(QQuickWidget::ResizeMode::SizeRootObjectToView);
+   //view->engine()->singletonInstance();
    view->setSource(QUrl("qrc:/MainWindow.qml"));
 
    setCentralWidget(view);

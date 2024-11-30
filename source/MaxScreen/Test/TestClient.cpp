@@ -11,6 +11,9 @@ using MaxScreenServer = LocalServer<"MaxScreen">;
 Test::Client::Client(QObject* parent)
    : QObject(parent)
    , socket(nullptr)
+   , screenSize()
+   , tpMap()
+   , imageMemory(MaxScreenServer::tagName())
 {
    socket = new QLocalSocket(this);
    connect(socket, &QLocalSocket::readyRead, this, &Client::slotReceiveData);
@@ -46,4 +49,20 @@ void Test::Client::sendImage(const QImage& image)
 
 void Test::Client::slotReceiveData()
 {
+   QDataStream stream(socket);
+
+   char marker;
+   stream >> marker;
+
+   if ('t' == marker)
+   {
+      tpMap.load(stream);
+   }
+   else if ('s' == marker)
+   {
+      screenSize.load(stream);
+      emit signalSizeChanged(screenSize);
+   }
+
+   socket->readAll();
 }

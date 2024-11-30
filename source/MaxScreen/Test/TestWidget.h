@@ -4,10 +4,10 @@
 #include "ui_TestWidget.h"
 #include <QWidget>
 
+#include "TestClient.h"
+
 namespace Test
 {
-   class Client;
-
    class Widget : public QWidget, private Ui::Widget
    {
       Q_OBJECT
@@ -19,6 +19,7 @@ namespace Test
       void slotConnectToServer();
       void slotSelectImage();
       void slotSendImage();
+      void slotSizeChanged(const ScreenSize& screenSize);
 
    private:
       Client* client;
