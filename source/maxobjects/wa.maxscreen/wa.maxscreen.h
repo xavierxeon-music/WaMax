@@ -42,6 +42,7 @@ private:
 
    inlet<> input;
    outlet<> output; // needs matrix output !
+
    attribute<symbol> hostName;
    timer<timer_options::defer_delivery> loopTimer;
 };

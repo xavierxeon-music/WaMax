@@ -13,6 +13,9 @@ namespace Coord
 
    public:
       CartOp(const atoms& args = {});
+
+   private:
+      inlet<> inputMatrix;
    };
 } // namespace Coord
 

@@ -2,6 +2,7 @@
 
 Coord::CartOp::CartOp(const atoms& args)
    : object<CartOp>()
+   , inputMatrix{this, "matrix", "jit_matrix"}
 {
 }
 

@@ -6,6 +6,8 @@
 
 #include "Convertor.h"
 
+using namespace c74;
+
 MaxScreen::MaxScreen(const atoms& args)
    : object<MaxScreen>()
    , matrix_operator<>(false)
