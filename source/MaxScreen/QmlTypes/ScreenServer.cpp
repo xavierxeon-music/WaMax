@@ -1,16 +1,16 @@
 #include "ScreenServer.h"
 
-#include <QGuiApplication>
+#include <QApplication>
 #include <QHostInfo>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QNetworkInterface>
-#include <QQmlApplicationEngine>
 #include <QTimer>
 
 #include "Convertor.h"
 #include "ImageDisplay.h"
+#include "MainWindow.h"
 
 ScreenServer::ScreenServer(QObject* parent)
    : QTcpServer(parent)
@@ -95,6 +95,11 @@ void ScreenServer::touchPointsUpdated(const QList<QObject*>& touchPoints)
    {
       tpMap.update(touchPoint);
    }
+}
+
+void ScreenServer::toogleFullScreen()
+{
+   emit signalToolgeFullScreen();
 }
 
 void ScreenServer::slotNewConnection()

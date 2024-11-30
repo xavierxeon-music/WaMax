@@ -8,17 +8,6 @@ Item
 {
     id: mainWindow
 
-    visible: true
-
-    function toogleFullScreen(){
-
-        return;
-        if(5 == mainWindow.visibility)
-            mainWindow.visibility = "Maximized";
-        else
-            mainWindow.visibility = "FullScreen";
-    }
-
     function sendWindowSize(){
 
         ScreenServer.setWindowSize(mainWindow.width, mainWindow.height)
@@ -54,7 +43,7 @@ Item
         onTouchUpdated: (touchPoints) => ScreenServer.touchPointsUpdated(touchPoints);
 
         focus: true
-        Keys.onSpacePressed: mainWindow.toogleFullScreen()
+        Keys.onSpacePressed: ScreenServer.toogleFullScreen()
     }
 
     Component.onCompleted:

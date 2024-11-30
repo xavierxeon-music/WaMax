@@ -28,6 +28,7 @@ public:
 signals:
    void signalStackIdChanged();
    void signalColorChanged();
+   void signalToolgeFullScreen();
 
 public:
    int getStackId() const;
@@ -39,6 +40,7 @@ public:
    Q_INVOKABLE quint32 getPort() const;
    Q_INVOKABLE void setWindowSize(int width, int height);
    Q_INVOKABLE void touchPointsUpdated(const QList<QObject*>& touchPoints);
+   Q_INVOKABLE void toogleFullScreen();
 
 private slots:
    void slotNewConnection();
