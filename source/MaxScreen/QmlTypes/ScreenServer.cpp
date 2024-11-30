@@ -8,10 +8,13 @@
 #include <QNetworkInterface>
 #include <QTimer>
 
-#include "Convertor.h"
+#include <Convertor.h>
+#include <LocalServer.h>
+
+using MaxScreenServer = LocalServer<"MaxScreen">;
 
 ScreenServer::ScreenServer(QObject* parent)
-   : QTcpServer(parent)
+   : QLocalServer(parent)
    , socket(nullptr)
    , stackId(0)
    , rainbow(300)
@@ -29,8 +32,10 @@ ScreenServer::ScreenServer(QObject* parent)
    connect(updateTimer, &QTimer::timeout, this, &ScreenServer::sendTouchPointUpdates);
    updateTimer->start(100);
 
-   connect(this, &QTcpServer::newConnection, this, &ScreenServer::slotNewConnection);
-   listen(QHostAddress::Any, getPort());
+   connect(this, &QLocalServer::newConnection, this, &ScreenServer::slotNewConnection);
+   const QString socketName = MaxScreenServer::compileSocketName();
+   qDebug() << "Server @" << socketName;
+   listen(socketName);
 }
 
 int ScreenServer::getStackId() const
@@ -41,44 +46,6 @@ int ScreenServer::getStackId() const
 QColor ScreenServer::getBgColor() const
 {
    return Rainbow::getColor().darker(400);
-}
-
-QString ScreenServer::getHostName() const
-{
-   const QString host = QHostInfo::localHostName();
-   if ("localhost" != host)
-   {
-      const QString domain = QHostInfo::localDomainName();
-      if (!domain.isEmpty())
-         return host + domain;
-
-      if (!host.endsWith(".local"))
-         return host + ".local";
-
-      return host;
-   }
-
-   const QList<QHostAddress> addresses = QNetworkInterface::allAddresses();
-   for (const QHostAddress& address : addresses)
-   {
-      if (address.isLoopback())
-         continue;
-
-      if (address.protocol() != QAbstractSocket::IPv4Protocol)
-         continue;
-
-      if (!address.isGlobal())
-         continue;
-
-      return address.toString();
-   }
-
-   return host;
-}
-
-quint32 ScreenServer::getPort() const
-{
-   return 6667;
 }
 
 void ScreenServer::setWindowSize(int width, int height)
@@ -109,8 +76,8 @@ void ScreenServer::setImageDisplay(QObject* displayObject)
 void ScreenServer::slotNewConnection()
 {
    socket = nextPendingConnection();
-   connect(socket, &QTcpSocket::disconnected, this, &ScreenServer::slotSocketClosed);
-   connect(socket, &QTcpSocket::readyRead, this, &ScreenServer::slotSocketRead);
+   connect(socket, &QLocalSocket::disconnected, this, &ScreenServer::slotSocketClosed);
+   connect(socket, &QLocalSocket::readyRead, this, &ScreenServer::slotSocketRead);
 
    stackId = 1;
    emit signalStackIdChanged();

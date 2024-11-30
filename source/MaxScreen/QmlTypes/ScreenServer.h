@@ -1,12 +1,12 @@
 #ifndef ScreenServerH
 #define ScreenServerH
 
-#include <QTcpServer>
+#include <QLocalServer>
 
 #include <QImage>
+#include <QLocalSocket>
 #include <QPointer>
 #include <QQmlEngine>
-#include <QTcpSocket>
 #include <QVector2D>
 
 #include "ImageDisplay.h"
@@ -14,7 +14,7 @@
 #include "ScreenSize.h"
 #include "TouchPoint.h"
 
-class ScreenServer : public QTcpServer
+class ScreenServer : public QLocalServer
 {
    Q_OBJECT
    QML_NAMED_ELEMENT(ScreenServer)
@@ -37,8 +37,6 @@ public:
    int getScreenHeight() const;
    void setScreenHeight(int value);
 
-   Q_INVOKABLE QString getHostName() const;
-   Q_INVOKABLE quint32 getPort() const;
    Q_INVOKABLE void setWindowSize(int width, int height);
    Q_INVOKABLE void touchPointsUpdated(const QList<QObject*>& touchPoints);
    Q_INVOKABLE void toogleFullScreen();
@@ -55,7 +53,7 @@ private:
    void sendWindowSize();
 
 private:
-   QPointer<QTcpSocket> socket;
+   QPointer<QLocalSocket> socket;
    int stackId;
    Rainbow rainbow;
    ScreenSize screenSize;

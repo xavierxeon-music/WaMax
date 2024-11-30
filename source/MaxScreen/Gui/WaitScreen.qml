@@ -33,43 +33,12 @@ Rectangle
 
         RowLayout
         {
+
             GridLayout
             {
                 columns: 2
 
-                // row 0
-                Text
-                {
-                    Layout.leftMargin:  50
-
-                    text: "IP:"
-                    font.pointSize: 24
-                    color: "#ffffff"
-                }
-                Text
-                {
-                    text: ScreenServer.getHostName()
-                    font.pointSize: 24
-                    color: "#ffffff"
-                }
-
-                // row 2
-                Text
-                {
-                    Layout.leftMargin:  50
-
-                    text: "port:"
-                    font.pointSize: 24
-                    color: "#ffffff"
-                }
-                Text
-                {
-                    text: ScreenServer.getPort()
-                    font.pointSize: 24
-                    color: "#ffffff"
-                }
-
-                // row 3
+                // row 1
                 Text
                 {
                     Layout.leftMargin:  50
@@ -88,7 +57,7 @@ Rectangle
                     color: "#ffffff"
                 }
 
-                // row 4
+                // row 2
                 Text
                 {
                     Layout.leftMargin:  50

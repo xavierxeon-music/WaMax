@@ -13,10 +13,12 @@ message(STATUS "CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
 find_package(Qt6 REQUIRED COMPONENTS Widgets Svg Network QuickWidgets)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
 
 
 # C++
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+find_package(WaTools REQUIRED)
 
 file(GLOB SOURCE_FILES
    ${CMAKE_CURRENT_SOURCE_DIR}/*.h
