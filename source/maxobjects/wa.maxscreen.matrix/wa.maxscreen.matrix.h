@@ -1,5 +1,5 @@
-#ifndef MaxScreenH
-#define MaxScreenH
+#ifndef MaxScreenMatrixH
+#define MaxScreenMatrixH
 
 #include "c74_min.h"
 using namespace c74::min;
@@ -12,14 +12,14 @@ using namespace c74::min;
 #include "ScreenSize.h"
 #include "TouchPoint.h"
 
-class MaxScreen : public object<MaxScreen>, public matrix_operator<>
+class MaxScreenMatrix : public object<MaxScreenMatrix>, public matrix_operator<>
 {
 public:
    MIN_DESCRIPTION{"description"};
 
 public:
-   MaxScreen(const atoms& args = {});
-   ~MaxScreen();
+   MaxScreenMatrix(const atoms& args = {});
+   ~MaxScreenMatrix();
 
 public:
    template <typename matrix_type>
@@ -47,4 +47,4 @@ private:
    timer<timer_options::defer_delivery> loopTimer;
 };
 
-#endif // MaxScreenH
+#endif // MaxScreenMatrixH

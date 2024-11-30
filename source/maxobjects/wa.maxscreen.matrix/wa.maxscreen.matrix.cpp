@@ -1,4 +1,4 @@
-#include "wa.maxscreen.h"
+#include "wa.maxscreen.matrix.h"
 
 #include <QBuffer>
 
@@ -8,8 +8,8 @@
 
 using namespace c74;
 
-MaxScreen::MaxScreen(const atoms& args)
-   : object<MaxScreen>()
+MaxScreenMatrix::MaxScreenMatrix(const atoms& args)
+   : object<MaxScreenMatrix>()
    , matrix_operator<>(false)
    , socket(nullptr)
    , buffer(512, 512, QImage::Format_RGB32)
@@ -19,14 +19,14 @@ MaxScreen::MaxScreen(const atoms& args)
    , input{this, "(matrix) Input", "matrix"}
    , output{this, "(matrix) output", "matrix"}
    , hostName{this, "hostname", "127.0.0.1"}
-   , loopTimer(this, Max::Patcher::minBind(this, &MaxScreen::timerFunction))
+   , loopTimer(this, Max::Patcher::minBind(this, &MaxScreenMatrix::timerFunction))
 {
    socket = new QTcpSocket(nullptr);
    // args not working in matrix operator
    loopTimer.delay(10);
 }
 
-MaxScreen::~MaxScreen()
+MaxScreenMatrix::~MaxScreenMatrix()
 {
    socket->close();
 
@@ -35,12 +35,12 @@ MaxScreen::~MaxScreen()
 }
 
 template <typename matrix_type>
-matrix_type MaxScreen::calc_cell(matrix_type input, const matrix_info& info, matrix_coord& position)
+matrix_type MaxScreenMatrix::calc_cell(matrix_type input, const matrix_info& info, matrix_coord& position)
 {
    return matrix_type{};
 }
 
-pixel MaxScreen::calc_cell(pixel input, const matrix_info& info, matrix_coord& position)
+pixel MaxScreenMatrix::calc_cell(pixel input, const matrix_info& info, matrix_coord& position)
 {
    const int x = position.x();
    const int y = position.y();
@@ -57,7 +57,7 @@ pixel MaxScreen::calc_cell(pixel input, const matrix_info& info, matrix_coord& p
    return pixel{};
 }
 
-atoms MaxScreen::timerFunction(const atoms& args, const int inlet)
+atoms MaxScreenMatrix::timerFunction(const atoms& args, const int inlet)
 {
    if (QTcpSocket::UnconnectedState == socket->state())
    {
@@ -95,7 +95,7 @@ atoms MaxScreen::timerFunction(const atoms& args, const int inlet)
    return {};
 }
 
-void MaxScreen::sendData()
+void MaxScreenMatrix::sendData()
 {
    bufferMutex.lock();
    QByteArray block;
@@ -115,7 +115,7 @@ void MaxScreen::sendData()
    socket->waitForBytesWritten(10);
 }
 
-void MaxScreen::receiveData()
+void MaxScreenMatrix::receiveData()
 {
    QDataStream stream(socket);
 
@@ -136,4 +136,4 @@ void MaxScreen::receiveData()
    socket->readAll();
 }
 
-MIN_EXTERNAL(MaxScreen);
+MIN_EXTERNAL(MaxScreenMatrix);
