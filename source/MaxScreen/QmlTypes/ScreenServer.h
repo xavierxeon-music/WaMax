@@ -9,6 +9,7 @@
 #include <QTcpSocket>
 #include <QVector2D>
 
+#include "ImageDisplay.h"
 #include "Rainbow.h"
 #include "ScreenSize.h"
 #include "TouchPoint.h"
@@ -41,6 +42,7 @@ public:
    Q_INVOKABLE void setWindowSize(int width, int height);
    Q_INVOKABLE void touchPointsUpdated(const QList<QObject*>& touchPoints);
    Q_INVOKABLE void toogleFullScreen();
+   Q_INVOKABLE void setImageDisplay(QObject* displayObject);
 
 private slots:
    void slotNewConnection();
@@ -58,6 +60,7 @@ private:
    Rainbow rainbow;
    ScreenSize screenSize;
    TouchPoint::Map tpMap;
+   ImageDisplay* imageDisplay;
    QByteArray imageBuffer;
    qsizetype imageSize;
 };

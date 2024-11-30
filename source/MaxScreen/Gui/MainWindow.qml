@@ -32,7 +32,7 @@ Item
 
             ImageDisplay
             {
-
+                id: imageDisplay
             }
         }
     }
@@ -49,5 +49,6 @@ Item
     Component.onCompleted:
     {
         mainWindow.sendWindowSize()
+        ScreenServer.setImageDisplay(imageDisplay)
     }
 }

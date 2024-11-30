@@ -5,25 +5,15 @@
 
 #include "Rainbow.h"
 
-ImageDisplay* ImageDisplay::me = nullptr;
+// see https://doc.qt.io/qt-6/qtcore-ipc-sharedmemory-example.html
 
 ImageDisplay::ImageDisplay(QQuickItem* parent)
    : QQuickPaintedItem(parent)
 {
-   me = this;
 }
 
 ImageDisplay::~ImageDisplay()
 {
-   me = nullptr;
-}
-
-void ImageDisplay::push(const QImage& image)
-{
-   if (!me)
-      return;
-
-   me->setBuffer(image);
 }
 
 void ImageDisplay::setBuffer(const QImage& image)
@@ -39,8 +29,8 @@ void ImageDisplay::paint(QPainter* painter)
    const QColor bgColor = Rainbow::getColor().darker(300);
    painter->fillRect(QRect(0, 0, width(), height()), bgColor);
 
-   int x = (buffer.width() < width()) ? 0.5 * (width() - buffer.width()) : 0;
-   int y = (buffer.height() < height()) ? 0.5 * (height() - buffer.height()) : 0;
+   int xOffset = (buffer.width() < width()) ? 0.5 * (width() - buffer.width()) : 0;
+   int yOffset = (buffer.height() < height()) ? 0.5 * (height() - buffer.height()) : 0;
 
-   painter->drawImage(QPoint(x, y), buffer);
+   painter->drawImage(QPoint(xOffset, yOffset), buffer);
 }

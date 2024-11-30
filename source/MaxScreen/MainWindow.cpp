@@ -1,23 +1,29 @@
 #include "MainWindow.h"
 
 #include <QApplication>
+#include <QDockWidget>
+#include <QMenuBar>
 #include <QQmlContext>
 #include <QQmlEngine>
-#include <QQuickWidget>
+#include <QToolBar>
 
 #include "ScreenServer.h"
 
+#include "ImageDisplay.h"
+
 MainWindow::MainWindow()
    : QMainWindow(nullptr)
+   , view(nullptr)
 {
 #ifdef Q_OS_WIN
    // anything else will make QQUickWidget crash
    QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGL);
 #endif
 
-   addToolBar("Test");
+   QToolBar* testBar = addToolBar("Test");
+   testBar->addAction("Test Action");
 
-   QQuickWidget* view = new QQuickWidget(this);
+   view = new QQuickWidget(this);
    view->setSizePolicy(QSizePolicy::Policy::MinimumExpanding, QSizePolicy::Policy::MinimumExpanding);
    view->setResizeMode(QQuickWidget::ResizeMode::SizeRootObjectToView);
    view->setSource(QUrl("qrc:/MainWindow.qml"));
@@ -34,6 +40,16 @@ void MainWindow::slotToggleFullScreen()
       showMaximized();
    else
       showFullScreen();
+
+   const QList<QToolBar*> toolBarList = findChildren<QToolBar*>();
+   for (QToolBar* toolBar : toolBarList)
+      toolBar->setVisible(!isFullScreen());
+
+   menuBar()->setVisible(!isFullScreen());
+
+   const QList<QDockWidget*> dockList = findChildren<QDockWidget*>();
+   for (QDockWidget* dock : dockList)
+      dock->setVisible(!isFullScreen());
 }
 
 // main function
@@ -44,7 +60,7 @@ int main(int argc, char** argv)
 
    MainWindow mw;
    mw.showMaximized();
-   mw.showFullScreen();
+   mw.slotToggleFullScreen();
 
    return app.exec();
 }

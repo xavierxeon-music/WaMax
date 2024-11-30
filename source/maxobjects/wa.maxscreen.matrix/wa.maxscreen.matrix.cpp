@@ -8,6 +8,8 @@
 
 using namespace c74;
 
+// see https://doc.qt.io/qt-6/qtcore-ipc-sharedmemory-example.html
+
 MaxScreenMatrix::MaxScreenMatrix(const atoms& args)
    : object<MaxScreenMatrix>()
    , matrix_operator<>(false)

@@ -16,14 +16,12 @@ public:
    ~ImageDisplay();
 
 public:
-   static void push(const QImage& image);
+   void setBuffer(const QImage& image);
 
 private:
-   void setBuffer(const QImage& image);
    void paint(QPainter* painter) override;
 
 private:
-   static ImageDisplay* me;
    QImage buffer;
 };
 

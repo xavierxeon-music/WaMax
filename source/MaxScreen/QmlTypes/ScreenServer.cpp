@@ -9,8 +9,6 @@
 #include <QTimer>
 
 #include "Convertor.h"
-#include "ImageDisplay.h"
-#include "MainWindow.h"
 
 ScreenServer::ScreenServer(QObject* parent)
    : QTcpServer(parent)
@@ -19,6 +17,7 @@ ScreenServer::ScreenServer(QObject* parent)
    , rainbow(300)
    , screenSize()
    , tpMap()
+   , imageDisplay(nullptr)
    , imageBuffer()
    , imageSize(-1)
 {
@@ -102,6 +101,11 @@ void ScreenServer::toogleFullScreen()
    emit signalToolgeFullScreen();
 }
 
+void ScreenServer::setImageDisplay(QObject* displayObject)
+{
+   imageDisplay = qobject_cast<ImageDisplay*>(displayObject);
+}
+
 void ScreenServer::slotNewConnection()
 {
    socket = nextPendingConnection();
@@ -113,7 +117,8 @@ void ScreenServer::slotNewConnection()
 
    QImage image(64, 64, QImage::Format_RGB32);
    image.fill(QColor(255, 255, 255));
-   ImageDisplay::push(image);
+   if (imageDisplay)
+      imageDisplay->setBuffer(image);
 
    sendWindowSize();
 }
@@ -147,8 +152,8 @@ void ScreenServer::slotSocketRead()
       imageSize = -1;
 
       QImage image = QImage::fromData(imageData);
-      if (!image.isNull())
-         ImageDisplay::push(image);
+      if (imageDisplay && !image.isNull())
+         imageDisplay->setBuffer(image);
    }
 }
 

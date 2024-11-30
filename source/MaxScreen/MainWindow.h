@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+#include <QQuickWidget>
+
 class MainWindow : public QMainWindow
 {
    Q_OBJECT
@@ -10,8 +12,11 @@ class MainWindow : public QMainWindow
 public:
    MainWindow();
 
-private slots:
+public slots:
    void slotToggleFullScreen();
+
+private:
+   QQuickWidget* view;
 };
 
 #endif // NOT MainWindowH
