@@ -6,8 +6,9 @@
 #include <QLocalSocket>
 
 #include "Data.h"
+#include "SharedImage.h"
 
-class Client : public QObject, private Data
+class Client : public QObject, public Data
 {
    Q_OBJECT
 
@@ -19,13 +20,15 @@ signals:
 
 public:
    void connectToServer();
-   void sendImage(const QImage& image);
+   void sendImage(const QString& fileName);
 
 private slots:
    void slotReceiveData();
 
 private:
    QLocalSocket* socket;
+   SharedImage memoryPublisher;
+   QImage image;
 };
 
 #ifndef ClientHPP

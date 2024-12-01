@@ -16,7 +16,7 @@ Test::Widget::Widget(QWidget* parent)
    connect(imageSelectButton, &QAbstractButton::clicked, this, &Widget::slotSelectImage);
    connect(imageSendButton, &QAbstractButton::clicked, this, &Widget::slotSendImage);
 
-   imageInfo->setText("/Users/waspe/Dropbox/Pictures/Space/Andromeda_Galaxy_(with_h-alpha).jpg");
+   imageInfo->setText("/Users/waspe/Dropbox/Pictures/Danger.png");
 }
 
 void Test::Widget::slotConnectToServer()
@@ -39,14 +39,7 @@ void Test::Widget::slotSendImage()
    if (fileName.isEmpty())
       return;
 
-   QImage image(fileName);
-   if (image.isNull())
-   {
-      qDebug() << "image @ " << fileName << "is null";
-      return;
-   }
-
-   client->sendImage(image);
+   client->sendImage(fileName);
 }
 
 void Test::Widget::slotSizeChanged(const Size& screenSize)

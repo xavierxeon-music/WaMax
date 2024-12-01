@@ -13,7 +13,7 @@
 #include "ImageDisplay.h"
 #include "Rainbow.h"
 
-class Server : public QLocalServer, private Data
+class Server : public QLocalServer, public Data
 {
    Q_OBJECT
 
@@ -54,8 +54,6 @@ private:
    int stackId;
    Rainbow rainbow;
    ImageDisplay* imageDisplay;
-   QByteArray imageBuffer;
-   qsizetype imageSize;
 };
 
 #endif // NOT ServerH

@@ -11,6 +11,11 @@ inline Size::Size()
 {
 }
 
+inline bool Size::isValid() const
+{
+   return (0 != width && 0 != height);
+}
+
 inline void Size::update(const int _width, const int _height)
 {
    width = _width;
@@ -39,6 +44,11 @@ inline const int& Size::getWidth() const
 inline const int& Size::getHeight() const
 {
    return height;
+}
+
+inline Size::operator QSize() const
+{
+   return QSize(width, height);
 }
 
 #endif // NOT SizeHPP

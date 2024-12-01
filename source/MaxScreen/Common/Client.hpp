@@ -12,6 +12,8 @@ inline Client::Client(QObject* parent)
    : QObject(parent)
    , Data()
    , socket(nullptr)
+   , memoryPublisher(true)
+   , image()
 {
    socket = new QLocalSocket(this);
    connect(socket, &QLocalSocket::readyRead, this, &Client::slotReceiveData);
@@ -29,20 +31,28 @@ inline void Client::connectToServer()
       qDebug() << socket->state() << socket->errorString();
 }
 
-inline void Client::sendImage(const QImage& image)
+inline void Client::sendImage(const QString& fileName)
 {
-   QByteArray block;
+   QImage localImage(fileName);
+   if (fileName.isNull())
+      return;
+
+   localImage = localImage.scaled(getScreenSize(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+
+   int xOffset = (localImage.width() < image.width()) ? 0.5 * (image.width() - localImage.width()) : 0;
+   int yOffset = (localImage.height() < image.height()) ? 0.5 * (image.height() - localImage.height()) : 0;
+
+   for (int x = 0; x < localImage.width(); x++)
    {
-      QBuffer writer(&block);
-      image.save(&writer, "PNG");
+      for (int y = 0; y < localImage.height(); y++)
+      {
+         const QColor color = localImage.pixelColor(x, y);
+         image.setPixelColor(x + xOffset, y, color);
+      }
    }
 
-   Convertor<qsizetype> convertor;
-   convertor.data = block.size();
-   //cout << "image size " << convertor.data << endl;
-
-   socket->write(convertor.bytes, sizeof(qsizetype));
-   socket->write(block);
+   static const QByteArray marker("i");
+   socket->write(marker);
 }
 
 inline void Client::slotReceiveData()
@@ -59,6 +69,9 @@ inline void Client::slotReceiveData()
    else if ('s' == marker)
    {
       screenSize.load(stream);
+      image = memoryPublisher.createNew(screenSize.getWidth(), screenSize.getHeight());
+      image.fill(QColor(0, 0, 0, 0));
+
       emit signalSizeChanged(screenSize);
    }
 
