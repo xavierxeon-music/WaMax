@@ -1,7 +1,6 @@
 #include "ImageDisplay.h"
 
 #include <QPainter>
-#include <QTimer>
 
 #include "Rainbow.h"
 
@@ -9,19 +8,20 @@ ImageDisplay::ImageDisplay(QQuickItem* parent)
    : QQuickPaintedItem(parent)
    , subscriberImage(false)
 {
-   QTimer* updateTimer = new QTimer(this);
-
-   auto updateFunction = [this]()
-   {
-      this->update();
-   };
-   connect(updateTimer, &QTimer::timeout, updateFunction);
-
-   updateTimer->start(100);
 }
 
 ImageDisplay::~ImageDisplay()
 {
+}
+
+void ImageDisplay::detach()
+{
+}
+
+void ImageDisplay::attach()
+{
+   subscriberImage.verify();
+   update();
 }
 
 void ImageDisplay::paint(QPainter* painter)
@@ -29,7 +29,6 @@ void ImageDisplay::paint(QPainter* painter)
    const QColor bgColor = Rainbow::getColor().darker(300);
    painter->fillRect(QRect(0, 0, width(), height()), bgColor);
 
-   subscriberImage.verify();
    const int imageWidth = subscriberImage.getSize().width();
    const int imageHeight = subscriberImage.getSize().height();
 

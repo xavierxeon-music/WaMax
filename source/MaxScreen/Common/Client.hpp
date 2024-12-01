@@ -12,7 +12,7 @@ inline Client::Client(QObject* parent)
    : QObject(parent)
    , Data()
    , socket(nullptr)
-   , sharedImage(true)
+   , publisherImage(true)
 {
    socket = new QLocalSocket(this);
    connect(socket, &QLocalSocket::readyRead, this, &Client::slotReceiveData);
@@ -30,20 +30,12 @@ inline void Client::connectToServer()
       qDebug() << socket->state() << socket->errorString();
 }
 
-inline void Client::sendImage(const QImage& image)
+inline void Client::sendImage(const QString& fileName)
 {
-   QByteArray block;
-   {
-      QBuffer writer(&block);
-      image.save(&writer, "PNG");
-   }
+   publisherImage.createFromFile(fileName, getScreenSize());
 
-   Convertor<qsizetype> convertor;
-   convertor.data = block.size();
-   //cout << "image size " << convertor.data << endl;
-
-   socket->write(convertor.bytes, sizeof(qsizetype));
-   socket->write(block);
+   static const QByteArray marker("i");
+   socket->write(marker);
 }
 
 inline void Client::slotReceiveData()

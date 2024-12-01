@@ -20,14 +20,14 @@ signals:
 
 public:
    void connectToServer();
-   void sendImage(const QImage& image);
+   void sendImage(const QString& fileName);
 
 private slots:
    void slotReceiveData();
 
 private:
    QLocalSocket* socket;
-   SharedImage sharedImage;
+   SharedImage publisherImage;
 };
 
 #ifndef ClientHPP

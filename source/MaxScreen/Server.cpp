@@ -92,6 +92,10 @@ void Server::slotSocketClosed()
 
 void Server::slotSocketRead()
 {
+   socket->readAll();
+
+   if (imageDisplay)
+      imageDisplay->attach();
 }
 
 void Server::slotChangeColor()
@@ -116,6 +120,9 @@ void Server::sendWindowSize()
 {
    if (socket.isNull())
       return;
+
+   if (imageDisplay)
+      imageDisplay->detach();
 
    QDataStream stream(socket);
    screenSize.dump(stream);

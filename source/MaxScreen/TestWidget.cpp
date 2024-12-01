@@ -6,7 +6,6 @@
 Test::Widget::Widget(QWidget* parent)
    : QWidget(parent)
    , client(nullptr)
-   , publisherImage(true)
 {
    setupUi(this);
 
@@ -40,7 +39,7 @@ void Test::Widget::slotSendImage()
    if (fileName.isEmpty())
       return;
 
-   publisherImage.createFromFile(fileName, client->getScreenSize());
+   client->sendImage(fileName);
 }
 
 void Test::Widget::slotSizeChanged(const Size& screenSize)

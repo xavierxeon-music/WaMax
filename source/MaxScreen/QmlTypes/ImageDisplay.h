@@ -15,6 +15,10 @@ public:
    ImageDisplay(QQuickItem* parent = nullptr);
    ~ImageDisplay();
 
+public:
+   void detach();
+   void attach();
+
 private:
    void paint(QPainter* painter) override;
 
