@@ -8,7 +8,7 @@
 #include "Data.h"
 #include "SharedImage.h"
 
-class Client : public QObject, private Data
+class Client : public QObject, public Data
 {
    Q_OBJECT
 

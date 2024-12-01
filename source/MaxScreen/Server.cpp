@@ -17,8 +17,6 @@ Server::Server(QObject* parent)
    , stackId(0)
    , rainbow(300)
    , imageDisplay(nullptr)
-   , imageBuffer()
-   , imageSize(-1)
 {
    QTimer* colorTimer = new QTimer(this);
    connect(colorTimer, &QTimer::timeout, this, &Server::slotChangeColor);
@@ -81,11 +79,6 @@ void Server::slotNewConnection()
    stackId = 1;
    emit signalStackIdChanged();
 
-   QImage image(64, 64, QImage::Format_RGB32);
-   image.fill(QColor(255, 255, 255));
-   if (imageDisplay)
-      imageDisplay->setBuffer(image);
-
    sendWindowSize();
 }
 
@@ -99,28 +92,6 @@ void Server::slotSocketClosed()
 
 void Server::slotSocketRead()
 {
-   imageBuffer.append(socket->readAll());
-   if (imageSize < 0)
-   {
-      Convertor<qsizetype> convertor;
-      std::memcpy(convertor.bytes, imageBuffer.constData(), sizeof(qsizetype));
-
-      imageBuffer = imageBuffer.mid(sizeof(qsizetype));
-      imageSize = convertor.data;
-
-      //qDebug() << imageSize;
-   }
-
-   if (imageBuffer.size() >= imageSize)
-   {
-      QByteArray imageData = imageBuffer.left(imageSize);
-      imageBuffer = imageBuffer.mid(imageSize);
-      imageSize = -1;
-
-      QImage image = QImage::fromData(imageData);
-      if (imageDisplay && !image.isNull())
-         imageDisplay->setBuffer(image);
-   }
 }
 
 void Server::slotChangeColor()

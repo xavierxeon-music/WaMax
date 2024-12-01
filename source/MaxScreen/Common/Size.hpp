@@ -11,6 +11,11 @@ inline Size::Size()
 {
 }
 
+inline bool Size::isValid() const
+{
+   return (0 != width && 0 != height);
+}
+
 inline void Size::update(const int _width, const int _height)
 {
    width = _width;

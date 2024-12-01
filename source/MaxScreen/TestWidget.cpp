@@ -40,19 +40,7 @@ void Test::Widget::slotSendImage()
    if (fileName.isEmpty())
       return;
 
-   publisherImage.createFromFile(fileName);
-
-   SharedImage subscriberImage(false);
-   subscriberImage.saveToFile("/Users/waspe/tmp/test.png");
-
-   QImage image(fileName);
-   if (image.isNull())
-   {
-      qDebug() << "image @ " << fileName << "is null";
-      return;
-   }
-
-   client->sendImage(image);
+   publisherImage.createFromFile(fileName, client->getScreenSize());
 }
 
 void Test::Widget::slotSizeChanged(const Size& screenSize)

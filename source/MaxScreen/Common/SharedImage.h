@@ -13,7 +13,7 @@ public:
 
 public:
    void create(const int width, const int height, const QColor& color = QColor(255, 255, 255));
-   void createFromFile(const QString& fileName);
+   void createFromFile(const QString& fileName, const Size& size);
    void saveToFile(const QString& fileName);
 
    const Size& getSize() const;

@@ -4,7 +4,7 @@
 #include <QQmlEngine>
 #include <QQuickPaintedItem>
 
-#include <QImage>
+#include "SharedImage.h"
 
 class ImageDisplay : public QQuickPaintedItem
 {
@@ -15,14 +15,11 @@ public:
    ImageDisplay(QQuickItem* parent = nullptr);
    ~ImageDisplay();
 
-public:
-   void setBuffer(const QImage& image);
-
 private:
    void paint(QPainter* painter) override;
 
 private:
-   QImage buffer;
+   SharedImage subscriberImage;
 };
 
 #endif // NOT ImageDisplayH

@@ -8,12 +8,17 @@
 
 using ScreenServer = Shared<"MaxScreen">;
 
-struct Data
+class Data
 {
+public:
+   const Size& getScreenSize() const;
+
+protected:
+   Data();
+
+protected:
    Size screenSize;
    TouchPoint::Map tpMap;
-
-   Data();
 };
 
 #ifndef DataHPP

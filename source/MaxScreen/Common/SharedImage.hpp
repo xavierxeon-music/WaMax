@@ -51,7 +51,7 @@ inline void SharedImage::create(const int width, const int height, const QColor&
    }
 }
 
-inline void SharedImage::createFromFile(const QString& fileName)
+inline void SharedImage::createFromFile(const QString& fileName, const Size& size)
 {
    if (!isPublisher)
       return;
@@ -59,6 +59,9 @@ inline void SharedImage::createFromFile(const QString& fileName)
    QImage image(fileName);
    if (fileName.isNull())
       return;
+
+   if (size.isValid())
+      image = image.scaled(size.getWidth(), size.getHeight(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
    resize(image.width(), image.height());
 
