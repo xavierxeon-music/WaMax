@@ -5,6 +5,8 @@
 
 #include <QQuickWidget>
 
+#include "Server.h"
+
 class MainWindow : public QMainWindow
 {
    Q_OBJECT
@@ -16,6 +18,7 @@ public slots:
    void slotToggleFullScreen();
 
 private:
+   Server* server;
    QQuickWidget* view;
 };
 

@@ -7,17 +7,21 @@
 #include <QQmlEngine>
 #include <QToolBar>
 
-#include "ScreenServer.h"
 #include "Test/TestWidget.h"
 
 MainWindow::MainWindow()
    : QMainWindow(nullptr)
+   , server(nullptr)
    , view(nullptr)
+
 {
 #ifdef Q_OS_WIN
    // anything else will make QQUickWidget crash
    QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGL);
 #endif
+
+   server = new Server(this);
+   connect(server, &Server::signalToolgeFullScreen, this, &MainWindow::slotToggleFullScreen);
 
    //QToolBar* testBar = addToolBar("Test");
    //testBar->addAction("Test Action");
@@ -25,7 +29,8 @@ MainWindow::MainWindow()
    view = new QQuickWidget(this);
    view->setSizePolicy(QSizePolicy::Policy::MinimumExpanding, QSizePolicy::Policy::MinimumExpanding);
    view->setResizeMode(QQuickWidget::ResizeMode::SizeRootObjectToView);
-   //view->engine()->singletonInstance();
+
+   view->rootContext()->setContextProperty("MaxScreen", server);
    view->setSource(QUrl("qrc:/MainWindow.qml"));
 
    setCentralWidget(view);
@@ -41,9 +46,6 @@ MainWindow::MainWindow()
 
    Test::Widget* testWidget = new Test::Widget(this);
    createDockWidget(testWidget, Qt::LeftDockWidgetArea);
-
-   ScreenServer* instance = view->engine()->singletonInstance<ScreenServer*>("ScreenServer", "ScreenServer");
-   connect(instance, &ScreenServer::signalToolgeFullScreen, this, &MainWindow::slotToggleFullScreen);
 }
 
 void MainWindow::slotToggleFullScreen()

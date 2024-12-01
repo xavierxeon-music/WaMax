@@ -1,12 +1,11 @@
 import QtQuick
 import QtQuick.Layouts
 
-import ScreenServer
 
 Rectangle
 {
     id: infoWindow
-    color: ScreenServer.bgColor
+    color: MaxScreen.bgColor
 
     ColumnLayout
     {

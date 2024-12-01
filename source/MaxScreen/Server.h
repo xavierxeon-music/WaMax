@@ -1,5 +1,5 @@
-#ifndef ScreenServerH
-#define ScreenServerH
+#ifndef ServerH
+#define ServerH
 
 #include <QLocalServer>
 
@@ -14,17 +14,15 @@
 #include "ScreenSize.h"
 #include "TouchPoint.h"
 
-class ScreenServer : public QLocalServer
+class Server : public QLocalServer
 {
    Q_OBJECT
-   QML_NAMED_ELEMENT(ScreenServer)
-   QML_SINGLETON
 
    Q_PROPERTY(int stackId READ getStackId NOTIFY signalStackIdChanged)
    Q_PROPERTY(QColor bgColor READ getBgColor NOTIFY signalColorChanged)
 
 public:
-   ScreenServer(QObject* parent = nullptr); // needs default constructor for automatic creation via engine
+   Server(QObject* parent = nullptr); // needs default constructor for automatic creation via engine
 
 signals:
    void signalStackIdChanged();
@@ -63,4 +61,4 @@ private:
    qsizetype imageSize;
 };
 
-#endif // NOT ScreenServerH
+#endif // NOT ServerH

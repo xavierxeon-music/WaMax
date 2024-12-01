@@ -10,7 +10,7 @@ Item
 
     function sendWindowSize(){
 
-        ScreenServer.setWindowSize(mainWindow.width, mainWindow.height)
+        MaxScreen.setWindowSize(mainWindow.width, mainWindow.height)
     }
 
     onWidthChanged: mainWindow.sendWindowSize();
@@ -23,7 +23,7 @@ Item
 
         StackLayout
         {
-            currentIndex: ScreenServer.stackId
+            currentIndex: MaxScreen.stackId
 
             WaitScreen
             {
@@ -40,15 +40,15 @@ Item
     MultiPointTouchArea
     {
         anchors.fill: parent
-        onTouchUpdated: (touchPoints) => ScreenServer.touchPointsUpdated(touchPoints);
+        onTouchUpdated: (touchPoints) => MaxScreen.touchPointsUpdated(touchPoints);
 
         focus: true
-        Keys.onSpacePressed: ScreenServer.toogleFullScreen()
+        Keys.onSpacePressed: MaxScreen.toogleFullScreen()
     }
 
     Component.onCompleted:
     {
         mainWindow.sendWindowSize()
-        ScreenServer.setImageDisplay(imageDisplay)
+        MaxScreen.setImageDisplay(imageDisplay)
     }
 }

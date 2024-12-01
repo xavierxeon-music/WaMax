@@ -1,4 +1,4 @@
-#include "ScreenServer.h"
+#include "Server.h"
 
 #include <QApplication>
 #include <QHostInfo>
@@ -11,9 +11,9 @@
 #include <Convertor.h>
 #include <LocalServer.h>
 
-using MaxScreenServer = LocalServer<"MaxScreen">;
+using ScreenServer = LocalServer<"MaxScreen">;
 
-ScreenServer::ScreenServer(QObject* parent)
+Server::Server(QObject* parent)
    : QLocalServer(parent)
    , socket(nullptr)
    , stackId(0)
@@ -25,36 +25,36 @@ ScreenServer::ScreenServer(QObject* parent)
    , imageSize(-1)
 {
    QTimer* colorTimer = new QTimer(this);
-   connect(colorTimer, &QTimer::timeout, this, &ScreenServer::slotChangeColor);
+   connect(colorTimer, &QTimer::timeout, this, &Server::slotChangeColor);
    colorTimer->start(100);
 
    QTimer* updateTimer = new QTimer(this);
-   connect(updateTimer, &QTimer::timeout, this, &ScreenServer::sendTouchPointUpdates);
+   connect(updateTimer, &QTimer::timeout, this, &Server::sendTouchPointUpdates);
    updateTimer->start(100);
 
-   connect(this, &QLocalServer::newConnection, this, &ScreenServer::slotNewConnection);
-   const QString socketName = MaxScreenServer::compileSocketName();
+   connect(this, &QLocalServer::newConnection, this, &Server::slotNewConnection);
+   const QString socketName = ScreenServer::compileSocketName();
    qDebug() << "Server @" << socketName;
    listen(socketName);
 }
 
-int ScreenServer::getStackId() const
+int Server::getStackId() const
 {
    return stackId;
 }
 
-QColor ScreenServer::getBgColor() const
+QColor Server::getBgColor() const
 {
    return Rainbow::getColor().darker(400);
 }
 
-void ScreenServer::setWindowSize(int width, int height)
+void Server::setWindowSize(int width, int height)
 {
    screenSize.update(width, height);
    sendWindowSize();
 }
 
-void ScreenServer::touchPointsUpdated(const QList<QObject*>& touchPoints)
+void Server::touchPointsUpdated(const QList<QObject*>& touchPoints)
 {
    tpMap.startUpdates();
    for (QObject* touchPoint : touchPoints)
@@ -63,21 +63,21 @@ void ScreenServer::touchPointsUpdated(const QList<QObject*>& touchPoints)
    }
 }
 
-void ScreenServer::toogleFullScreen()
+void Server::toogleFullScreen()
 {
    emit signalToolgeFullScreen();
 }
 
-void ScreenServer::setImageDisplay(QObject* displayObject)
+void Server::setImageDisplay(QObject* displayObject)
 {
    imageDisplay = qobject_cast<ImageDisplay*>(displayObject);
 }
 
-void ScreenServer::slotNewConnection()
+void Server::slotNewConnection()
 {
    socket = nextPendingConnection();
-   connect(socket, &QLocalSocket::disconnected, this, &ScreenServer::slotSocketClosed);
-   connect(socket, &QLocalSocket::readyRead, this, &ScreenServer::slotSocketRead);
+   connect(socket, &QLocalSocket::disconnected, this, &Server::slotSocketClosed);
+   connect(socket, &QLocalSocket::readyRead, this, &Server::slotSocketRead);
 
    stackId = 1;
    emit signalStackIdChanged();
@@ -90,7 +90,7 @@ void ScreenServer::slotNewConnection()
    sendWindowSize();
 }
 
-void ScreenServer::slotSocketClosed()
+void Server::slotSocketClosed()
 {
    socket = nullptr;
 
@@ -98,7 +98,7 @@ void ScreenServer::slotSocketClosed()
    emit signalStackIdChanged();
 }
 
-void ScreenServer::slotSocketRead()
+void Server::slotSocketRead()
 {
    imageBuffer.append(socket->readAll());
    if (imageSize < 0)
@@ -124,13 +124,13 @@ void ScreenServer::slotSocketRead()
    }
 }
 
-void ScreenServer::slotChangeColor()
+void Server::slotChangeColor()
 {
    rainbow.advanceColor();
    emit signalColorChanged();
 }
 
-void ScreenServer::sendTouchPointUpdates()
+void Server::sendTouchPointUpdates()
 {
    if (socket.isNull())
       return;
@@ -142,7 +142,7 @@ void ScreenServer::sendTouchPointUpdates()
    tpMap.dump(stream);
 }
 
-void ScreenServer::sendWindowSize()
+void Server::sendWindowSize()
 {
    if (socket.isNull())
       return;
