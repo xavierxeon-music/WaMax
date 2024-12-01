@@ -13,7 +13,6 @@ MainWindow::MainWindow()
    : QMainWindow(nullptr)
    , server(nullptr)
    , view(nullptr)
-
 {
 #ifdef Q_OS_WIN
    // anything else will make QQUickWidget crash
@@ -46,6 +45,12 @@ MainWindow::MainWindow()
 
    Test::Widget* testWidget = new Test::Widget(this);
    createDockWidget(testWidget, Qt::LeftDockWidgetArea);
+}
+
+MainWindow::~MainWindow()
+{
+   delete view;
+   view = nullptr;
 }
 
 void MainWindow::slotToggleFullScreen()

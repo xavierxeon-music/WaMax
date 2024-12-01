@@ -13,6 +13,7 @@ class MainWindow : public QMainWindow
 
 public:
    MainWindow();
+   ~MainWindow();
 
 public slots:
    void slotToggleFullScreen();

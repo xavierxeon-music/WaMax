@@ -4,16 +4,11 @@
 #include <QImage>
 
 #include <Convertor.h>
-#include <LocalServer.h>
-
-using MaxScreenServer = LocalServer<"MaxScreen">;
 
 Test::Client::Client(QObject* parent)
    : QObject(parent)
+   , Data()
    , socket(nullptr)
-   , screenSize()
-   , tpMap()
-   , imageMemory(MaxScreenServer::tagName())
 {
    socket = new QLocalSocket(this);
    connect(socket, &QLocalSocket::readyRead, this, &Client::slotReceiveData);
@@ -21,8 +16,8 @@ Test::Client::Client(QObject* parent)
 
 void Test::Client::connectToServer()
 {
-   const QString socketName = MaxScreenServer::compileSocketName();
-   qDebug() << "Client @" << socketName << MaxScreenServer::isServerActive();
+   const QString socketName = ScreenServer::compileSocketName();
+   qDebug() << "Client @" << socketName << ScreenServer::isServerActive();
 
    socket->connectToServer(socketName);
    socket->waitForConnected();

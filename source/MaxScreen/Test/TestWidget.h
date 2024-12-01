@@ -19,7 +19,7 @@ namespace Test
       void slotConnectToServer();
       void slotSelectImage();
       void slotSendImage();
-      void slotSizeChanged(const ScreenSize& screenSize);
+      void slotSizeChanged(const Size& screenSize);
 
    private:
       Client* client;

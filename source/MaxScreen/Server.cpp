@@ -9,17 +9,13 @@
 #include <QTimer>
 
 #include <Convertor.h>
-#include <LocalServer.h>
-
-using ScreenServer = LocalServer<"MaxScreen">;
 
 Server::Server(QObject* parent)
    : QLocalServer(parent)
+   , Data()
    , socket(nullptr)
    , stackId(0)
    , rainbow(300)
-   , screenSize()
-   , tpMap()
    , imageDisplay(nullptr)
    , imageBuffer()
    , imageSize(-1)
@@ -34,6 +30,9 @@ Server::Server(QObject* parent)
 
    connect(this, &QLocalServer::newConnection, this, &Server::slotNewConnection);
    const QString socketName = ScreenServer::compileSocketName();
+   if (QFile::exists(socketName))
+      QFile::remove(socketName);
+
    qDebug() << "Server @" << socketName;
    listen(socketName);
 }

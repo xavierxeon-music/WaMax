@@ -1,12 +1,12 @@
-#ifndef ScreenSizeH
-#define ScreenSizeH
+#ifndef SizeH
+#define SizeH
 
 #include <QDataStream>
 
-class ScreenSize
+class Size
 {
 public:
-   ScreenSize();
+   Size();
 
 public:
    void update(const int width, const int height);
@@ -20,8 +20,8 @@ private:
    int height;
 };
 
-#ifndef ScreenSizeHPP
-#include "ScreenSize.hpp"
-#endif // NOT ScreenSizeHPP
+#ifndef SizeHPP
+#include "Size.hpp"
+#endif // NOT SizeHPP
 
-#endif // NOT ScreenSizeH
+#endif // NOT SizeH

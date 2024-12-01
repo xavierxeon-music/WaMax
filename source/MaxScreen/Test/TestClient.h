@@ -4,14 +4,12 @@
 #include <QObject>
 
 #include <QLocalSocket>
-#include <QSharedMemory>
 
-#include "ScreenSize.h"
-#include "TouchPoint.h"
+#include "Data.h"
 
 namespace Test
 {
-   class Client : public QObject
+   class Client : public QObject, private Data
    {
       Q_OBJECT
 
@@ -19,7 +17,7 @@ namespace Test
       Client(QObject* parent);
 
    signals:
-      void signalSizeChanged(const ScreenSize& screenSize);
+      void signalSizeChanged(const Size& screenSize);
 
    public:
       void connectToServer();
@@ -30,9 +28,6 @@ namespace Test
 
    private:
       QLocalSocket* socket;
-      ScreenSize screenSize;
-      TouchPoint::Map tpMap;
-      QSharedMemory imageMemory;
    };
 } // namespace Test
 

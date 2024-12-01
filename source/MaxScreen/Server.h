@@ -9,12 +9,11 @@
 #include <QQmlEngine>
 #include <QVector2D>
 
+#include "Data.h"
 #include "ImageDisplay.h"
 #include "Rainbow.h"
-#include "ScreenSize.h"
-#include "TouchPoint.h"
 
-class Server : public QLocalServer
+class Server : public QLocalServer, private Data
 {
    Q_OBJECT
 
@@ -22,7 +21,7 @@ class Server : public QLocalServer
    Q_PROPERTY(QColor bgColor READ getBgColor NOTIFY signalColorChanged)
 
 public:
-   Server(QObject* parent = nullptr); // needs default constructor for automatic creation via engine
+   Server(QObject* parent);
 
 signals:
    void signalStackIdChanged();
@@ -54,8 +53,6 @@ private:
    QPointer<QLocalSocket> socket;
    int stackId;
    Rainbow rainbow;
-   ScreenSize screenSize;
-   TouchPoint::Map tpMap;
    ImageDisplay* imageDisplay;
    QByteArray imageBuffer;
    qsizetype imageSize;
