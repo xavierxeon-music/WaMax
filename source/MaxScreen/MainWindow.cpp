@@ -43,8 +43,10 @@ MainWindow::MainWindow()
       addDockWidget(area, dock);
    };
 
+#ifdef TEST_CLIENT_AVAILABLE
    Test::Widget* testWidget = new Test::Widget(this);
    createDockWidget(testWidget, Qt::LeftDockWidgetArea);
+#endif
 }
 
 MainWindow::~MainWindow()
@@ -79,7 +81,10 @@ int main(int argc, char** argv)
 
    MainWindow mw;
    mw.showMaximized();
-   //mw.slotToggleFullScreen();
+
+#ifndef TEST_CLIENT_AVAILABLE
+   mw.slotToggleFullScreen();
+#endif
 
    return app.exec();
 }

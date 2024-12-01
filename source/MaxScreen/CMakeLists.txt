@@ -15,6 +15,11 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+   add_compile_definitions(TEST_CLIENT_AVAILABLE)
+endif()
+
+
 # C++
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 find_package(WaTools REQUIRED)
