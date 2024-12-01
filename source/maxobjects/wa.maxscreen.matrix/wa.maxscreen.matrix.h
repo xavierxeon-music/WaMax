@@ -7,15 +7,12 @@ using namespace c74::min;
 #include <mutex>
 
 #include <QImage>
-#include <QTcpSocket>
-
-#include "ScreenSize.h"
-#include "TouchPoint.h"
+#include <QLocalSocket>
 
 class MaxScreenMatrix : public object<MaxScreenMatrix>, public matrix_operator<>
 {
 public:
-   MIN_DESCRIPTION{"description"};
+   MIN_DESCRIPTION{"send matrix to screen"};
 
 public:
    MaxScreenMatrix(const atoms& args = {});
@@ -31,19 +28,14 @@ private:
    atoms timerFunction(const atoms& args, const int inlet);
 
    void sendData();
-   void receiveData();
 
 private:
-   QTcpSocket* socket;
+   QLocalSocket socket;
    QImage buffer;
-   mutex bufferMutex;
-   ScreenSize screenSize;
-   TouchPoint::Map tpMap;
 
    inlet<> input;
    outlet<> output; // needs matrix output !
 
-   attribute<symbol> hostName;
    timer<timer_options::defer_delivery> loopTimer;
 };
 

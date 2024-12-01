@@ -44,11 +44,12 @@ if(APPLE)
    set_source_files_properties(${APP_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
 
    set(CMAKE_OSX_DEPLOYMENT_TARGET "14.0")
-   qt_add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${APP_ICON} ${SOURCE_FILES})
 
    if(CMAKE_BUILD_TYPE STREQUAL "Release")
       set(CMAKE_RUNTIME_OUTPUT_DIRECTORY $ENV{HOME}/Applications)
    endif()
+
+   qt_add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${APP_ICON} ${SOURCE_FILES})
 
 elseif(UNIX)
    qt_add_executable(${PROJECT_NAME} ${SOURCE_FILES})
@@ -61,7 +62,6 @@ elseif(WIN32)
    # see https://doc.qt.io/qt-6/appicon.html
    # RC_ICONS = $$PWD/icons/HelpForMax.ico
    qt_add_executable(${PROJECT_NAME} WIN32 ${SOURCE_FILES})
-
 endif()
 
 add_subdirectory(DiscreteMaths)
