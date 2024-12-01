@@ -6,6 +6,7 @@
 #include <QLocalSocket>
 
 #include "Data.h"
+#include "SharedImage.h"
 
 class Client : public QObject, private Data
 {
@@ -26,6 +27,7 @@ private slots:
 
 private:
    QLocalSocket* socket;
+   SharedImage sharedImage;
 };
 
 #ifndef ClientHPP

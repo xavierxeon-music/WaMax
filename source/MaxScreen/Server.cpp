@@ -29,7 +29,7 @@ Server::Server(QObject* parent)
    updateTimer->start(100);
 
    connect(this, &QLocalServer::newConnection, this, &Server::slotNewConnection);
-   const QString socketName = ScreenServer::compileSocketName();
+   const QString socketName = ScreenServer::compileSharedFileName("socket");
    if (QFile::exists(socketName))
       QFile::remove(socketName);
 

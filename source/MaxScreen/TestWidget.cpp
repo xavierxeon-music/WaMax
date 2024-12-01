@@ -6,6 +6,7 @@
 Test::Widget::Widget(QWidget* parent)
    : QWidget(parent)
    , client(nullptr)
+   , publisherImage(true)
 {
    setupUi(this);
 
@@ -16,7 +17,7 @@ Test::Widget::Widget(QWidget* parent)
    connect(imageSelectButton, &QAbstractButton::clicked, this, &Widget::slotSelectImage);
    connect(imageSendButton, &QAbstractButton::clicked, this, &Widget::slotSendImage);
 
-   imageInfo->setText("/Users/waspe/Dropbox/Pictures/Space/Andromeda_Galaxy_(with_h-alpha).jpg");
+   imageInfo->setText("/Users/waspe/Dropbox/Pictures/Danger.png");
 }
 
 void Test::Widget::slotConnectToServer()
@@ -38,6 +39,11 @@ void Test::Widget::slotSendImage()
    const QString& fileName = imageInfo->text();
    if (fileName.isEmpty())
       return;
+
+   publisherImage.createFromFile(fileName);
+
+   SharedImage subscriberImage(false);
+   subscriberImage.saveToFile("/Users/waspe/tmp/test.png");
 
    QImage image(fileName);
    if (image.isNull())

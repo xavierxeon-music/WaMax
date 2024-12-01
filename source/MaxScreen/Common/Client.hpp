@@ -12,6 +12,7 @@ inline Client::Client(QObject* parent)
    : QObject(parent)
    , Data()
    , socket(nullptr)
+   , sharedImage(true)
 {
    socket = new QLocalSocket(this);
    connect(socket, &QLocalSocket::readyRead, this, &Client::slotReceiveData);
@@ -19,7 +20,7 @@ inline Client::Client(QObject* parent)
 
 inline void Client::connectToServer()
 {
-   const QString socketName = ScreenServer::compileSocketName();
+   const QString socketName = ScreenServer::compileSharedFileName("socket");
    qDebug() << "Client @" << socketName << ScreenServer::isServerActive();
 
    socket->connectToServer(socketName);

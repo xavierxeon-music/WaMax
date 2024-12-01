@@ -23,6 +23,7 @@ namespace Test
 
    private:
       Client* client;
+      SharedImage publisherImage;
    };
 } // namespace Test
 
