@@ -11,28 +11,35 @@
 
 static Convertor<int> convertor;
 
-static const int headerSize = 2 * sizeof(int);
-static const int colorSize = 3 * sizeof(uchar);
-
 inline SharedImage::SharedImage(bool isPublisher)
    : isPublisher(isPublisher)
-   , size()
    , sharedFile(ScreenServer::compileSharedFileName("block"))
-   , fileMemory(nullptr)
+   , header(nullptr)
+   , imageSize(0)
+   , imageMemory(nullptr)
 {
    if (!sharedFile.open(QIODevice::ReadWrite))
       qDebug() << "unable to open shared file";
 
    if (isPublisher && sharedFile.size() < headerSize)
    {
-      bool test = sharedFile.resize(headerSize);
+      sharedFile.resize(headerSize);
       sharedFile.flush();
    }
 
-   fileMemory = sharedFile.map(0, headerSize);
+   header = reinterpret_cast<Header*>(sharedFile.map(0, headerSize));
+   imageMemory = nullptr;
 
    if (!isPublisher)
       verify();
+}
+
+inline SharedImage::~SharedImage()
+{
+   sharedFile.unmap(reinterpret_cast<uchar*>(header));
+
+   if (imageMemory)
+      sharedFile.unmap(imageMemory);
 }
 
 inline void SharedImage::create(const int width, const int height, const QColor& color)
@@ -51,7 +58,7 @@ inline void SharedImage::create(const int width, const int height, const QColor&
    }
 }
 
-inline void SharedImage::createFromFile(const QString& fileName, const Size& size)
+inline void SharedImage::createFromFile(const QString& fileName, const QSize& size)
 {
    if (!isPublisher)
       return;
@@ -61,7 +68,7 @@ inline void SharedImage::createFromFile(const QString& fileName, const Size& siz
       return;
 
    if (size.isValid())
-      image = image.scaled(size.getWidth(), size.getHeight(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+      image = image.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
    resize(image.width(), image.height());
 
@@ -77,11 +84,11 @@ inline void SharedImage::createFromFile(const QString& fileName, const Size& siz
 
 inline void SharedImage::saveToFile(const QString& fileName)
 {
-   QImage image(size.getWidth(), size.getHeight(), QImage::Format_RGB32);
+   QImage image(header->width, header->height, QImage::Format_RGB32);
 
-   for (int x = 0; x < size.getWidth(); x++)
+   for (int x = 0; x < header->width; x++)
    {
-      for (int y = 0; y < size.getHeight(); y++)
+      for (int y = 0; y < header->height; y++)
       {
          const QColor color = getColor(x, y);
          image.setPixelColor(x, y, color);
@@ -91,9 +98,9 @@ inline void SharedImage::saveToFile(const QString& fileName)
    image.save(fileName);
 }
 
-inline const Size& SharedImage::getSize() const
+inline QSize SharedImage::getSize() const
 {
-   return size;
+   return QSize(header->width, header->height);
 }
 
 inline bool SharedImage::verify()
@@ -101,27 +108,18 @@ inline bool SharedImage::verify()
    if (isPublisher)
       return false;
 
-   auto getParam = [&](int offset)
-   {
-      for (int pos : {0, 1, 2, 3})
-         convertor.bytes[pos] = fileMemory[offset + pos];
-
-      return convertor.data;
-   };
-
-   const int width = getParam(0);
-   const int height = getParam(sizeof(int));
-
-   if (size.getWidth() == width && size.getHeight() == height)
+   if (0 == sharedFile.size())
       return false;
 
-   size.update(width, height);
+   const int newimageSize = header->width * header->height * colorSize;
+   if (newimageSize == imageSize)
+      return false;
 
-   if (fileMemory)
-      sharedFile.unmap(fileMemory);
+   if (imageMemory)
+      sharedFile.unmap(imageMemory);
 
-   const int fileSize = headerSize + (width * height * colorSize);
-   fileMemory = sharedFile.map(0, fileSize);
+   imageSize = newimageSize;
+   imageMemory = sharedFile.map(headerSize, imageSize);
 
    return true;
 }
@@ -129,9 +127,9 @@ inline bool SharedImage::verify()
 inline QColor SharedImage::getColor(int x, int y) const
 {
    const int pos = index(x, y);
-   const uchar red = fileMemory[pos + 0];
-   const uchar green = fileMemory[pos + 1];
-   const uchar blue = fileMemory[pos + 2];
+   const uchar red = imageMemory[pos + 0];
+   const uchar green = imageMemory[pos + 1];
+   const uchar blue = imageMemory[pos + 2];
 
    return QColor(red, green, blue);
 }
@@ -139,38 +137,31 @@ inline QColor SharedImage::getColor(int x, int y) const
 inline void SharedImage::setColor(int x, int y, const QColor& color)
 {
    const int pos = index(x, y);
-   fileMemory[pos + 0] = color.red();
-   fileMemory[pos + 1] = color.green();
-   fileMemory[pos + 2] = color.blue();
+   imageMemory[pos + 0] = color.red();
+   imageMemory[pos + 1] = color.green();
+   imageMemory[pos + 2] = color.blue();
 }
 
 inline int SharedImage::index(int x, int y) const
 {
-   return headerSize + x + (y * size.getWidth());
+   int i = x + (y * header->width);
+   return headerSize + i * colorSize;
 }
 
 inline void SharedImage::resize(const int width, const int height)
 {
-   size.update(width, height);
+   if (imageMemory)
+      sharedFile.unmap(imageMemory);
 
-   if (fileMemory)
-      sharedFile.unmap(fileMemory);
+   header->width = width;
+   header->height = height;
+   imageSize = (width * height * colorSize);
 
-   const int fileSize = headerSize + (width * height * colorSize);
+   const int fileSize = headerSize + imageSize;
    sharedFile.resize(fileSize);
    sharedFile.flush();
 
-   fileMemory = sharedFile.map(0, fileSize);
-
-   auto setParam = [&](int value, int offset)
-   {
-      convertor.data = value;
-      for (int pos : {0, 1, 2, 3})
-         fileMemory[offset + pos] = convertor.bytes[pos];
-   };
-
-   setParam(width, 0);
-   setParam(height, sizeof(int));
+   imageMemory = sharedFile.map(headerSize, imageSize);
 }
 
 #endif // NOT SharedImageHPP

@@ -10,17 +10,28 @@ class SharedImage
 {
 public:
    SharedImage(bool isPublisher);
+   ~SharedImage();
 
 public:
    void create(const int width, const int height, const QColor& color = QColor(255, 255, 255));
-   void createFromFile(const QString& fileName, const Size& size);
+   void createFromFile(const QString& fileName, const QSize& size);
    void saveToFile(const QString& fileName);
 
-   const Size& getSize() const;
+   QSize getSize() const;
    bool verify(); // returns true if the size of the shared image is different from the current size
 
    QColor getColor(int x, int y) const;
    void setColor(int x, int y, const QColor& color);
+
+private:
+   struct Header
+   {
+      int width = 0;
+      int height = 0;
+   };
+
+   static const int headerSize = sizeof(Header);
+   static const int colorSize = 4 * sizeof(uchar);
 
 private:
    int index(int x, int y) const;
@@ -28,9 +39,11 @@ private:
 
 private:
    bool isPublisher;
-   Size size;
    QFile sharedFile;
-   uchar* fileMemory;
+   Header* header;
+
+   int imageSize;
+   uchar* imageMemory;
 };
 
 #ifndef SharedImageHPP

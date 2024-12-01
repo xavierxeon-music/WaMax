@@ -30,8 +30,8 @@ void ImageDisplay::paint(QPainter* painter)
    painter->fillRect(QRect(0, 0, width(), height()), bgColor);
 
    subscriberImage.verify();
-   const int imageWidth = subscriberImage.getSize().getWidth();
-   const int imageHeight = subscriberImage.getSize().getHeight();
+   const int imageWidth = subscriberImage.getSize().width();
+   const int imageHeight = subscriberImage.getSize().height();
 
    int xOffset = (imageWidth < width()) ? 0.5 * (width() - imageWidth) : 0;
    int yOffset = (imageHeight < height()) ? 0.5 * (height() - imageHeight) : 0;

@@ -2,6 +2,7 @@
 #define SizeH
 
 #include <QDataStream>
+#include <QSize>
 
 class Size
 {
@@ -15,6 +16,7 @@ public:
    void load(QDataStream& stream);
    const int& getWidth() const;
    const int& getHeight() const;
+   operator QSize() const;
 
 private:
    int width;

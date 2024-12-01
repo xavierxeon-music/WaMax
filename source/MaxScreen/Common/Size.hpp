@@ -46,4 +46,9 @@ inline const int& Size::getHeight() const
    return height;
 }
 
+inline Size::operator QSize() const
+{
+   return QSize(width, height);
+}
+
 #endif // NOT SizeHPP
