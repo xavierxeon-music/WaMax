@@ -15,7 +15,6 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-
 # C++
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 find_package(WaTools REQUIRED)
@@ -59,7 +58,7 @@ file(GLOB QML_FILES
 
 qt_add_qml_module(${PROJECT_NAME} URI ScreenServer VERSION 1.0 SOURCES ${QML_FILES})
 
+target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Widgets Qt6::Svg Qt6::Network Qt6::QuickWidgets)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE  Qt6::Widgets Qt6::Svg Qt6::Network Qt6::QuickWidgets)
-
+include(${CMAKE_CURRENT_LIST_DIR}/Common/build.cmake)
 include(${CMAKE_CURRENT_LIST_DIR}/Test/build.cmake)
