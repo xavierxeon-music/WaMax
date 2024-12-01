@@ -4,17 +4,15 @@
 
 #include <MaxPatcher.h>
 
-#include "Convertor.h"
-
 using namespace c74;
-
-// see https://doc.qt.io/qt-6/qtcore-ipc-sharedmemory-example.html
 
 MaxScreenMatrix::MaxScreenMatrix(const atoms& args)
    : object<MaxScreenMatrix>()
    , matrix_operator<>(false)
    , socket()
-   , buffer(512, 512, QImage::Format_RGB32)
+   , publisherMemory(true)
+   , buffer(512, 512, QImage::Format_ARGB32)
+   , screenSize()
    , input{this, "(matrix) Input", "matrix"}
    , output{this, "(matrix) output", "matrix"}
    , loopTimer(this, Max::Patcher::minBind(this, &MaxScreenMatrix::timerFunction))

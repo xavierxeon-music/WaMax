@@ -42,8 +42,8 @@ void Test::Widget::slotSendImage()
    client->sendImage(fileName);
 }
 
-void Test::Widget::slotSizeChanged(const Size& screenSize)
+void Test::Widget::slotSizeChanged(const ImageSize& imageSize)
 {
-   widthSpin->setValue(screenSize.getWidth());
-   heightSpin->setValue(screenSize.getHeight());
+   widthSpin->setValue(imageSize.getWidth());
+   heightSpin->setValue(imageSize.getHeight());
 }

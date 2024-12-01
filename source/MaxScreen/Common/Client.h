@@ -16,7 +16,7 @@ public:
    Client(QObject* parent);
 
 signals:
-   void signalSizeChanged(const Size& screenSize);
+   void signalSizeChanged(const ImageSize& imageSize);
 
 public:
    void connectToServer();

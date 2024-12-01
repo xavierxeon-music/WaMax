@@ -39,6 +39,9 @@ public:
    Q_INVOKABLE void toogleFullScreen();
    Q_INVOKABLE void setImageDisplay(QObject* displayObject);
 
+private:
+   using SocketPointer = QPointer<QLocalSocket>;
+
 private slots:
    void slotNewConnection();
    void slotSocketClosed();
@@ -50,7 +53,7 @@ private:
    void sendWindowSize();
 
 private:
-   QPointer<QLocalSocket> socket;
+   QList<SocketPointer> socketList;
    int stackId;
    Rainbow rainbow;
    ImageDisplay* imageDisplay;

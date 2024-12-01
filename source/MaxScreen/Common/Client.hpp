@@ -37,7 +37,7 @@ inline void Client::sendImage(const QString& fileName)
    if (fileName.isNull())
       return;
 
-   localImage = localImage.scaled(getScreenSize(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+   localImage = localImage.scaled(getImageSize(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
    int xOffset = (localImage.width() < image.width()) ? 0.5 * (image.width() - localImage.width()) : 0;
    int yOffset = (localImage.height() < image.height()) ? 0.5 * (image.height() - localImage.height()) : 0;

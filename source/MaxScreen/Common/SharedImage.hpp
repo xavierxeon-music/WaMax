@@ -3,13 +3,9 @@
 
 #include "SharedImage.h"
 
-#include <QImage>
+#include <Shared.h>
 
-#include <Convertor.h>
-
-#include "Data.h"
-
-static Convertor<int> convertor;
+using ScreenServer = Shared<"MaxScreen">;
 
 inline SharedImage::SharedImage(bool isPublisher)
    : isPublisher(isPublisher)

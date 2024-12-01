@@ -9,6 +9,9 @@ using namespace c74::min;
 #include <QImage>
 #include <QLocalSocket>
 
+#include "ImageSize.h"
+#include "SharedImage.h"
+
 class MaxScreenMatrix : public object<MaxScreenMatrix>, public matrix_operator<>
 {
 public:
@@ -31,7 +34,9 @@ private:
 
 private:
    QLocalSocket socket;
+   SharedImage publisherMemory;
    QImage buffer;
+   ImageSize screenSize;
 
    inlet<> input;
    outlet<> output; // needs matrix output !

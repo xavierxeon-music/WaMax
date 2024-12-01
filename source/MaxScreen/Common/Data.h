@@ -3,7 +3,7 @@
 
 #include <Shared.h>
 
-#include "Size.h"
+#include "ImageSize.h"
 #include "TouchPoint.h"
 
 using ScreenServer = Shared<"MaxScreen">;
@@ -11,13 +11,13 @@ using ScreenServer = Shared<"MaxScreen">;
 class Data
 {
 public:
-   const Size& getScreenSize() const;
+   const ImageSize& getImageSize() const;
 
 protected:
    Data();
 
 protected:
-   Size screenSize;
+   ImageSize screenSize;
    TouchPoint::Map tpMap;
 };
 

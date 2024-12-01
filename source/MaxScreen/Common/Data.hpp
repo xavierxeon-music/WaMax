@@ -3,7 +3,7 @@
 
 #include "Data.h"
 
-inline const Size& Data::getScreenSize() const
+inline const ImageSize& Data::getImageSize() const
 {
    return screenSize;
 }

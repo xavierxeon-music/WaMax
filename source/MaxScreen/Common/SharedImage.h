@@ -3,8 +3,9 @@
 
 #include <QColor>
 #include <QFile>
+#include <QImage>
 
-#include "Size.h"
+#include "ImageSize.h"
 
 class SharedImage
 {

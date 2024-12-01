@@ -20,3 +20,7 @@ add_library(
 
 include(../_common/common.cmake)
 include(${C74_MIN_API_DIR}/script/min-posttarget.cmake)
+
+if(APPLE)
+   target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
+endif()

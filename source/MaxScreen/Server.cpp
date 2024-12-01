@@ -13,7 +13,7 @@
 Server::Server(QObject* parent)
    : QLocalServer(parent)
    , Data()
-   , socket(nullptr)
+   , socketList()
    , stackId(0)
    , rainbow(300)
    , imageDisplay(nullptr)
@@ -72,9 +72,11 @@ void Server::setImageDisplay(QObject* displayObject)
 
 void Server::slotNewConnection()
 {
-   socket = nextPendingConnection();
+   QLocalSocket* socket = nextPendingConnection();
    connect(socket, &QLocalSocket::disconnected, this, &Server::slotSocketClosed);
    connect(socket, &QLocalSocket::readyRead, this, &Server::slotSocketRead);
+
+   socketList.append(socket);
 
    stackId = 1;
    emit signalStackIdChanged();
@@ -84,15 +86,22 @@ void Server::slotNewConnection()
 
 void Server::slotSocketClosed()
 {
-   socket = nullptr;
+   QLocalSocket* source = qobject_cast<QLocalSocket*>(sender());
 
-   stackId = 0;
-   emit signalStackIdChanged();
+   socketList.removeAll(source);
+
+   if (socketList.isEmpty())
+   {
+      stackId = 0;
+      emit signalStackIdChanged();
+   }
 }
 
 void Server::slotSocketRead()
 {
-   socket->readAll();
+   QLocalSocket* source = qobject_cast<QLocalSocket*>(sender());
+
+   source->readAll();
 
    if (imageDisplay)
       imageDisplay->attach();
@@ -106,24 +115,30 @@ void Server::slotChangeColor()
 
 void Server::sendTouchPointUpdates()
 {
-   if (socket.isNull())
-      return;
-
    if (tpMap.isEmpty())
       return;
 
-   QDataStream stream(socket);
-   tpMap.dump(stream);
+   for (SocketPointer& socket : socketList)
+   {
+      if (socket.isNull())
+         continue;
+
+      QDataStream stream(socket);
+      tpMap.dump(stream);
+   }
 }
 
 void Server::sendWindowSize()
 {
-   if (socket.isNull())
-      return;
+   for (SocketPointer& socket : socketList)
+   {
+      if (socket.isNull())
+         continue;
 
-   if (imageDisplay)
-      imageDisplay->detach();
+      if (imageDisplay)
+         imageDisplay->detach();
 
-   QDataStream stream(socket);
-   screenSize.dump(stream);
+      QDataStream stream(socket);
+      screenSize.dump(stream);
+   }
 }

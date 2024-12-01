@@ -1,13 +1,13 @@
-#ifndef SizeH
-#define SizeH
+#ifndef ImageSizeH
+#define ImageSizeH
 
 #include <QDataStream>
 #include <QSize>
 
-class Size
+class ImageSize
 {
 public:
-   Size();
+   ImageSize();
 
 public:
    bool isValid() const;
@@ -23,8 +23,8 @@ private:
    int height;
 };
 
-#ifndef SizeHPP
-#include "Size.hpp"
-#endif // NOT SizeHPP
+#ifndef ImageSizeHPP
+#include "ImageSize.hpp"
+#endif // NOT ImageSizeHPP
 
-#endif // NOT SizeH
+#endif // NOT ImageSizeH
