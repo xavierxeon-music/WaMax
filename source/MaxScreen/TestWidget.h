@@ -4,7 +4,7 @@
 #include "ui_TestWidget.h"
 #include <QWidget>
 
-#include "TestClient.h"
+#include "Client.h"
 
 namespace Test
 {

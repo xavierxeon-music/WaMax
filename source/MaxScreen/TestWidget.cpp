@@ -16,7 +16,7 @@ Test::Widget::Widget(QWidget* parent)
    connect(imageSelectButton, &QAbstractButton::clicked, this, &Widget::slotSelectImage);
    connect(imageSendButton, &QAbstractButton::clicked, this, &Widget::slotSendImage);
 
-   imageInfo->setText("/Users/waspe/Library/CloudStorage/Dropbox/Pictures/Space/Andromeda_Galaxy_(with_h-alpha).jpg");
+   imageInfo->setText("/Users/waspe/Dropbox/Pictures/Space/Andromeda_Galaxy_(with_h-alpha).jpg");
 }
 
 void Test::Widget::slotConnectToServer()
@@ -41,7 +41,10 @@ void Test::Widget::slotSendImage()
 
    QImage image(fileName);
    if (image.isNull())
+   {
+      qDebug() << "image @ " << fileName << "is null";
       return;
+   }
 
    client->sendImage(image);
 }
