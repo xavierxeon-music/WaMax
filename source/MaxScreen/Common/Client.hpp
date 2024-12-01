@@ -19,7 +19,7 @@ inline Client::Client(QObject* parent)
 
 inline void Client::connectToServer()
 {
-   const QString socketName = ScreenServer::compileSocketName();
+   const QString socketName = ScreenServer::compileSharedFileName("socket");
    qDebug() << "Client @" << socketName << ScreenServer::isServerActive();
 
    socket->connectToServer(socketName);
