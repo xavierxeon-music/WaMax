@@ -13,15 +13,14 @@ public:
    ~SharedImage();
 
 public:
-   void create(const int width, const int height, const QColor& color = QColor(255, 255, 255));
-   void createFromFile(const QString& fileName, const QSize& size);
-   void saveToFile(const QString& fileName);
+   QImage create();
+   QImage createNew(const int width, const int height);
 
    QSize getSize() const;
-   bool verify(); // returns true if the size of the shared image is different from the current size
+   bool isUpdated(); // returns true if the size of the shared image is different from the current size
 
-   QColor getColor(int x, int y) const;
-   void setColor(int x, int y, const QColor& color);
+public:
+   uchar* imageMemory;
 
 private:
    struct Header
@@ -34,7 +33,6 @@ private:
    static const int colorSize = 4 * sizeof(uchar);
 
 private:
-   int index(int x, int y) const;
    void resize(const int width, const int height);
 
 private:
@@ -43,7 +41,6 @@ private:
    Header* header;
 
    int imageSize;
-   uchar* imageMemory;
 };
 
 #ifndef SharedImageHPP

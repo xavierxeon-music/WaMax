@@ -13,10 +13,10 @@ static Convertor<int> convertor;
 
 inline SharedImage::SharedImage(bool isPublisher)
    : isPublisher(isPublisher)
-   , sharedFile(ScreenServer::compileSharedFileName("block"))
+   , imageMemory(nullptr)
+   , sharedFile(ScreenServer::compileSharedFileName("data"))
    , header(nullptr)
    , imageSize(0)
-   , imageMemory(nullptr)
 {
    if (!sharedFile.open(QIODevice::ReadWrite))
       qDebug() << "unable to open shared file";
@@ -31,7 +31,7 @@ inline SharedImage::SharedImage(bool isPublisher)
    imageMemory = nullptr;
 
    if (!isPublisher)
-      verify();
+      isUpdated();
 }
 
 inline SharedImage::~SharedImage()
@@ -42,60 +42,19 @@ inline SharedImage::~SharedImage()
       sharedFile.unmap(imageMemory);
 }
 
-inline void SharedImage::create(const int width, const int height, const QColor& color)
+inline QImage SharedImage::create()
+{
+   return QImage(imageMemory, header->width, header->height, QImage::Format_ARGB32);
+}
+
+inline QImage SharedImage::createNew(const int width, const int height)
 {
    if (!isPublisher)
-      return;
+      return QImage();
 
    resize(width, height);
 
-   for (int x = 0; x < width; x++)
-   {
-      for (int y = 0; y < height; y++)
-      {
-         setColor(x, y, color);
-      }
-   }
-}
-
-inline void SharedImage::createFromFile(const QString& fileName, const QSize& size)
-{
-   if (!isPublisher)
-      return;
-
-   QImage image(fileName);
-   if (fileName.isNull())
-      return;
-
-   if (size.isValid())
-      image = image.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-
-   resize(image.width(), image.height());
-
-   for (int x = 0; x < image.width(); x++)
-   {
-      for (int y = 0; y < image.height(); y++)
-      {
-         const QColor color = image.pixelColor(x, y);
-         setColor(x, y, color);
-      }
-   }
-}
-
-inline void SharedImage::saveToFile(const QString& fileName)
-{
-   QImage image(header->width, header->height, QImage::Format_RGB32);
-
-   for (int x = 0; x < header->width; x++)
-   {
-      for (int y = 0; y < header->height; y++)
-      {
-         const QColor color = getColor(x, y);
-         image.setPixelColor(x, y, color);
-      }
-   }
-
-   image.save(fileName);
+   return create();
 }
 
 inline QSize SharedImage::getSize() const
@@ -103,7 +62,7 @@ inline QSize SharedImage::getSize() const
    return QSize(header->width, header->height);
 }
 
-inline bool SharedImage::verify()
+inline bool SharedImage::isUpdated()
 {
    if (isPublisher)
       return false;
@@ -122,30 +81,6 @@ inline bool SharedImage::verify()
    imageMemory = sharedFile.map(headerSize, imageSize);
 
    return true;
-}
-
-inline QColor SharedImage::getColor(int x, int y) const
-{
-   const int pos = index(x, y);
-   const uchar red = imageMemory[pos + 0];
-   const uchar green = imageMemory[pos + 1];
-   const uchar blue = imageMemory[pos + 2];
-
-   return QColor(red, green, blue);
-}
-
-inline void SharedImage::setColor(int x, int y, const QColor& color)
-{
-   const int pos = index(x, y);
-   imageMemory[pos + 0] = color.red();
-   imageMemory[pos + 1] = color.green();
-   imageMemory[pos + 2] = color.blue();
-}
-
-inline int SharedImage::index(int x, int y) const
-{
-   int i = x + (y * header->width);
-   return headerSize + i * colorSize;
 }
 
 inline void SharedImage::resize(const int width, const int height)

@@ -23,7 +23,9 @@ private:
    void paint(QPainter* painter) override;
 
 private:
-   SharedImage subscriberImage;
+   SharedImage memorySubscriber;
+   QImage image;
+   bool isInitialised;
 };
 
 #endif // NOT ImageDisplayH

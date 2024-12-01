@@ -27,7 +27,8 @@ private slots:
 
 private:
    QLocalSocket* socket;
-   SharedImage publisherImage;
+   SharedImage memoryPublisher;
+   QImage image;
 };
 
 #ifndef ClientHPP
