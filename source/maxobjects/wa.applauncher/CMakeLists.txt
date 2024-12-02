@@ -35,7 +35,6 @@ find_package(Qt6 REQUIRED COMPONENTS Core Network)
 target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Core Qt6::Network)
 
 if(APPLE)
-   set(CMAKE_OSX_DEPLOYMENT_TARGET "14.0") # for Qt
    find_library(CARBON_LIBRARY "Carbon")
    target_link_libraries(${PROJECT_NAME} PUBLIC ${CARBON_LIBRARY})
 endif()
