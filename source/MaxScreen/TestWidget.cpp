@@ -16,7 +16,11 @@ Test::Widget::Widget(QWidget* parent)
    connect(imageSelectButton, &QAbstractButton::clicked, this, &Widget::slotSelectImage);
    connect(imageSendButton, &QAbstractButton::clicked, this, &Widget::slotSendImage);
 
-   imageInfo->setText("/Users/waspe/Dropbox/Pictures/Danger.png");
+#if defined(__APPLE__)
+   imageInfo->setText("/Users/waspe/Dropbox/Pictures/PainLogo.png");
+#elif defined(WIN32)
+   imageInfo->setText("C:/Users/waspe/Dropbox/Pictures/PainLogo.png");
+#endif
 }
 
 void Test::Widget::slotConnectToServer()

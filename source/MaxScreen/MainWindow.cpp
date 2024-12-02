@@ -7,7 +7,9 @@
 #include <QQmlEngine>
 #include <QToolBar>
 
+#ifdef TEST_CLIENT_AVAILABLE
 #include "TestWidget.h"
+#endif
 
 MainWindow::MainWindow()
    : QMainWindow(nullptr)
