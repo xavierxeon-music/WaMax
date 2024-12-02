@@ -175,7 +175,7 @@
 		"originid" : "pat-78",
 		"dependency_cache" : [ 			{
 				"name" : "_mimic.maxpat",
-				"bootpath" : "/Volumes/ExternalData/_Home/GitHub/MusicProjects/WaMaxPackageBase/patchers/oscilators",
+				"bootpath" : "/Volumes/ExternalData/_Home/GitHub/MusicProjects/WaMax/patchers/oscilators",
 				"patcherrelativepath" : ".",
 				"type" : "JSON",
 				"implicit" : 1

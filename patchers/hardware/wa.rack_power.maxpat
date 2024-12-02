@@ -1044,49 +1044,49 @@
 ,
 		"dependency_cache" : [ 			{
 				"name" : "bpatcher_size.js",
-				"bootpath" : "~/GitHub/MusicProjects/WaMaxPackageBase/javascript/patch",
+				"bootpath" : "~/GitHub/MusicProjects/WaMax/javascript/patch",
 				"patcherrelativepath" : "../../javascript/patch",
 				"type" : "TEXT",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "hue.bridge.js",
-				"bootpath" : "~/GitHub/MusicProjects/WaMaxPackageBase/javascript/hardware",
+				"bootpath" : "~/GitHub/MusicProjects/WaMax/javascript/hardware",
 				"patcherrelativepath" : "../../javascript/hardware",
 				"type" : "TEXT",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "hue.device.js",
-				"bootpath" : "~/GitHub/MusicProjects/WaMaxPackageBase/javascript/hardware",
+				"bootpath" : "~/GitHub/MusicProjects/WaMax/javascript/hardware",
 				"patcherrelativepath" : "../../javascript/hardware",
 				"type" : "TEXT",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "hue_api_v2.node.js",
-				"bootpath" : "~/GitHub/MusicProjects/WaMaxPackageBase/javascript/hardware",
+				"bootpath" : "~/GitHub/MusicProjects/WaMax/javascript/hardware",
 				"patcherrelativepath" : "../../javascript/hardware",
 				"type" : "TEXT",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "wa.hue.bridge.maxpat",
-				"bootpath" : "~/GitHub/MusicProjects/WaMaxPackageBase/patchers/hardware",
+				"bootpath" : "~/GitHub/MusicProjects/WaMax/patchers/hardware",
 				"patcherrelativepath" : ".",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "wa.hue.device.maxpat",
-				"bootpath" : "~/GitHub/MusicProjects/WaMaxPackageBase/patchers/hardware",
+				"bootpath" : "~/GitHub/MusicProjects/WaMax/patchers/hardware",
 				"patcherrelativepath" : ".",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "wa.patch.bpatcher.maxpat",
-				"bootpath" : "~/GitHub/MusicProjects/WaMaxPackageBase/patchers/patch",
+				"bootpath" : "~/GitHub/MusicProjects/WaMax/patchers/patch",
 				"patcherrelativepath" : "../patch",
 				"type" : "JSON",
 				"implicit" : 1

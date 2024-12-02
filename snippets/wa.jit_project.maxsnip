@@ -570,7 +570,7 @@
 		"originid" : "pat-320",
 		"dependency_cache" : [ 			{
 				"name" : "wa.transport.state.maxpat",
-				"bootpath" : "/Volumes/ExternalData/_Home/GitHub/MusicProjects/WaMaxPackageBase/patchers/transport",
+				"bootpath" : "/Volumes/ExternalData/_Home/GitHub/MusicProjects/WaMax/patchers/transport",
 				"patcherrelativepath" : "../patchers/transport",
 				"type" : "JSON",
 				"implicit" : 1

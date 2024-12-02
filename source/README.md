@@ -1,4 +1,4 @@
-# WaMaxPackageBase
+# WaMax
 
 ## MAX SDK
 

@@ -586,14 +586,14 @@
 ,
 		"dependency_cache" : [ 			{
 				"name" : "bpatcher_size.js",
-				"bootpath" : "/Volumes/ExternalData/_Home/GitHub/MusicProjects/WaMaxPackageBase/javascript/patch",
+				"bootpath" : "/Volumes/ExternalData/_Home/GitHub/MusicProjects/WaMax/javascript/patch",
 				"patcherrelativepath" : "../../javascript/patch",
 				"type" : "TEXT",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "wa.patch.bpatcher.maxpat",
-				"bootpath" : "/Volumes/ExternalData/_Home/GitHub/MusicProjects/WaMaxPackageBase/patchers/patch",
+				"bootpath" : "/Volumes/ExternalData/_Home/GitHub/MusicProjects/WaMax/patchers/patch",
 				"patcherrelativepath" : "../patch",
 				"type" : "JSON",
 				"implicit" : 1

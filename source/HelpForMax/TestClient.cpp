@@ -26,7 +26,7 @@ TestClient::TestClient()
       item->setData(0, Qt::UserRole + 1, patchPath);
    };
 
-   const QFileInfo packageInfo(QDir::homePath() + "/GitHub/MusicProjects/WaMaxPackageBase");
+   const QFileInfo packageInfo(QDir::homePath() + "/GitHub/MusicProjects/WaMax");
    const QString packageDir = packageInfo.canonicalFilePath();
 
    addItem(packageDir + "/patchers/audio/wa.wave_terrain~.maxpat");

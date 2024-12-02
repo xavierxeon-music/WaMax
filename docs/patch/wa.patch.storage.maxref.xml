@@ -5,7 +5,7 @@
     <description>load and save <o>pattr</o></description>
     <metadatalist>
         <metadata name="author">Ralf Waspe</metadata>
-        <metadata name="tag">WaMaxPackageBase</metadata>
+        <metadata name="tag">WaMax</metadata>
         <metadata name="tag">WaMaxPackage</metadata>
     </metadatalist>
     <misc name="Outputs">

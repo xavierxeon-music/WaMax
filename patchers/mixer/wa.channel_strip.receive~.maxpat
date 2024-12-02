@@ -321,14 +321,14 @@
 		"originid" : "pat-74",
 		"dependency_cache" : [ 			{
 				"name" : "bpatcher_size.js",
-				"bootpath" : "~/GitHub/MusicProjects/WaMaxPackageBase/javascript/patch",
+				"bootpath" : "~/GitHub/MusicProjects/WaMax/javascript/patch",
 				"patcherrelativepath" : "../../javascript/patch",
 				"type" : "TEXT",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "wa.patch.bpatcher.maxpat",
-				"bootpath" : "~/GitHub/MusicProjects/WaMaxPackageBase/patchers/patch",
+				"bootpath" : "~/GitHub/MusicProjects/WaMax/patchers/patch",
 				"patcherrelativepath" : "../patch",
 				"type" : "JSON",
 				"implicit" : 1

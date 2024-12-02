@@ -172,7 +172,7 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 0.0, 0.0, 165.0, 135.0 ],
 					"rendermode" : 2,
-					"url" : "file:///Volumes/ExternalData/_Home/GitHub/MusicProjects/WaMaxPackageBase/media/maxgui.html?content=audio_loopback"
+					"url" : "file:///Volumes/ExternalData/_Home/GitHub/MusicProjects/WaMax/media/maxgui.html?content=audio_loopback"
 				}
 
 			}

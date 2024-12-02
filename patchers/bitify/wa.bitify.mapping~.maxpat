@@ -492,7 +492,7 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 0.0, 0.0, 270.0, 300.0 ],
 					"rendermode" : 2,
-					"url" : "file:///Volumes/ExternalData/_Home/GitHub/MusicProjects/WaMaxPackageBase/media/maxgui.html?content=bitify_mapping"
+					"url" : "file:///Volumes/ExternalData/_Home/GitHub/MusicProjects/WaMax/media/maxgui.html?content=bitify_mapping"
 				}
 
 			}

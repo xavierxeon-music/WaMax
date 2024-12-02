@@ -9,11 +9,11 @@ then
    exit
 fi
 
-if [ -L "$TARGET/WaMaxPackageBase" ]
+if [ -L "$TARGET/WaMax" ]
 then 
-   rm  "$TARGET/WaMaxPackageBase" 
+   rm  "$TARGET/WaMax" 
    echo "remove exising link"
 fi
 
-ln -s "$SOURCE" "$TARGET/WaMaxPackageBase"
+ln -s "$SOURCE" "$TARGET/WaMax"
 echo "DONE"

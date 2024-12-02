@@ -401,7 +401,7 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 0.0, 0.0, 180.0, 60.0 ],
 					"rendermode" : 2,
-					"url" : "file:///Volumes/ExternalData/_Home/GitHub/MusicProjects/WaMaxPackageBase/media/maxgui.html?content=bitify_invert"
+					"url" : "file:///Volumes/ExternalData/_Home/GitHub/MusicProjects/WaMax/media/maxgui.html?content=bitify_invert"
 				}
 
 			}

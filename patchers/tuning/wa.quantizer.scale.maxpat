@@ -257,7 +257,7 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 0.0, 0.0, 195.0, 345.0 ],
 					"rendermode" : 2,
-					"url" : "file:///Users/waspe/GitHub/MusicProjects/WaMaxPackageBase/media/maxgui.html?content=quantizer"
+					"url" : "file:///Users/waspe/GitHub/MusicProjects/WaMax/media/maxgui.html?content=quantizer"
 				}
 
 			}

@@ -5,7 +5,7 @@
     <description>quantize a midiNote to a scale defined by <o>wa.quantizer.scale</o></description>
     <metadatalist>
         <metadata name="author">Ralf Waspe</metadata>
-        <metadata name="tag">WaMaxPackageBase</metadata>
+        <metadata name="tag">WaMax</metadata>
         <metadata name="tag">WaMaxPackage</metadata>
         <metadata name="tag">WaMaxPackage</metadata>
         <metadata name="tag">WaMaxPackage</metadata>
