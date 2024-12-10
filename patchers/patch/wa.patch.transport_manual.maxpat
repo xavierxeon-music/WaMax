@@ -4,13 +4,13 @@
 		"appversion" : 		{
 			"major" : 9,
 			"minor" : 0,
-			"revision" : 0,
+			"revision" : 2,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 1829.0, 149.0, 1852.0, 1417.0 ],
+		"rect" : [ 34.0, 115.0, 3772.0, 1451.0 ],
 		"gridonopen" : 2,
 		"gridsize" : [ 15.0, 15.0 ],
 		"gridsnaponopen" : 2,
@@ -130,8 +130,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 405.0, 139.0, 56.0, 22.0 ],
-					"text" : "freebang"
+					"patching_rect" : [ 405.0, 139.0, 58.0, 22.0 ],
+					"text" : "loadbang"
 				}
 
 			}
@@ -157,7 +157,7 @@
 					"maxclass" : "inlet",
 					"numinlets" : 0,
 					"numoutlets" : 1,
-					"outlettype" : [ "bang" ],
+					"outlettype" : [ "int" ],
 					"patching_rect" : [ 279.0, 45.0, 30.0, 30.0 ]
 				}
 
@@ -381,7 +381,7 @@
 
 			}
  ],
-		"originid" : "pat-502",
+		"originid" : "pat-136",
 		"styles" : [ 			{
 				"name" : "wa.send",
 				"default" : 				{
