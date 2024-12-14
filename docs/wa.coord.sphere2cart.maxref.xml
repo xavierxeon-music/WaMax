@@ -28,6 +28,16 @@
 
 	<methodlist>
 
+		<method name='az'>
+			<digest>azimuth value </digest>
+			<description>azimuth value </description>
+		</method>
+
+		<method name='el'>
+			<digest>elevation value </digest>
+			<description>elevation value </description>
+		</method>
+
 		<method name='bang'>
 			<digest></digest>
 			<description></description>
@@ -41,16 +51,6 @@
 		<method name='list'>
 			<digest></digest>
 			<description></description>
-		</method>
-
-		<method name='el'>
-			<digest>elevation value </digest>
-			<description>elevation value </description>
-		</method>
-
-		<method name='az'>
-			<digest>azimuth value </digest>
-			<description>azimuth value </description>
 		</method>
 
 	</methodlist>
