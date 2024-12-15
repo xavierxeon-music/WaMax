@@ -13,3 +13,11 @@ in your CMAKE_PREFIX_PATH
 ## windows build
 
 set CMAKE_PREFIX_PATH=C:\dev\Qt\6.8.0\msvc2022_64\lib\cmake
+
+cmake ..
+cmake --build . --target ALL_BUILD --config Release -- /nologo /verbosity:minimal /maxcpucount
+
+or 
+
+cmake -G "NMake Makefiles" ..
+nmake 
