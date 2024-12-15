@@ -17,6 +17,7 @@ public:
 
 signals:
    void signalSizeChanged(const ImageSize& imageSize);
+   void signalTouchPointsChanged(const TouchPoint::Map& touchPointMap);
 
 public:
    void connectToServer();

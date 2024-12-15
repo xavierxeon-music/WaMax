@@ -12,6 +12,7 @@ class Data
 {
 public:
    const ImageSize& getImageSize() const;
+   const TouchPoint::Map& getTouchPointMap() const;
 
 protected:
    Data();

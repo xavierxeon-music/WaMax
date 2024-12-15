@@ -4,6 +4,8 @@
 #include <QMap>
 
 #include <QDataStream>
+#include <QPointF>
+#include <QRectF>
 
 class TouchPoint
 {
@@ -29,6 +31,11 @@ public:
    const int& getY() const;
    const int& getStartX() const;
    const int& getStartY() const;
+   const double& getPressure() const;
+   const double& getRotation() const;
+   const QPointF& getVelocity() const;
+   const QRectF& getAreaRect() const;
+   double getArea() const;
 
 private:
    bool pressed;
@@ -36,6 +43,10 @@ private:
    int y;
    int startX;
    int startY;
+   double pressure;
+   double rotation;
+   QPointF velocity;
+   QRectF area;
 };
 
 #ifndef TouchPointHPP

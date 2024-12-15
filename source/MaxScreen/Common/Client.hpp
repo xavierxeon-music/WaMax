@@ -65,6 +65,7 @@ inline void Client::slotReceiveData()
    if ('t' == marker)
    {
       tpMap.load(stream);
+      emit signalTouchPointsChanged(tpMap);
    }
    else if ('s' == marker)
    {

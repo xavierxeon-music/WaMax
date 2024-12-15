@@ -5,6 +5,9 @@
 
 #include <QObject>
 #include <QVariant>
+#include <QVector2D>
+
+#include <QMetaProperty>
 
 // map
 
@@ -23,17 +26,34 @@ inline void TouchPoint::Map::startUpdates()
 
 inline void TouchPoint::Map::update(const QObject* qmlTouchPoint)
 {
+   static bool doneOnce = true;
+   if (!doneOnce)
+   {
+      const QMetaObject* metaObject = qmlTouchPoint->metaObject();
+      for (int p = 0; p < metaObject->propertyCount(); p++)
+      {
+         const QMetaProperty metaProperty = metaObject->property(p);
+         qDebug() << metaProperty.name();
+      }
+      doneOnce = true;
+   }
+
    const int pointId = qmlTouchPoint->property("pointId").toInt();
    if (!contains(pointId))
       insert(pointId, TouchPoint());
 
    TouchPoint& touchPoint = find(pointId).value();
-
    touchPoint.pressed = qmlTouchPoint->property("pressed").toBool();
+
    touchPoint.x = qmlTouchPoint->property("x").toDouble();
    touchPoint.y = qmlTouchPoint->property("y").toDouble();
    touchPoint.startX = qmlTouchPoint->property("startX").toDouble();
    touchPoint.startY = qmlTouchPoint->property("startY").toDouble();
+
+   touchPoint.pressure = qmlTouchPoint->property("pressure").toDouble();
+   touchPoint.rotation = qmlTouchPoint->property("rotation").toDouble();
+   touchPoint.velocity = qmlTouchPoint->property("velocity").value<QVector2D>().toPointF();
+   touchPoint.area = qmlTouchPoint->property("area").toRectF();
 }
 
 inline void TouchPoint::Map::dump(QDataStream& stream)
@@ -45,7 +65,18 @@ inline void TouchPoint::Map::dump(QDataStream& stream)
    for (Map::const_iterator it = constBegin(); it != constEnd(); it++)
    {
       const TouchPoint& touchPoint = it.value();
-      //stream << it.key() << touchPoint.pressed << touchPoint.x << touchPoint.y << touchPoint.startX << touchPoint.startY;
+      stream << it.key();
+      stream << touchPoint.pressed;
+
+      stream << touchPoint.x;
+      stream << touchPoint.y;
+      stream << touchPoint.startX;
+      stream << touchPoint.startY;
+
+      stream << touchPoint.pressure;
+      stream << touchPoint.rotation;
+      stream << touchPoint.velocity;
+      stream << touchPoint.area;
 
       if (!touchPoint.pressed)
          deleteList.append(it.key());
@@ -68,14 +99,18 @@ inline void TouchPoint::Map::load(QDataStream& stream)
 
       TouchPoint touchPoint;
       stream >> touchPoint.pressed;
+
       stream >> touchPoint.x;
       stream >> touchPoint.y;
       stream >> touchPoint.startX;
       stream >> touchPoint.startY;
 
-      insert(id, touchPoint);
+      stream >> touchPoint.pressure;
+      stream >> touchPoint.rotation;
+      stream >> touchPoint.velocity;
+      stream >> touchPoint.area;
 
-      // qDebug() << id << touchPoint.pressed << touchPoint.x << touchPoint.y << touchPoint.startX << touchPoint.startY;
+      insert(id, touchPoint);
    }
 }
 
@@ -87,6 +122,10 @@ inline TouchPoint::TouchPoint()
    , y(0.0)
    , startX(0.0)
    , startY(0.0)
+   , pressure(0.0)
+   , rotation(0.0)
+   , velocity()
+   , area()
 {
 }
 
@@ -113,6 +152,31 @@ inline const int& TouchPoint::getStartX() const
 inline const int& TouchPoint::getStartY() const
 {
    return startY;
+}
+
+inline const double& TouchPoint::getPressure() const
+{
+   return pressure;
+}
+
+inline const double& TouchPoint::getRotation() const
+{
+   return rotation;
+}
+
+inline const QPointF& TouchPoint::getVelocity() const
+{
+   return velocity;
+}
+
+inline const QRectF& TouchPoint::getAreaRect() const
+{
+   return area;
+}
+
+inline double TouchPoint::getArea() const
+{
+   return area.width() * area.height();
 }
 
 #endif // NOT TouchPointHPP

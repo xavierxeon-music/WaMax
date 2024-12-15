@@ -4,6 +4,8 @@
 #include "ui_TestWidget.h"
 #include <QWidget>
 
+#include <QStandardItemModel>
+
 #include "Client.h"
 
 namespace Test
@@ -20,9 +22,11 @@ namespace Test
       void slotSelectImage();
       void slotSendImage();
       void slotSizeChanged(const ImageSize& imageSize);
+      void slotTouchPointsChanged(const TouchPoint::Map& touchPointMap);
 
    private:
       Client* client;
+      QStandardItemModel* touchModel;
    };
 } // namespace Test
 
