@@ -49,6 +49,11 @@ Test::Widget::Widget(QWidget* parent)
    }
 
    touchPointView->setModel(touchModel);
+   touchPointView->setRootIsDecorated(false);
+   touchPointView->setAlternatingRowColors(true);
+
+   for (int col = 0; col < headerLabels.size(); col++)
+      touchPointView->resizeColumnToContents(col);
 
 #if defined(__APPLE__)
    imageInfo->setText("/Users/waspe/Dropbox/Pictures/PainLogo.png");

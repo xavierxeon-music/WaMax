@@ -21,7 +21,7 @@ inline Client::Client(QObject* parent)
 
 inline void Client::connectToServer()
 {
-   const QString socketName = ScreenServer::compileSharedFileName("socket");
+   const QString socketName = ScreenServer::socketName();
    qDebug() << "Client @" << socketName << ScreenServer::isServerActive();
 
    socket->connectToServer(socketName);
@@ -34,7 +34,7 @@ inline void Client::connectToServer()
 inline void Client::sendImage(const QString& fileName)
 {
    QImage localImage(fileName);
-   if (fileName.isNull())
+   if (localImage.isNull() || !getImageSize().isValid())
       return;
 
    localImage = localImage.scaled(getImageSize(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
