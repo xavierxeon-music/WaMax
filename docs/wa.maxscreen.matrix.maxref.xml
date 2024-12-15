@@ -6,8 +6,8 @@
 
 <c74object name='wa.maxscreen.matrix' category=''>
 
-	<digest>description </digest>
-	<description>description </description>
+	<digest>send matrix to screen </digest>
+	<description>send matrix to screen </description>
 
 
 	<!--METADATA-->
@@ -34,11 +34,6 @@
 	<!--ATTRIBUTES-->
 
 	<attributelist>
-
-		<attribute name='hostname' get='1' set='1' type='symbol' size='1' >
-			<digest></digest>
-			<description></description>
-		</attribute>
 
 	</attributelist>
 

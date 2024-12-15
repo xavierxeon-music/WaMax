@@ -33,6 +33,7 @@ public:
 
 private:
    atoms timerFunction(const atoms& args, const int inlet);
+   atoms doubleClickFunction(const atoms& args, const int inlet);
 
    void sendData();
 
@@ -44,7 +45,7 @@ private:
 
    inlet<> input;
    outlet<> output; // needs matrix output !
-
+   message<> doubleClickMessage;
    timer<timer_options::defer_delivery> loopTimer;
 };
 

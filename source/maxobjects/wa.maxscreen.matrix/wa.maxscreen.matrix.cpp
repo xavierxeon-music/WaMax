@@ -15,6 +15,7 @@ MaxScreenMatrix::MaxScreenMatrix(const atoms& args)
    , screenSize()
    , input{this, "(matrix) Input", "matrix"}
    , output{this, "(matrix) output", "matrix"}
+   , doubleClickMessage{this, "dblclick", Max::Patcher::minBind(this, &MaxScreenMatrix::doubleClickFunction)}
    , loopTimer(this, Max::Patcher::minBind(this, &MaxScreenMatrix::timerFunction))
 {
    // args not working in matrix operator
@@ -44,6 +45,12 @@ pixel MaxScreenMatrix::calc_cell(pixel input, const matrix_info& info, matrix_co
    buffer.setPixelColor(x, y, color);
 
    return pixel{};
+}
+
+atoms MaxScreenMatrix::doubleClickFunction(const atoms& args, const int inlet)
+{
+   cout << "double click" << endl;
+   return {};
 }
 
 atoms MaxScreenMatrix::timerFunction(const atoms& args, const int inlet)
