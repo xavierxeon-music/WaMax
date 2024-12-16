@@ -4,19 +4,40 @@
 #include "c74_min.h"
 using namespace c74::min;
 
-class MaxScreenData : public object<MaxScreenData>
+#include <CommonQt.h>
+
+#include <QLocalSocket>
+
+#include "Data.h"
+
+class MaxScreenData : public object<MaxScreenData>, public Data
 {
 public:
    MIN_DESCRIPTION{"max screen data"};
 
 public:
    MaxScreenData(const atoms& args = {});
+   ~MaxScreenData();
 
 private:
+   atoms timerFunction(const atoms& args, const int inlet);
    atoms doubleClickFunction(const atoms& args, const int inlet);
+   atoms bangFunction(const atoms& args, const int inlet);
+
+   void receiveData();
+   void sendSize();
+   void sendTouchPoints();
 
 private:
+   QLocalSocket socket;
+
+   inlet<> input;
+   outlet<> outputTouchPoints;
+   outlet<> outputSize;
+
    message<> doubleClickMessage;
+   message<> bangMessage;
+   timer<timer_options::defer_delivery> loopTimer;
 };
 
 #endif // MaxScreenDataH

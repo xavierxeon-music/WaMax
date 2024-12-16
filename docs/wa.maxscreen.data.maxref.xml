@@ -28,6 +28,11 @@
 
 	<methodlist>
 
+		<method name='bang'>
+			<digest></digest>
+			<description></description>
+		</method>
+
 	</methodlist>
 
 

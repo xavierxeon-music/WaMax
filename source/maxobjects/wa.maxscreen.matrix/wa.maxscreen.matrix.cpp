@@ -5,6 +5,8 @@
 #include <MaxPatcher.h>
 #include <Shared.h>
 
+#include "Marker.h"
+
 using namespace c74;
 using ScreenServer = Shared<"MaxScreen">;
 
@@ -100,7 +102,7 @@ void MaxScreenMatrix::receiveData()
    char marker;
    stream >> marker;
 
-   if ('s' == marker)
+   if (Marker::ScreenSize == marker)
    {
       screenSize.load(stream);
       image = memoryPublisher.createNew(screenSize.getWidth(), screenSize.getHeight());
