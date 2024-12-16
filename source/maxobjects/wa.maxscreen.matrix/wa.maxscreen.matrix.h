@@ -4,9 +4,7 @@
 #include "c74_min.h"
 using namespace c74::min;
 
-#ifdef WIN_VERSION
-#undef hypot
-#endif
+#include <WaToolsQt>
 
 #include <mutex>
 
