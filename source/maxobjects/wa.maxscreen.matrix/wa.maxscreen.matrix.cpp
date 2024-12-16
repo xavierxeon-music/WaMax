@@ -12,7 +12,7 @@ MaxScreenMatrix::MaxScreenMatrix(const atoms& args)
    : object<MaxScreenMatrix>()
    , matrix_operator<>(false)
    , socket()
-   , publisherMemory(true)
+   , memoryPublisher(true)
    , image(512, 512, QImage::Format_ARGB32)
    , screenSize()
    , input{this, "(matrix) Input", "matrix"}
@@ -82,7 +82,7 @@ atoms MaxScreenMatrix::timerFunction(const atoms& args, const int inlet)
       if (readyRead())
          receiveData();
 
-      socket.write(Marker::Image);
+      socket.write(&Marker::Image, 1);
       loopTimer.delay(100);
    }
    else
