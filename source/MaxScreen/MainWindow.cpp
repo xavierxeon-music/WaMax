@@ -85,7 +85,7 @@ int main(int argc, char** argv)
    mw.showMaximized();
 
 #ifndef TEST_CLIENT_AVAILABLE
-   mw.slotToggleFullScreen();
+   //mw.slotToggleFullScreen();
 #endif
 
    return app.exec();
