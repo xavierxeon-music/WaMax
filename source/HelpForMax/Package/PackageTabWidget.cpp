@@ -6,10 +6,13 @@
 #include <QJsonObject>
 #include <QSettings>
 
-#include "HelpForMax.h"
+#include <Shared.h>
+
 #include "MessageBar.h"
 #include "PackageInfo.h"
 #include "PackageWidget.h"
+
+using HelpForMax = Shared<"HelpForMax">;
 
 Package::TabWidget* Package::TabWidget::me = nullptr;
 
@@ -29,8 +32,8 @@ Package::TabWidget::TabWidget(QWidget* parent)
 
    server = new QLocalServer(this);
    connect(server, &QLocalServer::newConnection, this, &TabWidget::slotNewConnection);
-   qDebug() << "Server @" << HelpForMax::compileSocketName();
-   server->listen(HelpForMax::compileSocketName());
+   qDebug() << "Server @" << HelpForMax::socketName();
+   server->listen(HelpForMax::socketName());
 }
 
 Package::TabWidget::~TabWidget()

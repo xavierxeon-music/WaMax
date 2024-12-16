@@ -10,7 +10,8 @@
 #include <QSettings>
 #include <QToolBar>
 
-#include "HelpForMax.h"
+#include <Shared.h>
+
 #include "MessageBar.h"
 #include "PatchWidget.h"
 
@@ -256,6 +257,7 @@ int main(int argc, char** argv)
    QApplication app(argc, argv);
 
    // only allow one instance
+   using HelpForMax = Shared<"HelpForMax">;
    if (HelpForMax::isServerActive())
    {
       QMessageBox::critical(nullptr, "HelpForMax", "Only one running instance allowed");

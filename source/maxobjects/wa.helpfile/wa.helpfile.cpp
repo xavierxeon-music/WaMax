@@ -6,8 +6,10 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
-#include <HelpForMax.h>
 #include <MaxPatcher.h>
+#include <Shared.h>
+
+using HelpForMax = Shared<"HelpForMax">;
 
 HelpFile::HelpFile(const atoms& args)
    : object<HelpFile>()
@@ -97,7 +99,7 @@ atoms HelpFile::setFileFunction(const atoms& args, const int inlet)
 atoms HelpFile::timerFunction(const atoms& args, const int inlet)
 {
    if (QLocalSocket::UnconnectedState == socket.state())
-      socket.connectToServer(HelpForMax::compileSocketName());
+      socket.connectToServer(HelpForMax::socketName());
 
    if (PatchInfo::State::Initial != currentPatch.state || PatchInfo::State::NotInPackage != currentPatch.state)
    {

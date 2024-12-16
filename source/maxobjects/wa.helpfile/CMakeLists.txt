@@ -20,6 +20,8 @@ add_library(
    ${PROJECT_SRC}
 )
 
+find_package(WaTools REQUIRED)
+
 find_package(Qt6 REQUIRED COMPONENTS Core Network)
 target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Core Qt6::Network)
 
