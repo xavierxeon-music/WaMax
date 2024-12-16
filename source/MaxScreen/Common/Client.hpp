@@ -53,7 +53,7 @@ inline void Client::sendImage(const QString& fileName)
       }
    }
 
-   socket->write(Marker::Image);
+   socket->write(&Marker::Image, 1);
 }
 
 inline void Client::slotReceiveData()

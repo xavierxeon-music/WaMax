@@ -3,9 +3,9 @@
 
 struct Marker
 {
-   static const char Image = 'i';
-   static const char ScreenSize = 's';
-   static const char TouchPoint = 't';
+   static constexpr char Image = 'i';
+   static constexpr char ScreenSize = 's';
+   static constexpr char TouchPoint = 't';
 };
 
 #endif // NOT  MarkerH

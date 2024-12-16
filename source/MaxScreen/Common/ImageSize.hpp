@@ -5,6 +5,8 @@
 
 #include <QDebug>
 
+#include "Marker.h"
+
 inline ImageSize::ImageSize()
    : width(0)
    , height(0)
