@@ -63,7 +63,7 @@ atoms MaxScreenMatrix::timerFunction(const atoms& args, const int inlet)
 {
    if (QLocalSocket::UnconnectedState == socket.state())
    {
-      socket.connectToServer(ScreenServer::compileSocketName());
+      socket.connectToServer(ScreenServer::socketName());
       loopTimer.delay(500);
    }
    else if (QLocalSocket::ConnectedState == socket.state())
@@ -82,7 +82,7 @@ atoms MaxScreenMatrix::timerFunction(const atoms& args, const int inlet)
       if (readyRead())
          receiveData();
 
-      socket->write(Marker::Image);
+      socket.write(Marker::Image);
       loopTimer.delay(100);
    }
    else
@@ -95,7 +95,7 @@ atoms MaxScreenMatrix::timerFunction(const atoms& args, const int inlet)
 
 void MaxScreenMatrix::receiveData()
 {
-   QDataStream stream(socket);
+   QDataStream stream(&socket);
 
    char marker;
    stream >> marker;
@@ -107,7 +107,7 @@ void MaxScreenMatrix::receiveData()
       image.fill(QColor(0, 0, 0, 0));
    }
 
-   socket->readAll();
+   socket.readAll();
 }
 
 MIN_EXTERNAL(MaxScreenMatrix);
