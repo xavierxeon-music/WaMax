@@ -1,11 +1,14 @@
 #include "TestClient.h"
 
+#include <QDir>
 #include <QFileInfo>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
 
-#include <HelpForMax.h>
+#include <Shared.h>
+
+using HelpForMax = Shared<"HelpForMax">;
 
 TestClient::TestClient()
    : QDialog(nullptr)
@@ -54,7 +57,7 @@ void TestClient::sendData(const QString& patchPath)
       auto receiveFunction = std::bind(&TestClient::receiveData, this, socket);
       connect(socket, &QLocalSocket::readyRead, receiveFunction);
 
-      socket->connectToServer(HelpForMax::compileSocketName());
+      socket->connectToServer(HelpForMax::socketName());
       socket->waitForConnected();
    }
 
