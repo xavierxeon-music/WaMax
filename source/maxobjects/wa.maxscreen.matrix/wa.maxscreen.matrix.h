@@ -33,12 +33,12 @@ private:
    atoms timerFunction(const atoms& args, const int inlet);
    atoms doubleClickFunction(const atoms& args, const int inlet);
 
-   void sendData();
+   void receiveData();
 
 private:
    QLocalSocket socket;
-   SharedImage publisherMemory;
-   QImage buffer;
+   SharedImage memoryPublisher;
+   QImage image;
    ImageSize screenSize;
 
    inlet<> input;

@@ -24,8 +24,7 @@ inline void ImageSize::update(const int _width, const int _height)
 
 inline void ImageSize::dump(QDataStream& stream)
 {
-   static const char marker = 's';
-   stream << marker << width << height;
+   stream << Marker::ScreenSize << width << height;
 }
 
 inline void ImageSize::load(QDataStream& stream)

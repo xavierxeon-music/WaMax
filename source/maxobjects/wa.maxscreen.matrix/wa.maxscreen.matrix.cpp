@@ -1,17 +1,19 @@
 #include "wa.maxscreen.matrix.h"
 
-#include <QBuffer>
+#include <Qimage>
 
 #include <MaxPatcher.h>
+#include <Shared.h>
 
 using namespace c74;
+using ScreenServer = Shared<"MaxScreen">;
 
 MaxScreenMatrix::MaxScreenMatrix(const atoms& args)
    : object<MaxScreenMatrix>()
    , matrix_operator<>(false)
    , socket()
    , publisherMemory(true)
-   , buffer(512, 512, QImage::Format_ARGB32)
+   , image(512, 512, QImage::Format_ARGB32)
    , screenSize()
    , input{this, "(matrix) Input", "matrix"}
    , output{this, "(matrix) output", "matrix"}
@@ -36,36 +38,38 @@ pixel MaxScreenMatrix::calc_cell(pixel input, const matrix_info& info, matrix_co
 {
    const int x = position.x();
    const int y = position.y();
-   if (x < 0 || x >= buffer.width() || y < 0 || y >= buffer.height())
+   if (x < 0 || x >= image.width() || y < 0 || y >= image.height())
       return pixel{};
 
    const QColor color(input[red], input[green], input[blue]);
    //cout << x << "," << y << "," << color.red() << "," << color.green() << "," << color.blue() << endl;
 
-   buffer.setPixelColor(x, y, color);
+   image.setPixelColor(x, y, color);
 
    return pixel{};
 }
 
 atoms MaxScreenMatrix::doubleClickFunction(const atoms& args, const int inlet)
 {
-   cout << "double click" << endl;
+   if (!ScreenServer::isServerActive())
+   {
+      cout << "start max screen" << endl;
+      ScreenServer::startApplication();
+   }
    return {};
 }
 
 atoms MaxScreenMatrix::timerFunction(const atoms& args, const int inlet)
 {
-   /*
    if (QLocalSocket::UnconnectedState == socket.state())
-      socket.connectToServer(HelpForMax::compileSocketName());
-
-   if (PatchInfo::State::Initial != currentPatch.state || PatchInfo::State::NotInPackage != currentPatch.state)
+   {
+      socket.connectToServer(ScreenServer::compileSocketName());
+      loopTimer.delay(500);
+   }
+   else if (QLocalSocket::ConnectedState == socket.state())
    {
       auto readyRead = [&]()
       {
-         if (socket.state() != QLocalSocket::ConnectedState)
-            return false;
-
          if (!socket.waitForReadyRead(10))
             return false;
 
@@ -77,34 +81,33 @@ atoms MaxScreenMatrix::timerFunction(const atoms& args, const int inlet)
 
       if (readyRead())
          receiveData();
+
+      socket->write(Marker::Image);
+      loopTimer.delay(100);
+   }
+   else
+   {
+      loopTimer.delay(500);
    }
 
-
-   loopTimer.delay(500);
-   */
    return {};
 }
 
-void MaxScreenMatrix::sendData()
+void MaxScreenMatrix::receiveData()
 {
-   /*
-   bufferMutex.lock();
-   QByteArray block;
+   QDataStream stream(socket);
+
+   char marker;
+   stream >> marker;
+
+   if ('s' == marker)
    {
-      QBuffer writer(&block);
-      buffer.save(&writer, "PNG");
+      screenSize.load(stream);
+      image = memoryPublisher.createNew(screenSize.getWidth(), screenSize.getHeight());
+      image.fill(QColor(0, 0, 0, 0));
    }
-   bufferMutex.unlock();
 
-   Convertor<qsizetype> convertor;
-   convertor.data = block.size();
-   //cout << "image size " << convertor.data << endl;
-
-   socket->write(convertor.bytes, sizeof(qsizetype));
-   socket->write(block);
-
-   socket->waitForBytesWritten(10);
-   */
+   socket->readAll();
 }
 
 MIN_EXTERNAL(MaxScreenMatrix);

@@ -61,7 +61,7 @@ atoms HelpFile::mouseDoubleClickFunction(const atoms& args, const int inlet)
 {
    if (!HelpForMax::isServerActive())
    {
-      cout << "start application" << endl;
+      cout << "start help editor" << endl;
       HelpForMax::startApplication();
    }
 

@@ -3,11 +3,12 @@
 
 #include "TouchPoint.h"
 
+#include <QMetaProperty>
 #include <QObject>
 #include <QVariant>
 #include <QVector2D>
 
-#include <QMetaProperty>
+#include "Marker.h"
 
 // map
 
@@ -58,8 +59,7 @@ inline void TouchPoint::Map::update(const QObject* qmlTouchPoint)
 
 inline void TouchPoint::Map::dump(QDataStream& stream)
 {
-   static const char marker = 't';
-   stream << marker << count();
+   stream << Marker::TouchPoint << count();
 
    QList<int> deleteList;
    for (Map::const_iterator it = constBegin(); it != constEnd(); it++)

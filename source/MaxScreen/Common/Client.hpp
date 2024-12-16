@@ -8,6 +8,8 @@
 
 #include <Convertor.h>
 
+#include "Marker.h"
+
 inline Client::Client(QObject* parent)
    : QObject(parent)
    , Data()
@@ -51,8 +53,7 @@ inline void Client::sendImage(const QString& fileName)
       }
    }
 
-   static const QByteArray marker("i");
-   socket->write(marker);
+   socket->write(Marker::Image);
 }
 
 inline void Client::slotReceiveData()
@@ -62,12 +63,12 @@ inline void Client::slotReceiveData()
    char marker;
    stream >> marker;
 
-   if ('t' == marker)
+   if (Marker::TouchPoint == marker)
    {
       tpMap.load(stream);
       emit signalTouchPointsChanged(tpMap);
    }
-   else if ('s' == marker)
+   else if (Marker::ScreenSize == marker)
    {
       screenSize.load(stream);
       image = memoryPublisher.createNew(screenSize.getWidth(), screenSize.getHeight());
