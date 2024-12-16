@@ -6,7 +6,7 @@
 using namespace c74::min;
 using namespace c74::min::ui;
 
-#include <WaToolsQt>
+#include <WaToolsQt.h>
 
 #include "PatchInfo.h"
 

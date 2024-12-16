@@ -4,7 +4,7 @@
 #include "c74_min.h"
 using namespace c74::min;
 
-#include <WaToolsQt>
+#include <WaToolsQt.h>
 
 #include <QString>
 
