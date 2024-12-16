@@ -4,5 +4,6 @@
 **/*.pro.user
 **/CMakeLists.txt.user
 media/mixer/*.wav
+source/**/.vs
 source/**/build
 externals
