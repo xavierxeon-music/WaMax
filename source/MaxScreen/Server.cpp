@@ -31,7 +31,7 @@ Server::Server(QObject* parent)
    if (QFile::exists(socketName))
       QFile::remove(socketName);
 
-   qDebug() << "Server @" << socketName;
+   qInfo() << "Server @" << socketName;
    listen(socketName);
 }
 

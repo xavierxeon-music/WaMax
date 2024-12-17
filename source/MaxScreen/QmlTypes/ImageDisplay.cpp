@@ -18,6 +18,7 @@ ImageDisplay::~ImageDisplay()
 
 void ImageDisplay::detach()
 {
+   memorySubscriber.detach();
 }
 
 void ImageDisplay::attach()
@@ -27,6 +28,7 @@ void ImageDisplay::attach()
       isInitialised = true;
       const QSize size = memorySubscriber.getSize();
       image = QImage(memorySubscriber.imageMemory, size.width(), size.height(), QImage::Format_ARGB32);
+      //qDebug() << "Server image" << memorySubscriber.imageMemory << size << image.size() << image.isNull();
    }
    update();
 }

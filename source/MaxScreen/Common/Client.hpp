@@ -24,7 +24,7 @@ inline Client::Client(QObject* parent)
 inline void Client::connectToServer()
 {
    const QString socketName = ScreenServer::socketName();
-   qDebug() << "Client @" << socketName << ScreenServer::isServerActive();
+   qInfo() << "Client @" << socketName << ScreenServer::isServerActive();
 
    socket->connectToServer(socketName);
    socket->waitForConnected();
@@ -73,6 +73,8 @@ inline void Client::slotReceiveData()
       screenSize.load(stream);
       image = memoryPublisher.createNew(screenSize.getWidth(), screenSize.getHeight());
       image.fill(QColor(0, 0, 0, 0));
+
+      //qDebug() << "Client image" << image.size() << image.isNull();
 
       emit signalSizeChanged(screenSize);
    }

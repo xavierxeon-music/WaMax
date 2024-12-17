@@ -4,18 +4,20 @@
 #include <QColor>
 #include <QFile>
 #include <QImage>
+#include <QSharedMemory>
 
 #include "ImageSize.h"
 
 class SharedImage
 {
 public:
-   SharedImage(bool isPublisher);
+   SharedImage(bool isPublisher, bool useFile = false);
    ~SharedImage();
 
 public:
    QImage create();
    QImage createNew(const int width, const int height);
+   void detach();
 
    QSize getSize() const;
    bool isUpdated(); // returns true if the size of the shared image is different from the current size
@@ -37,10 +39,14 @@ private:
    void resize(const int width, const int height);
 
 private:
-   bool isPublisher;
-   QFile sharedFile;
-   Header* header;
+   const bool isPublisher;
+   const bool useFile;
 
+   QFile sharedFile;
+   QSharedMemory sharedMemoryHeader;
+   QSharedMemory sharedMemoryImage;
+
+   Header* header;
    int imageSize;
 };
 
