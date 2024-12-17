@@ -40,13 +40,16 @@ pixel MaxScreenMatrix::calc_cell(pixel input, const matrix_info& info, matrix_co
 {
    const int x = position.x();
    const int y = position.y();
-   if (x < 0 || x >= image.width() || y < 0 || y >= image.height())
+   if (x >= image.width() || y >= image.height())
       return pixel{};
 
-   const QColor color(input[red], input[green], input[blue]);
-   //cout << x << "," << y << "," << color.red() << "," << color.green() << "," << color.blue() << endl;
+   if (x < 0 || y < 0)
+      return pixel{};
 
-   image.setPixelColor(x, y, color);
+   const QRgb color = qRgb(input[red], input[green], input[blue]);
+   QRgb* line = reinterpret_cast<QRgb*>(image.scanLine(y));
+   line[x] = color;
+   //image.setPixel(x, y, color);
 
    return pixel{};
 }

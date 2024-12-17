@@ -24,7 +24,7 @@ Server::Server(QObject* parent)
 
    QTimer* updateTimer = new QTimer(this);
    connect(updateTimer, &QTimer::timeout, this, &Server::sendTouchPointUpdates);
-   updateTimer->start(100);
+   updateTimer->start(20);
 
    connect(this, &QLocalServer::newConnection, this, &Server::slotNewConnection);
    const QString socketName = ScreenServer::socketName();
