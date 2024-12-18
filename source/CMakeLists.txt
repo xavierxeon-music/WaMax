@@ -7,5 +7,6 @@ endif()
 
 add_subdirectory(maxglobal)
 add_subdirectory(maxobjects)
-add_subdirectory(HelpForMax)
-add_subdirectory(MaxScreen)
+
+# add_subdirectory(HelpForMax)
+# add_subdirectory(MaxScreen)

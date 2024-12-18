@@ -28,6 +28,7 @@ atoms MaxScreenData::doubleClickFunction(const atoms& args, const int inlet)
    if (!ScreenServer::isServerActive())
    {
       cout << "start max screen" << endl;
+
       ScreenServer::startApplication();
    }
    return {};

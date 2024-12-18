@@ -35,6 +35,9 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
    if(APPLE)
       set(CMAKE_RUNTIME_OUTPUT_DIRECTORY $ENV{HOME}/Applications)
       message(STATUS "DESTINATION DIRECTORY: ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+   elseif(WIN32)
+      set(CMAKE_RUNTIME_OUTPUT_DIRECTORY $ENV{LOCALAPPDATA}/${PROJECT_NAME})
+      message(STATUS "DESTINATION DIRECTORY: ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
    endif()
 endif()
 
@@ -66,6 +69,20 @@ if(APPLE)
 elseif(WIN32)
    set(APP_ICON "${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_NAME}.rc")
    target_sources(${PROJECT_NAME} PRIVATE ${APP_ICON})
+
+   if(CMAKE_BUILD_TYPE STREQUAL "Release")
+      get_target_property(QMAKE_EXE Qt6::qmake IMPORTED_LOCATION)
+      get_filename_component(QT_BIN_DIR "${QMAKE_EXE}" DIRECTORY)
+
+      set(QT_QML_DIR ${QT_BIN_DIR}/../qml)
+      find_program(WINDEPLOYQT_EXECUTABLE windeployqt HINTS "${QT_BIN_DIR}")
+      message(STATUS "WINDEPLOY ${WINDEPLOYQT_EXECUTABLE}, QT_QML_DIR ${QT_QML_DIR}")
+
+      add_custom_command(TARGET ${PROJECT_NAME}
+         POST_BUILD
+         COMMAND "${WINDEPLOYQT_EXECUTABLE}" --no-translations --no-system-d3d-compiler --compiler-runtime --qmldir ${QT_QML_DIR} \"$<TARGET_FILE:${PROJECT_NAME}>\"
+      )
+   endif()
 endif()
 
 target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Widgets Qt6::Svg Qt6::Network Qt6::QuickWidgets)
