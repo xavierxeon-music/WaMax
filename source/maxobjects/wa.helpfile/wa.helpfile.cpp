@@ -132,6 +132,8 @@ void HelpFile::sendData()
    if (PatchInfo::State::NotInPackage == currentPatch.state)
       return;
 
+   cout << currentPatch.patchPath.toStdString() << endl;
+
    QJsonObject object;
    object["patch"] = currentPatch.patchPath;
 
