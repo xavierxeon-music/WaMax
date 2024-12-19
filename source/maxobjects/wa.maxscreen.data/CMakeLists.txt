@@ -6,7 +6,7 @@ include(${C74_MIN_API_DIR}/script/min-pretarget.cmake)
 # ############################################################
 include_directories(
    "${C74_INCLUDES}"
-   "${CMAKE_CURRENT_LIST_DIR}/../../../applications/MaxScreen/Common"
+   "${APPLICATIONS_DIR}/MaxScreen/Common"
 )
 
 file(GLOB PROJECT_SRC

@@ -1,9 +1,9 @@
-**/.vscode
 **/__pycache__
-**/node_modules
+**/.vs
+**/.vscode
 **/*.pro.user
+**/build
 **/CMakeLists.txt.user
-media/mixer/*.wav
-source/**/.vs
-source/**/build
+**/node_modules
+extensions
 externals
