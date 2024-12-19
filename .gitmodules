@@ -1,6 +1,6 @@
 [submodule "source/min-api"]
 	path = source/min-api
 	url = https://github.com/Cycling74/min-api.git
-[submodule "source/HelpForMax/Graph"]
-	path = source/HelpForMax/DiscreteMaths
+[submodule "applications/HelpForMax/Graph"]
+	path = applications/HelpForMax/DiscreteMaths
 	url = https://github.com/xavierxeon-helper/Graph.git
