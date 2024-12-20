@@ -23,6 +23,7 @@ Patch::Widget::Widget(TabWidget* tabWidget, const Package::Info* packageInfo, co
    , RefStructure()
    , tabWidget(tabWidget)
    , structureWidget(nullptr)
+   , suggestionWidgets()
    , packageInfo(packageInfo)
    , path(patchFileName)
    , patchInfo{}
@@ -47,6 +48,23 @@ Patch::Widget::Widget(TabWidget* tabWidget, const Package::Info* packageInfo, co
       setIcon(nameMessageIcon, RefStructure::PatchPart::MessageNamed);
       setIcon(outputIcon, RefStructure::PatchPart::Output);
       setIcon(otherIcon, RefStructure::PatchPart::Other);
+
+      // set models
+      argumentSuggestTree->init(this, nullptr);
+      argumentSuggestTree->setButton(argumnetTransferButton);
+      suggestionWidgets << argumentSuggestTree << argumnetTransferButton;
+
+      typedMessageSuggestTree->init(this, nullptr);
+      typedMessageSuggestTree->setButton(typedMessageTransferButton);
+      suggestionWidgets << typedMessageSuggestTree << typedMessageTransferButton;
+
+      namedMessageSuggestTree->init(this, nullptr);
+      namedMessageSuggestTree->setButton(namedMessageTransferButton);
+      suggestionWidgets << namedMessageSuggestTree << namedMessageTransferButton;
+
+      outputSuggestTree->init(this, nullptr);
+      outputSuggestTree->setButton(outputTransferButton);
+      suggestionWidgets << outputSuggestTree << outputTransferButton;
 
       // set models
       Model::Header* headerModel = new Model::Header(this, this);
@@ -152,8 +170,8 @@ bool Patch::Widget::isDirty() const
 void Patch::Widget::setToolsVisible(TabWidget::ToolsVisible toolsVisible)
 {
    const bool showSuggestions = TabWidget::ToolVisibility::Suggestions & toolsVisible;
-   for (QTreeView* treeView : {argumentSuggestTree, typedMessageSuggestTree, namedMessageSuggestTree, outputSuggestTree})
-      treeView->setVisible(showSuggestions);
+   for (QWidget* widget : suggestionWidgets)
+      widget->setVisible(showSuggestions);
 
    structureWidget->setVisible(TabWidget::ToolVisibility::Structure & toolsVisible);
 }
