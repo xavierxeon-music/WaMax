@@ -55,6 +55,7 @@ namespace Patch
    private:
       TabWidget* tabWidget;
       Structure::Widget* structureWidget;
+      QWidgetList suggestionWidgets;
 
       const Package::Info* packageInfo;
       QString path;

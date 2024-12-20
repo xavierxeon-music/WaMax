@@ -46,6 +46,13 @@
       </widget>
      </item>
      <item>
+      <widget class="QToolButton" name="argumnetTransferButton">
+       <property name="text">
+        <string>&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
         <enum>Qt::Orientation::Horizontal</enum>
@@ -119,6 +126,13 @@
       </widget>
      </item>
      <item>
+      <widget class="QToolButton" name="namedMessageTransferButton">
+       <property name="text">
+        <string>&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <spacer name="horizontalSpacer_3">
        <property name="orientation">
         <enum>Qt::Orientation::Horizontal</enum>
@@ -166,6 +180,13 @@
       <widget class="QLabel" name="outputInfo">
        <property name="text">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;OUTPUTS&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="outputTransferButton">
+       <property name="text">
+        <string>&gt;</string>
        </property>
       </widget>
      </item>
@@ -272,6 +293,13 @@
       <widget class="QLabel" name="typedMessageInfo">
        <property name="text">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;TYPED MESSAGES&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="typedMessageTransferButton">
+       <property name="text">
+        <string>&gt;</string>
        </property>
       </widget>
      </item>
