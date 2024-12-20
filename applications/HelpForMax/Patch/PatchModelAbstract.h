@@ -12,6 +12,7 @@ namespace Patch
       class Abstract : public QStandardItemModel
       {
          Q_OBJECT
+
       public:
          using List = QList<Abstract*>;
 
