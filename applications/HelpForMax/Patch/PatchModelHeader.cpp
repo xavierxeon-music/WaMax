@@ -19,7 +19,6 @@ void Patch::Model::Header::update()
 void Patch::Model::Header::rebuild()
 {
    beginResetModel();
-   clear();
    setHorizontalHeaderLabels({"PatchType", "Digest"});
 
    QStandardItem* typeItem = new QStandardItem();

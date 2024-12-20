@@ -27,7 +27,6 @@ void Patch::Model::TypedMessage::update()
 void Patch::Model::TypedMessage::rebuild()
 {
    beginResetModel();
-   clear();
    setHorizontalHeaderLabels({"Type", "Active", "Digest"});
 
    for (const Max::DataType& type : Max::dataTypeList())

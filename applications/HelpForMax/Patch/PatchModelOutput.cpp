@@ -27,7 +27,6 @@ void Patch::Model::Output::update()
 void Patch::Model::Output::rebuild()
 {
    beginResetModel();
-   clear();
    setHorizontalHeaderLabels({"Type", "Active", "Digest"});
 
    for (const Max::DataType& type : Max::dataTypeList())

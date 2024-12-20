@@ -47,7 +47,6 @@ void Patch::Model::NamedMessage::update()
 void Patch::Model::NamedMessage::rebuild()
 {
    beginResetModel();
-   clear();
    setHorizontalHeaderLabels({"Name", "Type", "At", "M", "Digest"});
 
    for (RefStructure::AttributesAndMessageNamed::Map::const_iterator it = structure->messageNamedMap.constBegin(); it != structure->messageNamedMap.constEnd(); it++)

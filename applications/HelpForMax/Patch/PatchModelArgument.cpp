@@ -30,9 +30,6 @@ void Patch::Model::Argument::update()
 void Patch::Model::Argument::rebuild()
 {
    beginResetModel();
-
-   clear();
-
    setHorizontalHeaderLabels({"Name", "Type", "Optional", "Digest"});
 
    for (int row = 0; row < structure->argumentList.count(); row++)
