@@ -6,6 +6,10 @@ Suggest::Model::Argument::Argument(QObject* parent, Ref::Structure& structure)
 {
 }
 
+void Suggest::Model::Argument::rebuild()
+{
+}
+
 Max::DataType Suggest::Model::Argument::getDataType(const int index)
 {
    const Ref::Structure::Argument& argument = structure.argumentList.at(index);

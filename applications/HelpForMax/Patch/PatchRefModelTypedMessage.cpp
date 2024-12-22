@@ -1,11 +1,11 @@
-#include "PatchModelTypedMessage.h"
+#include "PatchRefModelTypedMessage.h"
 
-Patch::Model::TypedMessage::TypedMessage(QObject* parent, Ref::Structure& structure)
+PatchRef::Model::TypedMessage::TypedMessage(QObject* parent, Ref::Structure& structure)
    : Abstract(parent, structure, Ref::Structure::PatchPart::MessageTyped)
 {
 }
 
-void Patch::Model::TypedMessage::update()
+void PatchRef::Model::TypedMessage::update()
 {
    for (int row = 0; row < invisibleRootItem()->rowCount(); row++)
    {
@@ -24,7 +24,7 @@ void Patch::Model::TypedMessage::update()
    emit signalDataEdited();
 }
 
-void Patch::Model::TypedMessage::rebuild()
+void PatchRef::Model::TypedMessage::rebuild()
 {
    beginResetModel();
    setHorizontalHeaderLabels({"Type", "Active", "Digest"});
@@ -50,7 +50,7 @@ void Patch::Model::TypedMessage::rebuild()
    update();
 }
 
-Ref::Structure::Digest* Patch::Model::TypedMessage::getDigest(const QModelIndex& index)
+Ref::Structure::Digest* PatchRef::Model::TypedMessage::getDigest(const QModelIndex& index)
 {
    QStandardItem* typeItem = invisibleRootItem()->child(index.row(), 0);
    const Max::DataType type = typeItem->data().value<Max::DataType>();
@@ -59,7 +59,7 @@ Ref::Structure::Digest* Patch::Model::TypedMessage::getDigest(const QModelIndex&
    return &(message.digest);
 }
 
-bool Patch::Model::TypedMessage::setData(const QModelIndex& index, const QVariant& value, int role)
+bool PatchRef::Model::TypedMessage::setData(const QModelIndex& index, const QVariant& value, int role)
 {
    const bool result = QStandardItemModel::setData(index, value, role);
 

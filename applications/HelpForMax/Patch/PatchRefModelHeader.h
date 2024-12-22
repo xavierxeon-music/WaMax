@@ -1,10 +1,10 @@
-#ifndef PatchModelHeaderH
-#define PatchModelHeaderH
+#ifndef PatchRefModelHeaderH
+#define PatchRefModelHeaderH
 
 #include "DelegatePatchType.h"
-#include "PatchModelAbstract.h"
+#include "PatchRefModelAbstract.h"
 
-namespace Patch
+namespace PatchRef
 {
    namespace Model
    {
@@ -23,6 +23,6 @@ namespace Patch
          Ref::Structure::PatchType getPatchType(const int index) override;
       };
    } // namespace Model
-} // namespace Patch
+} // namespace PatchRef
 
-#endif // NOT PatchModelHeaderH
+#endif // NOT PatchRefModelHeaderH

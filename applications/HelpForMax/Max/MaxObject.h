@@ -44,6 +44,7 @@ namespace Max
       Ports outlets;
       Type type;
       QString id;
+      bool isParamObject;
    };
 } // namespace Max
 

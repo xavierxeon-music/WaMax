@@ -16,6 +16,7 @@ namespace Suggest
          Argument(QObject* parent, Ref::Structure& structure);
 
       private:
+         void rebuild() override;
          Max::DataType getDataType(const int index) override;
       };
    } // namespace Model

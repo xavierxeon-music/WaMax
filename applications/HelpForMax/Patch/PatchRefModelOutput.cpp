@@ -1,11 +1,11 @@
-#include "PatchModelOutput.h"
+#include "PatchRefModelOutput.h"
 
-Patch::Model::Output::Output(QObject* parent, Ref::Structure& structure)
+PatchRef::Model::Output::Output(QObject* parent, Ref::Structure& structure)
    : Abstract(parent, structure, Ref::Structure::PatchPart::Output)
 {
 }
 
-void Patch::Model::Output::update()
+void PatchRef::Model::Output::update()
 {
    for (int row = 0; row < invisibleRootItem()->rowCount(); row++)
    {
@@ -24,7 +24,7 @@ void Patch::Model::Output::update()
    emit signalDataEdited();
 }
 
-void Patch::Model::Output::rebuild()
+void PatchRef::Model::Output::rebuild()
 {
    beginResetModel();
    setHorizontalHeaderLabels({"Type", "Active", "Digest"});
@@ -50,7 +50,7 @@ void Patch::Model::Output::rebuild()
    update();
 }
 
-Ref::Structure::Digest* Patch::Model::Output::getDigest(const QModelIndex& index)
+Ref::Structure::Digest* PatchRef::Model::Output::getDigest(const QModelIndex& index)
 {
    QStandardItem* typeItem = invisibleRootItem()->child(index.row(), 0);
    const Max::DataType type = typeItem->data().value<Max::DataType>();
@@ -59,7 +59,7 @@ Ref::Structure::Digest* Patch::Model::Output::getDigest(const QModelIndex& index
    return &(output.digest);
 }
 
-bool Patch::Model::Output::setData(const QModelIndex& index, const QVariant& value, int role)
+bool PatchRef::Model::Output::setData(const QModelIndex& index, const QVariant& value, int role)
 {
    const bool result = QStandardItemModel::setData(index, value, role);
 

@@ -1,10 +1,10 @@
-#ifndef PatchModelNamedMessageH
-#define PatchModelNamedMessageH
+#ifndef PatchRefModelNamedMessageH
+#define PatchRefModelNamedMessageH
 
 #include "DelegateDataType.h"
-#include "PatchModelAbstract.h"
+#include "PatchRefModelAbstract.h"
 
-namespace Patch
+namespace PatchRef
 {
    namespace Model
    {
@@ -25,6 +25,6 @@ namespace Patch
          Max::DataType getDataType(const int index) override;
       };
    } // namespace Model
-} // namespace Patch
+} // namespace PatchRef
 
-#endif // NOT PatchModelNamedMessageH
+#endif // NOT PatchRefModelNamedMessageH

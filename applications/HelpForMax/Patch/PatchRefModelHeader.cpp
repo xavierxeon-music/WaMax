@@ -1,11 +1,11 @@
-#include "PatchModelHeader.h"
+#include "PatchRefModelHeader.h"
 
-Patch::Model::Header::Header(QObject* parent, Ref::Structure& structure)
+PatchRef::Model::Header::Header(QObject* parent, Ref::Structure& structure)
    : Abstract(parent, structure, Ref::Structure::PatchPart::Header)
 {
 }
 
-void Patch::Model::Header::update()
+void PatchRef::Model::Header::update()
 {
    QStandardItem* typeItem = invisibleRootItem()->child(0, 0);
    QStandardItem* digestItem = invisibleRootItem()->child(0, 1);
@@ -16,7 +16,7 @@ void Patch::Model::Header::update()
    emit signalDataEdited();
 }
 
-void Patch::Model::Header::rebuild()
+void PatchRef::Model::Header::rebuild()
 {
    beginResetModel();
    setHorizontalHeaderLabels({"PatchType", "Digest"});
@@ -32,14 +32,14 @@ void Patch::Model::Header::rebuild()
    update();
 }
 
-Ref::Structure::Digest* Patch::Model::Header::getDigest(const QModelIndex& index)
+Ref::Structure::Digest* PatchRef::Model::Header::getDigest(const QModelIndex& index)
 {
    Q_UNUSED(index)
 
    return &(structure.header.digest);
 }
 
-bool Patch::Model::Header::setData(const QModelIndex& index, const QVariant& value, int role)
+bool PatchRef::Model::Header::setData(const QModelIndex& index, const QVariant& value, int role)
 {
    const bool result = QStandardItemModel::setData(index, value, role);
    if (Qt::EditRole == role)
@@ -60,7 +60,7 @@ bool Patch::Model::Header::setData(const QModelIndex& index, const QVariant& val
    return result;
 }
 
-Ref::Structure::PatchType Patch::Model::Header::getPatchType(const int index)
+Ref::Structure::PatchType PatchRef::Model::Header::getPatchType(const int index)
 {
    Q_UNUSED(index)
 

@@ -39,25 +39,19 @@ void Max::Patcher::readPatch(const QString& patchFileName)
    readLines(patcherObject, idMap);
 
    analyse();
+   buildStructure();
 }
 
-Max::Object::List Max::Patcher::findAll(const Object::Type& type) const
+Max::Object* Max::Patcher::getVertexCast(int vertexIndex) const
 {
-   return typeBuffer.value(type, Object::List());
+   Object* vertex = static_cast<Object*>(getVertex(vertexIndex));
+   return vertex;
 }
 
-Max::Object::List Max::Patcher::findAll(const QList<Object::Type>& typeList) const
+Max::Line* Max::Patcher::getEdgeCast(int edgeIndex) const
 {
-   Object::List list;
-   for (const Object::Type& type : typeList)
-   {
-      if (!typeBuffer.contains(type))
-         continue;
-
-      list.append(typeBuffer.value(type));
-   }
-
-   return list;
+   Line* edge = static_cast<Line*>(getEdge(edgeIndex));
+   return edge;
 }
 
 void Max::Patcher::analyse()
@@ -65,10 +59,10 @@ void Max::Patcher::analyse()
    static const QList<Object::Type> sourceTypeList = {Object::Type::PatcherArgs, Object::Type::Inlet};
    static const QList<Object::Type> processTypeList = {Object::Type::Route, Object::Type::RoutePass, Object::Type::TypeRoute, Object::Type::Unpack};
 
-   DiscreteMaths::Algorithm algo(this);
-   const Object::List sources = findAll(sourceTypeList);
-   const Object::List processors = findAll(processTypeList);
+   const Object::List sources = findAll(sourceTypeList, false);
+   const Object::List processors = findAll(processTypeList, false);
 
+   DiscreteMaths::Algorithm algo(this);
    for (Object* source : sources)
    {
       const DiscreteMaths::Algorithm::Tree tree = algo.breadthFirst(source);
@@ -101,9 +95,11 @@ void Max::Patcher::analyse()
          {
             const int vertexIndexA = path.verticies.at(index);
             Object* outletObject = getVertexCast(vertexIndexA);
+            outletObject->isParamObject = true;
 
             const int vertexIndexB = path.verticies.at(index - 1);
             Object* inletObject = getVertexCast(vertexIndexB);
+            inletObject->isParamObject = true;
 
             const int edgeIndex = findEdgeIndex(outletObject, inletObject);
             Line* line = getEdgeCast(edgeIndex);
@@ -113,16 +109,54 @@ void Max::Patcher::analyse()
    }
 }
 
-Max::Object* Max::Patcher::getVertexCast(int vertexIndex) const
+void Max::Patcher::buildStructure()
 {
-   Object* vertex = static_cast<Object*>(getVertex(vertexIndex));
-   return vertex;
+   Ref::Structure::clear();
+
+   const Object::List patcherArgs = findAll(Object::Type::PatcherArgs, true);
+   for (const Object* object : patcherArgs)
+   {
+      const int argumentIndex = object->text.indexOf("@");
+      const QString text = object->text.mid(0, argumentIndex);
+      const QStringList argumentNameList = text.split(" ", Qt::SkipEmptyParts);
+      for (int index = 1; index < argumentNameList.count(); index++)
+      {
+         Ref::Structure::Argument argument;
+         argument.name = argumentNameList.at(index);
+
+         argumentList.append(argument);
+      }
+   }
 }
 
-Max::Line* Max::Patcher::getEdgeCast(int edgeIndex) const
+Max::Object::List Max::Patcher::findAll(const Object::Type& type, bool paramObjectsOnly) const
 {
-   Line* edge = static_cast<Line*>(getEdge(edgeIndex));
-   return edge;
+   return findAll(QList<Object::Type>() << type, paramObjectsOnly);
+}
+
+Max::Object::List Max::Patcher::findAll(const QList<Object::Type>& typeList, bool paramObjectsOnly) const
+{
+   Object::List list;
+   for (const Object::Type& type : typeList)
+   {
+      if (!typeBuffer.contains(type))
+         continue;
+
+      if (paramObjectsOnly)
+      {
+         for (Object* object : typeBuffer.value(type))
+         {
+            if (object->isParamObject)
+               list.append(object);
+         }
+      }
+      else
+      {
+         list.append(typeBuffer.value(type));
+      }
+   }
+
+   return list;
 }
 
 Max::Object::IdMap Max::Patcher::readObjects(const QJsonObject patcherObject)

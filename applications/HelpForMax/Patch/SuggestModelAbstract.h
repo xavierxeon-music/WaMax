@@ -15,10 +15,19 @@ namespace Suggest
 
       public:
          Abstract(QObject* parent, Ref::Structure& structure, const Ref::Structure::PatchPart& part);
+         ~Abstract();
+
+      public:
+         virtual void rebuild() = 0;
+
+         static void rebuildAll();
 
       protected:
          Ref::Structure& structure;
          Ref::Structure::PatchPart part;
+
+      private:
+         static QList<Abstract*> instanceList;
       };
    } // namespace Model
 } // namespace Suggest

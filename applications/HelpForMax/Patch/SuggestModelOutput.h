@@ -13,6 +13,9 @@ namespace Suggest
 
       public:
          Output(QObject* parent, Ref::Structure& structure);
+
+      private:
+         void rebuild() override;
       };
    } // namespace Model
 } // namespace Suggest

@@ -1,11 +1,11 @@
-#ifndef PatchModelAbstractH
-#define PatchModelAbstractH
+#ifndef PatchRefModelAbstractH
+#define PatchRefModelAbstractH
 
 #include <QStandardItemModel>
 
 #include "RefStructure.h"
 
-namespace Patch
+namespace PatchRef
 {
    namespace Model
    {
@@ -43,6 +43,6 @@ namespace Patch
          static QList<Abstract*> instanceList;
       };
    } // namespace Model
-} // namespace Patch
+} // namespace PatchRef
 
-#endif // NOT PatchModelAbstractH
+#endif // NOT PatchRefModelAbstractH

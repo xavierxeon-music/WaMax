@@ -6,6 +6,10 @@ Suggest::Model::NamedMessage::NamedMessage(QObject* parent, Ref::Structure& stru
 {
 }
 
+void Suggest::Model::NamedMessage::rebuild()
+{
+}
+
 Max::DataType Suggest::Model::NamedMessage::getDataType(const int index)
 {
    QStandardItem* nameItem = invisibleRootItem()->child(index, 0);

@@ -17,7 +17,7 @@ namespace Max
       Widget(QWidget* parent);
 
    public:
-      void load(const Max::Patcher& patcher);
+      void load(const Patcher& patcher);
 
    private:
       void wheelEvent(QWheelEvent* wheelEvent) override;

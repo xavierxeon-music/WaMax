@@ -2,7 +2,7 @@
 
 #include <QTimer>
 
-#include "PatchModelAbstract.h"
+#include "PatchRefModelAbstract.h"
 #include "PatchWidget.h"
 
 Patch::TreeView::TreeView(QWidget* parent)
@@ -17,7 +17,7 @@ Patch::TreeView::TreeView(QWidget* parent)
    connect(this, &QAbstractItemView::clicked, this, &TreeView::slotUpdateDigest);
 }
 
-void Patch::TreeView::init(Widget* widget, Model::Abstract* model, int forceRowHeight)
+void Patch::TreeView::init(Widget* widget, PatchRef::Model::Abstract* model, int forceRowHeight)
 {
    this->widget = widget;
    this->model = model;
@@ -25,8 +25,8 @@ void Patch::TreeView::init(Widget* widget, Model::Abstract* model, int forceRowH
 
    setModel(model);
 
-   connect(model, &Model::Abstract::signalDataEdited, this, &TreeView::slotResizeColumns);
-   connect(model, &Model::Abstract::signalUpdateDigest, this, &TreeView::slotUpdateDigest);
+   connect(model, &PatchRef::Model::Abstract::signalDataEdited, this, &TreeView::slotResizeColumns);
+   connect(model, &PatchRef::Model::Abstract::signalUpdateDigest, this, &TreeView::slotUpdateDigest);
 }
 
 void Patch::TreeView::setButtons(QToolButton* addButton, QToolButton* removeButton)

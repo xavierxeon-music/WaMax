@@ -16,9 +16,6 @@ namespace Max
 
    public:
       void readPatch(const QString& patchFileName);
-      Object::List findAll(const Object::Type& type) const;
-      Object::List findAll(const QList<Object::Type>& typeList) const;
-      void analyse();
       Object* getVertexCast(int vertexIndex) const;
       Line* getEdgeCast(int edgeIndex) const;
 
@@ -26,6 +23,10 @@ namespace Max
       using TypeBuffer = QMap<Object::Type, Object::List>;
 
    private:
+      void analyse();
+      void buildStructure();
+      Object::List findAll(const Object::Type& type, bool paramObjectsOnly) const;
+      Object::List findAll(const QList<Object::Type>& typeList, bool paramObjectsOnly) const;
       Object::IdMap readObjects(const QJsonObject patcherObject);
       void readLines(const QJsonObject patcherObject, const Object::IdMap& idMap);
 

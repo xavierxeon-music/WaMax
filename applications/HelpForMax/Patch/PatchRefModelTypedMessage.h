@@ -1,18 +1,18 @@
-#ifndef PatchModelOutputH
-#define PatchModelOutputH
+#ifndef PatchRefModelTypedMessageH
+#define PatchRefModelTypedMessageH
 
-#include "PatchModelAbstract.h"
+#include "PatchRefModelAbstract.h"
 
-namespace Patch
+namespace PatchRef
 {
    namespace Model
    {
-      class Output : public Abstract
+      class TypedMessage : public Abstract
       {
          Q_OBJECT
 
       public:
-         Output(QObject* parent, Ref::Structure& structure);
+         TypedMessage(QObject* parent, Ref::Structure& structure);
 
       private:
          void update() override;
@@ -21,6 +21,6 @@ namespace Patch
          bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole) override;
       };
    } // namespace Model
-} // namespace Patch
+} // namespace PatchRef
 
-#endif // NOT PatchModelOutputH
+#endif // NOT PatchRefModelTypedMessageH

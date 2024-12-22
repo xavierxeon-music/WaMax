@@ -1,12 +1,12 @@
-#include "PatchModelArgument.h"
+#include "PatchRefModelArgument.h"
 
-Patch::Model::Argument::Argument(QObject* parent, Ref::Structure& structure)
+PatchRef::Model::Argument::Argument(QObject* parent, Ref::Structure& structure)
    : Abstract(parent, structure, Ref::Structure::PatchPart::Argument)
    , Delegate::DataType::Source()
 {
 }
 
-void Patch::Model::Argument::update()
+void PatchRef::Model::Argument::update()
 {
    for (int row = 0; row < invisibleRootItem()->rowCount(); row++)
    {
@@ -27,7 +27,7 @@ void Patch::Model::Argument::update()
    emit signalDataEdited();
 }
 
-void Patch::Model::Argument::rebuild()
+void PatchRef::Model::Argument::rebuild()
 {
    beginResetModel();
    setHorizontalHeaderLabels({"Name", "Type", "Optional", "Digest"});
@@ -54,13 +54,13 @@ void Patch::Model::Argument::rebuild()
    update();
 }
 
-Ref::Structure::Digest* Patch::Model::Argument::getDigest(const QModelIndex& index)
+Ref::Structure::Digest* PatchRef::Model::Argument::getDigest(const QModelIndex& index)
 {
    Ref::Structure::Argument& argument = structure.argumentList[index.row()];
    return &(argument.digest);
 }
 
-void Patch::Model::Argument::createBeforeItem(const QModelIndex& index)
+void PatchRef::Model::Argument::createBeforeItem(const QModelIndex& index)
 {
    Ref::Structure::Argument argument;
    argument.name = "???";
@@ -73,13 +73,13 @@ void Patch::Model::Argument::createBeforeItem(const QModelIndex& index)
    structure.setDirty();
 }
 
-void Patch::Model::Argument::removeItem(const QModelIndex& index)
+void PatchRef::Model::Argument::removeItem(const QModelIndex& index)
 {
    structure.argumentList.removeAt(index.row());
    structure.setDirty();
 }
 
-bool Patch::Model::Argument::setData(const QModelIndex& index, const QVariant& value, int role)
+bool PatchRef::Model::Argument::setData(const QModelIndex& index, const QVariant& value, int role)
 {
    const bool result = QStandardItemModel::setData(index, value, role);
    Ref::Structure::Argument& argument = structure.argumentList[index.row()];
@@ -107,7 +107,7 @@ bool Patch::Model::Argument::setData(const QModelIndex& index, const QVariant& v
    return result;
 }
 
-Max::DataType Patch::Model::Argument::getDataType(const int index)
+Max::DataType PatchRef::Model::Argument::getDataType(const int index)
 {
    const Ref::Structure::Argument& argument = structure.argumentList.at(index);
 

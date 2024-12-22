@@ -1,11 +1,11 @@
-#include "PatchModelNamedMessage.h"
+#include "PatchRefModelNamedMessage.h"
 
-Patch::Model::NamedMessage::NamedMessage(QObject* parent, Ref::Structure& structure)
+PatchRef::Model::NamedMessage::NamedMessage(QObject* parent, Ref::Structure& structure)
    : Abstract(parent, structure, Ref::Structure::PatchPart::MessageNamed)
 {
 }
 
-void Patch::Model::NamedMessage::update()
+void PatchRef::Model::NamedMessage::update()
 {
    int row = 0;
    for (Ref::Structure::AttributesAndMessageNamed::Map::const_iterator it = structure.messageNamedMap.constBegin(); it != structure.messageNamedMap.constEnd(); it++)
@@ -44,7 +44,7 @@ void Patch::Model::NamedMessage::update()
    emit signalDataEdited();
 }
 
-void Patch::Model::NamedMessage::rebuild()
+void PatchRef::Model::NamedMessage::rebuild()
 {
    beginResetModel();
    setHorizontalHeaderLabels({"Name", "Type", "At", "M", "Digest"});
@@ -76,7 +76,7 @@ void Patch::Model::NamedMessage::rebuild()
    update();
 }
 
-Ref::Structure::Digest* Patch::Model::NamedMessage::getDigest(const QModelIndex& index)
+Ref::Structure::Digest* PatchRef::Model::NamedMessage::getDigest(const QModelIndex& index)
 {
    QStandardItem* nameItem = invisibleRootItem()->child(index.row(), 0);
 
@@ -84,7 +84,7 @@ Ref::Structure::Digest* Patch::Model::NamedMessage::getDigest(const QModelIndex&
    return &(messageNamed.digest);
 }
 
-void Patch::Model::NamedMessage::createBeforeItem(const QModelIndex& index)
+void PatchRef::Model::NamedMessage::createBeforeItem(const QModelIndex& index)
 {
    Q_UNUSED(index)
 
@@ -98,7 +98,7 @@ void Patch::Model::NamedMessage::createBeforeItem(const QModelIndex& index)
    structure.setDirty();
 }
 
-void Patch::Model::NamedMessage::removeItem(const QModelIndex& index)
+void PatchRef::Model::NamedMessage::removeItem(const QModelIndex& index)
 {
    QStandardItem* nameItem = invisibleRootItem()->child(index.row(), 0);
    Ref::Structure::AttributesAndMessageNamed::Map::const_iterator it = nameItem->data().value<Ref::Structure::AttributesAndMessageNamed::Map::const_iterator>();
@@ -107,7 +107,7 @@ void Patch::Model::NamedMessage::removeItem(const QModelIndex& index)
    structure.setDirty();
 }
 
-bool Patch::Model::NamedMessage::setData(const QModelIndex& index, const QVariant& value, int role)
+bool PatchRef::Model::NamedMessage::setData(const QModelIndex& index, const QVariant& value, int role)
 {
    QStandardItem* nameItem = invisibleRootItem()->child(index.row(), 0);
    Ref::Structure::AttributesAndMessageNamed& messageNamed = structure.messageNamedMap[nameItem->text()];
@@ -151,7 +151,7 @@ bool Patch::Model::NamedMessage::setData(const QModelIndex& index, const QVarian
    return result;
 }
 
-Max::DataType Patch::Model::NamedMessage::getDataType(const int index)
+Max::DataType PatchRef::Model::NamedMessage::getDataType(const int index)
 {
    QStandardItem* nameItem = invisibleRootItem()->child(index, 0);
    const Ref::Structure::AttributesAndMessageNamed& messageNamed = structure.messageNamedMap.value(nameItem->text());

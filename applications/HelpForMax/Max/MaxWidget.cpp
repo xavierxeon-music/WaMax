@@ -47,19 +47,19 @@ Max::Widget::Widget(QWidget* parent)
    updateZoom(false);
 }
 
-void Max::Widget::load(const Max::Patcher& patcher)
+void Max::Widget::load(const Patcher& patcher)
 {
    scene->clear();
 
    for (int lineIndex = 0; lineIndex < patcher.edgeCount(); lineIndex++)
    {
-      Max::Line* line = patcher.getEdgeCast(lineIndex);
+      Line* line = patcher.getEdgeCast(lineIndex);
       scene->addLine(line->sourceX, line->sourceY, line->destX, line->destY, line->isParamLine ? blueLinePen : blackLinePen);
    }
 
    for (int vertIndex = 0; vertIndex < patcher.vertexCount(); vertIndex++)
    {
-      Max::Object* object = patcher.getVertexCast(vertIndex);
+      Object* object = patcher.getVertexCast(vertIndex);
       const QRectF& patchRect = object->patchRect;
 
       QString toolTip = object->comment;
@@ -67,7 +67,7 @@ void Max::Widget::load(const Max::Patcher& patcher)
          toolTip += " ";
       toolTip += "(" + object->id + ")";
 
-      QGraphicsRectItem* rectItem = scene->addRect(QRectF(0, 0, patchRect.width(), patchRect.height()), blackBorderPen, whiteBrush);
+      QGraphicsRectItem* rectItem = scene->addRect(QRectF(0, 0, patchRect.width(), patchRect.height()), object->isParamObject ? blueLinePen : blackBorderPen, whiteBrush);
       rectItem->setToolTip(toolTip);
       rectItem->setPos(patchRect.x(), patchRect.y());
 

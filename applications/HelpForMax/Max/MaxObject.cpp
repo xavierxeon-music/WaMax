@@ -12,6 +12,7 @@ Max::Object::Object(const QJsonObject& boxObject)
    , outlets(0)
    , type(Type::Other)
    , id()
+   , isParamObject(false)
 {
    className = boxObject["maxclass"].toString();
 
