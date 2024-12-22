@@ -39,7 +39,12 @@ void Max::Patcher::readPatch(const QString& patchFileName)
    readLines(patcherObject, idMap);
 
    analyse();
-   buildStructure();
+
+   Ref::Structure::clear();
+   buildStructureArguments();
+   buildStructureTypedMessages();
+   buildStructureNamedMessages();
+   buildStructureOutputs();
 }
 
 Max::Object* Max::Patcher::getVertexCast(int vertexIndex) const
@@ -109,24 +114,66 @@ void Max::Patcher::analyse()
    }
 }
 
-void Max::Patcher::buildStructure()
+void Max::Patcher::buildStructureArguments()
 {
-   Ref::Structure::clear();
-
    const Object::List patcherArgs = findAll(Object::Type::PatcherArgs, true);
+   const Object::List unpackArgs = findAll(Object::Type::Unpack, true);
+
    for (const Object* object : patcherArgs)
    {
+      const Object* unpackObject = nullptr;
+      for (const Object* object2 : unpackArgs)
+      {
+         if (isChildOf(object2, object))
+         {
+            unpackObject = object2;
+            break;
+         }
+      }
+
       const int argumentIndex = object->text.indexOf("@");
       const QString text = object->text.mid(0, argumentIndex);
       const QStringList argumentNameList = text.split(" ", Qt::SkipEmptyParts);
+
+      const QStringList unpackTypeList = unpackObject ? unpackObject->text.split(" ", Qt::SkipEmptyParts) : QStringList();
+
       for (int index = 1; index < argumentNameList.count(); index++)
       {
          Ref::Structure::Argument argument;
          argument.name = argumentNameList.at(index);
 
+         if (unpackTypeList.size() > index)
+         {
+            const QString type = unpackTypeList.at(index);
+            if ("s" == type)
+               argument.dataType = Max::DataType::Symbol;
+            else if ("f" == type)
+               argument.dataType = Max::DataType::Float;
+            else if ("i" == type)
+               argument.dataType = Max::DataType::Integer;
+            else if ("b" == type)
+               argument.dataType = Max::DataType::Bang;
+            else if ("l" == type)
+               argument.dataType = Max::DataType::List;
+            else
+               argument.dataType = Max::DataType::Anything;
+         }
+
          argumentList.append(argument);
       }
    }
+}
+
+void Max::Patcher::buildStructureTypedMessages()
+{
+}
+
+void Max::Patcher::buildStructureNamedMessages()
+{
+}
+
+void Max::Patcher::buildStructureOutputs()
+{
 }
 
 Max::Object::List Max::Patcher::findAll(const Object::Type& type, bool paramObjectsOnly) const
@@ -159,6 +206,22 @@ Max::Object::List Max::Patcher::findAll(const QList<Object::Type>& typeList, boo
    return list;
 }
 
+bool Max::Patcher::isChildOf(const Object* object, const Object* parent) const
+{
+   for (int edgeIndex = 0; edgeIndex < edgeCount(); edgeIndex++)
+   {
+      Line* line = getEdgeCast(edgeIndex);
+      if (line->getVertexA() != parent) // outlet
+         continue;
+
+      if (line->getVertexB() != object) // inlet
+         continue;
+
+      return true;
+   }
+   return false;
+}
+
 Max::Object::IdMap Max::Patcher::readObjects(const QJsonObject patcherObject)
 {
    static const QStringList skipList = {"comment", "panel"};
@@ -181,7 +244,9 @@ Max::Object::IdMap Max::Patcher::readObjects(const QJsonObject patcherObject)
       Object* object = new Object(boxObject);
       addVertex(object);
 
-      typeBuffer[object->type].append(object);
+      Object::List& typeList = typeBuffer[object->type];
+      if (!typeList.contains(object))
+         typeList.append(object);
 
       idMap[object->id] = object;
    }

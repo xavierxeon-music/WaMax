@@ -24,9 +24,13 @@ namespace Max
 
    private:
       void analyse();
-      void buildStructure();
+      void buildStructureArguments();
+      void buildStructureTypedMessages();
+      void buildStructureNamedMessages();
+      void buildStructureOutputs();
       Object::List findAll(const Object::Type& type, bool paramObjectsOnly) const;
       Object::List findAll(const QList<Object::Type>& typeList, bool paramObjectsOnly) const;
+      bool isChildOf(const Object* object, const Object* parent) const;
       Object::IdMap readObjects(const QJsonObject patcherObject);
       void readLines(const QJsonObject patcherObject, const Object::IdMap& idMap);
 
