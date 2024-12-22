@@ -16,6 +16,10 @@
 #include "PatchModelNamedMessage.h"
 #include "PatchModelOutput.h"
 #include "PatchModelTypedMessage.h"
+#include "SuggestModelArgument.h"
+#include "SuggestModelNamedMessage.h"
+#include "SuggestModelOutput.h"
+#include "SuggestModelTypedMessage.h"
 
 Patch::Widget::Widget(TabWidget* tabWidget, const Package::Info* packageInfo, const QString& patchFileName)
    : QSplitter(tabWidget)
@@ -49,48 +53,57 @@ Patch::Widget::Widget(TabWidget* tabWidget, const Package::Info* packageInfo, co
       setIcon(outputIcon, RefStructure::PatchPart::Output);
       setIcon(otherIcon, RefStructure::PatchPart::Other);
 
+      structureWidget = new Structure::Widget(this);
+      RefStructure* suggestStructure = nullptr;
+
       // set models
-      argumentSuggestTree->init(this, nullptr);
+      Suggest::Model::Argument* argumentSuggestModel = new Suggest::Model::Argument(this, suggestStructure);
+      argumentSuggestTree->init(this, argumentSuggestModel);
       argumentSuggestTree->setButton(argumnetTransferButton);
+      argumentSuggestTree->setItemDelegateForColumn(1, new Delegate::DataType(this, argumentSuggestModel));
+
       suggestionWidgets << argumentSuggestTree << argumnetTransferButton;
 
-      typedMessageSuggestTree->init(this, nullptr);
+      Suggest::Model::TypedMessage* typedMessageSuggestModel = new Suggest::Model::TypedMessage(this, suggestStructure);
+      typedMessageSuggestTree->init(this, typedMessageSuggestModel);
       typedMessageSuggestTree->setButton(typedMessageTransferButton);
       suggestionWidgets << typedMessageSuggestTree << typedMessageTransferButton;
 
-      namedMessageSuggestTree->init(this, nullptr);
+      Suggest::Model::NamedMessage* namedMessageSuggestModel = new Suggest::Model::NamedMessage(this, suggestStructure);
+      namedMessageSuggestTree->init(this, namedMessageSuggestModel);
       namedMessageSuggestTree->setButton(namedMessageTransferButton);
       suggestionWidgets << namedMessageSuggestTree << namedMessageTransferButton;
 
-      outputSuggestTree->init(this, nullptr);
+      Suggest::Model::Output* outputSuggestModel = new Suggest::Model::Output(this, suggestStructure);
+      outputSuggestTree->init(this, outputSuggestModel);
       outputSuggestTree->setButton(outputTransferButton);
       suggestionWidgets << outputSuggestTree << outputTransferButton;
 
       // set models
-      Model::Header* headerModel = new Model::Header(this, this);
-      modelList.append(headerModel);
-      headerTree->init(this, headerModel, 1);
-      headerTree->setItemDelegateForColumn(0, new Delegate::PatchType(this, headerModel));
+      Model::Header* headerPatchModel = new Model::Header(this, this);
+      modelList.append(headerPatchModel);
+      headerTree->init(this, headerPatchModel, 1);
+      headerTree->setItemDelegateForColumn(0, new Delegate::PatchType(this, headerPatchModel));
 
-      Model::Argument* argumentModel = new Model::Argument(this, this);
-      modelList.append(argumentModel);
-      argumentTree->init(this, argumentModel);
+      Model::Argument* argumentPatchModel = new Model::Argument(this, this);
+      modelList.append(argumentPatchModel);
+      argumentTree->init(this, argumentPatchModel);
       argumentTree->setButtons(argumentAddButton, argumentRemoveButton);
-      argumentTree->setItemDelegateForColumn(1, new Delegate::DataType(this, argumentModel));
+      argumentTree->setItemDelegateForColumn(1, new Delegate::DataType(this, argumentPatchModel));
 
-      Model::TypedMessage* typedMessageModel = new Model::TypedMessage(this, this);
-      modelList.append(typedMessageModel);
-      typedMessageTree->init(this, typedMessageModel);
+      Model::TypedMessage* typedMessagPatcheModel = new Model::TypedMessage(this, this);
+      modelList.append(typedMessagPatcheModel);
+      typedMessageTree->init(this, typedMessagPatcheModel);
 
-      Model::NamedMessage* namedMessageModel = new Model::NamedMessage(this, this);
-      modelList.append(namedMessageModel);
-      namedMessageTree->init(this, namedMessageModel);
+      Model::NamedMessage* namedMessagePatchModel = new Model::NamedMessage(this, this);
+      modelList.append(namedMessagePatchModel);
+      namedMessageTree->init(this, namedMessagePatchModel);
       namedMessageTree->setButtons(namedMessageAddButton, namedMessageRemoveButton);
-      namedMessageTree->setItemDelegateForColumn(1, new Delegate::DataType(this, namedMessageModel));
+      namedMessageTree->setItemDelegateForColumn(1, new Delegate::DataType(this, namedMessagePatchModel));
 
-      Model::Output* outputModel = new Model::Output(this, this);
-      modelList.append(outputModel);
-      outputTree->init(this, outputModel);
+      Model::Output* outputPatchModel = new Model::Output(this, this);
+      modelList.append(outputPatchModel);
+      outputTree->init(this, outputPatchModel);
       outputTree->setButtons(outputAddButton, outputRemoveButton);
    }
 
@@ -105,8 +118,6 @@ Patch::Widget::Widget(TabWidget* tabWidget, const Package::Info* packageInfo, co
       connect(digestEdit, &QLineEdit::editingFinished, this, &Widget::slotSaveDigestText);
       connect(descriptionEdit, &QTextEdit::textChanged, this, &Widget::slotSaveDigestDescription);
    }
-
-   structureWidget = new Structure::Widget(this);
 
    addWidget(scrollArea);
    addWidget(editArea);
