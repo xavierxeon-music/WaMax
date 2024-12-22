@@ -26,6 +26,8 @@ void Max::Patcher::readPatch(const QString& patchFileName)
    if (!file.open(QIODevice::ReadOnly))
       return;
 
+   qDebug() << patchFileName;
+
    const QJsonDocument doc = QJsonDocument::fromJson(file.readAll());
    file.close();
 
@@ -145,18 +147,9 @@ void Max::Patcher::buildStructureArguments()
          if (unpackTypeList.size() > index)
          {
             const QString type = unpackTypeList.at(index);
-            if ("s" == type)
-               argument.dataType = Max::DataType::Symbol;
-            else if ("f" == type)
-               argument.dataType = Max::DataType::Float;
-            else if ("i" == type)
-               argument.dataType = Max::DataType::Integer;
-            else if ("b" == type)
-               argument.dataType = Max::DataType::Bang;
-            else if ("l" == type)
-               argument.dataType = Max::DataType::List;
-            else
-               argument.dataType = Max::DataType::Anything;
+            const Max::DataType dataType = Max::tagDataType(type.at(0));
+            if (Max::DataType::Undefined != dataType)
+               argument.dataType = dataType;
          }
 
          argumentList.append(argument);
@@ -166,10 +159,34 @@ void Max::Patcher::buildStructureArguments()
 
 void Max::Patcher::buildStructureTypedMessages()
 {
+   const Object::List routeArgs = findAll(Object::Type::Route, true) + findAll(Object::Type::RoutePass, true);
+   for (const Object* object : routeArgs)
+   {
+      const QStringList argumentNameList = object->text.split(" ", Qt::SkipEmptyParts);
+      for (int index = 1; index < argumentNameList.count(); index++)
+      {
+         const QString type = argumentNameList.at(index);
+         const Max::DataType dataType = Max::toDataType(type);
+         if (Max::DataType::Undefined == dataType)
+            continue;
+
+         messageTypedMap[dataType].active = true;
+      }
+   }
+
+   const Object::List typeRouteArgs = findAll(Object::Type::TypeRoute, true);
+   for (const Object* object : routeArgs)
+   {
+   }
 }
 
 void Max::Patcher::buildStructureNamedMessages()
 {
+   const Object::List patcherArgs = findAll(Object::Type::PatcherArgs, true);
+
+   const Object::List routeArgs = findAll(Object::Type::Route, true) + findAll(Object::Type::RoutePass, true);
+   //const Object::List routeArgs = findAll(Object::Type::Route, true) ;
+   //const Object::List routePassArgs = findAll(Object::Type::RoutePass, true);
 }
 
 void Max::Patcher::buildStructureOutputs()

@@ -24,7 +24,23 @@ Max::DataType Max::toDataType(const QString& name)
          return it.key();
    }
 
-   return DataType::Anything;
+   return DataType::Undefined;
+}
+
+Max::DataType Max::tagDataType(const QChar& tag)
+{
+   if ("s" == tag)
+      return Max::DataType::Symbol;
+   else if ("f" == tag)
+      return Max::DataType::Float;
+   else if ("i" == tag)
+      return Max::DataType::Integer;
+   else if ("b" == tag)
+      return Max::DataType::Bang;
+   else if ("l" == tag)
+      return Max::DataType::List;
+
+   return Max::DataType::Undefined;
 }
 
 QList<Max::DataType> Max::dataTypeList()

@@ -70,7 +70,7 @@ namespace Ref
       struct AbstractMessage
       {
          QString name;
-         Max::DataType dataType = Max::DataType::Symbol;
+         Max::DataType dataType = Max::DataType::Anything;
          Digest digest;
       };
 

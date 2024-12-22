@@ -12,6 +12,7 @@ namespace Max
 
    enum class DataType
    {
+      Undefined,
       Anything,
       Symbol,
       Float,
@@ -30,6 +31,7 @@ namespace Max
    // message type
    QString dataTypeName(const DataType& type);
    DataType toDataType(const QString& name);
+   DataType tagDataType(const QChar& tag);
    QList<DataType> dataTypeList();
 
 } // namespace Max
