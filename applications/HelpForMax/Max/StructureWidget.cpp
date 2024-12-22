@@ -47,21 +47,19 @@ Structure::Widget::Widget(QWidget* parent)
    updateZoom(false);
 }
 
-void Structure::Widget::load(Max::Patcher* patcher)
+void Structure::Widget::load(const Max::Patcher& patcher)
 {
    scene->clear();
-   if (!patcher)
-      return;
 
-   for (int lineIndex = 0; lineIndex < patcher->edgeCount(); lineIndex++)
+   for (int lineIndex = 0; lineIndex < patcher.edgeCount(); lineIndex++)
    {
-      Max::Line* line = patcher->getEdgeCast(lineIndex);
+      Max::Line* line = patcher.getEdgeCast(lineIndex);
       scene->addLine(line->sourceX, line->sourceY, line->destX, line->destY, line->isParamLine ? blueLinePen : blackLinePen);
    }
 
-   for (int vertIndex = 0; vertIndex < patcher->vertexCount(); vertIndex++)
+   for (int vertIndex = 0; vertIndex < patcher.vertexCount(); vertIndex++)
    {
-      Max::Object* object = patcher->getVertexCast(vertIndex);
+      Max::Object* object = patcher.getVertexCast(vertIndex);
       const QRectF& patchRect = object->patchRect;
 
       QString toolTip = object->comment;

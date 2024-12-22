@@ -1,6 +1,6 @@
 #include "FileAbstract.h"
 
-File::Abstract::Abstract(const Package::Info* info, Patch::RefStructure* structure)
+File::Abstract::Abstract(const Package::Info* info, Max::RefStructure& structure)
    : info(info)
    , structure(structure)
 {

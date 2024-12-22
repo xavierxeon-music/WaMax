@@ -2,7 +2,7 @@
 
 QList<Patch::Model::Abstract*> Patch::Model::Abstract::instanceList;
 
-Patch::Model::Abstract::Abstract(QObject* parent, RefStructure* structure, const RefStructure::PatchPart& part)
+Patch::Model::Abstract::Abstract(QObject* parent, Max::RefStructure& structure, const Max::RefStructure::PatchPart& part)
    : QStandardItemModel(parent)
    , structure(structure)
    , part(part)
@@ -15,7 +15,7 @@ Patch::Model::Abstract::~Abstract()
    instanceList.removeAll(this);
 }
 
-void Patch::Model::Abstract::updateDigestItem(QStandardItem* digestItem, const RefStructure::Digest& digest)
+void Patch::Model::Abstract::updateDigestItem(QStandardItem* digestItem, const Max::RefStructure::Digest& digest)
 {
    QString description = digest.text;
    digestItem->setText(description);
@@ -36,7 +36,7 @@ void Patch::Model::Abstract::removeItem(const QModelIndex& index)
    Q_UNUSED(index)
 }
 
-const Patch::RefStructure::PatchPart& Patch::Model::Abstract::getPart() const
+const Max::RefStructure::PatchPart& Patch::Model::Abstract::getPart() const
 {
    return part;
 }

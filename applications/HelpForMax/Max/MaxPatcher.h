@@ -2,13 +2,14 @@
 #define MaxPatcherH
 
 #include "DiscreteMathsGraph.h"
+#include "MaxRefStructure.h"
 
 #include "MaxLine.h"
 #include "MaxObject.h"
 
 namespace Max
 {
-   class Patcher : public DiscreteMaths::Graph
+   class Patcher : public RefStructure, public DiscreteMaths::Graph
    {
    public:
       Patcher();

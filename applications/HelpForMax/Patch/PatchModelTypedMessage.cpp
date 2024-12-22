@@ -1,7 +1,7 @@
 #include "PatchModelTypedMessage.h"
 
-Patch::Model::TypedMessage::TypedMessage(QObject* parent, RefStructure* structure)
-   : Abstract(parent, structure, RefStructure::PatchPart::MessageTyped)
+Patch::Model::TypedMessage::TypedMessage(QObject* parent, Max::RefStructure& structure)
+   : Abstract(parent, structure, Max::RefStructure::PatchPart::MessageTyped)
 {
 }
 
@@ -14,7 +14,7 @@ void Patch::Model::TypedMessage::update()
       QStandardItem* digestItem = invisibleRootItem()->child(row, 2);
 
       const Max::DataType type = typeItem->data().value<Max::DataType>();
-      RefStructure::MessageTyped& message = structure->messageTypedMap[type];
+      Max::RefStructure::MessageTyped& message = structure.messageTypedMap[type];
 
       activeItem->setCheckState(message.active ? Qt::Checked : Qt::Unchecked);
 
@@ -50,12 +50,12 @@ void Patch::Model::TypedMessage::rebuild()
    update();
 }
 
-Patch::RefStructure::Digest* Patch::Model::TypedMessage::getDigest(const QModelIndex& index)
+Max::RefStructure::Digest* Patch::Model::TypedMessage::getDigest(const QModelIndex& index)
 {
    QStandardItem* typeItem = invisibleRootItem()->child(index.row(), 0);
    const Max::DataType type = typeItem->data().value<Max::DataType>();
 
-   RefStructure::MessageTyped& message = structure->messageTypedMap[type];
+   Max::RefStructure::MessageTyped& message = structure.messageTypedMap[type];
    return &(message.digest);
 }
 
@@ -66,14 +66,14 @@ bool Patch::Model::TypedMessage::setData(const QModelIndex& index, const QVarian
    QStandardItem* typeItem = invisibleRootItem()->child(index.row(), 0);
    const Max::DataType type = typeItem->data().value<Max::DataType>();
 
-   RefStructure::MessageTyped& message = structure->messageTypedMap[type];
+   Max::RefStructure::MessageTyped& message = structure.messageTypedMap[type];
 
    if (Qt::EditRole == role)
    {
       if (0 == index.column())
       {
          message.name = value.toString();
-         structure->setDirty();
+         structure.setDirty();
       }
    }
    else if (Qt::CheckStateRole == role)
@@ -92,7 +92,7 @@ bool Patch::Model::TypedMessage::setData(const QModelIndex& index, const QVarian
             message.active = false;
          }
 
-         structure->setDirty();
+         structure.setDirty();
       }
    }
 

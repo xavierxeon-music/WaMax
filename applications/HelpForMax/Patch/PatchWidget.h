@@ -3,11 +3,11 @@
 
 #include "../_Forms/ui_DigestWidget.h"
 #include "../_Forms/ui_PatchWidget.h"
-#include "MaxPatcher.h"
-#include "PatchRefStructure.h"
 #include <QSplitter>
 
-#include "PatchModelAbstract.h"
+#include "MaxPatcher.h"
+#include "MaxRefStructure.h"
+#include "PatchInfo.h"
 #include "PatchTabWidget.h"
 #include "StructureWidget.h"
 
@@ -18,7 +18,7 @@ namespace Package
 
 namespace Patch
 {
-   class Widget : public QSplitter, public Max::Patcher, private RefStructure, private Ui::PatchWidget, private Ui::DigestWidget
+   class Widget : public QSplitter, private Ui::PatchWidget, private Ui::DigestWidget
    {
       Q_OBJECT
 
@@ -45,14 +45,17 @@ namespace Patch
       void slotSaveDigestDescription();
 
    private:
-      void setDigest(Digest* newDigest, const PatchPart& part);
+      void setDigest(Max::RefStructure::Digest* newDigest, const Max::RefStructure::PatchPart& part);
       void rebuild();
       void update();
-      void setDirty() override;
+      void setDirty();
       void propagateDirty(bool isDirty);
-      void setIcon(QLabel* iconLabel, RefStructure::PatchPart part);
+      void setIcon(QLabel* iconLabel, Max::RefStructure::PatchPart part);
 
    private:
+      Max::RefStructure maxRef;
+      Max::Patcher maxPatch;
+
       TabWidget* tabWidget;
       Structure::Widget* structureWidget;
 
@@ -61,7 +64,7 @@ namespace Patch
       Patch::Info patchInfo;
 
       bool dirty;
-      Digest* digest;
+      Max::RefStructure::Digest* digest;
    };
 
 } // namespace Patch

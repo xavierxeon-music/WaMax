@@ -1,30 +1,32 @@
-#include "PatchRefStructure.h"
+#include "MaxRefStructure.h"
 
 // structure
 
-const QList<QByteArray> Patch::RefStructure::descriptionMaxTags = {"o", "m", "at", "ar", "b", "u", "i"};
+const QList<QByteArray> Max::RefStructure::descriptionMaxTags = {"o", "m", "at", "ar", "b", "u", "i"};
 
-using PatchTypeNameMap = QMap<Patch::RefStructure::PatchType, QString>;
-static const PatchTypeNameMap patchTypeNameMap = {{Patch::RefStructure::PatchType::Standard, "standard"},
-                                                  {Patch::RefStructure::PatchType::Gui, "gui"},
-                                                  {Patch::RefStructure::PatchType::Poly, "poly"},
-                                                  {Patch::RefStructure::PatchType::Fourier, "fourier"}};
+using PatchTypeNameMap = QMap<Max::RefStructure::PatchType, QString>;
+static const PatchTypeNameMap patchTypeNameMap = {{Max::RefStructure::PatchType::Standard, "standard"},
+                                                  {Max::RefStructure::PatchType::Gui, "gui"},
+                                                  {Max::RefStructure::PatchType::Poly, "poly"},
+                                                  {Max::RefStructure::PatchType::Fourier, "fourier"}};
 
-using PatchPartNameMap = QMap<Patch::RefStructure::PatchPart, QString>;
-static const PatchPartNameMap patchPartNameMap = {{Patch::RefStructure::PatchPart::Undefined, "undefined"},
-                                                  {Patch::RefStructure::PatchPart::Header, "Header"},
-                                                  {Patch::RefStructure::PatchPart::Argument, "Argument"},
-                                                  {Patch::RefStructure::PatchPart::Attribute, "Attribute"},
-                                                  {Patch::RefStructure::PatchPart::MessageTyped, "Message Typed"},
-                                                  {Patch::RefStructure::PatchPart::MessageNamed, "Message Named"},
-                                                  {Patch::RefStructure::PatchPart::Output, "Output"}};
+using PatchPartNameMap = QMap<Max::RefStructure::PatchPart, QString>;
+static const PatchPartNameMap patchPartNameMap = {{Max::RefStructure::PatchPart::Undefined, "undefined"},
+                                                  {Max::RefStructure::PatchPart::Header, "Header"},
+                                                  {Max::RefStructure::PatchPart::Argument, "Argument"},
+                                                  {Max::RefStructure::PatchPart::Attribute, "Attribute"},
+                                                  {Max::RefStructure::PatchPart::MessageTyped, "Message Typed"},
+                                                  {Max::RefStructure::PatchPart::MessageNamed, "Message Named"},
+                                                  {Max::RefStructure::PatchPart::Output, "Output"}};
 
-Patch::RefStructure::RefStructure()
+Max::RefStructure::RefStructure()
    : header()
    , outputMap()
    , argumentList()
    , messageTypedMap()
    , messageNamedMap()
+   , clearHook()
+   , dirtyHook()
 {
    for (const Max::DataType& dataType : Max::dataTypeList())
    {
@@ -45,25 +47,30 @@ Patch::RefStructure::RefStructure()
    }
 }
 
-Patch::RefStructure::~RefStructure()
+Max::RefStructure::~RefStructure()
 {
 }
 
-void Patch::RefStructure::clear()
+void Max::RefStructure::clear()
 {
    *this = RefStructure();
+
+   if (clearHook)
+      clearHook();
 }
 
-void Patch::RefStructure::setDirty()
+void Max::RefStructure::setDirty()
 {
+   if (dirtyHook)
+      dirtyHook();
 }
 
-QString Patch::RefStructure::patchTypeName(const PatchType& type)
+QString Max::RefStructure::patchTypeName(const PatchType& type)
 {
    return patchTypeNameMap.value(type, "standard");
 }
 
-Patch::RefStructure::PatchType Patch::RefStructure::toPatchType(const QString& name)
+Max::RefStructure::PatchType Max::RefStructure::toPatchType(const QString& name)
 {
    for (PatchTypeNameMap::const_iterator it = patchTypeNameMap.constBegin(); it != patchTypeNameMap.constEnd(); it++)
    {
@@ -75,17 +82,17 @@ Patch::RefStructure::PatchType Patch::RefStructure::toPatchType(const QString& n
    ;
 }
 
-QList<Patch::RefStructure::PatchType> Patch::RefStructure::patchTypeList()
+QList<Max::RefStructure::PatchType> Max::RefStructure::patchTypeList()
 {
    return patchTypeNameMap.keys();
 }
 
-QString Patch::RefStructure::partName(const PatchPart& part)
+QString Max::RefStructure::partName(const PatchPart& part)
 {
    return patchPartNameMap.value(part, "undefined");
 }
 
-QIcon Patch::RefStructure::partIcon(const PatchPart& part)
+QIcon Max::RefStructure::partIcon(const PatchPart& part)
 {
    if (PatchPart::Header == part)
       return QIcon(":/PatchGeneral.svg");
@@ -104,7 +111,7 @@ QIcon Patch::RefStructure::partIcon(const PatchPart& part)
    return QIcon();
 }
 
-Patch::RefStructure::PatchPart Patch::RefStructure::toPart(const QString& name)
+Max::RefStructure::PatchPart Max::RefStructure::toPart(const QString& name)
 {
    for (PatchPartNameMap ::const_iterator it = patchPartNameMap.constBegin(); it != patchPartNameMap.constEnd(); it++)
    {
@@ -116,7 +123,7 @@ Patch::RefStructure::PatchPart Patch::RefStructure::toPart(const QString& name)
    ;
 }
 
-void Patch::RefStructure::repackNamedMessages()
+void Max::RefStructure::repackNamedMessages()
 {
    AttributesAndMessageNamed::List list = messageNamedMap.values();
    messageNamedMap.clear();

@@ -1,6 +1,6 @@
 #include "SuggestModelTypedMessage.h"
 
-Suggest::Model::TypedMessage::TypedMessage(QObject* parent, Patch::RefStructure* structure)
-   : Abstract(parent, structure, Patch::RefStructure::PatchPart::MessageTyped)
+Suggest::Model::TypedMessage::TypedMessage(QObject* parent, Max::RefStructure &structure)
+   : Abstract(parent, structure, Max::RefStructure::PatchPart::MessageTyped)
 {
 }

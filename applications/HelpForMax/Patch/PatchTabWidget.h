@@ -47,7 +47,6 @@ namespace Patch
       const ToolsVisible& getToolsVisible() const;
 
    signals:
-      void signalTabSelected(Max::Patcher* patcher);
       void signalRefWritten(const QString& patchPath);
 
    public slots:
@@ -63,7 +62,6 @@ namespace Patch
       void slotOpenXML();
       void slotShowSuggestions(bool enabled);
       void slotShowStructure(bool enabled);
-      void slotTabChanged(int index);
       void slotTabSplitterChanged();
 
    private:

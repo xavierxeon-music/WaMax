@@ -1,7 +1,7 @@
 #include "PatchModelHeader.h"
 
-Patch::Model::Header::Header(QObject* parent, RefStructure* structure)
-   : Abstract(parent, structure, RefStructure::PatchPart::Header)
+Patch::Model::Header::Header(QObject* parent, Max::RefStructure& structure)
+   : Abstract(parent, structure, Max::RefStructure::PatchPart::Header)
 {
 }
 
@@ -10,8 +10,8 @@ void Patch::Model::Header::update()
    QStandardItem* typeItem = invisibleRootItem()->child(0, 0);
    QStandardItem* digestItem = invisibleRootItem()->child(0, 1);
 
-   typeItem->setText(RefStructure::patchTypeName(structure->header.patcherType));
-   updateDigestItem(digestItem, structure->header.digest);
+   typeItem->setText(Max::RefStructure::patchTypeName(structure.header.patcherType));
+   updateDigestItem(digestItem, structure.header.digest);
 
    emit signalDataEdited();
 }
@@ -32,11 +32,11 @@ void Patch::Model::Header::rebuild()
    update();
 }
 
-Patch::RefStructure::Digest* Patch::Model::Header::getDigest(const QModelIndex& index)
+Max::RefStructure::Digest* Patch::Model::Header::getDigest(const QModelIndex& index)
 {
    Q_UNUSED(index)
 
-   return &(structure->header.digest);
+   return &(structure.header.digest);
 }
 
 bool Patch::Model::Header::setData(const QModelIndex& index, const QVariant& value, int role)
@@ -46,13 +46,13 @@ bool Patch::Model::Header::setData(const QModelIndex& index, const QVariant& val
    {
       if (0 == index.column())
       {
-         RefStructure::PatchType patchType = RefStructure::toPatchType(value.toString());
-         structure->header.patcherType = patchType;
-         structure->setDirty();
+         Max::RefStructure::PatchType patchType = Max::RefStructure::toPatchType(value.toString());
+         structure.header.patcherType = patchType;
+         structure.setDirty();
       }
       else if (1 == index.column())
       {
-         structure->header.digest.text = value.toString();
+         structure.header.digest.text = value.toString();
          emit signalUpdateDigest(index);
       }
    }
@@ -60,9 +60,9 @@ bool Patch::Model::Header::setData(const QModelIndex& index, const QVariant& val
    return result;
 }
 
-Patch::RefStructure::PatchType Patch::Model::Header::getPatchType(const int index)
+Max::RefStructure::PatchType Patch::Model::Header::getPatchType(const int index)
 {
    Q_UNUSED(index)
 
-   return structure->header.patcherType;
+   return structure.header.patcherType;
 }

@@ -3,7 +3,7 @@
 
 #include <QStyledItemDelegate>
 
-#include "Patch/PatchRefStructure.h"
+#include "MaxRefStructure.h"
 
 namespace Delegate
 {
@@ -14,7 +14,7 @@ namespace Delegate
    public:
       struct Source
       {
-         virtual Patch::RefStructure::PatchType getPatchType(const int index) = 0;
+         virtual Max::RefStructure::PatchType getPatchType(const int index) = 0;
       };
 
    public:

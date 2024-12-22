@@ -1,5 +1,5 @@
-#ifndef PatchRefStructureH
-#define PatchRefStructureH
+#ifndef MaxRefStructureH
+#define MaxRefStructureH
 
 #include <QObject>
 
@@ -10,14 +10,8 @@
 
 #include "MaxDataType.h"
 
-namespace Patch
+namespace Max
 {
-   struct Info
-   {
-      QString name;
-      QString folder;
-   };
-
    class RefStructure
    {
       Q_GADGET
@@ -107,13 +101,15 @@ namespace Patch
 
       using SeeAlsoList = QStringList;
 
-   public:
-      RefStructure();
-      virtual ~RefStructure();
+      using Hook = std::function<void()>;
 
    public:
-      virtual void clear();
-      virtual void setDirty();
+      RefStructure();
+      ~RefStructure();
+
+   public:
+      void clear();
+      void setDirty();
 
       // patcher type
       static QString patchTypeName(const PatchType& type);
@@ -133,9 +129,11 @@ namespace Patch
       Argument::List argumentList;
       MessageTyped::Map messageTypedMap;
       AttributesAndMessageNamed::Map messageNamedMap;
+      Hook clearHook;
+      Hook dirtyHook;
    };
-} // namespace Patch
+} // namespace Max
 
-Q_DECLARE_OPERATORS_FOR_FLAGS(Patch::RefStructure::PatchParts)
+Q_DECLARE_OPERATORS_FOR_FLAGS(Max::RefStructure::PatchParts)
 
-#endif // NOT PatchRefStructureH
+#endif // NOT MaxRefStructureH

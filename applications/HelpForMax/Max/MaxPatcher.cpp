@@ -8,7 +8,8 @@
 #include "DiscreteMathsAlgorithm.h"
 
 Max::Patcher::Patcher()
-   : DiscreteMaths::Graph()
+   : RefStructure()
+   , DiscreteMaths::Graph()
    , typeBuffer()
 {
 }
@@ -16,7 +17,7 @@ Max::Patcher::Patcher()
 void Max::Patcher::readPatch(const QString& patchFileName)
 {
    typeBuffer.clear();
-   clear(true);
+   DiscreteMaths::Graph::clear(true);
 
    if (patchFileName.isEmpty())
       return;

@@ -6,8 +6,10 @@
 
 #include "Package/PackageInfo.h"
 
+static Max::RefStructure dummy;
+
 File::Help::Help(const Package::Info* info)
-   : Abstract(info, nullptr)
+   : Abstract(info, dummy)
 {
 }
 

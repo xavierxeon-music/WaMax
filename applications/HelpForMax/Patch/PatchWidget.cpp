@@ -23,8 +23,8 @@
 
 Patch::Widget::Widget(TabWidget* tabWidget, const Package::Info* packageInfo, const QString& patchFileName)
    : QSplitter(tabWidget)
-   , Max::Patcher()
-   , RefStructure()
+   , maxRef()
+   , maxPatch()
    , tabWidget(tabWidget)
    , structureWidget(nullptr)
    , packageInfo(packageInfo)
@@ -43,54 +43,51 @@ Patch::Widget::Widget(TabWidget* tabWidget, const Package::Info* packageInfo, co
       scrollArea->setWidgetResizable(true);
       scrollArea->setWidget(content);
 
-      setIcon(patchIcon, RefStructure::PatchPart::Header);
-      setIcon(argumentIcon, RefStructure::PatchPart::Argument);
-      setIcon(typedMessageIcon, RefStructure::PatchPart::MessageTyped);
-      setIcon(attributeIcon, RefStructure::PatchPart::Attribute);
-      setIcon(nameMessageIcon, RefStructure::PatchPart::MessageNamed);
-      setIcon(outputIcon, RefStructure::PatchPart::Output);
-      setIcon(otherIcon, RefStructure::PatchPart::Other);
-
-      structureWidget = new Structure::Widget(this);
-      RefStructure* suggestStructure = nullptr;
+      setIcon(patchIcon, Max::RefStructure::PatchPart::Header);
+      setIcon(argumentIcon, Max::RefStructure::PatchPart::Argument);
+      setIcon(typedMessageIcon, Max::RefStructure::PatchPart::MessageTyped);
+      setIcon(attributeIcon, Max::RefStructure::PatchPart::Attribute);
+      setIcon(nameMessageIcon, Max::RefStructure::PatchPart::MessageNamed);
+      setIcon(outputIcon, Max::RefStructure::PatchPart::Output);
+      setIcon(otherIcon, Max::RefStructure::PatchPart::Other);
 
       // set models
-      Suggest::Model::Argument* argumentSuggestModel = new Suggest::Model::Argument(this, suggestStructure);
+      Suggest::Model::Argument* argumentSuggestModel = new Suggest::Model::Argument(this, maxPatch);
       argumentSuggestTree->init(this, argumentSuggestModel);
       argumentSuggestTree->setButton(argumnetTransferButton);
       argumentSuggestTree->setItemDelegateForColumn(1, new Delegate::DataType(this, argumentSuggestModel));
 
-      Suggest::Model::TypedMessage* typedMessageSuggestModel = new Suggest::Model::TypedMessage(this, suggestStructure);
+      Suggest::Model::TypedMessage* typedMessageSuggestModel = new Suggest::Model::TypedMessage(this, maxPatch);
       typedMessageSuggestTree->init(this, typedMessageSuggestModel);
       typedMessageSuggestTree->setButton(typedMessageTransferButton);
 
-      Suggest::Model::NamedMessage* namedMessageSuggestModel = new Suggest::Model::NamedMessage(this, suggestStructure);
+      Suggest::Model::NamedMessage* namedMessageSuggestModel = new Suggest::Model::NamedMessage(this, maxPatch);
       namedMessageSuggestTree->init(this, namedMessageSuggestModel);
       namedMessageSuggestTree->setButton(namedMessageTransferButton);
 
-      Suggest::Model::Output* outputSuggestModel = new Suggest::Model::Output(this, suggestStructure);
+      Suggest::Model::Output* outputSuggestModel = new Suggest::Model::Output(this, maxPatch);
       outputSuggestTree->init(this, outputSuggestModel);
       outputSuggestTree->setButton(outputTransferButton);
 
       // set models
-      Model::Header* headerPatchModel = new Model::Header(this, this);
+      Model::Header* headerPatchModel = new Model::Header(this, maxRef);
       headerPatchTree->init(this, headerPatchModel, 1);
       headerPatchTree->setItemDelegateForColumn(0, new Delegate::PatchType(this, headerPatchModel));
 
-      Model::Argument* argumentPatchModel = new Model::Argument(this, this);
+      Model::Argument* argumentPatchModel = new Model::Argument(this, maxRef);
       argumentPatchTree->init(this, argumentPatchModel);
       argumentPatchTree->setButtons(argumentAddButton, argumentRemoveButton);
       argumentPatchTree->setItemDelegateForColumn(1, new Delegate::DataType(this, argumentPatchModel));
 
-      Model::TypedMessage* typedMessagPatcheModel = new Model::TypedMessage(this, this);
+      Model::TypedMessage* typedMessagPatcheModel = new Model::TypedMessage(this, maxRef);
       typedMessagePatchTree->init(this, typedMessagPatcheModel);
 
-      Model::NamedMessage* namedMessagePatchModel = new Model::NamedMessage(this, this);
+      Model::NamedMessage* namedMessagePatchModel = new Model::NamedMessage(this, maxRef);
       namedMessagePatchTree->init(this, namedMessagePatchModel);
       namedMessagePatchTree->setButtons(namedMessageAddButton, namedMessageRemoveButton);
       namedMessagePatchTree->setItemDelegateForColumn(1, new Delegate::DataType(this, namedMessagePatchModel));
 
-      Model::Output* outputPatchModel = new Model::Output(this, this);
+      Model::Output* outputPatchModel = new Model::Output(this, maxRef);
       outputPatchTree->init(this, outputPatchModel);
       outputPatchTree->setButtons(outputAddButton, outputRemoveButton);
    }
@@ -107,6 +104,8 @@ Patch::Widget::Widget(TabWidget* tabWidget, const Package::Info* packageInfo, co
       connect(descriptionEdit, &QTextEdit::textChanged, this, &Widget::slotSaveDigestDescription);
    }
 
+   structureWidget = new Structure::Widget(this);
+
    addWidget(scrollArea);
    addWidget(editArea);
    addWidget(structureWidget);
@@ -115,10 +114,12 @@ Patch::Widget::Widget(TabWidget* tabWidget, const Package::Info* packageInfo, co
    patchInfo = packageInfo->extractPatchInfo(path);
    propagateDirty(false);
 
-   readPatch(path);
-   structureWidget->load(this);
+   maxPatch.readPatch(path);
+   structureWidget->load(maxPatch);
 
-   File::Ref(packageInfo, this).read(patchInfo);
+   maxRef.dirtyHook = std::bind(&Widget::setDirty, this);
+
+   File::Ref(packageInfo, maxRef).read(patchInfo);
    rebuild();
 }
 
@@ -144,9 +145,9 @@ const Patch::Info& Patch::Widget::getPatchInfo() const
 
 void Patch::Widget::writeRef()
 {
-   File::Ref(packageInfo, this).write(patchInfo);
+   File::Ref(packageInfo, maxRef).write(patchInfo);
    File::Help(packageInfo).write(patchInfo);
-   File::Init(packageInfo, this).write(patchInfo);
+   File::Init(packageInfo, maxRef).write(patchInfo);
    propagateDirty(false);
 }
 
@@ -157,7 +158,7 @@ void Patch::Widget::openInMax()
 
 void Patch::Widget::openXML()
 {
-   const QString refPath = File::Ref(packageInfo, this).getFilePath(patchInfo);
+   const QString refPath = File::Ref(packageInfo, maxRef).getFilePath(patchInfo);
    QDesktopServices::openUrl(QUrl::fromLocalFile(refPath));
 }
 
@@ -176,7 +177,7 @@ void Patch::Widget::setToolsVisible(TabWidget::ToolsVisible toolsVisible)
 
 void Patch::Widget::slotSetPatchDigest()
 {
-   setDigest(&header.digest, RefStructure::PatchPart::Header);
+   setDigest(&maxRef.header.digest, Max::RefStructure::PatchPart::Header);
 }
 
 void Patch::Widget::slotSaveDigestText()
@@ -191,7 +192,7 @@ void Patch::Widget::slotSaveDigestDescription()
    setDirty();
 }
 
-void Patch::Widget::setDigest(Digest* newDigest, const PatchPart& part)
+void Patch::Widget::setDigest(Max::RefStructure::Digest* newDigest, const Max::RefStructure::PatchPart& part)
 {
    digest = newDigest;
    if (!digest)
@@ -204,7 +205,7 @@ void Patch::Widget::setDigest(Digest* newDigest, const PatchPart& part)
 
    setIcon(topicIcon, part);
 
-   topicInfo->setText(partName(part));
+   topicInfo->setText(maxRef.partName(part));
    digestEdit->setText(digest->text);
 
    descriptionEdit->blockSignals(true);
@@ -215,7 +216,7 @@ void Patch::Widget::setDigest(Digest* newDigest, const PatchPart& part)
 void Patch::Widget::rebuild()
 {
    Model::Abstract::rebuildAll();
-   setDigest(&header.digest, RefStructure::PatchPart::Header);
+   setDigest(&maxRef.header.digest, Max::RefStructure::PatchPart::Header);
 }
 
 void Patch::Widget::update()
@@ -235,7 +236,7 @@ void Patch::Widget::propagateDirty(bool isDirty)
    tabWidget->emitSignalCheckDirty();
 }
 
-void Patch::Widget::setIcon(QLabel* iconLabel, RefStructure::PatchPart part)
+void Patch::Widget::setIcon(QLabel* iconLabel, Max::RefStructure::PatchPart part)
 {
-   iconLabel->setPixmap(partIcon(part).pixmap(16, 16));
+   iconLabel->setPixmap(maxRef.partIcon(part).pixmap(16, 16));
 }

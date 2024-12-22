@@ -1,7 +1,7 @@
 #include "PatchModelOutput.h"
 
-Patch::Model::Output::Output(QObject* parent, RefStructure* structure)
-   : Abstract(parent, structure, RefStructure::PatchPart::Output)
+Patch::Model::Output::Output(QObject* parent, Max::RefStructure& structure)
+   : Abstract(parent, structure, Max::RefStructure::PatchPart::Output)
 {
 }
 
@@ -14,7 +14,7 @@ void Patch::Model::Output::update()
       QStandardItem* digestItem = invisibleRootItem()->child(row, 2);
 
       const Max::DataType type = typeItem->data().value<Max::DataType>();
-      const RefStructure::Output& output = structure->outputMap[type];
+      const Max::RefStructure::Output& output = structure.outputMap[type];
 
       activeItem->setCheckState(output.active ? Qt::Checked : Qt::Unchecked);
 
@@ -50,12 +50,12 @@ void Patch::Model::Output::rebuild()
    update();
 }
 
-Patch::RefStructure::Digest* Patch::Model::Output::getDigest(const QModelIndex& index)
+Max::RefStructure::Digest* Patch::Model::Output::getDigest(const QModelIndex& index)
 {
    QStandardItem* typeItem = invisibleRootItem()->child(index.row(), 0);
    const Max::DataType type = typeItem->data().value<Max::DataType>();
 
-   RefStructure::Output& output = structure->outputMap[type];
+   Max::RefStructure::Output& output = structure.outputMap[type];
    return &(output.digest);
 }
 
@@ -66,7 +66,7 @@ bool Patch::Model::Output::setData(const QModelIndex& index, const QVariant& val
    QStandardItem* typeItem = invisibleRootItem()->child(index.row(), 0);
    const Max::DataType type = typeItem->data().value<Max::DataType>();
 
-   RefStructure::Output& output = structure->outputMap[type];
+   Max::RefStructure::Output& output = structure.outputMap[type];
 
    if (Qt::CheckStateRole == role)
    {
@@ -75,7 +75,7 @@ bool Patch::Model::Output::setData(const QModelIndex& index, const QVariant& val
       if (1 == index.column())
       {
          output.active = enabled;
-         structure->setDirty();
+         structure.setDirty();
       }
    }
 

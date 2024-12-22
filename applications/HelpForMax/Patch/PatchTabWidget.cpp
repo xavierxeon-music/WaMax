@@ -15,8 +15,6 @@ Patch::TabWidget::TabWidget(QWidget* parent)
    , toolsVisible(ToolVisibility::None)
    , splitterSizes()
 {
-   connect(this, &QTabWidget::currentChanged, this, &TabWidget::slotTabChanged);
-
    {
       QSettings settings;
 
@@ -206,19 +204,6 @@ void Patch::TabWidget::slotShowStructure(bool enabled)
 {
    toggleVisibility(enabled, ToolVisibility::Structure);
    writeSettings();
-}
-
-void Patch::TabWidget::slotTabChanged(int index)
-{
-   if (index < 0)
-   {
-      // no tab left
-      emit signalTabSelected(nullptr);
-      return;
-   }
-
-   Widget* patchWidget = qobject_cast<Widget*>(widget(index));
-   emit signalTabSelected(patchWidget);
 }
 
 void Patch::TabWidget::slotTabSplitterChanged()

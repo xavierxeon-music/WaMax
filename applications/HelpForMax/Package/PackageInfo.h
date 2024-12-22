@@ -4,7 +4,7 @@
 #include <QFileInfo>
 #include <QString>
 
-#include "Patch/PatchRefStructure.h"
+#include "PatchInfo.h"
 
 namespace Package
 {
