@@ -14,10 +14,8 @@ namespace Patch
          Q_OBJECT
 
       public:
-         using List = QList<Abstract*>;
-
-      public:
          Abstract(QObject* parent, RefStructure* structure, const RefStructure::PatchPart& part);
+         ~Abstract();
 
       signals:
          void signalDataEdited();
@@ -31,12 +29,18 @@ namespace Patch
          virtual void removeItem(const QModelIndex& index);
          const RefStructure::PatchPart& getPart() const;
 
+         static void updateAll();
+         static void rebuildAll();
+
       protected:
          void updateDigestItem(QStandardItem* digestItem, const RefStructure::Digest& digest);
 
       protected:
          RefStructure* structure;
          RefStructure::PatchPart part;
+
+      private:
+         static QList<Abstract*> instanceList;
       };
    } // namespace Model
 } // namespace Patch

@@ -27,7 +27,7 @@
     <number>0</number>
    </property>
    <item row="1" column="0" colspan="2">
-    <widget class="Patch::TreeView" name="headerTree"/>
+    <widget class="Patch::TreeView" name="headerPatchTree"/>
    </item>
    <item row="2" column="0" colspan="2">
     <layout class="QHBoxLayout" name="horizontalLayout">
@@ -94,13 +94,13 @@
     <widget class="Suggest::TreeView" name="argumentSuggestTree"/>
    </item>
    <item row="3" column="1">
-    <widget class="Patch::TreeView" name="argumentTree"/>
+    <widget class="Patch::TreeView" name="argumentPatchTree"/>
    </item>
    <item row="5" column="0">
     <widget class="Suggest::TreeView" name="typedMessageSuggestTree"/>
    </item>
    <item row="5" column="1">
-    <widget class="Patch::TreeView" name="typedMessageTree"/>
+    <widget class="Patch::TreeView" name="typedMessagePatchTree"/>
    </item>
    <item row="6" column="0" colspan="2">
     <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -165,7 +165,7 @@
     <widget class="Suggest::TreeView" name="namedMessageSuggestTree"/>
    </item>
    <item row="7" column="1">
-    <widget class="Patch::TreeView" name="namedMessageTree"/>
+    <widget class="Patch::TreeView" name="namedMessagePatchTree"/>
    </item>
    <item row="8" column="0" colspan="2">
     <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -223,7 +223,7 @@
     <widget class="Suggest::TreeView" name="outputSuggestTree"/>
    </item>
    <item row="9" column="1">
-    <widget class="Patch::TreeView" name="outputTree"/>
+    <widget class="Patch::TreeView" name="outputPatchTree"/>
    </item>
    <item row="11" column="0" colspan="2">
     <layout class="QGridLayout" name="gridLayout">

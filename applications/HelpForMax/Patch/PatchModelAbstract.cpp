@@ -1,10 +1,18 @@
 #include "PatchModelAbstract.h"
 
+QList<Patch::Model::Abstract*> Patch::Model::Abstract::instanceList;
+
 Patch::Model::Abstract::Abstract(QObject* parent, RefStructure* structure, const RefStructure::PatchPart& part)
    : QStandardItemModel(parent)
    , structure(structure)
    , part(part)
 {
+   instanceList.append(this);
+}
+
+Patch::Model::Abstract::~Abstract()
+{
+   instanceList.removeAll(this);
 }
 
 void Patch::Model::Abstract::updateDigestItem(QStandardItem* digestItem, const RefStructure::Digest& digest)
@@ -31,4 +39,16 @@ void Patch::Model::Abstract::removeItem(const QModelIndex& index)
 const Patch::RefStructure::PatchPart& Patch::Model::Abstract::getPart() const
 {
    return part;
+}
+
+void Patch::Model::Abstract::updateAll()
+{
+   for (Abstract* model : instanceList)
+      model->update();
+}
+
+void Patch::Model::Abstract::rebuildAll()
+{
+   for (Abstract* model : instanceList)
+      model->rebuild();
 }

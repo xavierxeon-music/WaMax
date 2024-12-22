@@ -5,6 +5,8 @@
 #include "PatchWidget.h"
 #include "SuggestModelAbstract.h"
 
+QList<QWidget*> Suggest::TreeView::instanceList;
+
 Suggest::TreeView::TreeView(QWidget* parent)
    : QTreeView(parent)
    , widget(nullptr)
@@ -12,6 +14,13 @@ Suggest::TreeView::TreeView(QWidget* parent)
 {
    setRootIsDecorated(false);
    setUniformRowHeights(true);
+
+   instanceList.append(this);
+}
+
+Suggest::TreeView::~TreeView()
+{
+   instanceList.removeAll(this);
 }
 
 void Suggest::TreeView::init(Patch::Widget* widget, Model::Abstract* model)
@@ -26,6 +35,8 @@ void Suggest::TreeView::init(Patch::Widget* widget, Model::Abstract* model)
 
 void Suggest::TreeView::setButton(QToolButton* transferButton)
 {
+   instanceList.append(transferButton);
+
    static const QString styleSheet = "QToolButton { border: 0px none #8f8f91;}";
 
    static const QString transfer = QString::fromUtf8("\u27a4");
@@ -33,6 +44,12 @@ void Suggest::TreeView::setButton(QToolButton* transferButton)
    transferButton->setText(transfer);
 
    connect(transferButton, &QAbstractButton::clicked, this, &TreeView::slotTransfer);
+}
+
+void Suggest::TreeView::setAllVisible(bool visible)
+{
+   for (QWidget* widget : instanceList)
+      widget->setVisible(visible);
 }
 
 void Suggest::TreeView::slotResizeColumns()

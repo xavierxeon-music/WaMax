@@ -23,16 +23,20 @@ namespace Suggest
 
    public:
       TreeView(QWidget* parent);
+      ~TreeView();
 
    public:
       void init(Patch::Widget* widget, Model::Abstract* model);
       void setButton(QToolButton* transferButton);
+
+      static void setAllVisible(bool visible);
 
    private slots:
       void slotResizeColumns();
       void slotTransfer();
 
    private:
+      static QList<QWidget*> instanceList;
       Patch::Widget* widget;
       Model::Abstract* model;
    };

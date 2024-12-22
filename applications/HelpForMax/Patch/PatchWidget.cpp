@@ -27,11 +27,9 @@ Patch::Widget::Widget(TabWidget* tabWidget, const Package::Info* packageInfo, co
    , RefStructure()
    , tabWidget(tabWidget)
    , structureWidget(nullptr)
-   , suggestionWidgets()
    , packageInfo(packageInfo)
    , path(patchFileName)
    , patchInfo{}
-   , modelList()
    , digest(nullptr)
 {
    // left: scroll area
@@ -62,49 +60,39 @@ Patch::Widget::Widget(TabWidget* tabWidget, const Package::Info* packageInfo, co
       argumentSuggestTree->setButton(argumnetTransferButton);
       argumentSuggestTree->setItemDelegateForColumn(1, new Delegate::DataType(this, argumentSuggestModel));
 
-      suggestionWidgets << argumentSuggestTree << argumnetTransferButton;
-
       Suggest::Model::TypedMessage* typedMessageSuggestModel = new Suggest::Model::TypedMessage(this, suggestStructure);
       typedMessageSuggestTree->init(this, typedMessageSuggestModel);
       typedMessageSuggestTree->setButton(typedMessageTransferButton);
-      suggestionWidgets << typedMessageSuggestTree << typedMessageTransferButton;
 
       Suggest::Model::NamedMessage* namedMessageSuggestModel = new Suggest::Model::NamedMessage(this, suggestStructure);
       namedMessageSuggestTree->init(this, namedMessageSuggestModel);
       namedMessageSuggestTree->setButton(namedMessageTransferButton);
-      suggestionWidgets << namedMessageSuggestTree << namedMessageTransferButton;
 
       Suggest::Model::Output* outputSuggestModel = new Suggest::Model::Output(this, suggestStructure);
       outputSuggestTree->init(this, outputSuggestModel);
       outputSuggestTree->setButton(outputTransferButton);
-      suggestionWidgets << outputSuggestTree << outputTransferButton;
 
       // set models
       Model::Header* headerPatchModel = new Model::Header(this, this);
-      modelList.append(headerPatchModel);
-      headerTree->init(this, headerPatchModel, 1);
-      headerTree->setItemDelegateForColumn(0, new Delegate::PatchType(this, headerPatchModel));
+      headerPatchTree->init(this, headerPatchModel, 1);
+      headerPatchTree->setItemDelegateForColumn(0, new Delegate::PatchType(this, headerPatchModel));
 
       Model::Argument* argumentPatchModel = new Model::Argument(this, this);
-      modelList.append(argumentPatchModel);
-      argumentTree->init(this, argumentPatchModel);
-      argumentTree->setButtons(argumentAddButton, argumentRemoveButton);
-      argumentTree->setItemDelegateForColumn(1, new Delegate::DataType(this, argumentPatchModel));
+      argumentPatchTree->init(this, argumentPatchModel);
+      argumentPatchTree->setButtons(argumentAddButton, argumentRemoveButton);
+      argumentPatchTree->setItemDelegateForColumn(1, new Delegate::DataType(this, argumentPatchModel));
 
       Model::TypedMessage* typedMessagPatcheModel = new Model::TypedMessage(this, this);
-      modelList.append(typedMessagPatcheModel);
-      typedMessageTree->init(this, typedMessagPatcheModel);
+      typedMessagePatchTree->init(this, typedMessagPatcheModel);
 
       Model::NamedMessage* namedMessagePatchModel = new Model::NamedMessage(this, this);
-      modelList.append(namedMessagePatchModel);
-      namedMessageTree->init(this, namedMessagePatchModel);
-      namedMessageTree->setButtons(namedMessageAddButton, namedMessageRemoveButton);
-      namedMessageTree->setItemDelegateForColumn(1, new Delegate::DataType(this, namedMessagePatchModel));
+      namedMessagePatchTree->init(this, namedMessagePatchModel);
+      namedMessagePatchTree->setButtons(namedMessageAddButton, namedMessageRemoveButton);
+      namedMessagePatchTree->setItemDelegateForColumn(1, new Delegate::DataType(this, namedMessagePatchModel));
 
       Model::Output* outputPatchModel = new Model::Output(this, this);
-      modelList.append(outputPatchModel);
-      outputTree->init(this, outputPatchModel);
-      outputTree->setButtons(outputAddButton, outputRemoveButton);
+      outputPatchTree->init(this, outputPatchModel);
+      outputPatchTree->setButtons(outputAddButton, outputRemoveButton);
    }
 
    // right: digest area
@@ -181,8 +169,7 @@ bool Patch::Widget::isDirty() const
 void Patch::Widget::setToolsVisible(TabWidget::ToolsVisible toolsVisible)
 {
    const bool showSuggestions = TabWidget::ToolVisibility::Suggestions & toolsVisible;
-   for (QWidget* widget : suggestionWidgets)
-      widget->setVisible(showSuggestions);
+   Suggest::TreeView::setAllVisible(showSuggestions);
 
    structureWidget->setVisible(TabWidget::ToolVisibility::Structure & toolsVisible);
 }
@@ -227,16 +214,13 @@ void Patch::Widget::setDigest(Digest* newDigest, const PatchPart& part)
 
 void Patch::Widget::rebuild()
 {
-   for (Model::Abstract* model : modelList)
-      model->rebuild();
-
+   Model::Abstract::rebuildAll();
    setDigest(&header.digest, RefStructure::PatchPart::Header);
 }
 
 void Patch::Widget::update()
 {
-   for (Model::Abstract* model : modelList)
-      model->update();
+   Model::Abstract::updateAll();
 }
 
 void Patch::Widget::setDirty()
