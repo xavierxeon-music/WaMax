@@ -65,7 +65,7 @@ void Patch::TreeView::slotResizeColumns()
 
 void Patch::TreeView::slotUpdateDigest(const QModelIndex& index)
 {
-   Max::RefStructure::Digest* digest = model->getDigest(index);
+   Ref::Structure::Digest* digest = model->getDigest(index);
    widget->setDigest(digest, model->getPart());
 }
 

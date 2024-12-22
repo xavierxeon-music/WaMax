@@ -8,7 +8,7 @@
 #include "DiscreteMathsAlgorithm.h"
 
 Max::Patcher::Patcher()
-   : RefStructure()
+   : Ref::Structure()
    , DiscreteMaths::Graph()
    , typeBuffer()
 {

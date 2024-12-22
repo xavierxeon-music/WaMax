@@ -3,7 +3,7 @@
 
 #include <QStandardItemModel>
 
-#include "MaxRefStructure.h"
+#include "RefStructure.h"
 
 namespace Patch
 {
@@ -14,7 +14,7 @@ namespace Patch
          Q_OBJECT
 
       public:
-         Abstract(QObject* parent, Max::RefStructure& structure, const Max::RefStructure::PatchPart& part);
+         Abstract(QObject* parent, Ref::Structure& structure, const Ref::Structure::PatchPart& part);
          ~Abstract();
 
       signals:
@@ -24,20 +24,20 @@ namespace Patch
       public:
          virtual void update() = 0;
          virtual void rebuild() = 0;
-         virtual Max::RefStructure::Digest* getDigest(const QModelIndex& index) = 0;
+         virtual Ref::Structure::Digest* getDigest(const QModelIndex& index) = 0;
          virtual void createBeforeItem(const QModelIndex& index);
          virtual void removeItem(const QModelIndex& index);
-         const Max::RefStructure::PatchPart& getPart() const;
+         const Ref::Structure::PatchPart& getPart() const;
 
          static void updateAll();
          static void rebuildAll();
 
       protected:
-         void updateDigestItem(QStandardItem* digestItem, const Max::RefStructure::Digest& digest);
+         void updateDigestItem(QStandardItem* digestItem, const Ref::Structure::Digest& digest);
 
       protected:
-         Max::RefStructure& structure;
-         Max::RefStructure::PatchPart part;
+         Ref::Structure& structure;
+         Ref::Structure::PatchPart part;
 
       private:
          static QList<Abstract*> instanceList;

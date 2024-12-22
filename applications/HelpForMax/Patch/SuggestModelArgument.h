@@ -13,7 +13,7 @@ namespace Suggest
          Q_OBJECT
 
       public:
-         Argument(QObject* parent, Max::RefStructure& structure);
+         Argument(QObject* parent, Ref::Structure& structure);
 
       private:
          Max::DataType getDataType(const int index) override;

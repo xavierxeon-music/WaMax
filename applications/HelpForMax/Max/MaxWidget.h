@@ -1,5 +1,5 @@
-#ifndef StructureWidgetH
-#define StructureWidgetH
+#ifndef MaxWidgetH
+#define MaxWidgetH
 
 #include <QGraphicsView>
 
@@ -8,7 +8,7 @@
 
 #include "MaxPatcher.h"
 
-namespace Structure
+namespace Max
 {
    class Widget : public QGraphicsView
    {
@@ -40,6 +40,6 @@ namespace Structure
 
       double zoomLevel;
    };
-} // namespace Structure
+} // namespace Max
 
 #endif // NOT GraphWidgetH

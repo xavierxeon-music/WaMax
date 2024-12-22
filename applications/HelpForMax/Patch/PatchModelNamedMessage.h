@@ -13,12 +13,12 @@ namespace Patch
          Q_OBJECT
 
       public:
-         NamedMessage(QObject* parent, Max::RefStructure& structure);
+         NamedMessage(QObject* parent, Ref::Structure& structure);
 
       private:
          void update() override;
          void rebuild() override;
-         Max::RefStructure::Digest* getDigest(const QModelIndex& index) override;
+         Ref::Structure::Digest* getDigest(const QModelIndex& index) override;
          void createBeforeItem(const QModelIndex& index) override;
          void removeItem(const QModelIndex& index) override;
          bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole) override;

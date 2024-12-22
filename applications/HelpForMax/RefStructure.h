@@ -1,5 +1,5 @@
-#ifndef MaxRefStructureH
-#define MaxRefStructureH
+#ifndef RefStructureH
+#define RefStructureH
 
 #include <QObject>
 
@@ -10,9 +10,9 @@
 
 #include "MaxDataType.h"
 
-namespace Max
+namespace Ref
 {
-   class RefStructure
+   class Structure
    {
       Q_GADGET
 
@@ -104,8 +104,8 @@ namespace Max
       using Hook = std::function<void()>;
 
    public:
-      RefStructure();
-      ~RefStructure();
+      Structure();
+      ~Structure();
 
    public:
       void clear();
@@ -132,8 +132,8 @@ namespace Max
       Hook clearHook;
       Hook dirtyHook;
    };
-} // namespace Max
+} // namespace Ref
 
-Q_DECLARE_OPERATORS_FOR_FLAGS(Max::RefStructure::PatchParts)
+Q_DECLARE_OPERATORS_FOR_FLAGS(Ref::Structure::PatchParts)
 
-#endif // NOT MaxRefStructureH
+#endif // NOT RefStructureH

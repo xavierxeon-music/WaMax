@@ -1,14 +1,14 @@
 #include "PatchModelNamedMessage.h"
 
-Patch::Model::NamedMessage::NamedMessage(QObject* parent, Max::RefStructure& structure)
-   : Abstract(parent, structure, Max::RefStructure::PatchPart::MessageNamed)
+Patch::Model::NamedMessage::NamedMessage(QObject* parent, Ref::Structure& structure)
+   : Abstract(parent, structure, Ref::Structure::PatchPart::MessageNamed)
 {
 }
 
 void Patch::Model::NamedMessage::update()
 {
    int row = 0;
-   for (Max::RefStructure::AttributesAndMessageNamed::Map::const_iterator it = structure.messageNamedMap.constBegin(); it != structure.messageNamedMap.constEnd(); it++)
+   for (Ref::Structure::AttributesAndMessageNamed::Map::const_iterator it = structure.messageNamedMap.constBegin(); it != structure.messageNamedMap.constEnd(); it++)
    {
       QStandardItem* nameItem = invisibleRootItem()->child(row, 0);
       QStandardItem* typeItem = invisibleRootItem()->child(row, 1);
@@ -19,19 +19,19 @@ void Patch::Model::NamedMessage::update()
       if (!nameItem)
          continue;
 
-      const Max::RefStructure::AttributesAndMessageNamed& messageNamed = it.value();
+      const Ref::Structure::AttributesAndMessageNamed& messageNamed = it.value();
 
       nameItem->setText(messageNamed.name);
       nameItem->setData(QVariant::fromValue(it));
 
       typeItem->setText(Max::dataTypeName(messageNamed.dataType));
 
-      if (0 != (messageNamed.patchParts & Max::RefStructure::PatchPart::Attribute))
+      if (0 != (messageNamed.patchParts & Ref::Structure::PatchPart::Attribute))
          isAttributeItem->setCheckState(Qt::Checked);
       else
          isAttributeItem->setCheckState(Qt::Unchecked);
 
-      if (0 != (messageNamed.patchParts & Max::RefStructure::PatchPart::MessageNamed))
+      if (0 != (messageNamed.patchParts & Ref::Structure::PatchPart::MessageNamed))
          isMessageItem->setCheckState(Qt::Checked);
       else
          isMessageItem->setCheckState(Qt::Unchecked);
@@ -49,7 +49,7 @@ void Patch::Model::NamedMessage::rebuild()
    beginResetModel();
    setHorizontalHeaderLabels({"Name", "Type", "At", "M", "Digest"});
 
-   for (Max::RefStructure::AttributesAndMessageNamed::Map::const_iterator it = structure.messageNamedMap.constBegin(); it != structure.messageNamedMap.constEnd(); it++)
+   for (Ref::Structure::AttributesAndMessageNamed::Map::const_iterator it = structure.messageNamedMap.constBegin(); it != structure.messageNamedMap.constEnd(); it++)
    {
       QStandardItem* nameItem = new QStandardItem();
       nameItem->setData(QVariant::fromValue(it));
@@ -76,11 +76,11 @@ void Patch::Model::NamedMessage::rebuild()
    update();
 }
 
-Max::RefStructure::Digest* Patch::Model::NamedMessage::getDigest(const QModelIndex& index)
+Ref::Structure::Digest* Patch::Model::NamedMessage::getDigest(const QModelIndex& index)
 {
    QStandardItem* nameItem = invisibleRootItem()->child(index.row(), 0);
 
-   Max::RefStructure::AttributesAndMessageNamed& messageNamed = structure.messageNamedMap[nameItem->text()];
+   Ref::Structure::AttributesAndMessageNamed& messageNamed = structure.messageNamedMap[nameItem->text()];
    return &(messageNamed.digest);
 }
 
@@ -88,7 +88,7 @@ void Patch::Model::NamedMessage::createBeforeItem(const QModelIndex& index)
 {
    Q_UNUSED(index)
 
-   Max::RefStructure::AttributesAndMessageNamed messageNamed;
+   Ref::Structure::AttributesAndMessageNamed messageNamed;
    messageNamed.name = "???";
 
    if (structure.messageNamedMap.contains(messageNamed.name))
@@ -101,7 +101,7 @@ void Patch::Model::NamedMessage::createBeforeItem(const QModelIndex& index)
 void Patch::Model::NamedMessage::removeItem(const QModelIndex& index)
 {
    QStandardItem* nameItem = invisibleRootItem()->child(index.row(), 0);
-   Max::RefStructure::AttributesAndMessageNamed::Map::const_iterator it = nameItem->data().value<Max::RefStructure::AttributesAndMessageNamed::Map::const_iterator>();
+   Ref::Structure::AttributesAndMessageNamed::Map::const_iterator it = nameItem->data().value<Ref::Structure::AttributesAndMessageNamed::Map::const_iterator>();
 
    structure.messageNamedMap.erase(it);
    structure.setDirty();
@@ -110,7 +110,7 @@ void Patch::Model::NamedMessage::removeItem(const QModelIndex& index)
 bool Patch::Model::NamedMessage::setData(const QModelIndex& index, const QVariant& value, int role)
 {
    QStandardItem* nameItem = invisibleRootItem()->child(index.row(), 0);
-   Max::RefStructure::AttributesAndMessageNamed& messageNamed = structure.messageNamedMap[nameItem->text()];
+   Ref::Structure::AttributesAndMessageNamed& messageNamed = structure.messageNamedMap[nameItem->text()];
 
    qDebug() << nameItem->text() << value.toString();
 
@@ -132,7 +132,7 @@ bool Patch::Model::NamedMessage::setData(const QModelIndex& index, const QVarian
    }
    else if (Qt::CheckStateRole == role)
    {
-      auto setFlag = [&](const Max::RefStructure::PatchPart& part)
+      auto setFlag = [&](const Ref::Structure::PatchPart& part)
       {
          if (Qt::Checked == value.toInt())
             messageNamed.patchParts |= part;
@@ -142,9 +142,9 @@ bool Patch::Model::NamedMessage::setData(const QModelIndex& index, const QVarian
       };
 
       if (2 == index.column())
-         setFlag(Max::RefStructure::PatchPart::Attribute);
+         setFlag(Ref::Structure::PatchPart::Attribute);
       else if (3 == index.column())
-         setFlag(Max::RefStructure::PatchPart::MessageNamed);
+         setFlag(Ref::Structure::PatchPart::MessageNamed);
    }
 
    emit signalDataEdited();
@@ -154,7 +154,7 @@ bool Patch::Model::NamedMessage::setData(const QModelIndex& index, const QVarian
 Max::DataType Patch::Model::NamedMessage::getDataType(const int index)
 {
    QStandardItem* nameItem = invisibleRootItem()->child(index, 0);
-   const Max::RefStructure::AttributesAndMessageNamed& messageNamed = structure.messageNamedMap.value(nameItem->text());
+   const Ref::Structure::AttributesAndMessageNamed& messageNamed = structure.messageNamedMap.value(nameItem->text());
 
    return messageNamed.dataType;
 }

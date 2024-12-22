@@ -12,7 +12,7 @@ namespace Suggest
          Q_OBJECT
 
       public:
-         TypedMessage(QObject* parent, Max::RefStructure& structure);
+         TypedMessage(QObject* parent, Ref::Structure& structure);
       };
    } // namespace Model
 } // namespace Suggest

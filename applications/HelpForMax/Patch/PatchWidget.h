@@ -6,10 +6,10 @@
 #include <QSplitter>
 
 #include "MaxPatcher.h"
-#include "MaxRefStructure.h"
+#include "MaxWidget.h"
 #include "PatchInfo.h"
 #include "PatchTabWidget.h"
-#include "StructureWidget.h"
+#include "RefStructure.h"
 
 namespace Package
 {
@@ -45,26 +45,26 @@ namespace Patch
       void slotSaveDigestDescription();
 
    private:
-      void setDigest(Max::RefStructure::Digest* newDigest, const Max::RefStructure::PatchPart& part);
+      void setDigest(Ref::Structure::Digest* newDigest, const Ref::Structure::PatchPart& part);
       void rebuild();
       void update();
       void setDirty();
       void propagateDirty(bool isDirty);
-      void setIcon(QLabel* iconLabel, Max::RefStructure::PatchPart part);
+      void setIcon(QLabel* iconLabel, Ref::Structure::PatchPart part);
 
    private:
-      Max::RefStructure maxRef;
+      Ref::Structure maxRef;
       Max::Patcher maxPatch;
 
       TabWidget* tabWidget;
-      Structure::Widget* structureWidget;
+      Max::Widget* structureWidget;
 
       const Package::Info* packageInfo;
       QString path;
       Patch::Info patchInfo;
 
       bool dirty;
-      Max::RefStructure::Digest* digest;
+      Ref::Structure::Digest* digest;
    };
 
 } // namespace Patch

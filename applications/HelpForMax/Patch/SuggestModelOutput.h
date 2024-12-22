@@ -12,7 +12,7 @@ namespace Suggest
          Q_OBJECT
 
       public:
-         Output(QObject* parent, Max::RefStructure& structure);
+         Output(QObject* parent, Ref::Structure& structure);
       };
    } // namespace Model
 } // namespace Suggest

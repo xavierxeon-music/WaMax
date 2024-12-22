@@ -1,4 +1,4 @@
-#include "StructureWidget.h"
+#include "MaxWidget.h"
 
 #include <QApplication>
 #include <QDesktopServices>
@@ -14,7 +14,7 @@
 #include "MaxLine.h"
 #include "MaxObject.h"
 
-Structure::Widget::Widget(QWidget* parent)
+Max::Widget::Widget(QWidget* parent)
    : QGraphicsView(parent)
    , scene(nullptr)
    , blackBorderPen(Qt::black)
@@ -47,7 +47,7 @@ Structure::Widget::Widget(QWidget* parent)
    updateZoom(false);
 }
 
-void Structure::Widget::load(const Max::Patcher& patcher)
+void Max::Widget::load(const Max::Patcher& patcher)
 {
    scene->clear();
 
@@ -87,7 +87,7 @@ void Structure::Widget::load(const Max::Patcher& patcher)
    updateZoom(false);
 }
 
-void Structure::Widget::wheelEvent(QWheelEvent* wheelEvent)
+void Max::Widget::wheelEvent(QWheelEvent* wheelEvent)
 {
    const double delta = 0.001 * wheelEvent->angleDelta().y();
    const double factor = std::pow(2.0, delta);
@@ -96,7 +96,7 @@ void Structure::Widget::wheelEvent(QWheelEvent* wheelEvent)
    updateZoom(true);
 }
 
-void Structure::Widget::mouseDoubleClickEvent(QMouseEvent* mouseEvent)
+void Max::Widget::mouseDoubleClickEvent(QMouseEvent* mouseEvent)
 {
    QGraphicsItem* item = itemAt(mouseEvent->pos());
    if (!item)
@@ -106,19 +106,19 @@ void Structure::Widget::mouseDoubleClickEvent(QMouseEvent* mouseEvent)
    }
 }
 
-void Structure::Widget::keyPressEvent(QKeyEvent* event)
+void Max::Widget::keyPressEvent(QKeyEvent* event)
 {
    const bool enabled = Qt::ShiftModifier & event->modifiers();
    setDragMode(enabled ? ScrollHandDrag : NoDrag);
 }
 
-void Structure::Widget::keyReleaseEvent(QKeyEvent* event)
+void Max::Widget::keyReleaseEvent(QKeyEvent* event)
 {
    const bool enabled = Qt::ShiftModifier & event->modifiers();
    setDragMode(enabled ? ScrollHandDrag : NoDrag);
 }
 
-void Structure::Widget::updateZoom(bool save)
+void Max::Widget::updateZoom(bool save)
 {
    setTransform(QTransform::fromScale(zoomLevel, zoomLevel));
 

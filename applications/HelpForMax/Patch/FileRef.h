@@ -1,5 +1,5 @@
-#ifndef FileRefH
-#define FileRefH
+#ifndef FileRefXMLH
+#define FileRefXMLH
 
 #include "FileAbstract.h"
 
@@ -7,10 +7,10 @@
 
 namespace File
 {
-   class Ref : public Abstract
+   class RefXML : public Abstract
    {
    public:
-      Ref(const Package::Info* info, Max::RefStructure& structure);
+      RefXML(const Package::Info* info, Ref::Structure& structure);
 
    public:
       void read(const Patch::Info& patchInfo) override;
@@ -25,9 +25,9 @@ namespace File
       QByteArray writeContent(const QString& patchName);
 
       QDomElement createSubElement(QDomElement parent, const QString& name, const QString& text = QString(), const TagMap& tagMap = TagMap());
-      void addDigest(const QDomElement& parentElement, const Max::RefStructure::Digest& digest);
+      void addDigest(const QDomElement& parentElement, const Ref::Structure::Digest& digest);
 
-      void readDigest(const QDomElement& parentElement, Max::RefStructure::Digest& digest) const;
+      void readDigest(const QDomElement& parentElement, Ref::Structure::Digest& digest) const;
       QString readText(const QDomElement& element) const;
       QDomElement findFirstDirectChildElementWithAttributes(const QDomElement& element, const QString& tag, const TagMap& tagMap) const;
       QList<QDomElement> compileAllDirectChildElements(const QDomElement& element, const QString& tag, const TagMap& tagMap = TagMap()) const;
@@ -39,4 +39,4 @@ namespace File
    };
 } // namespace File
 
-#endif // NOT FileRefH
+#endif // NOT FileRefXMLH

@@ -43,13 +43,13 @@ Patch::Widget::Widget(TabWidget* tabWidget, const Package::Info* packageInfo, co
       scrollArea->setWidgetResizable(true);
       scrollArea->setWidget(content);
 
-      setIcon(patchIcon, Max::RefStructure::PatchPart::Header);
-      setIcon(argumentIcon, Max::RefStructure::PatchPart::Argument);
-      setIcon(typedMessageIcon, Max::RefStructure::PatchPart::MessageTyped);
-      setIcon(attributeIcon, Max::RefStructure::PatchPart::Attribute);
-      setIcon(nameMessageIcon, Max::RefStructure::PatchPart::MessageNamed);
-      setIcon(outputIcon, Max::RefStructure::PatchPart::Output);
-      setIcon(otherIcon, Max::RefStructure::PatchPart::Other);
+      setIcon(patchIcon, Ref::Structure::PatchPart::Header);
+      setIcon(argumentIcon, Ref::Structure::PatchPart::Argument);
+      setIcon(typedMessageIcon, Ref::Structure::PatchPart::MessageTyped);
+      setIcon(attributeIcon, Ref::Structure::PatchPart::Attribute);
+      setIcon(nameMessageIcon, Ref::Structure::PatchPart::MessageNamed);
+      setIcon(outputIcon, Ref::Structure::PatchPart::Output);
+      setIcon(otherIcon, Ref::Structure::PatchPart::Other);
 
       // set models
       Suggest::Model::Argument* argumentSuggestModel = new Suggest::Model::Argument(this, maxPatch);
@@ -104,7 +104,7 @@ Patch::Widget::Widget(TabWidget* tabWidget, const Package::Info* packageInfo, co
       connect(descriptionEdit, &QTextEdit::textChanged, this, &Widget::slotSaveDigestDescription);
    }
 
-   structureWidget = new Structure::Widget(this);
+   structureWidget = new Max::Widget(this);
 
    addWidget(scrollArea);
    addWidget(editArea);
@@ -119,7 +119,7 @@ Patch::Widget::Widget(TabWidget* tabWidget, const Package::Info* packageInfo, co
 
    maxRef.dirtyHook = std::bind(&Widget::setDirty, this);
 
-   File::Ref(packageInfo, maxRef).read(patchInfo);
+   File::RefXML(packageInfo, maxRef).read(patchInfo);
    rebuild();
 }
 
@@ -145,7 +145,7 @@ const Patch::Info& Patch::Widget::getPatchInfo() const
 
 void Patch::Widget::writeRef()
 {
-   File::Ref(packageInfo, maxRef).write(patchInfo);
+   File::RefXML(packageInfo, maxRef).write(patchInfo);
    File::Help(packageInfo).write(patchInfo);
    File::Init(packageInfo, maxRef).write(patchInfo);
    propagateDirty(false);
@@ -158,7 +158,7 @@ void Patch::Widget::openInMax()
 
 void Patch::Widget::openXML()
 {
-   const QString refPath = File::Ref(packageInfo, maxRef).getFilePath(patchInfo);
+   const QString refPath = File::RefXML(packageInfo, maxRef).getFilePath(patchInfo);
    QDesktopServices::openUrl(QUrl::fromLocalFile(refPath));
 }
 
@@ -177,7 +177,7 @@ void Patch::Widget::setToolsVisible(TabWidget::ToolsVisible toolsVisible)
 
 void Patch::Widget::slotSetPatchDigest()
 {
-   setDigest(&maxRef.header.digest, Max::RefStructure::PatchPart::Header);
+   setDigest(&maxRef.header.digest, Ref::Structure::PatchPart::Header);
 }
 
 void Patch::Widget::slotSaveDigestText()
@@ -192,7 +192,7 @@ void Patch::Widget::slotSaveDigestDescription()
    setDirty();
 }
 
-void Patch::Widget::setDigest(Max::RefStructure::Digest* newDigest, const Max::RefStructure::PatchPart& part)
+void Patch::Widget::setDigest(Ref::Structure::Digest* newDigest, const Ref::Structure::PatchPart& part)
 {
    digest = newDigest;
    if (!digest)
@@ -216,7 +216,7 @@ void Patch::Widget::setDigest(Max::RefStructure::Digest* newDigest, const Max::R
 void Patch::Widget::rebuild()
 {
    Model::Abstract::rebuildAll();
-   setDigest(&maxRef.header.digest, Max::RefStructure::PatchPart::Header);
+   setDigest(&maxRef.header.digest, Ref::Structure::PatchPart::Header);
 }
 
 void Patch::Widget::update()
@@ -236,7 +236,7 @@ void Patch::Widget::propagateDirty(bool isDirty)
    tabWidget->emitSignalCheckDirty();
 }
 
-void Patch::Widget::setIcon(QLabel* iconLabel, Max::RefStructure::PatchPart part)
+void Patch::Widget::setIcon(QLabel* iconLabel, Ref::Structure::PatchPart part)
 {
    iconLabel->setPixmap(maxRef.partIcon(part).pixmap(16, 16));
 }

@@ -3,7 +3,7 @@
 
 #include <QStyledItemDelegate>
 
-#include "MaxRefStructure.h"
+#include "RefStructure.h"
 
 namespace Delegate
 {

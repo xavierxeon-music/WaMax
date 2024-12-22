@@ -8,7 +8,7 @@ namespace File
    class Init : public Abstract
    {
    public:
-      Init(const Package::Info* info, Max::RefStructure& structure);
+      Init(const Package::Info* info, Ref::Structure& structure);
 
    public:
       void write(const Patch::Info& patchInfo) override;

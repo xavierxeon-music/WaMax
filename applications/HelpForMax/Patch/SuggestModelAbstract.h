@@ -3,7 +3,7 @@
 
 #include <QStandardItemModel>
 
-#include "MaxRefStructure.h"
+#include "RefStructure.h"
 
 namespace Suggest
 {
@@ -14,11 +14,11 @@ namespace Suggest
          Q_OBJECT
 
       public:
-         Abstract(QObject* parent, Max::RefStructure& structure, const Max::RefStructure::PatchPart& part);
+         Abstract(QObject* parent, Ref::Structure& structure, const Ref::Structure::PatchPart& part);
 
       protected:
-         Max::RefStructure& structure;
-         Max::RefStructure::PatchPart part;
+         Ref::Structure& structure;
+         Ref::Structure::PatchPart part;
       };
    } // namespace Model
 } // namespace Suggest

@@ -1,7 +1,7 @@
 #include "PatchModelTypedMessage.h"
 
-Patch::Model::TypedMessage::TypedMessage(QObject* parent, Max::RefStructure& structure)
-   : Abstract(parent, structure, Max::RefStructure::PatchPart::MessageTyped)
+Patch::Model::TypedMessage::TypedMessage(QObject* parent, Ref::Structure& structure)
+   : Abstract(parent, structure, Ref::Structure::PatchPart::MessageTyped)
 {
 }
 
@@ -14,7 +14,7 @@ void Patch::Model::TypedMessage::update()
       QStandardItem* digestItem = invisibleRootItem()->child(row, 2);
 
       const Max::DataType type = typeItem->data().value<Max::DataType>();
-      Max::RefStructure::MessageTyped& message = structure.messageTypedMap[type];
+      Ref::Structure::MessageTyped& message = structure.messageTypedMap[type];
 
       activeItem->setCheckState(message.active ? Qt::Checked : Qt::Unchecked);
 
@@ -50,12 +50,12 @@ void Patch::Model::TypedMessage::rebuild()
    update();
 }
 
-Max::RefStructure::Digest* Patch::Model::TypedMessage::getDigest(const QModelIndex& index)
+Ref::Structure::Digest* Patch::Model::TypedMessage::getDigest(const QModelIndex& index)
 {
    QStandardItem* typeItem = invisibleRootItem()->child(index.row(), 0);
    const Max::DataType type = typeItem->data().value<Max::DataType>();
 
-   Max::RefStructure::MessageTyped& message = structure.messageTypedMap[type];
+   Ref::Structure::MessageTyped& message = structure.messageTypedMap[type];
    return &(message.digest);
 }
 
@@ -66,7 +66,7 @@ bool Patch::Model::TypedMessage::setData(const QModelIndex& index, const QVarian
    QStandardItem* typeItem = invisibleRootItem()->child(index.row(), 0);
    const Max::DataType type = typeItem->data().value<Max::DataType>();
 
-   Max::RefStructure::MessageTyped& message = structure.messageTypedMap[type];
+   Ref::Structure::MessageTyped& message = structure.messageTypedMap[type];
 
    if (Qt::EditRole == role)
    {

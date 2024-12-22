@@ -1,6 +1,6 @@
 #include "SuggestModelOutput.h"
 
-Suggest::Model::Output::Output(QObject* parent, Max::RefStructure &structure)
-   : Abstract(parent, structure, Max::RefStructure::PatchPart::Output)
+Suggest::Model::Output::Output(QObject* parent, Ref::Structure &structure)
+   : Abstract(parent, structure, Ref::Structure::PatchPart::Output)
 {
 }

@@ -1,7 +1,7 @@
 #include "PatchModelArgument.h"
 
-Patch::Model::Argument::Argument(QObject* parent, Max::RefStructure& structure)
-   : Abstract(parent, structure, Max::RefStructure::PatchPart::Argument)
+Patch::Model::Argument::Argument(QObject* parent, Ref::Structure& structure)
+   : Abstract(parent, structure, Ref::Structure::PatchPart::Argument)
    , Delegate::DataType::Source()
 {
 }
@@ -15,7 +15,7 @@ void Patch::Model::Argument::update()
       QStandardItem* optionalItem = invisibleRootItem()->child(row, 2);
       QStandardItem* digestItem = invisibleRootItem()->child(row, 3);
 
-      const Max::RefStructure::Argument& argument = structure.argumentList.at(row);
+      const Ref::Structure::Argument& argument = structure.argumentList.at(row);
 
       nameItem->setText(argument.name);
       typeItem->setText(Max::dataTypeName(argument.dataType));
@@ -54,15 +54,15 @@ void Patch::Model::Argument::rebuild()
    update();
 }
 
-Max::RefStructure::Digest* Patch::Model::Argument::getDigest(const QModelIndex& index)
+Ref::Structure::Digest* Patch::Model::Argument::getDigest(const QModelIndex& index)
 {
-   Max::RefStructure::Argument& argument = structure.argumentList[index.row()];
+   Ref::Structure::Argument& argument = structure.argumentList[index.row()];
    return &(argument.digest);
 }
 
 void Patch::Model::Argument::createBeforeItem(const QModelIndex& index)
 {
-   Max::RefStructure::Argument argument;
+   Ref::Structure::Argument argument;
    argument.name = "???";
 
    if (index.isValid())
@@ -82,7 +82,7 @@ void Patch::Model::Argument::removeItem(const QModelIndex& index)
 bool Patch::Model::Argument::setData(const QModelIndex& index, const QVariant& value, int role)
 {
    const bool result = QStandardItemModel::setData(index, value, role);
-   Max::RefStructure::Argument& argument = structure.argumentList[index.row()];
+   Ref::Structure::Argument& argument = structure.argumentList[index.row()];
 
    if (Qt::EditRole == role)
    {
@@ -109,7 +109,7 @@ bool Patch::Model::Argument::setData(const QModelIndex& index, const QVariant& v
 
 Max::DataType Patch::Model::Argument::getDataType(const int index)
 {
-   const Max::RefStructure::Argument& argument = structure.argumentList.at(index);
+   const Ref::Structure::Argument& argument = structure.argumentList.at(index);
 
    return argument.dataType;
 }
