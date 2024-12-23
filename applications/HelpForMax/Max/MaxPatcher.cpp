@@ -175,12 +175,19 @@ void Max::Patcher::buildStructureTypedMessages()
    }
 
    const Object::List typeRouteArgs = findAll(Object::Type::TypeRoute, true);
-   for (const Object* object : routeArgs)
+   for (const Object* object : typeRouteArgs)
    {
-      qDebug() << object;
+      static const QList<Max::DataType> typeList = {Max::DataType::Signal,
+                                                    Max::DataType::Bang,
+                                                    Max::DataType::Integer,
+                                                    Max::DataType::Float,
+                                                    Max::DataType::Symbol,
+                                                    Max::DataType::List};
+
       for (const int& index : object->outlets.connected)
       {
-         qDebug() << index;
+         const Max::DataType dataType = typeList.at(index);
+         messageTypedMap[dataType].active = true;
       }
    }
 }
