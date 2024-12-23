@@ -5,7 +5,7 @@
 #include "PatchRefModelAbstract.h"
 #include "PatchRefWidget.h"
 
-Patch::TreeView::TreeView(QWidget* parent)
+PatchRef::TreeView::TreeView(QWidget* parent)
    : QTreeView(parent)
    , widget(nullptr)
    , model(nullptr)
@@ -17,7 +17,7 @@ Patch::TreeView::TreeView(QWidget* parent)
    connect(this, &QAbstractItemView::clicked, this, &TreeView::slotUpdateDigest);
 }
 
-void Patch::TreeView::init(Widget* widget, PatchRef::Model::Abstract* model, int forceRowHeight)
+void PatchRef::TreeView::init(Widget* widget, Model::Abstract *model, int forceRowHeight)
 {
    this->widget = widget;
    this->model = model;
@@ -29,7 +29,7 @@ void Patch::TreeView::init(Widget* widget, PatchRef::Model::Abstract* model, int
    connect(model, &PatchRef::Model::Abstract::signalUpdateDigest, this, &TreeView::slotUpdateDigest);
 }
 
-void Patch::TreeView::setButtons(QToolButton* addButton, QToolButton* removeButton)
+void PatchRef::TreeView::setButtons(QToolButton* addButton, QToolButton* removeButton)
 {
    static const QString styleSheet = "QToolButton { border: 0px none #8f8f91;}";
 
@@ -44,7 +44,7 @@ void Patch::TreeView::setButtons(QToolButton* addButton, QToolButton* removeButt
    connect(removeButton, &QAbstractButton::clicked, this, &TreeView::slotRemoveElement);
 }
 
-void Patch::TreeView::slotResizeColumns()
+void PatchRef::TreeView::slotResizeColumns()
 {
    auto resizeIternal = [this]()
    {
@@ -63,20 +63,20 @@ void Patch::TreeView::slotResizeColumns()
    QTimer::singleShot(10, this, resizeIternal);
 }
 
-void Patch::TreeView::slotUpdateDigest(const QModelIndex& index)
+void PatchRef::TreeView::slotUpdateDigest(const QModelIndex& index)
 {
    Ref::Structure::Digest* digest = model->getDigest(index);
    widget->setDigest(digest, model->getPart());
 }
 
-void Patch::TreeView::slotAddElement()
+void PatchRef::TreeView::slotAddElement()
 {
    QModelIndex index = selectedIndexes().isEmpty() ? QModelIndex() : selectedIndexes().first();
    model->createBeforeItem(index);
    model->rebuild();
 }
 
-void Patch::TreeView::slotRemoveElement()
+void PatchRef::TreeView::slotRemoveElement()
 {
    QModelIndex index = selectedIndexes().isEmpty() ? QModelIndex() : selectedIndexes().first();
    if (!index.isValid())

@@ -1,5 +1,5 @@
-#ifndef PatchTreeViewH
-#define PatchTreeViewH
+#ifndef PatchRefTreeViewH
+#define PatchRefTreeViewH
 
 #include <QTreeView>
 
@@ -11,10 +11,6 @@ namespace PatchRef
    {
       class Abstract;
    }
-} // namespace PatchRef
-
-namespace Patch
-{
 
    class Widget;
 
@@ -26,7 +22,7 @@ namespace Patch
       TreeView(QWidget* parent);
 
    public:
-      void init(Widget* widget, PatchRef::Model::Abstract* model, int forceRowHeight = -1);
+      void init(Widget* widget, Model::Abstract* model, int forceRowHeight = -1);
       void setButtons(QToolButton* addButton, QToolButton* removeButton);
 
    private slots:
@@ -37,10 +33,9 @@ namespace Patch
 
    private:
       Widget* widget;
-      PatchRef::Model::Abstract* model;
-
+      Model::Abstract* model;
       int forceRowHeight;
    };
-} // namespace Patch
+} // namespace PatchRef
 
-#endif // NOT PatchTreeViewH
+#endif // NOT PatchRefTreeViewH
