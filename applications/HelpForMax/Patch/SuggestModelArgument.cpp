@@ -2,7 +2,6 @@
 
 Suggest::Model::Argument::Argument(QObject* parent, Ref::Structure& structure)
    : Abstract(parent, structure, Ref::Structure::PatchPart::Argument)
-   , Delegate::DataType::Source()
 {
 }
 
@@ -30,11 +29,4 @@ void Suggest::Model::Argument::rebuild()
    }
 
    endResetModel();
-}
-
-Max::DataType Suggest::Model::Argument::getDataType(const int index)
-{
-   const Ref::Structure::Argument& argument = structure.argumentList.at(index);
-
-   return argument.dataType;
 }

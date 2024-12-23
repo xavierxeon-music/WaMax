@@ -1,14 +1,13 @@
 #ifndef SuggestModelNamedMessageH
 #define SuggestModelNamedMessageH
 
-#include "DelegateDataType.h"
 #include "SuggestModelAbstract.h"
 
 namespace Suggest
 {
    namespace Model
    {
-      class NamedMessage : public Abstract, public Delegate::DataType::Source
+      class NamedMessage : public Abstract
       {
          Q_OBJECT
 
@@ -17,7 +16,6 @@ namespace Suggest
 
       private:
          void rebuild() override;
-         Max::DataType getDataType(const int index) override;
       };
    } // namespace Model
 } // namespace Suggest

@@ -195,10 +195,85 @@ void Max::Patcher::buildStructureTypedMessages()
 void Max::Patcher::buildStructureNamedMessages()
 {
    const Object::List patcherArgs = findAll(Object::Type::PatcherArgs, true);
+   for (const Object* object : patcherArgs)
+   {
+      const int attributeIndex = object->text.indexOf("@");
+      const QString text = object->text.mid(attributeIndex, -1);
+      const QStringList attributeNameList = text.split(" ", Qt::SkipEmptyParts);
+
+      for (int index = 0; index < attributeNameList.count(); index++)
+      {
+         QString key = attributeNameList.at(index);
+         if (!key.contains("@"))
+            continue;
+
+         key = key.mid(1, -1);
+         index++;
+         if (index >= attributeNameList.count())
+            break;
+
+         QString value = attributeNameList.at(index);
+         if (value.contains("@"))
+            continue;
+
+         Ref::Structure::AttributesAndMessageNamed attribute;
+         attribute.patchParts = Ref::Structure::PatchPart::Attribute;
+         attribute.name = key;
+         messageNamedMap.insert(key, attribute);
+      }
+   }
+
+   DiscreteMaths::Algorithm algo(this);
+
+   const Object::List inlets = findAll(Object::Type::Inlet, false);
+   auto connectedToInlet = [&](const Object* object) -> bool
+   {
+      const int objectIndex = vertexIndex(object);
+      for (const Object* inlet : inlets)
+      {
+         DiscreteMaths::Algorithm::Tree tree = algo.breadthFirst(inlet);
+         const int depth = tree.compileDepth(objectIndex);
+
+         if (0 < depth)
+            return true;
+      }
+
+      return false;
+   };
 
    const Object::List routeArgs = findAll(Object::Type::Route, true) + findAll(Object::Type::RoutePass, true);
-   //const Object::List routeArgs = findAll(Object::Type::Route, true) ;
-   //const Object::List routePassArgs = findAll(Object::Type::RoutePass, true);
+   for (const Object* object : routeArgs)
+   {
+      if (!connectedToInlet(object)) // this is an attribute only
+         continue;
+
+      const QStringList messageList = object->text.split(" ", Qt::SkipEmptyParts);
+
+      for (int index = 0; index < messageList.count(); index++)
+      {
+         const QString key = messageList.at(index);
+         if (!messageNamedMap.contains(key))
+         {
+            Ref::Structure::AttributesAndMessageNamed message;
+            message.name = key;
+            messageNamedMap.insert(key, message);
+         }
+
+         Ref::Structure::AttributesAndMessageNamed& message = messageNamedMap[key];
+         message.patchParts |= Ref::Structure::PatchPart::MessageNamed;
+      }
+      /*
+      const Object* routeObject = getVertexCast(path.verticies.last());
+      if (!routeArgs.contains(routeObject))
+         continue;
+
+      const QString name = routeObject->text;
+      Ref::Structure::AttributesAndMessageNamed attribute;
+      attribute.patchParts = Ref::Structure::PatchPart::MessageNamed;
+      attribute.name = name;
+      messageNamedMap.insert(name, attribute);
+      */
+   }
 }
 
 void Max::Patcher::buildStructureOutputs()

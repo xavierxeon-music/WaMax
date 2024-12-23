@@ -55,7 +55,6 @@ Patch::Widget::Widget(TabWidget* tabWidget, const Package::Info* packageInfo, co
       Suggest::Model::Argument* argumentSuggestModel = new Suggest::Model::Argument(this, maxPatch);
       argumentSuggestTree->init(this, argumentSuggestModel);
       argumentSuggestTree->setButton(argumnetTransferButton);
-      argumentSuggestTree->setItemDelegateForColumn(1, new Delegate::DataType(this, argumentSuggestModel));
 
       Suggest::Model::TypedMessage* typedMessageSuggestModel = new Suggest::Model::TypedMessage(this, maxPatch);
       typedMessageSuggestTree->init(this, typedMessageSuggestModel);
@@ -64,10 +63,6 @@ Patch::Widget::Widget(TabWidget* tabWidget, const Package::Info* packageInfo, co
       Suggest::Model::NamedMessage* namedMessageSuggestModel = new Suggest::Model::NamedMessage(this, maxPatch);
       namedMessageSuggestTree->init(this, namedMessageSuggestModel);
       namedMessageSuggestTree->setButton(namedMessageTransferButton);
-
-      Suggest::Model::Output* outputSuggestModel = new Suggest::Model::Output(this, maxPatch);
-      outputSuggestTree->init(this, outputSuggestModel);
-      outputSuggestTree->setButton(outputTransferButton);
 
       // set models
       PatchRef::Model::Header* headerPatchModel = new PatchRef::Model::Header(this, maxRef);
