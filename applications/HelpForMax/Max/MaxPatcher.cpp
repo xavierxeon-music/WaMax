@@ -177,15 +177,20 @@ void Max::Patcher::buildStructureTypedMessages()
    const Object::List typeRouteArgs = findAll(Object::Type::TypeRoute, true);
    for (const Object* object : typeRouteArgs)
    {
-      static const QList<Max::DataType> typeList = {Max::DataType::Signal,
-                                                    Max::DataType::Bang,
-                                                    Max::DataType::Integer,
-                                                    Max::DataType::Float,
-                                                    Max::DataType::Symbol,
-                                                    Max::DataType::List};
+      static const QList<Max::DataType> typeList = {
+         Max::DataType::Signal,
+         Max::DataType::Bang,
+         Max::DataType::Integer,
+         Max::DataType::Float,
+         Max::DataType::Symbol
+         //, Max::DataType::List
+      };
 
       for (const int& index : object->outlets.connected)
       {
+         if (index >= typeList.count())
+            continue;
+
          const Max::DataType dataType = typeList.at(index);
          messageTypedMap[dataType].active = true;
       }
@@ -194,6 +199,7 @@ void Max::Patcher::buildStructureTypedMessages()
 
 void Max::Patcher::buildStructureNamedMessages()
 {
+   // attributes
    const Object::List patcherArgs = findAll(Object::Type::PatcherArgs, true);
    for (const Object* object : patcherArgs)
    {
@@ -241,6 +247,7 @@ void Max::Patcher::buildStructureNamedMessages()
       return false;
    };
 
+   // messages
    const Object::List routeArgs = findAll(Object::Type::Route, true) + findAll(Object::Type::RoutePass, true);
    for (const Object* object : routeArgs)
    {
@@ -249,7 +256,7 @@ void Max::Patcher::buildStructureNamedMessages()
 
       const QStringList messageList = object->text.split(" ", Qt::SkipEmptyParts);
 
-      for (int index = 0; index < messageList.count(); index++)
+      for (int index = 1; index < messageList.count(); index++)
       {
          const QString key = messageList.at(index);
          if (!messageNamedMap.contains(key))
@@ -262,17 +269,6 @@ void Max::Patcher::buildStructureNamedMessages()
          Ref::Structure::AttributesAndMessageNamed& message = messageNamedMap[key];
          message.patchParts |= Ref::Structure::PatchPart::MessageNamed;
       }
-      /*
-      const Object* routeObject = getVertexCast(path.verticies.last());
-      if (!routeArgs.contains(routeObject))
-         continue;
-
-      const QString name = routeObject->text;
-      Ref::Structure::AttributesAndMessageNamed attribute;
-      attribute.patchParts = Ref::Structure::PatchPart::MessageNamed;
-      attribute.name = name;
-      messageNamedMap.insert(name, attribute);
-      */
    }
 }
 

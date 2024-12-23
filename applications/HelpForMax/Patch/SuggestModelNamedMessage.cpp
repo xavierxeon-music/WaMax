@@ -1,7 +1,7 @@
 #include "SuggestModelNamedMessage.h"
 
-Suggest::Model::NamedMessage::NamedMessage(QObject* parent, Ref::Structure& structure)
-   : Abstract(parent, structure, Ref::Structure::PatchPart::MessageNamed)
+Suggest::Model::NamedMessage::NamedMessage(QObject* parent, Ref::Structure& structure, const Ref::Structure& suggest)
+   : Abstract(parent, structure, suggest, Ref::Structure::PatchPart::MessageNamed)
 {
 }
 
@@ -13,7 +13,7 @@ void Suggest::Model::NamedMessage::rebuild()
    while (0 < invisibleRootItem()->rowCount())
       invisibleRootItem()->removeRow(0);
 
-   for (Ref::Structure::AttributesAndMessageNamed::Map::const_iterator it = structure.messageNamedMap.constBegin(); it != structure.messageNamedMap.constEnd(); it++)
+   for (Ref::Structure::AttributesAndMessageNamed::Map::const_iterator it = suggest.messageNamedMap.constBegin(); it != suggest.messageNamedMap.constEnd(); it++)
    {
       const Ref::Structure::AttributesAndMessageNamed& messageNamed = it.value();
 

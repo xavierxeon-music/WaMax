@@ -1,7 +1,7 @@
 #include "SuggestModelArgument.h"
 
-Suggest::Model::Argument::Argument(QObject* parent, Ref::Structure& structure)
-   : Abstract(parent, structure, Ref::Structure::PatchPart::Argument)
+Suggest::Model::Argument::Argument(QObject* parent, Ref::Structure& structure, const Ref::Structure& suggest)
+   : Abstract(parent, structure, suggest, Ref::Structure::PatchPart::Argument)
 {
 }
 
@@ -13,9 +13,9 @@ void Suggest::Model::Argument::rebuild()
    while (0 < invisibleRootItem()->rowCount())
       invisibleRootItem()->removeRow(0);
 
-   for (int row = 0; row < structure.argumentList.count(); row++)
+   for (int row = 0; row < suggest.argumentList.count(); row++)
    {
-      const Ref::Structure::Argument& argument = structure.argumentList.at(row);
+      const Ref::Structure::Argument& argument = suggest.argumentList.at(row);
 
       QStandardItem* nameItem = new QStandardItem();
       nameItem->setEditable(false);

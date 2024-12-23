@@ -12,7 +12,7 @@ namespace Suggest
          Q_OBJECT
 
       public:
-         Argument(QObject* parent, Ref::Structure& structure);
+         Argument(QObject* parent, Ref::Structure& structure, const Ref::Structure& suggest);
 
       private:
          void rebuild() override;

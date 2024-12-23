@@ -26,6 +26,7 @@ namespace Max
       void analyse();
       void buildStructureArguments();
       void buildStructureTypedMessages();
+      void buildStructureAttributes();
       void buildStructureNamedMessages();
       void buildStructureOutputs();
       Object::List findAll(const Object::Type& type, bool paramObjectsOnly) const;

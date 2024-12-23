@@ -12,7 +12,7 @@ namespace Suggest
          Q_OBJECT
 
       public:
-         NamedMessage(QObject* parent, Ref::Structure& structure);
+         NamedMessage(QObject* parent, Ref::Structure& structure, const Ref::Structure& suggest);
 
       private:
          void rebuild() override;

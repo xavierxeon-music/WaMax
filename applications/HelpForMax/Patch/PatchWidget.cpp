@@ -51,20 +51,20 @@ Patch::Widget::Widget(TabWidget* tabWidget, const Package::Info* packageInfo, co
       setIcon(outputIcon, Ref::Structure::PatchPart::Output);
       setIcon(otherIcon, Ref::Structure::PatchPart::Other);
 
-      // set models
-      Suggest::Model::Argument* argumentSuggestModel = new Suggest::Model::Argument(this, maxPatch);
+      // set suggest models
+      Suggest::Model::Argument* argumentSuggestModel = new Suggest::Model::Argument(this, maxRef, maxPatch);
       argumentSuggestTree->init(this, argumentSuggestModel);
       argumentSuggestTree->setButton(argumnetTransferButton);
 
-      Suggest::Model::TypedMessage* typedMessageSuggestModel = new Suggest::Model::TypedMessage(this, maxPatch);
+      Suggest::Model::TypedMessage* typedMessageSuggestModel = new Suggest::Model::TypedMessage(this, maxRef, maxPatch);
       typedMessageSuggestTree->init(this, typedMessageSuggestModel);
       typedMessageSuggestTree->setButton(typedMessageTransferButton);
 
-      Suggest::Model::NamedMessage* namedMessageSuggestModel = new Suggest::Model::NamedMessage(this, maxPatch);
+      Suggest::Model::NamedMessage* namedMessageSuggestModel = new Suggest::Model::NamedMessage(this, maxRef, maxPatch);
       namedMessageSuggestTree->init(this, namedMessageSuggestModel);
       namedMessageSuggestTree->setButton(namedMessageTransferButton);
 
-      // set models
+      // set reference models
       PatchRef::Model::Header* headerPatchModel = new PatchRef::Model::Header(this, maxRef);
       headerPatchTree->init(this, headerPatchModel, 1);
       headerPatchTree->setItemDelegateForColumn(0, new Delegate::PatchType(this, headerPatchModel));

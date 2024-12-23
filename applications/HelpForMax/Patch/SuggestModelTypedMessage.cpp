@@ -1,7 +1,7 @@
 #include "SuggestModelTypedMessage.h"
 
-Suggest::Model::TypedMessage::TypedMessage(QObject* parent, Ref::Structure& structure)
-   : Abstract(parent, structure, Ref::Structure::PatchPart::MessageTyped)
+Suggest::Model::TypedMessage::TypedMessage(QObject* parent, Ref::Structure& structure, const Ref::Structure& suggest)
+   : Abstract(parent, structure, suggest, Ref::Structure::PatchPart::MessageTyped)
 {
 }
 
@@ -15,7 +15,7 @@ void Suggest::Model::TypedMessage::rebuild()
 
    for (const Max::DataType& type : Max::dataTypeList())
    {
-      Ref::Structure::MessageTyped& message = structure.messageTypedMap[type];
+      const Ref::Structure::MessageTyped& message = suggest.messageTypedMap[type];
 
       QStandardItem* typeItem = new QStandardItem(Max::dataTypeName(type));
       typeItem->setEditable(false);
