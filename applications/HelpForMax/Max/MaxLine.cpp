@@ -2,45 +2,60 @@
 
 #include <QJsonArray>
 
-Max::Line::Line(const QJsonObject& lineObject, const Object::IdMap& idMap)
+#include "MaxObject.h"
+
+Max::Line::Line(const QJsonObject& lineObject, const IdMap& idMap)
    : DiscreteMaths::Edge()
    , isParamLine(false)
-   , sourceOutlet(0)
-   , destInlet(0)
-   , sourceX(0)
-   , sourceY(0)
-   , destX(0)
-   , destY(0)
+   , source()
+   , dest()
 {
    // source
+   Object* sourceObject = nullptr;
    {
       const QJsonArray sourceArray = lineObject["source"].toArray();
       const QString sourceId = sourceArray.at(0).toString();
-      sourceOutlet = sourceArray.at(1).toInt();
+      const int sourceIndex = sourceArray.at(1).toInt();
 
-      Object* sourceObject = idMap[sourceId];
-      sourceObject->outlets.connected.append(sourceOutlet);
+      sourceObject = idMap[sourceId];
+
+      QList<int>& connectedList = sourceObject->outlets.connected;
+      if (!connectedList.contains(sourceIndex))
+         connectedList.append(sourceIndex);
+
+      sourceObject->outlets.lines.append(this);
 
       const int outletDist = sourceObject->patchRect.width() / sourceObject->outlets.count;
-      sourceX = 10 + sourceObject->patchRect.x() + (outletDist * sourceOutlet);
-      sourceY = sourceObject->patchRect.y() + sourceObject->patchRect.height();
+      const int sourceX = 10 + sourceObject->patchRect.x() + (outletDist * sourceIndex);
+      const int sourceY = sourceObject->patchRect.y() + sourceObject->patchRect.height();
 
+      source = QPoint(sourceX, sourceY);
       vertexA = sourceObject;
    }
 
    // destination
+   Object* destObject = nullptr;
    {
       const QJsonArray destArray = lineObject["destination"].toArray();
       const QString destId = destArray.at(0).toString();
-      destInlet = destArray.at(1).toInt();
+      const int destIndex = destArray.at(1).toInt();
 
-      Object* destObject = idMap[destId];
-      destObject->inlets.connected.append(destInlet);
+      destObject = idMap[destId];
+
+      QList<int>& connectedList = destObject->inlets.connected;
+      if (!connectedList.contains(destIndex))
+         connectedList.append(destIndex);
+
+      destObject->inlets.lines.append(this);
 
       const int inletDist = destObject->patchRect.width() / destObject->inlets.count;
-      destX = 10 + destObject->patchRect.x() + (inletDist * destInlet);
-      destY = destObject->patchRect.y();
+      const int destX = 10 + destObject->patchRect.x() + (inletDist * destIndex);
+      const int destY = destObject->patchRect.y();
 
+      dest = QPoint(destX, destY);
       vertexB = destObject;
    }
+
+   sourceObject->outlets.objects.append(destObject);
+   destObject->inlets.objects.append(sourceObject);
 }

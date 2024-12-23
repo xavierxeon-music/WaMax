@@ -4,25 +4,22 @@
 #include "DiscreteMathsEdge.h"
 
 #include <QJsonObject>
-
-#include "MaxObject.h"
+#include <QPoint>
 
 namespace Max
 {
+   class Object;
+   using IdMap = QMap<QString, Object*>;
+
    class Line : public DiscreteMaths::Edge
    {
    public:
-      Line(const QJsonObject& lineObject, const Object::IdMap& idMap);
+      Line(const QJsonObject& lineObject, const IdMap& idMap);
 
    public:
+      QPoint source;
+      QPoint dest;
       bool isParamLine;
-      int sourceOutlet;
-      int destInlet;
-
-      int sourceX;
-      int sourceY;
-      int destX;
-      int destY;
    };
 } // namespace Max
 

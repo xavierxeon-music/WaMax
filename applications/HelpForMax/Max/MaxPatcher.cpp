@@ -37,7 +37,7 @@ void Max::Patcher::readPatch(const QString& patchFileName)
 
    const QJsonObject patcherObject = object["patcher"].toObject();
 
-   const Object::IdMap idMap = readObjects(patcherObject);
+   const IdMap idMap = readObjects(patcherObject);
    readLines(patcherObject, idMap);
 
    analyse();
@@ -126,7 +126,7 @@ void Max::Patcher::buildStructureArguments()
       const Object* unpackObject = nullptr;
       for (const Object* object2 : unpackArgs)
       {
-         if (isChildOf(object2, object))
+         if (object2->isChildOf(object))
          {
             unpackObject = object2;
             break;
@@ -177,6 +177,11 @@ void Max::Patcher::buildStructureTypedMessages()
    const Object::List typeRouteArgs = findAll(Object::Type::TypeRoute, true);
    for (const Object* object : routeArgs)
    {
+      qDebug() << object;
+      for (const int& index : object->outlets.connected)
+      {
+         qDebug() << index;
+      }
    }
 }
 
@@ -223,27 +228,11 @@ Max::Object::List Max::Patcher::findAll(const QList<Object::Type>& typeList, boo
    return list;
 }
 
-bool Max::Patcher::isChildOf(const Object* object, const Object* parent) const
-{
-   for (int edgeIndex = 0; edgeIndex < edgeCount(); edgeIndex++)
-   {
-      Line* line = getEdgeCast(edgeIndex);
-      if (line->getVertexA() != parent) // outlet
-         continue;
-
-      if (line->getVertexB() != object) // inlet
-         continue;
-
-      return true;
-   }
-   return false;
-}
-
-Max::Object::IdMap Max::Patcher::readObjects(const QJsonObject patcherObject)
+Max::IdMap Max::Patcher::readObjects(const QJsonObject patcherObject)
 {
    static const QStringList skipList = {"comment", "panel"};
 
-   Object::IdMap idMap;
+   IdMap idMap;
    const QJsonArray boxArray = patcherObject["boxes"].toArray();
 
    for (int index = 0; index < boxArray.size(); index++)
@@ -271,7 +260,7 @@ Max::Object::IdMap Max::Patcher::readObjects(const QJsonObject patcherObject)
    return idMap;
 }
 
-void Max::Patcher::readLines(const QJsonObject patcherObject, const Object::IdMap& idMap)
+void Max::Patcher::readLines(const QJsonObject patcherObject, const IdMap& idMap)
 {
    const QJsonArray lineArray = patcherObject["lines"].toArray();
 

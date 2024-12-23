@@ -54,7 +54,7 @@ void Max::Widget::load(const Patcher& patcher)
    for (int lineIndex = 0; lineIndex < patcher.edgeCount(); lineIndex++)
    {
       Line* line = patcher.getEdgeCast(lineIndex);
-      scene->addLine(line->sourceX, line->sourceY, line->destX, line->destY, line->isParamLine ? blueLinePen : blackLinePen);
+      scene->addLine(QLineF(line->source, line->dest), line->isParamLine ? blueLinePen : blackLinePen);
    }
 
    for (int vertIndex = 0; vertIndex < patcher.vertexCount(); vertIndex++)

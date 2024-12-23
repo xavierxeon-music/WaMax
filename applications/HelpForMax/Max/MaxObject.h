@@ -8,11 +8,13 @@
 
 namespace Max
 {
+   class Line;
+
    class Object : public DiscreteMaths::Vertex
    {
    public:
       using List = QList<Object*>;
-      using IdMap = QMap<QString, Object*>;
+      using LineList = QList<Line*>;
 
       enum class Type
       {
@@ -30,10 +32,15 @@ namespace Max
       {
          int count = 0;
          QList<int> connected;
+         LineList lines;
+         List objects;
       };
 
    public:
       Object(const QJsonObject& boxObject);
+
+   public:
+      bool isChildOf(const Object* parent) const;
 
    public:
       QRectF patchRect;
@@ -44,6 +51,7 @@ namespace Max
       Ports outlets;
       Type type;
       QString id;
+
       bool isParamObject;
    };
 } // namespace Max

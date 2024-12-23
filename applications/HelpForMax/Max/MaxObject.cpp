@@ -72,3 +72,8 @@ Max::Object::Object(const QJsonObject& boxObject)
    inlets.count = boxObject["numinlets"].toInt();
    outlets.count = boxObject["numoutlets"].toInt();
 }
+
+bool Max::Object::isChildOf(const Object* parent) const
+{
+   return inlets.objects.contains(parent);
+}

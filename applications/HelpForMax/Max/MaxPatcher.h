@@ -30,9 +30,8 @@ namespace Max
       void buildStructureOutputs();
       Object::List findAll(const Object::Type& type, bool paramObjectsOnly) const;
       Object::List findAll(const QList<Object::Type>& typeList, bool paramObjectsOnly) const;
-      bool isChildOf(const Object* object, const Object* parent) const;
-      Object::IdMap readObjects(const QJsonObject patcherObject);
-      void readLines(const QJsonObject patcherObject, const Object::IdMap& idMap);
+      IdMap readObjects(const QJsonObject patcherObject);
+      void readLines(const QJsonObject patcherObject, const IdMap& idMap);
 
    private:
       TypeBuffer typeBuffer;
