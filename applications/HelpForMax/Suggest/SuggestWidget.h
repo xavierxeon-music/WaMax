@@ -1,9 +1,9 @@
-#ifndef PatchWidgetH
-#define PatchWidgetH
+#ifndef SuggestWidgetH
+#define SuggestWidgetH
 
 #include <QWidget>
 
-namespace Patch
+namespace Suggest
 {
    class Widget : public QWidget
    {
@@ -12,6 +12,6 @@ namespace Patch
    public:
       Widget(QWidget* parent);
    };
-} // namespace Patch
+} // namespace Suggest
 
-#endif // NOT PatchWidgetH
+#endif // NOT SuggestWidgetH

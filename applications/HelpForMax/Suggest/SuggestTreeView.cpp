@@ -2,7 +2,7 @@
 
 #include <QTimer>
 
-#include "PatchWidget.h"
+#include "PatchRefWidget.h"
 #include "SuggestModelAbstract.h"
 
 QList<QWidget*> Suggest::TreeView::instanceList;

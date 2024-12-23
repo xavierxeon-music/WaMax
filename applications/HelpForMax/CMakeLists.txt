@@ -26,9 +26,12 @@ set(CMAKE_AUTORCC ON)
 #
 include_directories(
    ${CMAKE_CURRENT_SOURCE_DIR}
+   ${CMAKE_CURRENT_SOURCE_DIR}/Components
    ${CMAKE_CURRENT_SOURCE_DIR}/Graph
    ${CMAKE_CURRENT_SOURCE_DIR}/Package
    ${CMAKE_CURRENT_SOURCE_DIR}/Patch
+   ${CMAKE_CURRENT_SOURCE_DIR}/PatchRef
+   ${CMAKE_CURRENT_SOURCE_DIR}/Suggest     
    ${CMAKE_CURRENT_SOURCE_DIR}/Max
 )
 
@@ -36,10 +39,11 @@ file(GLOB SOURCE_FILES
    ${CMAKE_CURRENT_SOURCE_DIR}/*.h
    ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/*.hpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/Package/*.ui
-   ${CMAKE_CURRENT_SOURCE_DIR}/Patch/*.ui
-   ${CMAKE_CURRENT_SOURCE_DIR}/*.ui
    ${CMAKE_CURRENT_SOURCE_DIR}/_Resources/*.qrc
+)
+
+file(GLOB_RECURSE UI_FILES
+   ${CMAKE_CURRENT_SOURCE_DIR}/*.ui
 )
 
 if(APPLE)
@@ -53,10 +57,10 @@ if(APPLE)
       set(CMAKE_RUNTIME_OUTPUT_DIRECTORY $ENV{HOME}/Applications)
    endif()
 
-   qt_add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${APP_ICON} ${SOURCE_FILES})
+   qt_add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${APP_ICON} ${UI_FILES} ${SOURCE_FILES})
 
 elseif(UNIX)
-   qt_add_executable(${PROJECT_NAME} ${SOURCE_FILES})
+   qt_add_executable(${PROJECT_NAME}  ${UI_FILES} ${SOURCE_FILES})
 
    if(CMAKE_BUILD_TYPE STREQUAL "Release")
       set(CMAKE_RUNTIME_OUTPUT_DIRECTORY $ENV{HOME}/bin)
@@ -83,7 +87,7 @@ elseif(WIN32)
       )
    endif()
 
-   qt_add_executable(${PROJECT_NAME} WIN32 ${APP_ICON} ${SOURCE_FILES})
+   qt_add_executable(${PROJECT_NAME} WIN32 ${APP_ICON} ${UI_FILES} ${SOURCE_FILES})
 endif()
 
 add_subdirectory(DiscreteMaths)
@@ -91,6 +95,9 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/DiscreteMaths)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE DiscreteMaths Qt6::Widgets Qt6::Network Qt6::Svg Qt6::Xml)
 
+include(${CMAKE_CURRENT_LIST_DIR}/Components/build.cmake)
 include(${CMAKE_CURRENT_LIST_DIR}/Max/build.cmake)
 include(${CMAKE_CURRENT_LIST_DIR}/Package/build.cmake)
 include(${CMAKE_CURRENT_LIST_DIR}/Patch/build.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/PatchRef/build.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/Suggest/build.cmake)

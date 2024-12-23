@@ -8,7 +8,7 @@
 #include "MessageBar.h"
 #include "PackageInfo.h"
 #include "PackageTabWidget.h"
-#include "PatchWidget.h"
+#include "PatchRefWidget.h"
 
 Patch::TabWidget::TabWidget(QWidget* parent)
    : RecentTabWidget(parent, "Patch")

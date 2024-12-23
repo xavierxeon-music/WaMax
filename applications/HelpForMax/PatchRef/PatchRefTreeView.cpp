@@ -1,9 +1,9 @@
-#include "PatchTreeView.h"
+#include "PatchRefTreeView.h"
 
 #include <QTimer>
 
 #include "PatchRefModelAbstract.h"
-#include "PatchWidget.h"
+#include "PatchRefWidget.h"
 
 Patch::TreeView::TreeView(QWidget* parent)
    : QTreeView(parent)
