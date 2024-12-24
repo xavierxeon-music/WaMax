@@ -4,3 +4,6 @@
 [submodule "applications/MaxScreen"]
 	path = applications/MaxScreen
 	url = https://github.com/xavierxeon-music/MaxScreen.git
+[submodule "applications/HelpForMax"]
+	path = applications/HelpForMax
+	url = https://github.com/xavierxeon-music/HelpForMax.git
