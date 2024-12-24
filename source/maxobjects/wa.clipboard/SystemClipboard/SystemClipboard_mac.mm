@@ -8,8 +8,11 @@ std::string SystemClipboard::read()
    if(!pasteboard)
       return "";
 
-   const std::string text = std::string([[pasteboard stringForType:NSPasteboardTypeString] UTF8String]);
-   return text;
+   const char* pasteboardContent = [[pasteboard stringForType:NSPasteboardTypeString] UTF8String];
+   if(!pasteboardContent)
+      return "";
+
+   return std::string(pasteboardContent);
 }
 
 void SystemClipboard::write(const std::string& text)
@@ -17,6 +20,7 @@ void SystemClipboard::write(const std::string& text)
    NSPasteboard* pasteboard = [NSPasteboard generalPasteboard];
    if(!pasteboard)
       return;
+
    NSString *string = [NSString stringWithUTF8String:text.c_str()];
 
    [pasteboard clearContents];

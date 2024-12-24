@@ -1,8 +1,0 @@
-include_directories(${CMAKE_CURRENT_LIST_DIR})
-
-file(GLOB COMMON_FILES
-   ${CMAKE_CURRENT_LIST_DIR}/*.h
-   ${CMAKE_CURRENT_LIST_DIR}/*.hpp
-)
-
-target_sources(${PROJECT_NAME} PRIVATE ${COMMON_FILES})

@@ -1,6 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>MainWindow.qml</file>
-        <file>WaitScreen.qml</file>
-    </qresource>
-</RCC>
