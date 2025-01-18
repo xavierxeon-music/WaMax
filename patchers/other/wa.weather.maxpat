@@ -10,12 +10,36 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 34.0, 143.0, 3614.0, 1423.0 ],
+		"rect" : [ 34.0, 143.0, 3211.0, 1423.0 ],
 		"gridonopen" : 2,
 		"gridsize" : [ 15.0, 15.0 ],
 		"gridsnaponopen" : 2,
 		"subpatcher_template" : "OpenGrid",
 		"boxes" : [ 			{
+				"box" : 				{
+					"id" : "obj-10",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "bang" ],
+					"patching_rect" : [ 120.0, 315.0, 61.0, 22.0 ],
+					"text" : "delay 100"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-9",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 45.0, 270.0, 67.0, 22.0 ],
+					"text" : "clear, bang"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"id" : "obj-25",
 					"maxclass" : "newobj",
@@ -34,7 +58,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 121.0, 120.0, 134.0, 22.0 ],
+					"patching_rect" : [ 121.0, 120.0, 135.0, 22.0 ],
 					"text" : "settarget #0_weather"
 				}
 
@@ -46,7 +70,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 120.0, 30.0, 196.0, 22.0 ],
+					"patching_rect" : [ 120.0, 30.0, 197.0, 22.0 ],
 					"style" : "wa.receive",
 					"text" : "receive  #0_resend_patcher_args"
 				}
@@ -58,7 +82,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 316.0, 360.0, 184.0, 22.0 ],
+					"patching_rect" : [ 316.0, 360.0, 185.0, 22.0 ],
 					"style" : "wa.send",
 					"text" : "send #0_resend_patcher_args"
 				}
@@ -132,7 +156,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 360.0, 216.0, 446.0, 35.0 ],
+					"patching_rect" : [ 465.0, 216.0, 446.0, 35.0 ],
 					"text" : ";\rmax launchbrowser https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes"
 				}
 
@@ -144,8 +168,8 @@
 					"numinlets" : 4,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 120.0, 270.0, 176.0, 22.0 ],
-					"text" : "route weather latitude longitude"
+					"patching_rect" : [ 120.0, 270.0, 170.0, 22.0 ],
+					"text" : "route update latitude longitude"
 				}
 
 			}
@@ -156,7 +180,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 5,
 					"outlettype" : [ "dictionary", "", "", "", "" ],
-					"patching_rect" : [ 120.0, 315.0, 106.0, 22.0 ],
+					"patching_rect" : [ 120.0, 360.0, 107.0, 22.0 ],
 					"saved_object_attributes" : 					{
 						"embed" : 0,
 						"legacy" : 0,
@@ -201,11 +225,11 @@
 				"box" : 				{
 					"id" : "obj-5",
 					"maxclass" : "newobj",
-					"numinlets" : 5,
-					"numoutlets" : 5,
-					"outlettype" : [ "", "", "", "", "" ],
-					"patching_rect" : [ 165.0, 165.0, 246.0, 22.0 ],
-					"text" : "routepass latitude longitude location geohelp"
+					"numinlets" : 8,
+					"numoutlets" : 8,
+					"outlettype" : [ "", "", "", "", "", "", "", "" ],
+					"patching_rect" : [ 165.0, 165.0, 367.0, 22.0 ],
+					"text" : "routepass latitude longitude location verbose forecast clear geohelp"
 				}
 
 			}
@@ -216,8 +240,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 271.0, 120.0, 274.0, 22.0 ],
-					"text" : "patcherargs @latitude 0. @longitude 0. @location"
+					"patching_rect" : [ 271.0, 120.0, 405.0, 22.0 ],
+					"text" : "patcherargs @latitude 0. @longitude 0. @location London\\,UK @verbose 0"
 				}
 
 			}
@@ -254,7 +278,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 120.0, 356.0, 30.0, 30.0 ]
+					"patching_rect" : [ 120.0, 401.0, 30.0, 30.0 ]
 				}
 
 			}
@@ -272,6 +296,13 @@
 					"destination" : [ "obj-5", 0 ],
 					"order" : 0,
 					"source" : [ "obj-1", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-11", 0 ],
+					"source" : [ "obj-10", 0 ]
 				}
 
 			}
@@ -298,7 +329,7 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-11", 0 ],
+					"destination" : [ "obj-10", 0 ],
 					"source" : [ "obj-16", 0 ]
 				}
 
@@ -376,6 +407,20 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-17", 0 ],
+					"source" : [ "obj-5", 6 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-6", 0 ],
+					"source" : [ "obj-5", 4 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-6", 0 ],
 					"source" : [ "obj-5", 3 ]
 				}
 
@@ -403,6 +448,14 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-9", 0 ],
+					"midpoints" : [ 423.071428571428555, 250.609375, 54.5, 250.609375 ],
+					"source" : [ "obj-5", 5 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-16", 0 ],
 					"source" : [ "obj-6", 0 ]
 				}
@@ -422,8 +475,15 @@
 				}
 
 			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-11", 0 ],
+					"source" : [ "obj-9", 0 ]
+				}
+
+			}
  ],
-		"originid" : "pat-782",
+		"originid" : "pat-1048",
 		"styles" : [ 			{
 				"name" : "wa.buffer",
 				"default" : 				{
