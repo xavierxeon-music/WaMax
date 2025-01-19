@@ -29,7 +29,8 @@ atoms HostName::bangFunction(const atoms& args, const int inlet)
       if (address == localhost)
          continue;
 
-      ipList.push_back(address.toString());
+      const QString ip = address.toString();
+      ipList.push_back(ip.toStdString());
    }
 
    outputIp.send(ipList);
