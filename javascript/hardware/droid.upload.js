@@ -7,7 +7,7 @@ setinletassist(0, "bang");
 outlets = 1;
 setoutletassist(0, "sysex");
 
-const header = [240, 0, 102, 102, 80];
+const header = [240, 0, 102, 102, 'P'];
 const trail = [247];
 
 function bang() {
