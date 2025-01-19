@@ -23,7 +23,10 @@ set(C74_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/../../externals")
 
 FILE(GLOB PROJECT_LIST RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/*)
 
-if(WIN32)
+if(APPLE)
+   list(REMOVE_ITEM PROJECT_LIST "wa.maxscreen.data")
+   list(REMOVE_ITEM PROJECT_LIST "wa.maxscreen.matrix")
+elseif(WIN32)
    list(REMOVE_ITEM PROJECT_LIST "wa.push2_display")
 endif()
 

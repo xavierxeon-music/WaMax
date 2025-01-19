@@ -28,7 +28,6 @@ private:
    atoms pyhonFunction(const atoms& args, const int inlet);
    atoms stdinFunction(const atoms& args, const int inlet);
    atoms packagePathFunction(const atoms& args, const int inlet);
-   atoms hostnameFunction(const atoms& args, const int inlet);
 
    void stdOutput(const QString& text) override;
    void stdError(const QString& text) override;
@@ -49,7 +48,6 @@ private:
    message<> python;
    message<> anything;
    message<> package;
-   message<> hostname;
 };
 
 #endif // NOT AppLauncherH

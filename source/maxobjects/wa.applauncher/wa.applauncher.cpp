@@ -2,10 +2,8 @@
 
 #include <QDir>
 #include <QFileInfo>
-#include <QHostInfo>
 
 #include <MaxPatcher.h>
-
 
 #if defined(__APPLE__)
 #include <CoreFoundation/CoreFoundation.h>
@@ -28,7 +26,6 @@ AppLauncher::AppLauncher(const atoms& args)
    , python(this, "python", "open python script", Max::Patcher::minBind(this, &AppLauncher::pyhonFunction))
    , anything(this, "anything", "std input", Max::Patcher::minBind(this, &AppLauncher::stdinFunction))
    , package(this, "package", "get the package path", Max::Patcher::minBind(this, &AppLauncher::packagePathFunction))
-   , hostname(this, "hostname", "get hostname", Max::Patcher::minBind(this, &AppLauncher::hostnameFunction))
 {
 }
 
@@ -155,15 +152,6 @@ atoms AppLauncher::packagePathFunction(const atoms& args, const int inlet)
       return {};
 
    outputRequest.send(packagePath.toStdString());
-   return {};
-}
-
-atoms AppLauncher::hostnameFunction(const atoms& args, const int inlet)
-{
-   if (0 != inlet)
-      return {};
-
-   outputRequest.send(QHostInfo::localHostName().toStdString());
    return {};
 }
 
