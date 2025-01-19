@@ -122,14 +122,14 @@
 							"filetype" : "C74Snapshot",
 							"version" : 2,
 							"minorversion" : 0,
-							"name" : "wa.rack_power.amxd",
-							"origin" : "wa.rack_power.amxd",
+							"name" : "wa.rack.power.amxd",
+							"origin" : "wa.rack.power.amxd",
 							"type" : "amxd",
 							"subtype" : "Undefined",
 							"embed" : 1,
 							"snapshot" : 							{
-								"name" : "wa.rack_power.amxd",
-								"origname" : "~/GitHub/MusicProjects/WaMaxPackage/devices/wa.rack_power.amxd",
+								"name" : "wa.rack.power.amxd",
+								"origname" : "~/GitHub/MusicProjects/WaMaxPackage/devices/wa.rack.power.amxd",
 								"valuedictionary" : 								{
 									"parameter_values" : 									{
 										"blob" : 										{
@@ -187,8 +187,8 @@
 ,
 					"saved_object_attributes" : 					{
 						"parameter_enable" : 1,
-						"patchername" : "wa.rack_power.amxd",
-						"patchername_fallback" : "~/GitHub/MusicProjects/WaMaxPackage/devices/wa.rack_power.amxd"
+						"patchername" : "wa.rack.power.amxd",
+						"patchername_fallback" : "~/GitHub/MusicProjects/WaMaxPackage/devices/wa.rack.power.amxd"
 					}
 ,
 					"snapshot" : 					{
@@ -201,8 +201,8 @@
 						"subtype" : "Undefined",
 						"embed" : 1,
 						"snapshot" : 						{
-							"name" : "wa.rack_power.amxd",
-							"origname" : "~/GitHub/MusicProjects/WaMaxPackage/devices/wa.rack_power.amxd",
+							"name" : "wa.rack.power.amxd",
+							"origname" : "~/GitHub/MusicProjects/WaMaxPackage/devices/wa.rack.power.amxd",
 							"valuedictionary" : 							{
 								"parameter_values" : 								{
 									"blob" : 									{
@@ -222,14 +222,14 @@
 									"filetype" : "C74Snapshot",
 									"version" : 2,
 									"minorversion" : 0,
-									"name" : "wa.rack_power.amxd",
-									"origin" : "wa.rack_power.amxd",
+									"name" : "wa.rack.power.amxd",
+									"origin" : "wa.rack.power.amxd",
 									"type" : "amxd",
 									"subtype" : "Undefined",
 									"embed" : 0,
 									"snapshot" : 									{
-										"name" : "wa.rack_power.amxd",
-										"origname" : "~/GitHub/MusicProjects/WaMaxPackage/devices/wa.rack_power.amxd",
+										"name" : "wa.rack.power.amxd",
+										"origname" : "~/GitHub/MusicProjects/WaMaxPackage/devices/wa.rack.power.amxd",
 										"valuedictionary" : 										{
 											"parameter_values" : 											{
 												"blob" : 												{
@@ -244,8 +244,8 @@
 									}
 ,
 									"fileref" : 									{
-										"name" : "wa.rack_power.amxd",
-										"filename" : "wa.rack_power.amxd.maxsnap",
+										"name" : "wa.rack.power.amxd",
+										"filename" : "wa.rack.power.amxd.maxsnap",
 										"filepath" : "~/Documents/Max 8/Snapshots",
 										"filepos" : -1,
 										"snapshotfileid" : "d3432d5095ed83e55038f93f6b512bd8"
@@ -257,7 +257,7 @@
 
 					}
 ,
-					"text" : "amxd~ ~/GitHub/MusicProjects/WaMaxPackage/devices/wa.rack_power.amxd",
+					"text" : "amxd~ ~/GitHub/MusicProjects/WaMaxPackage/devices/wa.rack.power.amxd",
 					"varname" : "amxd~",
 					"viewvisibility" : 1
 				}

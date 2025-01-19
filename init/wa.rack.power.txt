@@ -1,0 +1,2 @@
+max objectfile wa.rack.power wa.rack.power;
+max definesubstitution wa.rack.power bpatcher @name wa.rack.power.maxpat;

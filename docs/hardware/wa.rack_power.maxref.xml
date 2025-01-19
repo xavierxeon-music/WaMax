@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
-<c74object name="wa.rack_power" patcher_type="gui">
+<c74object name="wa.rack.power" patcher_type="gui">
     <digest>rack power</digest>
     <description>turn on rack plugs</description>
     <metadatalist>
