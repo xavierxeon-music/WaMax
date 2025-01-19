@@ -17,13 +17,25 @@
 		"subpatcher_template" : "OpenGrid",
 		"boxes" : [ 			{
 				"box" : 				{
+					"id" : "obj-6",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 127.0, 135.0, 103.0, 22.0 ],
+					"text" : "prepend fileName"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"filename" : "droid.upload.js",
 					"id" : "obj-21",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 126.0, 135.0, 91.0, 22.0 ],
+					"patching_rect" : [ 126.0, 180.0, 91.0, 22.0 ],
 					"saved_object_attributes" : 					{
 						"parameter_enable" : 0
 					}
@@ -59,8 +71,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 126.0, 90.0, 80.0, 22.0 ],
-					"text" : "routepass file"
+					"patching_rect" : [ 126.0, 90.0, 55.0, 22.0 ],
+					"text" : "route file"
 				}
 
 			}
@@ -97,7 +109,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 126.0, 180.0, 30.0, 30.0 ]
+					"patching_rect" : [ 126.0, 225.0, 30.0, 30.0 ]
 				}
 
 			}
@@ -134,7 +146,7 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-21", 0 ],
+					"destination" : [ "obj-6", 0 ],
 					"source" : [ "obj-4", 0 ]
 				}
 
@@ -146,8 +158,15 @@
 				}
 
 			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-21", 0 ],
+					"source" : [ "obj-6", 0 ]
+				}
+
+			}
  ],
-		"originid" : "pat-4",
+		"originid" : "pat-8",
 		"dependency_cache" : [ 			{
 				"name" : "droid.upload.js",
 				"bootpath" : "/Volumes/ExternalData/_Home/GitHub/MaxPackages/WaMax/javascript/hardware",
