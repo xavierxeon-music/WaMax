@@ -5,7 +5,7 @@ const https = require("https");
 //  variables
 
 const verbose = false;
-const settings = require(os.homedir() + '/.hue_v2.json');
+const settings = require(os.homedir() + '/.ApiKeys/hue_v2.json');
 
 const basePath = '/clip/v2/resource';
 const getOptions = {
