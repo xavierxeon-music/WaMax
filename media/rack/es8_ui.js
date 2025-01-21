@@ -10,7 +10,7 @@ tabA.setDefault();
 
 let portDict = {};
 
-for (let index = 1; index <= 8; index++) {
+for (let index = 1; index <= 16; index++) {
 
    let sendKey = "s" + index.toString();
    let sendPort = new Div(tabA, "&#9675;", "right", sendKey);
@@ -19,7 +19,7 @@ for (let index = 1; index <= 8; index++) {
    let center = new Div(tabA, index, "center");
    center.setStyle("font-weight", "bold");
 
-   if (index <= 4) {
+   if (index <= 14) {
       let receiveKey = "r" + index.toString();
       let receivePort = new Div(tabA, "&#9675;", "left", receiveKey);
       portDict[receiveKey] = receivePort;

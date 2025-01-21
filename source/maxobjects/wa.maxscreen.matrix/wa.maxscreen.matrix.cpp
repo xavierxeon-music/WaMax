@@ -1,6 +1,6 @@
 #include "wa.maxscreen.matrix.h"
 
-#include <Qimage>
+#include <QImage>
 
 #include <MaxPatcher.h>
 #include <Shared.h>
@@ -14,7 +14,7 @@ MaxScreenMatrix::MaxScreenMatrix(const atoms& args)
    : object<MaxScreenMatrix>()
    , matrix_operator<>(false)
    , socket()
-   , memoryPublisher(true)
+   , memoryPublisher()
    , image(512, 512, QImage::Format_ARGB32)
    , screenSize()
    , input{this, "(matrix) Input", "matrix"}
@@ -108,7 +108,7 @@ void MaxScreenMatrix::receiveData()
    if (Marker::ScreenSize == marker)
    {
       screenSize.load(stream);
-      image = memoryPublisher.createNew(screenSize.getWidth(), screenSize.getHeight());
+      image = memoryPublisher.createWithCurrentSize();
       image.fill(QColor(0, 0, 0, 0));
    }
 
