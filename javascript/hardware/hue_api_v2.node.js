@@ -9,22 +9,22 @@ const settings = require(os.homedir() + '/.ApiKeys/hue_v2.json');
 
 const basePath = '/clip/v2/resource';
 const getOptions = {
-   host: settings['bridge'],
+   host: settings['odense_hue']['bridge'],
    port: 443,
    method: 'GET',
    rejectUnauthorized: false,
    headers: {
-      'hue-application-key': settings['username']
+      'hue-application-key': settings['odense_hue']['username']
    }
 };
 
 const putOptions = {
-   host: settings['bridge'],
+   host: settings['odense_hue']['bridge'],
    port: 443,
    method: 'PUT',
    rejectUnauthorized: false,
    headers: {
-      'hue-application-key': settings['username'],
+      'hue-application-key': settings['odense_hue']['username'],
       'Content-Type': 'application/json'
    }
 };
