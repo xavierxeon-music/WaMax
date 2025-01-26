@@ -1,9 +1,9 @@
 **/__pycache__
 **/.vs
 **/.vscode
-**/*.pro.user
 **/build
 **/CMakeLists.txt.user
 **/node_modules
+**/package-lock.json
 extensions
 externals
