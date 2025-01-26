@@ -10,19 +10,77 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 34.0, 143.0, 3189.0, 1423.0 ],
+		"rect" : [ 34.0, 143.0, 3589.0, 1423.0 ],
 		"gridonopen" : 2,
 		"gridsize" : [ 15.0, 15.0 ],
 		"gridsnaponopen" : 2,
 		"subpatcher_template" : "OpenGrid",
 		"boxes" : [ 			{
 				"box" : 				{
+					"id" : "obj-23",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 660.0, 30.0, 150.0, 34.0 ],
+					"text" : "pip3 install setuptools\n"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-21",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 510.0, 120.0, 240.0, 22.0 ],
+					"text" : "script npm install passport-netatmo express"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-18",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 119.0, 45.0, 150.0, 20.0 ],
+					"text" : "restart"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-16",
+					"maxclass" : "button",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "bang" ],
+					"parameter_enable" : 0,
+					"patching_rect" : [ 89.0, 43.0, 24.0, 24.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-13",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 90.0, 134.0, 64.0, 22.0 ],
+					"text" : "script start"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-14",
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 113.5, 90.0, 29.5, 22.0 ],
+					"patching_rect" : [ 218.0, 89.0, 29.5, 22.0 ],
 					"text" : "1"
 				}
 
@@ -34,7 +92,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 113.5, 49.0, 119.0, 22.0 ],
+					"patching_rect" : [ 218.0, 48.0, 120.0, 22.0 ],
 					"style" : "wa.receive",
 					"text" : "receive #0_loaded"
 				}
@@ -47,7 +105,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "bang", "int" ],
-					"patching_rect" : [ 31.0, 90.0, 63.0, 22.0 ],
+					"patching_rect" : [ 90.0, 89.0, 63.0, 22.0 ],
 					"text" : "trigger b 0"
 				}
 
@@ -58,7 +116,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 284.0, 270.0, 106.0, 22.0 ],
+					"patching_rect" : [ 389.0, 269.0, 107.0, 22.0 ],
 					"style" : "wa.send",
 					"text" : "send #0_loaded"
 				}
@@ -71,20 +129,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 75.0, 135.0, 42.0, 22.0 ],
+					"patching_rect" : [ 180.0, 134.0, 42.0, 22.0 ],
 					"text" : "gate 1"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-11",
-					"maxclass" : "message",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 31.0, 49.0, 32.0, 22.0 ],
-					"text" : "start"
 				}
 
 			}
@@ -104,7 +150,7 @@
 					"numoutlets" : 1,
 					"offset" : [ 0.0, 0.0 ],
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 450.0, 225.0, 400.0, 220.0 ],
+					"patching_rect" : [ 555.0, 224.0, 400.0, 220.0 ],
 					"viewvisibility" : 1
 				}
 
@@ -116,7 +162,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 6,
 					"outlettype" : [ "signal", "bang", "int", "float", "", "list" ],
-					"patching_rect" : [ 285.0, 90.0, 71.5, 22.0 ],
+					"patching_rect" : [ 390.0, 89.0, 71.5, 22.0 ],
 					"text" : "typeroute~"
 				}
 
@@ -128,7 +174,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "bang", "" ],
-					"patching_rect" : [ 284.0, 225.0, 86.0, 22.0 ],
+					"patching_rect" : [ 389.0, 224.0, 86.0, 22.0 ],
 					"text" : "select loadend"
 				}
 
@@ -140,7 +186,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 75.0, 180.0, 228.0, 22.0 ],
+					"patching_rect" : [ 180.0, 179.0, 228.0, 22.0 ],
 					"saved_object_attributes" : 					{
 						"autostart" : 1,
 						"defer" : 0,
@@ -167,7 +213,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 75.0, 225.0, 68.0, 22.0 ],
+					"patching_rect" : [ 180.0, 224.0, 68.0, 22.0 ],
 					"saved_object_attributes" : 					{
 						"parameter_enable" : 0
 					}
@@ -193,7 +239,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 285.0, 41.0, 30.0, 30.0 ]
+					"patching_rect" : [ 390.0, 40.0, 30.0, 30.0 ]
 				}
 
 			}
@@ -205,7 +251,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 284.0, 375.0, 30.0, 30.0 ]
+					"patching_rect" : [ 389.0, 374.0, 30.0, 30.0 ]
 				}
 
 			}
@@ -226,15 +272,15 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-9", 0 ],
-					"source" : [ "obj-11", 0 ]
+					"destination" : [ "obj-14", 0 ],
+					"source" : [ "obj-12", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-14", 0 ],
-					"source" : [ "obj-12", 0 ]
+					"destination" : [ "obj-6", 0 ],
+					"source" : [ "obj-13", 0 ]
 				}
 
 			}
@@ -247,8 +293,22 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-9", 0 ],
+					"source" : [ "obj-16", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-6", 0 ],
-					"midpoints" : [ 84.5, 258.0, 59.5, 258.0, 59.5, 174.0, 84.5, 174.0 ],
+					"source" : [ "obj-21", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-6", 0 ],
+					"midpoints" : [ 189.5, 257.0, 164.5, 257.0, 164.5, 173.0, 189.5, 173.0 ],
 					"source" : [ "obj-3", 0 ]
 				}
 
@@ -292,20 +352,20 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-5", 0 ],
-					"source" : [ "obj-9", 1 ]
+					"destination" : [ "obj-13", 0 ],
+					"source" : [ "obj-9", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-6", 0 ],
-					"source" : [ "obj-9", 0 ]
+					"destination" : [ "obj-5", 0 ],
+					"source" : [ "obj-9", 1 ]
 				}
 
 			}
  ],
-		"originid" : "pat-299",
+		"originid" : "pat-613",
 		"styles" : [ 			{
 				"name" : "wa.patcher",
 				"default" : 				{
