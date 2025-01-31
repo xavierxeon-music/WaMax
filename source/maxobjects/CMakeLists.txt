@@ -26,6 +26,7 @@ FILE(GLOB PROJECT_LIST RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOUR
 if(APPLE)
    list(REMOVE_ITEM PROJECT_LIST "wa.maxscreen.data")
    list(REMOVE_ITEM PROJECT_LIST "wa.maxscreen.matrix")
+   list(REMOVE_ITEM PROJECT_LIST "wa.wintouch")
 elseif(WIN32)
    list(REMOVE_ITEM PROJECT_LIST "wa.push2_display")
 endif()
