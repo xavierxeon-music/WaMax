@@ -6,9 +6,7 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 set(APPLICATIONS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../applications)
+include(_common/common.cmake)
 
 add_subdirectory(maxglobal)
 add_subdirectory(maxobjects)
-
-# add_subdirectory(HelpForMax)
-# add_subdirectory(MaxScreen)

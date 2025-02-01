@@ -31,6 +31,7 @@ elseif(WIN32)
    list(REMOVE_ITEM PROJECT_LIST "wa.push2_display")
 endif()
 
+
 foreach(PROJECT_DIR ${PROJECT_LIST})
    set(project_path ${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_DIR})
 

@@ -18,6 +18,6 @@ add_library(
    MODULE
    ${PROJECT_SRC}
 )
+force_cpp_version()
 
-include(../_common/common.cmake)
 include(${C74_MIN_API_DIR}/script/min-posttarget.cmake)

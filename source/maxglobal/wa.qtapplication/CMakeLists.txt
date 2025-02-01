@@ -12,14 +12,15 @@ file(GLOB PROJECT_SRC
    "*.h"
    "*.cpp"
 )
-
-find_package(WaMath REQUIRED)
-
 add_library(
    ${PROJECT_NAME}
    MODULE
    ${PROJECT_SRC}
 )
 force_cpp_version()
+
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
+target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Widgets)
+
 
 include(${C74_MIN_API_DIR}/script/min-posttarget.cmake)

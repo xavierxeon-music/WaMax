@@ -24,5 +24,4 @@ find_package(PkgConfig REQUIRED)
 pkg_check_modules(libusb REQUIRED IMPORTED_TARGET libusb-1.0)
 target_link_libraries(${PROJECT_NAME} PRIVATE PkgConfig::libusb)
 
-include(../_common/common.cmake)
 include(${C74_MIN_API_DIR}/script/min-posttarget.cmake)

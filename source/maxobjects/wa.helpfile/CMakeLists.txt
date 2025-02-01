@@ -19,11 +19,11 @@ add_library(
    MODULE
    ${PROJECT_SRC}
 )
+force_cpp_version()
 
 find_package(WaTools REQUIRED)
 
 find_package(Qt6 REQUIRED COMPONENTS Core Network)
 target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Core Qt6::Network)
 
-include(../_common/common.cmake)
 include(${C74_MIN_API_DIR}/script/min-posttarget.cmake)

@@ -30,14 +30,11 @@ add_library(
    MODULE
    ${PROJECT_SRC}
 )
+force_cpp_version()
 
 find_package(Qt6 REQUIRED COMPONENTS Core)
 target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Core)
 
-if(APPLE)
-   find_library(CARBON_LIBRARY "Carbon")
-   target_link_libraries(${PROJECT_NAME} PUBLIC ${CARBON_LIBRARY})
-endif()
+use_carbon()
 
-include(../_common/common.cmake)
 include(${C74_MIN_API_DIR}/script/min-posttarget.cmake)

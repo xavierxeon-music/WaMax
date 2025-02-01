@@ -25,12 +25,7 @@ def createCMake(folder):
       outfile.write('set(C74_MIN_API_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../min-api)\n')
       outfile.write('include(${C74_MIN_API_DIR}/script/min-pretarget.cmake)\n')
       outfile.write('\n')
-      outfile.write('# ############################################################\n')
-      outfile.write('# MAX EXTERNAL\n')
-      outfile.write('# ############################################################\n')
-      outfile.write('include_directories(\n')
-      outfile.write('   "${C74_INCLUDES}"\n')
-      outfile.write(')\n')
+      outfile.write('include_directories("${C74_INCLUDES}")\n')
       outfile.write('\n')
       outfile.write('file(GLOB PROJECT_SRC\n')
       outfile.write('   "*.h"\n')
@@ -41,8 +36,8 @@ def createCMake(folder):
       outfile.write('   MODULE\n')
       outfile.write('   ${PROJECT_SRC}\n')
       outfile.write(')\n')
+      outfile.write('force_cpp_version()\n')
       outfile.write('\n')
-      outfile.write('include(../_common/common.cmake)\n')
       outfile.write('include(${C74_MIN_API_DIR}/script/min-posttarget.cmake)\n')
 
 
