@@ -13,21 +13,16 @@ using ScreenServer = Shared<"MaxScreen">;
 MaxScreenMatrix::MaxScreenMatrix(const atoms& args)
    : object<MaxScreenMatrix>()
    , matrix_operator<>(false)
-   , socket()
+   , ScreenClient()
    , memoryPublisher()
    , image(512, 512, QImage::Format_ARGB32)
    , screenSize()
    , input{this, "(matrix) Input", "matrix"}
    , output{this, "(matrix) output", "matrix"}
    , doubleClickMessage{this, "dblclick", Max::Patcher::minBind(this, &MaxScreenMatrix::doubleClickFunction)}
-   , loopTimer(this, Max::Patcher::minBind(this, &MaxScreenMatrix::timerFunction))
 {
    // args not working in matrix operator
-   loopTimer.delay(10);
-}
-
-MaxScreenMatrix::~MaxScreenMatrix()
-{
+   startConnection();
 }
 
 template <typename matrix_type>
@@ -64,44 +59,8 @@ atoms MaxScreenMatrix::doubleClickFunction(const atoms& args, const int inlet)
    return {};
 }
 
-atoms MaxScreenMatrix::timerFunction(const atoms& args, const int inlet)
+void MaxScreenMatrix::receiveData(QDataStream& stream)
 {
-   if (QLocalSocket::UnconnectedState == socket.state())
-   {
-      socket.connectToServer(ScreenServer::socketName());
-      loopTimer.delay(500);
-   }
-   else if (QLocalSocket::ConnectedState == socket.state())
-   {
-      auto readyRead = [&]()
-      {
-         if (!socket.waitForReadyRead(10))
-            return false;
-
-         if (socket.bytesAvailable() == 0)
-            return false;
-
-         return true;
-      };
-
-      if (readyRead())
-         receiveData();
-
-      socket.write(&Marker::Image, 1);
-      loopTimer.delay(100);
-   }
-   else
-   {
-      loopTimer.delay(500);
-   }
-
-   return {};
-}
-
-void MaxScreenMatrix::receiveData()
-{
-   QDataStream stream(&socket);
-
    char marker;
    stream >> marker;
 
@@ -111,8 +70,6 @@ void MaxScreenMatrix::receiveData()
       image = memoryPublisher.createWithCurrentSize();
       image.fill(QColor(0, 0, 0, 0));
    }
-
-   socket.readAll();
 }
 
 MIN_EXTERNAL(MaxScreenMatrix);

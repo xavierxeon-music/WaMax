@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 34.0, 227.0, 3589.0, 1339.0 ],
+		"rect" : [ 34.0, 77.0, 1852.0, 1089.0 ],
 		"gridonopen" : 2,
 		"gridsize" : [ 15.0, 15.0 ],
 		"gridsnaponopen" : 2,
@@ -81,7 +81,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 855.0, 180.0, 131.0, 33.0 ],
+					"patching_rect" : [ 855.0, 180.0, 131.0, 34.0 ],
 					"text" : ";\rmax getsystem #0_os"
 				}
 
@@ -213,8 +213,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 758.0, 572.0, 76.0, 35.0 ],
-					"text" : ";\rdsp iovs 128"
+					"patching_rect" : [ 758.0, 572.0, 76.0, 36.0 ],
+					"text" : ";\r\ndsp iovs 128"
 				}
 
 			}
@@ -343,8 +343,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 652.0, 572.0, 78.0, 35.0 ],
-					"text" : ";\rdsp sr 48000"
+					"patching_rect" : [ 652.0, 572.0, 78.0, 36.0 ],
+					"text" : ";\r\ndsp sr 48000"
 				}
 
 			}
@@ -449,9 +449,8 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 34.0, 227.0, 3589.0, 1339.0 ],
+						"rect" : [ 34.0, 77.0, 1852.0, 1089.0 ],
 						"gridsize" : [ 15.0, 15.0 ],
-						"visible" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
 									"comment" : "",
@@ -556,7 +555,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 557.345459000000119, 397.0, 29.5, 22.0 ],
-									"text" : "7"
+									"text" : "13"
 								}
 
 							}
@@ -693,7 +692,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 118.154540999999995, 100.0, 150.0, 33.0 ],
+									"patching_rect" : [ 118.154540999999995, 100.0, 150.0, 34.0 ],
 									"text" : "outputs umenu (only!) on load"
 								}
 
@@ -730,7 +729,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 221.0, 397.0, 29.5, 22.0 ],
-									"text" : "6"
+									"text" : "12"
 								}
 
 							}
@@ -1031,7 +1030,7 @@
 
 							}
  ],
-						"originid" : "pat-870",
+						"originid" : "pat-25",
 						"styles" : [ 							{
 								"name" : "wa.buffer",
 								"default" : 								{
@@ -1423,7 +1422,7 @@
 
 			}
  ],
-		"originid" : "pat-868",
+		"originid" : "pat-23",
 		"styles" : [ 			{
 				"name" : "wa.buffer",
 				"default" : 				{
