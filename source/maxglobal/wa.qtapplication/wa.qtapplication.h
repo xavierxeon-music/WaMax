@@ -19,8 +19,8 @@ private:
    atoms timerFunction(const atoms& args, const int inlet);
 
 private:
-   timer<timer_options::defer_delivery> eventLoopTimer;
-   //timer<> eventLoopTimer;
+   //timer<timer_options::defer_delivery> eventLoopTimer;
+   timer<> eventLoopTimer;
 };
 
 #endif // QtApplicationH
