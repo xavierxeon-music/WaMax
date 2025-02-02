@@ -23,8 +23,7 @@ MaxScreenMatrix::MaxScreenMatrix(const atoms& args)
    // args not working in matrix operator
 
    image = memoryPublisher.createWithCurrentSize();
-   const QSize localSize = image.size();
-   //cout << "MaxScreenMatrix INIT " << localSize.width() << " x " << localSize.height() << endl;
+   //cout << "MaxScreenMatrix INIT " << image.size().width() << " x " << image.size().height() << endl;
 
    resizeTimer.delay(100);
 }
@@ -62,9 +61,7 @@ atoms MaxScreenMatrix::resizeFunction(const atoms& args, const int inlet)
       return {};
 
    image = memoryPublisher.createWithCurrentSize();
-
-   const QSize localSize = image.size();
-   // cout << "MaxScreenMatrix RESIZE " << localSize.width() << " x " << localSize.height() << endl;
+   // cout << "MaxScreenMatrix RESIZE " << image.size().width() << " x " << image.size().height() << endl;
 
    resizeTimer.delay(100);
    return {};
@@ -77,6 +74,8 @@ atoms MaxScreenMatrix::doubleClickFunction(const atoms& args, const int inlet)
       cout << "start max screen" << endl;
       ScreenServer::startApplication();
    }
+   image = memoryPublisher.createWithCurrentSize();
+
    return {};
 }
 

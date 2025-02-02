@@ -5,6 +5,7 @@
 #include <QAbstractEventDispatcher>
 #include <QByteArray>
 #include <QCoreApplication>
+#include <QGuiApplication>
 
 #include "ext_proto_win.h"
 
@@ -20,7 +21,7 @@ WinTouch::WinTouch(const atoms& args)
    , inputMessage(this, "message")
    , outputTouch(this, "touch")
    , rect(this, "rect", "client rectangle", Max::Patcher::minBind(this, &WinTouch::rectFunction))
-   , eventLoopTimer{this, Max::Patcher::minBind(this, &QtApplication::timerFunction)}
+   , eventLoopTimer{this, Max::Patcher::minBind(this, &WinTouch::timerFunction)}
 {
    HWND handle = c74::max::main_get_client();
    RegisterTouchWindow(handle, 0);
@@ -50,7 +51,7 @@ atoms WinTouch::rectFunction(const atoms& args, const int inlet)
 
 atoms WinTouch::timerFunction(const atoms& args, const int inlet)
 {
-   QApplication::processEvents();
+   QGuiApplication::processEvents();
 
    eventLoopTimer.delay(1);
    return {};
@@ -79,8 +80,8 @@ bool WinTouch::nativeEventFilter(const QByteArray& eventType, void* message, qin
 
 void ext_main(void* moduleRef)
 {
-   if (!QApplication::instance())
-      new QApplication(__argc, __argv);
+   if (!QGuiApplication::instance())
+      new QGuiApplication(__argc, __argv);
 
-   c74::min::wrap_as_max_external<QtApplication>("WinTouch", __FILE__, moduleRef);
+   c74::min::wrap_as_max_external<WinTouch>("WinTouch", __FILE__, moduleRef);
 }
