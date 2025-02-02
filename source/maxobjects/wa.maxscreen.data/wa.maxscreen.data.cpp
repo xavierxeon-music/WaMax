@@ -7,15 +7,20 @@ using ScreenServer = Shared<"MaxScreen">;
 
 MaxScreenData::MaxScreenData(const atoms& args)
    : object<MaxScreenData>()
-   , ScreenClient()
    , Data()
+   , socket()
    , input{this, "bang"}
    , outputTouchPoints{this, "touch points"}
    , outputSize{this, "screen size"}
    , doubleClickMessage{this, "dblclick", Max::Patcher::minBind(this, &MaxScreenData::doubleClickFunction)}
    , bangMessage{this, "bang", Max::Patcher::minBind(this, &MaxScreenData::bangFunction)}
+   , loopTimer(this, Max::Patcher::minBind(this, &MaxScreenData::timerFunction))
 {
-   startConnection();
+   loopTimer.delay(10);
+}
+
+MaxScreenData::~MaxScreenData()
+{
 }
 
 atoms MaxScreenData::doubleClickFunction(const atoms& args, const int inlet)
@@ -37,8 +42,43 @@ atoms MaxScreenData::bangFunction(const atoms& args, const int inlet)
    return {};
 }
 
-void MaxScreenData::receiveData(QDataStream& stream)
+atoms MaxScreenData::timerFunction(const atoms& args, const int inlet)
 {
+   if (QLocalSocket::UnconnectedState == socket.state())
+   {
+      socket.connectToServer(ScreenServer::socketName());
+      loopTimer.delay(500);
+   }
+   else if (QLocalSocket::ConnectedState == socket.state())
+   {
+      auto readyRead = [&]()
+      {
+         if (!socket.waitForReadyRead(10))
+            return false;
+
+         if (socket.bytesAvailable() == 0)
+            return false;
+
+         return true;
+      };
+
+      if (readyRead())
+         receiveData();
+
+      loopTimer.delay(100);
+   }
+   else
+   {
+      loopTimer.delay(500);
+   }
+
+   return {};
+}
+
+void MaxScreenData::receiveData()
+{
+   QDataStream stream(&socket);
+
    char marker;
    stream >> marker;
 
@@ -52,6 +92,8 @@ void MaxScreenData::receiveData(QDataStream& stream)
       tpMap.load(stream);
       sendTouchPoints();
    }
+
+   socket.readAll();
 }
 
 void MaxScreenData::sendSize()

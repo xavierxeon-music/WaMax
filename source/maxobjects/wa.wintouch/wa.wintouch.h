@@ -15,9 +15,11 @@ public:
 
 public:
    WinTouch(const atoms& args = {});
+   ~WinTouch();
 
 private:
    atoms rectFunction(const atoms& args, const int inlet);
+   atoms timerFunction(const atoms& args, const int inlet);
    bool nativeEventFilter(const QByteArray& eventType, void* message, qintptr* result) override;
 
 private:
@@ -25,6 +27,9 @@ private:
    outlet<> outputTouch;
 
    message<> rect;
+
+   //timer<timer_options::defer_delivery> eventLoopTimer;
+   timer<> eventLoopTimer;
 };
 
 #endif // WinTouchH

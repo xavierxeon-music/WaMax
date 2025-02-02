@@ -13,16 +13,24 @@ using ScreenServer = Shared<"MaxScreen">;
 MaxScreenMatrix::MaxScreenMatrix(const atoms& args)
    : object<MaxScreenMatrix>()
    , matrix_operator<>(false)
-   , ScreenClient()
    , memoryPublisher()
-   , image(512, 512, QImage::Format_ARGB32)
-   , screenSize()
+   , image()
    , input{this, "(matrix) Input", "matrix"}
    , output{this, "(matrix) output", "matrix"}
    , doubleClickMessage{this, "dblclick", Max::Patcher::minBind(this, &MaxScreenMatrix::doubleClickFunction)}
+   , resizeTimer(this, Max::Patcher::minBind(this, &MaxScreenMatrix::resizeFunction))
 {
    // args not working in matrix operator
-   startConnection();
+
+   image = memoryPublisher.createWithCurrentSize();
+   const QSize localSize = image.size();
+   //cout << "MaxScreenMatrix INIT " << localSize.width() << " x " << localSize.height() << endl;
+
+   resizeTimer.delay(100);
+}
+
+MaxScreenMatrix::~MaxScreenMatrix()
+{
 }
 
 template <typename matrix_type>
@@ -44,9 +52,22 @@ pixel MaxScreenMatrix::calc_cell(pixel input, const matrix_info& info, matrix_co
    const QRgb color = qRgb(input[red], input[green], input[blue]);
    QRgb* line = reinterpret_cast<QRgb*>(image.scanLine(y));
    line[x] = color;
-   //image.setPixel(x, y, color);
 
    return pixel{};
+}
+
+atoms MaxScreenMatrix::resizeFunction(const atoms& args, const int inlet)
+{
+   if (memoryPublisher.sizeMatch()) [[likely]]
+      return {};
+
+   image = memoryPublisher.createWithCurrentSize();
+
+   const QSize localSize = image.size();
+   // cout << "MaxScreenMatrix RESIZE " << localSize.width() << " x " << localSize.height() << endl;
+
+   resizeTimer.delay(100);
+   return {};
 }
 
 atoms MaxScreenMatrix::doubleClickFunction(const atoms& args, const int inlet)
@@ -57,19 +78,6 @@ atoms MaxScreenMatrix::doubleClickFunction(const atoms& args, const int inlet)
       ScreenServer::startApplication();
    }
    return {};
-}
-
-void MaxScreenMatrix::receiveData(QDataStream& stream)
-{
-   char marker;
-   stream >> marker;
-
-   if (Marker::ScreenSize == marker)
-   {
-      screenSize.load(stream);
-      image = memoryPublisher.createWithCurrentSize();
-      image.fill(QColor(0, 0, 0, 0));
-   }
 }
 
 MIN_EXTERNAL(MaxScreenMatrix);
