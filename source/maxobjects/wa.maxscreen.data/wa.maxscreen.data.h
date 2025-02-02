@@ -21,7 +21,7 @@ public:
 
 private:
    atoms timerFunction(const atoms& args, const int inlet);
-   atoms doubleClickFunction(const atoms& args, const int inlet);
+   atoms openFunction(const atoms& args, const int inlet);
    atoms bangFunction(const atoms& args, const int inlet);
 
    void receiveData();
@@ -32,10 +32,11 @@ private:
    QLocalSocket socket;
 
    inlet<> input;
-   outlet<> outputTouchPoints;
    outlet<> outputSize;
+   outlet<> outputTouchPoints;
 
    message<> doubleClickMessage;
+   message<> openMessage;
    message<> bangMessage;
    timer<timer_options::defer_delivery> loopTimer;
 };

@@ -10,9 +10,10 @@ MaxScreenData::MaxScreenData(const atoms& args)
    , Data()
    , socket()
    , input{this, "bang"}
-   , outputTouchPoints{this, "touch points"}
    , outputSize{this, "screen size"}
-   , doubleClickMessage{this, "dblclick", Max::Patcher::minBind(this, &MaxScreenData::doubleClickFunction)}
+   , outputTouchPoints{this, "touch points"}
+   , doubleClickMessage{this, "dblclick", Max::Patcher::minBind(this, &MaxScreenData::openFunction)}
+   , openMessage{this, "open", "open the maxscreen app", Max::Patcher::minBind(this, &MaxScreenData::openFunction)}
    , bangMessage{this, "bang", Max::Patcher::minBind(this, &MaxScreenData::bangFunction)}
    , loopTimer(this, Max::Patcher::minBind(this, &MaxScreenData::timerFunction))
 {
@@ -23,7 +24,7 @@ MaxScreenData::~MaxScreenData()
 {
 }
 
-atoms MaxScreenData::doubleClickFunction(const atoms& args, const int inlet)
+atoms MaxScreenData::openFunction(const atoms& args, const int inlet)
 {
    if (!ScreenServer::isServerActive())
    {
