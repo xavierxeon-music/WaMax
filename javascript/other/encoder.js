@@ -1,3 +1,7 @@
+autowatch = 1;
+
+include("ranged_value.js");
+
 //  inlets and outlets
 inlets = 1;
 setinletassist(0, "message");

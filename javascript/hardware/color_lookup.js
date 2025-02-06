@@ -1,5 +1,7 @@
 autowatch = 1;
 
+include("color.js");
+
 // inlets and outlets
 inlets = 1;
 setinletassist(0, "color");

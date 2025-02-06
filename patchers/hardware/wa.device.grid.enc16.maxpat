@@ -2,42 +2,20 @@
 	"patcher" : 	{
 		"fileversion" : 1,
 		"appversion" : 		{
-			"major" : 8,
-			"minor" : 6,
+			"major" : 9,
+			"minor" : 0,
 			"revision" : 4,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 173.0, 412.0, 2919.0, 975.0 ],
-		"bglocked" : 0,
+		"rect" : [ 34.0, 171.0, 3772.0, 1395.0 ],
 		"openinpresentation" : 1,
-		"default_fontsize" : 12.0,
-		"default_fontface" : 0,
-		"default_fontname" : "Arial",
 		"gridonopen" : 2,
 		"gridsize" : [ 15.0, 15.0 ],
 		"gridsnaponopen" : 2,
-		"objectsnaponopen" : 1,
-		"statusbarvisible" : 2,
-		"toolbarvisible" : 1,
-		"lefttoolbarpinned" : 0,
-		"toptoolbarpinned" : 0,
-		"righttoolbarpinned" : 0,
-		"bottomtoolbarpinned" : 0,
-		"toolbars_unpinned_last_save" : 0,
-		"tallnewobj" : 0,
-		"boxanimatetime" : 200,
-		"enablehscroll" : 1,
-		"enablevscroll" : 1,
-		"devicewidth" : 0.0,
-		"description" : "",
-		"digest" : "",
-		"tags" : "",
-		"style" : "",
 		"subpatcher_template" : "OpenGrid",
-		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
 					"id" : "obj-8",
@@ -350,8 +328,8 @@
 					"patcher" : 					{
 						"fileversion" : 1,
 						"appversion" : 						{
-							"major" : 8,
-							"minor" : 6,
+							"major" : 9,
+							"minor" : 0,
 							"revision" : 4,
 							"architecture" : "x64",
 							"modernui" : 1
@@ -359,33 +337,10 @@
 ,
 						"classnamespace" : "dsp.gen",
 						"rect" : [ 34.0, 563.0, 3534.0, 1003.0 ],
-						"bglocked" : 0,
-						"openinpresentation" : 0,
-						"default_fontsize" : 12.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Arial",
 						"gridonopen" : 2,
 						"gridsize" : [ 15.0, 15.0 ],
 						"gridsnaponopen" : 2,
-						"objectsnaponopen" : 1,
-						"statusbarvisible" : 2,
-						"toolbarvisible" : 1,
-						"lefttoolbarpinned" : 0,
-						"toptoolbarpinned" : 0,
-						"righttoolbarpinned" : 0,
-						"bottomtoolbarpinned" : 0,
-						"toolbars_unpinned_last_save" : 0,
-						"tallnewobj" : 0,
-						"boxanimatetime" : 200,
-						"enablehscroll" : 1,
-						"enablevscroll" : 1,
-						"devicewidth" : 0.0,
-						"description" : "",
-						"digest" : "",
-						"tags" : "",
-						"style" : "",
 						"subpatcher_template" : "OpenGrid",
-						"assistshowspatchername" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
 									"code" : "if(in1 < 64.0)\r\n\tout1 = in1;\r\nelse\r\n\tout1 = -(128.0 - in1);",
@@ -439,7 +394,8 @@
 								}
 
 							}
- ]
+ ],
+						"originid" : "pat-574"
 					}
 ,
 					"patching_rect" : [ 495.0, 632.0, 109.0, 22.0 ],
@@ -586,19 +542,26 @@
 			}
 , 			{
 				"box" : 				{
+					"filename" : "grid_device.js",
 					"id" : "obj-87",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 1718.0, 163.0, 82.0, 22.0 ],
+					"patching_rect" : [ 1718.0, 163.0, 86.0, 22.0 ],
 					"saved_object_attributes" : 					{
-						"filename" : "grid_device",
 						"parameter_enable" : 0
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "v8 grid_device"
+					"text" : "v8 grid_device",
+					"textfile" : 					{
+						"filename" : "grid_device.js",
+						"flags" : 0,
+						"embed" : 0,
+						"autowatch" : 1
+					}
+
 				}
 
 			}
@@ -687,6 +650,7 @@
 			}
 , 			{
 				"box" : 				{
+					"disablefind" : 0,
 					"id" : "obj-82",
 					"maxclass" : "jweb",
 					"numinlets" : 1,
@@ -696,7 +660,7 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 0.0, 0.0, 210.0, 230.0 ],
 					"rendermode" : 2,
-					"url" : "file:///Volumes/ExternalData/_Home/GitHub/MusicProjects/WaMax/media/maxgui.html?content=grid_enc16"
+					"url" : "file:///Users/waspe/GitHub/MaxPackages/WaMax/media/maxgui.html?content=grid_enc16"
 				}
 
 			}
@@ -717,8 +681,8 @@
 					"id" : "obj-39",
 					"maxclass" : "newobj",
 					"numinlets" : 0,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 28.0, 28.0, 107.0, 22.0 ],
 					"style" : "wa.admin",
 					"text" : "wa.patch.bpatcher"
@@ -909,19 +873,26 @@
 			}
 , 			{
 				"box" : 				{
+					"filename" : "grid_device.js",
 					"id" : "obj-27",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 1185.0, 652.0, 82.0, 22.0 ],
+					"patching_rect" : [ 1185.0, 652.0, 86.0, 22.0 ],
 					"saved_object_attributes" : 					{
-						"filename" : "grid_device",
 						"parameter_enable" : 0
 					}
 ,
 					"style" : "wa.patcher",
-					"text" : "v8 grid_device"
+					"text" : "v8 grid_device",
+					"textfile" : 					{
+						"filename" : "grid_device.js",
+						"flags" : 0,
+						"embed" : 0,
+						"autowatch" : 1
+					}
+
 				}
 
 			}
@@ -1641,6 +1612,7 @@
 
 			}
  ],
+		"originid" : "pat-572",
 		"styles" : [ 			{
 				"name" : "wa.admin",
 				"default" : 				{
