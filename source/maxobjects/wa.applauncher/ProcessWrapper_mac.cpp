@@ -22,14 +22,17 @@ ProcessWrapper::OpenState ProcessWrapper::openFileWithApp(const QString& path, c
       {
          return OpenState::AlreadyOpen;
       }
+      launchDetached("/usr/bin/open", {"-a", appName, info.absoluteFilePath()});
    }
-
-   launchDetached("/usr/bin/open", {info.absoluteFilePath()});
+   else
+   {
+      launchDetached("/usr/bin/open", {info.absoluteFilePath()});
+   }
 
    return OpenState::Done;
 }
 
-void ProcessWrapper::openApp(const QString& appName)
+void ProcessWrapper::openNoFileApp(const QString& appName)
 {
    launchDetached("/usr/bin/open", {"-a", appName});
 }

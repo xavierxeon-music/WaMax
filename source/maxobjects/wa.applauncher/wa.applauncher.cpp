@@ -56,6 +56,7 @@ atoms AppLauncher::openFileFunction(const atoms& args, const int inlet)
 
    const std::string fileName = args[0];
    const std::string appName = (2 == args.size()) ? args[1] : "";
+   cout << fileName << " with " << appName << endl;
    const OpenState state = openFileWithApp(QString::fromStdString(fileName), QString::fromStdString(appName));
 
    if (state == OpenState::FileNotExist)
@@ -77,7 +78,7 @@ atoms AppLauncher::openAppFunction(const atoms& args, const int inlet)
       return {};
 
    const std::string appName = args[0];
-   openApp(QString::fromStdString(appName));
+   openNoFileApp(QString::fromStdString(appName));
 
    return {};
 }

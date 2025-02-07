@@ -33,11 +33,6 @@
 			<description>std input </description>
 		</method>
 
-		<method name='hostname'>
-			<digest>get hostname </digest>
-			<description>get hostname </description>
-		</method>
-
 		<method name='lanch'>
 			<digest>launch application </digest>
 			<description>launch application </description>

@@ -4,15 +4,12 @@ include("helper.js")
 
 // inlets and outlets
 inlets = 1;
-setinletassist(0, "bang");
+setinletassist(0, "message");
 
 outlets = 1;
 setoutletassist(0, "sysex");
 
-var fileName = null; // needs to be var ??
-declareattribute("fileName");
-
-function bang() {
+function upload(fileName) {
 
    if (!fileName)
       return;

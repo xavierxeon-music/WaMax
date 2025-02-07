@@ -28,7 +28,7 @@ public: // general
 public: //os spectific
    void python(const QStringList& arguments = QStringList());
    OpenState openFileWithApp(const QString& path, const QString& appName);
-   void openApp(const QString& appName);
+   void openNoFileApp(const QString& appName);
    QStringList getAppWindowTitles(const QString& appName);
 
 protected:
