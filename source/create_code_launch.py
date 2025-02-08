@@ -24,6 +24,7 @@ def ceateCodeLaunch(fileName):
        'name': 'Debug',
        'type': 'cppdbg',
        'request': 'launch',
+       'preLaunchTask': 'CMake: build',
        'cwd': '${workspaceRoot}',
        'stopAtEntry': False
    }
