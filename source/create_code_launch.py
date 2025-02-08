@@ -34,7 +34,7 @@ def ceateCodeLaunch(fileName):
          config['osx'] = {'MIMode': 'lldb'}
       case 'Windows':
          config['program'] = '/Applications/Max.app/Contents/MacOS/Max'
-         config['windows'] = {'MIMode': 'lldb'}
+         config['windows'] = {}
 
    config['args'] = []
 
