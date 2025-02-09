@@ -29,6 +29,7 @@ private:
 
 private:
    attribute<double> threshold;
+
    std::vector<Inlet> inletList;
    std::vector<Outlet> outletList;
    SampleDelay buffer;

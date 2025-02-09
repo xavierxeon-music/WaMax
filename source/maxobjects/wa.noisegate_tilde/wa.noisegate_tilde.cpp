@@ -17,6 +17,8 @@ NoiseGate::NoiseGate(const atoms& args)
 {
    bufferSize = msLength * samplerate() / 1000;
    portCount = args[0];
+   if (0 == portCount)
+      portCount = 1;
 
    for (auto i = 0; i < portCount; ++i)
    {
@@ -40,6 +42,7 @@ NoiseGate::NoiseGate(const atoms& args)
 void NoiseGate::operator()(audio_bundle input, audio_bundle output)
 {
    const int peakChanngel = input.channel_count();
+
    const int activeChannel = peakChanngel + 1;
 
    for (int counter = 0; counter < input.frame_count(); counter++)
