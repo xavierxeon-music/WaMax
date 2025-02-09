@@ -22,7 +22,6 @@ def createCMake(folder):
 
    with open(fileName, 'w') as outfile:
 
-      outfile.write('set(C74_MIN_API_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../min-api)\n')
       outfile.write('include(${C74_MIN_API_DIR}/script/min-pretarget.cmake)\n')
       outfile.write('\n')
       outfile.write('include_directories("${C74_INCLUDES}")\n')
