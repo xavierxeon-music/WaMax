@@ -7,7 +7,7 @@ template <typename DataType>
 RingBuffer<DataType>::RingBuffer(uint16_t length)
    : length(length)
    , buffer()
-   , currentIndex(length)
+   , currentIndex(0)
 {
    buffer = std::vector<DataType>(length, 0.0);
 }

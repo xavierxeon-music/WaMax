@@ -1,13 +1,12 @@
 #ifndef SampleDelayH
 #define SampleDelayH
 
-#include <cinttypes>
-#include <vector>
+#include <RingBuffer.h>
 
 #include "c74_min.h"
 using namespace c74::min;
 
-class SampleDelay
+class SampleDelay : public RingBuffer<sample>
 {
 public:
    using List = std::vector<SampleDelay>;
@@ -20,14 +19,7 @@ public:
    sample tapout(const uint16_t counter) const;
    sample sum() const;
    sample average() const;
-
-   uint16_t relativeIndex(const uint16_t counter) const;
-
-private:
-   uint16_t length;
-   std::vector<sample> buffer;
-   uint16_t currentIndex;
-   sample currentSum;
+   sample peak() const;
 };
 
 #ifndef SampleDelayHPP

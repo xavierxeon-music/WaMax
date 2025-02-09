@@ -28,8 +28,8 @@ NoiseGate::NoiseGate(const atoms& args)
       outletList.push_back(std::move(an_outlet));
    }
 
-   Outlet averageOutlet = std::make_unique<outlet<>>(this, "average", "signal");
-   outletList.push_back(std::move(averageOutlet));
+   Outlet peakOutlet = std::make_unique<outlet<>>(this, "peak", "signal");
+   outletList.push_back(std::move(peakOutlet));
 
    Outlet activeOutlet = std::make_unique<outlet<>>(this, "active", "signal");
    outletList.push_back(std::move(activeOutlet));
@@ -39,8 +39,8 @@ NoiseGate::NoiseGate(const atoms& args)
 
 void NoiseGate::operator()(audio_bundle input, audio_bundle output)
 {
-   const int averageChanngel = input.channel_count();
-   const int activeChannel = averageChanngel + 1;
+   const int peakChanngel = input.channel_count();
+   const int activeChannel = peakChanngel + 1;
 
    for (int counter = 0; counter < input.frame_count(); counter++)
    {
@@ -51,11 +51,11 @@ void NoiseGate::operator()(audio_bundle input, audio_bundle output)
          buffer.tapin(value, true);
       }
 
-      const sample average = buffer.average();
-      double* outAverage = output.samples(averageChanngel);
-      outAverage[counter] = average;
+      const sample peak = buffer.peak();
+      double* outpeak = output.samples(peakChanngel);
+      outpeak[counter] = peak;
 
-      const bool active = (threshold >= average);
+      const bool active = (threshold >= peak);
       double* outActive = output.samples(activeChannel);
       outActive[counter] = active ? 1.0 : 0.0;
 

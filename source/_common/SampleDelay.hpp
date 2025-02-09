@@ -4,53 +4,49 @@
 #include "SampleDelay.h"
 
 inline SampleDelay::SampleDelay(uint16_t length)
-   : length(length)
-   , buffer()
-   , currentIndex(length)
-   , currentSum(0)
+   : RingBuffer<sample>(length)
 {
-   buffer = std::vector<sample>(length, 0.0);
 }
 
 inline void SampleDelay::tapin(const sample& value, bool absValue)
 {
-   currentIndex++;
-   if (currentIndex >= length)
-      currentIndex = 0;
-
-   currentSum -= buffer[currentIndex];
    if (absValue && value < 0.0)
-   {
-      currentSum -= value;
-      buffer[currentIndex] = -value;
-   }
+      add(-value);
    else
-   {
-      currentSum += value;
-      buffer[currentIndex] = value;
-   }
+      add(value);
 }
 
 inline sample SampleDelay::tapout(const uint16_t counter) const
 {
-   const uint16_t index = relativeIndex(counter);
-   return buffer.at(index);
+   return value(counter);
 }
 
 inline sample SampleDelay::sum() const
 {
-   return currentSum;
+   sample sumValue = 0.0;
+   for (const sample& value : getBuffer())
+   {
+      sumValue += value;
+   }
+
+   return sumValue;
 }
 
 inline sample SampleDelay::average() const
 {
-   return currentSum / length;
+   return sum() / getLength();
 }
 
-inline uint16_t SampleDelay::relativeIndex(const uint16_t counter) const
+inline sample SampleDelay::peak() const
 {
-   const uint16_t index = (counter + length - currentIndex) % length;
-   return index;
+   sample peakValue = 0.0;
+   for (const sample& value : getBuffer())
+   {
+      if (value > peakValue)
+         peakValue = value;
+   }
+
+   return peakValue;
 }
 
 #endif // NOT SampleDelayHPP
