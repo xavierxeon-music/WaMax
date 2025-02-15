@@ -2,43 +2,45 @@
 	"patcher" : 	{
 		"fileversion" : 1,
 		"appversion" : 		{
-			"major" : 8,
-			"minor" : 6,
+			"major" : 9,
+			"minor" : 0,
 			"revision" : 4,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 55.0, 440.0, 2522.0, 947.0 ],
-		"bglocked" : 0,
+		"rect" : [ 34.0, 143.0, 3772.0, 1423.0 ],
 		"openinpresentation" : 1,
-		"default_fontsize" : 12.0,
-		"default_fontface" : 0,
-		"default_fontname" : "Arial",
 		"gridonopen" : 2,
 		"gridsize" : [ 15.0, 15.0 ],
 		"gridsnaponopen" : 2,
-		"objectsnaponopen" : 1,
-		"statusbarvisible" : 2,
-		"toolbarvisible" : 1,
-		"lefttoolbarpinned" : 0,
-		"toptoolbarpinned" : 0,
-		"righttoolbarpinned" : 0,
-		"bottomtoolbarpinned" : 0,
-		"toolbars_unpinned_last_save" : 0,
-		"tallnewobj" : 0,
-		"boxanimatetime" : 200,
-		"enablehscroll" : 1,
-		"enablevscroll" : 1,
-		"devicewidth" : 0.0,
-		"description" : "",
-		"digest" : "",
-		"tags" : "",
-		"style" : "",
 		"subpatcher_template" : "OpenGrid",
-		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
+				"box" : 				{
+					"id" : "obj-13",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "bang" ],
+					"patching_rect" : [ 251.0, 720.0, 67.0, 22.0 ],
+					"text" : "delay 1000"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"comment" : "",
+					"id" : "obj-7",
+					"index" : 0,
+					"maxclass" : "outlet",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 402.0, 330.0, 30.0, 30.0 ]
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"id" : "obj-3",
 					"maxclass" : "newobj",
@@ -94,7 +96,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 30.0, 75.0, 85.0, 22.0 ],
-					"restore" : [ "{\"name\":\"master\",\"noteActive\":[true,true,false,true,false,true,true,false,true,false,true,false],\"scale\":11}" ],
+					"restore" : [ "{\"name\":\"main\",\"noteActive\":[true,false,true,false,true,true,false,true,false,true,false,true],\"scale\":0}" ],
 					"saved_object_attributes" : 					{
 						"parameter_enable" : 0,
 						"parameter_mappable" : 0
@@ -111,7 +113,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 402.0, 315.0, 137.0, 22.0 ],
+					"patching_rect" : [ 450.0, 330.0, 137.0, 22.0 ],
 					"style" : "wa.send",
 					"text" : "send  #0_to_quantizer"
 				}
@@ -191,7 +193,7 @@
 				"box" : 				{
 					"comment" : "visu",
 					"id" : "obj-15",
-					"index" : 1,
+					"index" : 0,
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
@@ -248,6 +250,7 @@
 			}
 , 			{
 				"box" : 				{
+					"disablefind" : 0,
 					"id" : "obj-82",
 					"maxclass" : "jweb",
 					"numinlets" : 1,
@@ -257,12 +260,13 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 0.0, 0.0, 195.0, 345.0 ],
 					"rendermode" : 2,
-					"url" : "file:///Users/waspe/GitHub/MusicProjects/WaMax/media/maxgui.html?content=quantizer"
+					"url" : "file:///Users/waspe/GitHub/MaxPackages/WaMax/media/maxgui.html?content=quantizer"
 				}
 
 			}
 , 			{
 				"box" : 				{
+					"filename" : "qunantize.js",
 					"id" : "obj-12",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -270,12 +274,18 @@
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 63.0, 120.0, 126.0, 22.0 ],
 					"saved_object_attributes" : 					{
-						"filename" : "qunantize",
 						"parameter_enable" : 0
 					}
 ,
 					"style" : "wa.patcher",
 					"text" : "v8 qunantize",
+					"textfile" : 					{
+						"filename" : "qunantize.js",
+						"flags" : 0,
+						"embed" : 0,
+						"autowatch" : 1
+					}
+,
 					"varname" : "js"
 				}
 
@@ -285,8 +295,8 @@
 					"id" : "obj-6",
 					"maxclass" : "newobj",
 					"numinlets" : 0,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 174.0, 30.0, 107.0, 22.0 ],
 					"style" : "wa.admin",
 					"text" : "wa.patch.bpatcher"
@@ -324,6 +334,14 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-11", 0 ],
+					"midpoints" : [ 260.5, 759.0, 156.0, 759.0, 156.0, 159.0, 183.5, 159.0 ],
+					"source" : [ "obj-13", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-12", 0 ],
 					"source" : [ "obj-16", 1 ]
 				}
@@ -332,6 +350,15 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-20", 0 ],
+					"order" : 0,
+					"source" : [ "obj-17", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-7", 0 ],
+					"order" : 1,
 					"source" : [ "obj-17", 0 ]
 				}
 
@@ -373,8 +400,7 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-11", 0 ],
-					"midpoints" : [ 258.5, 759.0, 156.0, 759.0, 156.0, 159.0, 183.5, 159.0 ],
+					"destination" : [ "obj-13", 0 ],
 					"source" : [ "obj-78", 0 ]
 				}
 
@@ -422,6 +448,30 @@
 
 			}
  ],
+		"originid" : "pat-749",
+		"dependency_cache" : [ 			{
+				"name" : "bpatcher_size.js",
+				"bootpath" : "~/GitHub/MaxPackages/WaMax/javascript/patch",
+				"patcherrelativepath" : "../../javascript/patch",
+				"type" : "TEXT",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "qunantize.js",
+				"bootpath" : "~/GitHub/MaxPackages/WaMax/javascript/tuning",
+				"patcherrelativepath" : "../../javascript/tuning",
+				"type" : "TEXT",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "wa.patch.bpatcher.maxpat",
+				"bootpath" : "~/GitHub/MaxPackages/WaMax/patchers/patch",
+				"patcherrelativepath" : "../patch",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+ ],
+		"autosave" : 0,
 		"styles" : [ 			{
 				"name" : "wa.admin",
 				"default" : 				{

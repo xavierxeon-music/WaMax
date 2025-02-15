@@ -1,6 +1,7 @@
 autowatch = 1;
 
 include("scale.js");
+include("helper.js");
 
 // inlets and outlets
 inlets = 1;
@@ -24,7 +25,7 @@ function getvalueof() {
       return;
 
    var text = JSON.stringify(settings);
-   //debug("SAVE text", text);
+   //Helper.debug("SAVE text", text);
    return text;
 }
 
@@ -33,7 +34,7 @@ function setvalueof(value) {
    if (!value)
       return;
 
-   //debug("LOAD text", value);
+   //Helper.debug("LOAD text", value);
    settings = JSON.parse(value);
    if (dict) {
       dict.parse(JSON.stringify(settings));
@@ -44,7 +45,7 @@ function setvalueof(value) {
 readDict.local = 1;
 function readDict() {
 
-   //debug("READ SETTINGS FROM DICT");
+   //Helper.debug("READ SETTINGS FROM DICT", dict);
    settings = JSON.parse(dict.stringify());
 
    var index = settings["scale"];
@@ -69,7 +70,7 @@ function readDict() {
 writeDict.local = 1;
 function writeDict() {
 
-   //debug("WRITE SETTINGS TO DICT");
+   //Helper.debug("WRITE SETTINGS TO DICT");
    dict.parse(JSON.stringify(settings));
 
    outlet(2, "bang");
@@ -93,7 +94,7 @@ function dictionary(dictName) {
    if (!settings["scale"])
       settings["scale"] = -1;
 
-   //debug("LOAD DICT JS", dictName);
+   //Helper.debug("LOAD DICT JS", dictName);
    writeDict();
 }
 
@@ -109,7 +110,7 @@ function name(text) {
 
 function visu(command) {
 
-   // debug("VISU", command);
+   //Helper.debug("VISU", command);
    if ("resend" == command)
       outlet(1, settings["noteActive"]);
    else if ("clear" == command)
@@ -119,13 +120,13 @@ function visu(command) {
 function msg_int(midiNote) {
 
    if (scales.target === undefined) {
-      //debug("no target");
+      //Helper.debug("no target");
       outlet(0, midiNote);
       return;
    }
 
    if (scales.target[scaleName] === undefined) {
-      //debug("no scale", scaleName);
+      //Helper.debug("no scale", scaleName);
       outlet(0, midiNote);
       return;
    }
