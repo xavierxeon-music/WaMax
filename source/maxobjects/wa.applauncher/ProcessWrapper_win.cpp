@@ -2,7 +2,6 @@
 
 void ProcessWrapper::python(const QStringList& arguments)
 {
-
 }
 
 ProcessWrapper::OpenState ProcessWrapper::openFileWithApp(const QString& path, const QString& appName)
@@ -10,12 +9,11 @@ ProcessWrapper::OpenState ProcessWrapper::openFileWithApp(const QString& path, c
    return OpenState::Unkown;
 }
 
-void ProcessWrapper::openApp(const QString& appName)
+void ProcessWrapper::openNoFileApp(const QString& appName)
 {
-
 }
 
-QStringList ProcessWrapper::getAppWindowTitles(const QString& appName) 
+QStringList ProcessWrapper::getAppWindowTitles(const QString& appName)
 {
    QStringList titles;
    return titles;
