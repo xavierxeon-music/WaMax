@@ -7,8 +7,8 @@ if (typeof this.Json === "undefined") {
 
       static readFile = function (fileName) {
 
-         var text = "";
-         var file = new File(fileName, "read");
+         let text = "";
+         let file = new File(fileName, "read");
          if (!file.isopen)
             return null;
 
@@ -17,18 +17,18 @@ if (typeof this.Json === "undefined") {
          }
          file.close();
 
-         var object = JSON.parse(text);
+         let object = JSON.parse(text);
          return object;
       }
 
       static saveFile(object, fileName) {
 
          // TODO: delete old file
-         var file = new File(fileName, "write");
+         let file = new File(fileName, "write");
          if (!file.isopen)
             return;
 
-         var content = JSON.stringify(object);
+         let content = JSON.stringify(object);
          file.writestring(content);
 
          file.close();
@@ -36,21 +36,30 @@ if (typeof this.Json === "undefined") {
 
       static readDict(name) {
 
-         var dict = new Dict(name);
-         var text = dict.stringify();
+         let dict = new Dict(name);
+         let text = dict.stringify();
          //delete dict;
 
-         var object = JSON.parse(text);
+         let object = JSON.parse(text);
          return object;
       }
 
       static writeDict(object, name) {
 
-         var text = JSON.stringify(object);
+         let text = JSON.stringify(object);
 
-         var dict = new Dict(name);
+         let dict = new Dict(name);
          dict.parse(text);
          //delete dict;
+      }
+
+      static apiKeys(name) {
+         let homeFolder = new File("~");
+         post("Home folder path: " + homeFolder.pathname + "\n");
+         homeFolder.close();
+
+         fileName = homeFolder.pathname + "/.ApiKeys/" + name + ".json";
+         return Json.readFile(fileName);
       }
    }
 }
