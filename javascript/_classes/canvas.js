@@ -11,7 +11,7 @@ if (typeof this.Canvas === "undefined") {
          this.color = color;
       }
 
-      draw(matrix) {
+      draw(sketch) {
          throw new Error("Shape must implemtn draw function");
       }
 
@@ -110,7 +110,7 @@ if (typeof this.Canvas === "undefined") {
 
          this.sketch = new JitterObject("jit.gl.sketch", "myContext");
          this.sketch.automatic = 0;
-         this.sketch.jit_matrix(this.matrix.name);
+         this.sketch.jit_matrix = this.matrix.name;
       }
 
       clear() {

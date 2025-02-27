@@ -9,6 +9,9 @@ def createHeader():
    text = "autowatch = 1;\n"
    text += '\n'
 
+   test += 'include("helper.js");\n'
+   text += '\n'
+
    text += '// inlets and outlets\n'
    text += f'inlets = 1;\n'
    text += f'setinletassist(0, "text");\n'
@@ -48,7 +51,7 @@ def createStorage():
 def createBody():
 
    text = 'function bang(){\n'
-   text += '   print("bang");\n'
+   text += '   debug("bang");\n'
    text += '}\n'
    text += '\n'
 

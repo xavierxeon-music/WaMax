@@ -35,7 +35,7 @@ if (typeof this.Color === "undefined") {
             return undefined;
 
          // check for hex content
-         if (!Helper.isHex(text)) {
+         if (!isHex(text)) {
             print("not a hex value", text);
             return undefined;
          }
@@ -50,7 +50,7 @@ if (typeof this.Color === "undefined") {
 
       static fromRGB(red, green, blue) {
 
-         let hex = Helper.makeHex(red) + Helper.makeHex(green) + Helper.makeHex(blue);
+         let hex = makeHex(red) + makeHex(green) + makeHex(blue);
          return new Color(hex);
       }
 

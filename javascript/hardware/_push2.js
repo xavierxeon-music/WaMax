@@ -42,7 +42,7 @@ Push2Device.prototype.addCallback = function (callback) {
 
 Push2Device.prototype.removeCallback = function (callback) {
 
-   Helper.removeFromArray(this.internal.callbackList, callback);
+   removeFromArray(this.internal.callbackList, callback);
 }
 
 Push2Device.prototype.sendCallback = function (type, name, value) {
