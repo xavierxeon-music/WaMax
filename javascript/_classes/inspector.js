@@ -75,25 +75,25 @@ if (typeof this.Inspector === "undefined") {
             name = ",.." + name;
 
          if (obj === null) {
-            Helper.debug(name + " : NULL");
+            debug(name + " : NULL");
          }
          else if (obj === undefined) {
-            Helper.debug(name + " : UNDEFINED");
+            debug(name + " : UNDEFINED");
          }
          else if (typeof obj == "number") {
-            Helper.debug(name + " :" + obj, " (NUMBER)");
+            debug(name + " :" + obj, " (NUMBER)");
          }
          else if (typeof obj == "string") {
-            Helper.debug(name + " :" + obj, "  (STRING)");
+            debug(name + " :" + obj, "  (STRING)");
          }
          else if (typeof obj == "object") {
-            Helper.debug(name + " is  (OBJECT)");
+            debug(name + " is  (OBJECT)");
             for (var key in obj) {
                Inspector.printObject(obj[key], name + "," + key, indent + 1);
             }
          }
          else {
-            Helper.debug(name + " is " + typeof obj);
+            debug(name + " is " + typeof obj);
 
          }
       }

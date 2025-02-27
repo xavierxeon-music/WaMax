@@ -52,15 +52,6 @@ if (typeof this.Json === "undefined") {
          dict.parse(text);
          //delete dict;
       }
-
-      static apiKeys(name) {
-         let homeFolder = new File("~");
-         post("Home folder path: " + homeFolder.pathname + "\n");
-         homeFolder.close();
-
-         fileName = homeFolder.pathname + "/.ApiKeys/" + name + ".json";
-         return Json.readFile(fileName);
-      }
    }
 }
 

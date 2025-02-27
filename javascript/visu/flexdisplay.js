@@ -1,6 +1,8 @@
 autowatch = 1;
 
 include("helper.js");
+include("paths.js");
+include("json.js");
 
 // inlets and outlets
 inlets = 1;
@@ -22,12 +24,12 @@ downloadMatrix.adapt = 1;
 
 const baseUrl = "https://schweinesystem.ddns.net/flexdisplay";
 //const baseUrl = "http://127.0.0.1:5000";
-const token = 'asdasdjasd';
+let token = null;
 
 function upload() {
 
    if (!uploadFileName) {
-      //Helper.debug("upload", "no file name");
+      debug("upload", "no file name");
       return;
    }
 
@@ -35,9 +37,13 @@ function upload() {
    uploadContent.frommatrix(matrixId);
    uploadContent.exportimage(uploadFileName, "png");
 
-   let file = new File(uploadFileName, "read");
-   if (!file.isopen) {
-      //Helper.debug("upload", "file not open");
+   if (!Paths.exists(uploadFileName)) {
+      debug("upload", "file not open");
+      return;
+   }
+
+   if (!token) {
+      debug("upload", "no token");
       return;
    }
 
@@ -47,7 +53,7 @@ function upload() {
    request["multipart_form"] = { "part1": { "name": "file", "file": uploadFileName } };
    request["headers"] = ["Authorization: Bearer " + token, "Content-Type: multipart/form-data"];
 
-   //Helper.debug("upload", uploadContent.dim, uploadFileName);
+   //debug("upload", uploadContent.dim, uploadFileName);
 
    outlet_dictionary(0, request);
 }
@@ -55,7 +61,8 @@ function upload() {
 function bind(id) {
 
    matrixId = id;
-   //Helper.debug("bind", matrixId);
+   timestamp = 0;
+   //debug("bind", matrixId);
 }
 
 makeAbsPath.local = 1;
@@ -64,13 +71,7 @@ function makeAbsPath(path) {
    if (0 < path.indexOf("/"))
       return path;
 
-   top_patcher = this.patcher;
-   while (top_patcher.parentpatcher) {
-      top_patcher = top_patcher.parentpatcher;
-   }
-
-   let file = new File(top_patcher.filepath)
-   return file.foldername + "/" + path;
+   return Paths.topPatcher(this.patcher) + "/" + path;
 }
 
 function setfiles(uploadPath, downloadPath) {
@@ -78,7 +79,7 @@ function setfiles(uploadPath, downloadPath) {
    uploadFileName = makeAbsPath(uploadPath);
    downloadFileName = makeAbsPath(downloadPath);
 
-   //Helper.debug("setfiles", uploadFileName, downloadFileName);
+   //debug("setfiles", uploadFileName, downloadFileName);
 }
 
 function msg_dictionary(data) {
@@ -95,16 +96,24 @@ function msg_dictionary(data) {
    }
    else if (data["url"].includes("image")) {
       let test = data["filename_out"];
+      if (!test)
+         return;
+
+      test = test.replaceAll("\\", "/");
       if (test == downloadFileName) {
-         //Helper.debug("new image", test);
+         //debug("new image", test);
          downloadMatrix.importmovie(downloadFileName);
          outlet(1, "jit_matrix", downloadMatrix.name);
       }
    }
-
 }
 
 function fetch() {
+
+   if (!token) {
+      debug("fetch", "no token");
+      return;
+   }
 
    request = {};
    request["http_method"] = "get";
@@ -116,7 +125,7 @@ function fetch() {
       request["url"] = baseUrl + "/image";
       request["filename_out"] = downloadFileName;
       request["overwrite_output_file"] = 1;
-      //Helper.debug("fetch image");
+      //debug("fetch image");
    }
    else {
       request["url"] = baseUrl + "/timestamp";
@@ -124,3 +133,8 @@ function fetch() {
 
    outlet_dictionary(0, request);
 }
+
+function setToken(newToken) {
+
+   token = newToken;
+} 

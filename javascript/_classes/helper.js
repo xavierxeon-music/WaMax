@@ -1,16 +1,28 @@
 // helpers
 
 
+if (typeof this.debug === "undefined") {
+
+   this.debug = function () {
+
+      for (var index = 0; index < arguments.length; index++)
+         post(arguments[index]);
+      post("\n");
+   }
+}
+
 if (typeof this.Helper === "undefined") {
 
    this.Helper = class {
 
+      /*
       static debug() {
 
          for (var index = 0; index < arguments.length; index++)
             post(arguments[index]);
          post("\n");
       }
+      */
 
       static removeFromArray(array, value) {
 

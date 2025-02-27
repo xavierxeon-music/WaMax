@@ -28,6 +28,11 @@
 
 	<methodlist>
 
+		<method name='query'>
+			<digest>query dict </digest>
+			<description>query dict </description>
+		</method>
+
 		<method name='bang'>
 			<digest>output dict </digest>
 			<description>output dict </description>

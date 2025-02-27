@@ -10,8 +10,11 @@
 ApiKeys::ApiKeys(const atoms& args)
    : object<ApiKeys>()
    , input(this, "content")
+   , query(this, "query")
    , content(this, "content", "dictionary")
    , bangMessage(this, "bang", "output dict", Max::Patcher::minBind(this, &ApiKeys::contentFunction))
+   , queryMessage(this, "query", "query dict", Max::Patcher::minBind(this, &ApiKeys::queryFunction))
+   , apiContent()
    , dictApi(symbol(true))
 {
    if (args.size() > 0)
@@ -24,6 +27,20 @@ ApiKeys::ApiKeys(const atoms& args)
 atoms ApiKeys::contentFunction(const atoms& args, const int inlet)
 {
    content.send("dictionary", dictApi.name());
+   return {};
+}
+
+atoms ApiKeys::queryFunction(const atoms& args, const int inlet)
+{
+   const std::string key = args[0];
+   const QString qkey = QString::fromStdString(key);
+   if (!apiContent.contains(qkey))
+      return {};
+
+   const QString qvalue = apiContent[qkey].toString();
+   const std::string value = qvalue.toStdString();
+   query.send(value);
+
    return {};
 }
 
@@ -44,7 +61,7 @@ void ApiKeys::readApiKeys(const QString& what)
    if (error.error != QJsonParseError::NoError)
       return;
 
-   const QJsonObject apiContent = doc.object();
+   apiContent = doc.object();
    for (QJsonObject::const_iterator it = apiContent.constBegin(); it != apiContent.constEnd(); it++)
    {
       const QString qkey = it.key();

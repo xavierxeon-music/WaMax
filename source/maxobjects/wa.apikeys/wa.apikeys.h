@@ -18,14 +18,18 @@ public:
 
 private:
    atoms contentFunction(const atoms& args, const int inlet);
+   atoms queryFunction(const atoms& args, const int inlet);
    void readApiKeys(const QString& what);
 
 private:
    inlet<> input;
+   outlet<> query;
    outlet<> content;
 
    message<> bangMessage;
+   message<> queryMessage;
 
+   QJsonObject apiContent;
    dict dictApi;
 };
 
