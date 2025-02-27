@@ -9,9 +9,13 @@ MixDown::MixDown(const atoms& args)
    , inletList()
    , outletList()
 {
-   int portCount = args[0];
-   if (0 == portCount)
-      portCount = 1;
+   int portCount = 1;
+   if (args.size() > 0)
+   {
+      portCount = args[0];
+      if (0 == portCount)
+         portCount = 1;
+   }
 
    for (auto i = 0; i < portCount; ++i)
    {

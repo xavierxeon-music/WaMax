@@ -22,7 +22,6 @@ def ceateCodeLaunch(fileName):
 
    config = {
        'name': 'Debug',
-       'type': 'cppdbg',
        'request': 'launch',
        'preLaunchTask': 'CMake: build',
        'cwd': '${workspaceRoot}',
@@ -33,9 +32,10 @@ def ceateCodeLaunch(fileName):
       case 'Darwin':
          config['program'] = '/Applications/Max.app/Contents/MacOS/Max'
          config['osx'] = {'MIMode': 'lldb'}
-      case 'Windows':
-         config['program'] = '/Applications/Max.app/Contents/MacOS/Max'
-         config['windows'] = {}
+         config['type'] = 'cppdbg'
+      case _:
+         config['program'] = 'C:\\Program Files\\Cycling \'74\\Max 9\\Max.exe'
+         config['type'] = 'cppvsdbg'
 
    config['args'] = []
 
@@ -50,6 +50,7 @@ def ceateCodeLaunch(fileName):
 
 def main():
 
+   os.makedirs('.vscode', exist_ok=True)
    fileName = '.vscode/launch.json'
    if os.path.exists(fileName):
       print('launch file exists')
