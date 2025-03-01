@@ -59,7 +59,6 @@ if (typeof this.Canvas === "undefined") {
             }
          }
       }
-
    }
 
    this.Circle = class extends Shape {
@@ -107,10 +106,6 @@ if (typeof this.Canvas === "undefined") {
 
          this.matrix = new JitterMatrix(3, "char", width, height);
          this.shapeList = [];
-
-         this.sketch = new JitterObject("jit.gl.sketch", "myContext");
-         this.sketch.automatic = 0;
-         this.sketch.jit_matrix = this.matrix.name;
       }
 
       clear() {
@@ -131,26 +126,3 @@ if (typeof this.Canvas === "undefined") {
    }
 }
 
-/*
-// cube.js
-outlets = 1;
-
-var mySketch = new JitterObject("jit.gl.sketch", "myContext");
-mySketch.automatic = 0;
-
-var angle = 0;
-
-function bang() {
-    mySketch.reset();
-    mySketch.glcolor(1, 0, 0, 1); // Red color
-    mySketch.rotate(angle, 0, 1, 0); // Rotate around the Y-axis
-    mySketch.cube(0.5); // Draw a cube with size 0.5
-    mySketch.draw();
-    outlet(0, "bang");
-    angle += 0.05; // Increment the angle for rotation
-}
-
-function jit_matrix(matrix) {
-    mySketch.jit_matrix(matrix);
-}
-*/

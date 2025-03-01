@@ -6,10 +6,10 @@ import argparse
 
 def createHeader():
 
-   text = "autowatch = 1;\n"
+   text = 'autowatch = 1;\n'
    text += '\n'
 
-   test += 'include("helper.js");\n'
+   text += 'include("helper.js");\n'
    text += '\n'
 
    text += '// inlets and outlets\n'
