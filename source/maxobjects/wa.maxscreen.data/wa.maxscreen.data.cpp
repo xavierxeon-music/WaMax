@@ -90,7 +90,7 @@ void MaxScreenData::receiveData()
    }
    else if (Marker::TouchPoint == marker)
    {
-      tpMap.load(stream);
+      tpList.load(stream);
       sendTouchPoints();
    }
 
@@ -105,10 +105,10 @@ void MaxScreenData::sendSize()
 
 void MaxScreenData::sendTouchPoints()
 {
-   for (TouchPoint::Map::const_iterator it = tpMap.constBegin(); it != tpMap.constEnd(); ++it)
+   for (int pointId = 0; pointId < tpList.size(); pointId++)
    {
-      const TouchPoint& tp = it.value();
-      atoms touchPoint = {it.key(), tp.isPressed(), tp.getX(), tp.getY(), tp.getStartX(), tp.getStartY(), tp.getPressure(), tp.getArea()};
+      const TouchPoint& tp = tpList.at(pointId);
+      atoms touchPoint = {pointId, tp.isPressed(), tp.getX(), tp.getY(), tp.getStartX(), tp.getStartY(), tp.getPressure(), tp.getArea()};
       outputTouchPoints.send(touchPoint);
    }
 }
