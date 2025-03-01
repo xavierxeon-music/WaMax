@@ -28,6 +28,11 @@
 
 	<methodlist>
 
+		<method name='open'>
+			<digest>open the maxscreen app </digest>
+			<description>open the maxscreen app </description>
+		</method>
+
 		<method name='bang'>
 			<digest></digest>
 			<description></description>
