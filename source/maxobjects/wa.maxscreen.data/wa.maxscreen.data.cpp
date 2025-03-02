@@ -107,8 +107,8 @@ void MaxScreenData::sendTouchPoints()
 {
    for (int pointId = 0; pointId < tpList.size(); pointId++)
    {
-      const TouchPoint& tp = tpList.at(pointId);
-      atoms touchPoint = {pointId, tp.isPressed(), tp.getX(), tp.getY(), tp.getStartX(), tp.getStartY(), tp.getPressure(), tp.getArea()};
+      const TouchPoint::Entry& tp = tpList.at(pointId);
+      atoms touchPoint = {pointId, tp.isPressed(), tp.getPosition().x(), tp.getPosition().y(), tp.getStart().x(), tp.getStart().y(), tp.getPressure(), tp.getArea()};
       outputTouchPoints.send(touchPoint);
    }
 }
