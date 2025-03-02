@@ -57,11 +57,11 @@ pixel MaxScreenMatrix::calc_cell(pixel input, const matrix_info& info, matrix_co
 
 atoms MaxScreenMatrix::resizeFunction(const atoms& args, const int inlet)
 {
-   if (memoryPublisher.sizeMatch()) [[likely]]
-      return {};
-
-   image = memoryPublisher.createWithCurrentSize();
-   // cout << "MaxScreenMatrix RESIZE " << image.size().width() << " x " << image.size().height() << endl;
+   if (!memoryPublisher.sizeMatch()) [[unlikely]]
+   {
+      image = memoryPublisher.createWithCurrentSize();
+      //cout << "MaxScreenMatrix RESIZE " << image.size().width() << " x " << image.size().height() << endl;
+   }
 
    resizeTimer.delay(100);
    return {};

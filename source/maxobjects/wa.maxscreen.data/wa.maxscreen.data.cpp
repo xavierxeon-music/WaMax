@@ -81,20 +81,23 @@ void MaxScreenData::receiveData()
    QDataStream stream(&socket);
 
    char marker;
-   stream >> marker;
-
-   if (Marker::ScreenSize == marker)
+   while (!stream.atEnd())
    {
-      screenSize.load(stream);
-      sendSize();
-   }
-   else if (Marker::TouchPoint == marker)
-   {
-      tpList.load(stream);
-      sendTouchPoints();
+      stream >> marker;
+
+      if (Marker::ScreenSize == marker)
+      {
+         screenSize.load(stream);
+         sendSize();
+      }
+      else if (Marker::TouchPoint == marker)
+      {
+         tpList.load(stream);
+         sendTouchPoints();
+      }
    }
 
-   socket.readAll();
+   //socket.readAll();
 }
 
 void MaxScreenData::sendSize()
@@ -105,10 +108,10 @@ void MaxScreenData::sendSize()
 
 void MaxScreenData::sendTouchPoints()
 {
-   for (int pointId = 0; pointId < tpList.size(); pointId++)
+   for (int index = 0; index < tpList.size(); index++)
    {
-      const TouchPoint::Entry& tp = tpList.at(pointId);
-      atoms touchPoint = {pointId, tp.isPressed(), tp.getPosition().x(), tp.getPosition().y(), tp.getStart().x(), tp.getStart().y(), tp.getPressure(), tp.getArea()};
+      const TouchPoint::Entry& tp = tpList.at(index);
+      atoms touchPoint = {index, tp.isPressed(), tp.getPosition().x(), tp.getPosition().y(), tp.getStart().x(), tp.getStart().y(), tp.getPressure(), tp.getArea()};
       outputTouchPoints.send(touchPoint);
    }
 }
