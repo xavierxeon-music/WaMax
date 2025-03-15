@@ -39,7 +39,7 @@ function setValueList(valueList, data) {
    }
    else if ("append" === op) {
       let content = data.join(" ");
-      //debug("append", data);
+      //print("append", data);
       valueList.push(content);
       return;
    }
@@ -58,7 +58,7 @@ function auto_start(value) {
 }
 
 function msg_list() {
-   debug("msg_list");
+   print("msg_list");
 }
 
 function setup() {

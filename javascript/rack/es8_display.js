@@ -34,7 +34,7 @@ function notifydeleted() {
 updateFunction.local = 1;
 function updateFunction() {
 
-   // print("update"); es8.debug();
+   // print("update"); es8.print();
 
    es8.copyTo(portDict);
    outlet(0, "bang");

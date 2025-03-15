@@ -1,9 +1,9 @@
 // helpers
 
 
-if (typeof this.debug === "undefined") {
+if (typeof this.print === "undefined") {
 
-   this.debug = function () {
+   this.print = function () {
 
       for (var index = 0; index < arguments.length; index++)
          post(arguments[index]);
