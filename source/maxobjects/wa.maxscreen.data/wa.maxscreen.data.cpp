@@ -11,7 +11,8 @@ MaxScreenData::MaxScreenData(const atoms& args)
    , socket()
    , input{this, "bang"}
    , outputSize{this, "screen size"}
-   , outputTouchPoints{this, "touch points"}
+   , outputTouchPointData{this, "touch point data"}
+   , outputTouchPointIndex{this, "touch point index"}
    , doubleClickMessage{this, "dblclick", Max::Patcher::minBind(this, &MaxScreenData::openFunction)}
    , openMessage{this, "open", "open the maxscreen app", Max::Patcher::minBind(this, &MaxScreenData::openFunction)}
    , bangMessage{this, "bang", Max::Patcher::minBind(this, &MaxScreenData::bangFunction)}
@@ -110,9 +111,14 @@ void MaxScreenData::sendTouchPoints()
 {
    for (int index = 0; index < tpList.size(); index++)
    {
+      outputTouchPointIndex.send(index);
+
       const TouchPoint::Entry& tp = tpList.at(index);
-      atoms touchPoint = {index, tp.isPressed(), tp.getPosition().x(), tp.getPosition().y(), tp.getStart().x(), tp.getStart().y(), tp.getPressure(), tp.getArea()};
-      outputTouchPoints.send(touchPoint);
+      atoms touchPoint = {tp.isPressed(), 
+         tp.getPosition().x(), tp.getPosition().y(), 
+         tp.getStart().x(), tp.getStart().y(), 
+         tp.getPressure(), tp.getArea()};
+      outputTouchPointData.send(touchPoint);
    }
 }
 

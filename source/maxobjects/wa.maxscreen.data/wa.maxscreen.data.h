@@ -33,7 +33,8 @@ private:
 
    inlet<> input;
    outlet<> outputSize;
-   outlet<> outputTouchPoints;
+   outlet<> outputTouchPointData;
+   outlet<> outputTouchPointIndex;
 
    message<> doubleClickMessage;
    message<> openMessage;
