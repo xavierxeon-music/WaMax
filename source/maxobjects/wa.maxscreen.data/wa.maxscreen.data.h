@@ -27,6 +27,8 @@ private:
    void receiveData();
    void sendSize();
    void sendTouchPoints();
+   void sendMouse();
+   void sendPen();
 
 private:
    QLocalSocket socket;
@@ -35,6 +37,8 @@ private:
    outlet<> outputSize;
    outlet<> outputTouchPointData;
    outlet<> outputTouchPointIndex;
+   outlet<> outputMouse;
+   outlet<> outputPen;
 
    message<> doubleClickMessage;
    message<> openMessage;

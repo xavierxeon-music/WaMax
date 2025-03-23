@@ -13,6 +13,8 @@ MaxScreenData::MaxScreenData(const atoms& args)
    , outputSize{this, "screen size"}
    , outputTouchPointData{this, "touch point data"}
    , outputTouchPointIndex{this, "touch point index"}
+   , outputMouse{this, "mouse"}
+   , outputPen{this, "pen"}
    , doubleClickMessage{this, "dblclick", Max::Patcher::minBind(this, &MaxScreenData::openFunction)}
    , openMessage{this, "open", "open the maxscreen app", Max::Patcher::minBind(this, &MaxScreenData::openFunction)}
    , bangMessage{this, "bang", Max::Patcher::minBind(this, &MaxScreenData::bangFunction)}
@@ -86,19 +88,39 @@ void MaxScreenData::receiveData()
    {
       stream >> marker;
 
-      if (Marker::ScreenSize == marker)
+      switch (marker)
       {
-         screenSize.load(stream);
-         sendSize();
-      }
-      else if (Marker::TouchPoint == marker)
-      {
-         tpList.load(stream);
-         sendTouchPoints();
+         case Marker::ScreenSize:
+         {
+            screenSize.load(stream);
+            sendSize();
+            break;
+         }
+         case Marker::TouchPoint:
+         {
+            tpList.load(stream);
+            sendTouchPoints();
+            break;
+         }
+         case Marker::Mouse:
+         {
+            mouse.load(stream);
+            sendMouse();
+            break;
+         }
+         case Marker::Pen:
+         {
+            pen.load(stream);
+            sendPen();
+            break;
+         }
+         default:
+         {
+            socket.readAll();
+            break;
+         }
       }
    }
-
-   //socket.readAll();
 }
 
 void MaxScreenData::sendSize()
@@ -114,12 +136,25 @@ void MaxScreenData::sendTouchPoints()
       outputTouchPointIndex.send(index);
 
       const TouchPoint::Entry& tp = tpList.at(index);
-      atoms touchPoint = {tp.isPressed(), 
-         tp.getPosition().x(), tp.getPosition().y(), 
-         tp.getStart().x(), tp.getStart().y(), 
-         tp.getPressure(), tp.getArea()};
+      atoms touchPoint = {tp.isPressed(),
+                          tp.getPosition().x(), tp.getPosition().y(),
+                          tp.getStart().x(), tp.getStart().y(),
+                          tp.getPressure(), tp.getArea()};
       outputTouchPointData.send(touchPoint);
    }
+}
+
+void MaxScreenData::sendMouse()
+{
+   atoms mouseData = {mouse.isPressed(),
+                      mouse.getPosition().x(), mouse.getPosition().y(),
+                      mouse.getStartPosition().x(), mouse.getStartPosition().y(),
+                      0.0, 0.0};
+   outputMouse.send(mouseData);
+}
+
+void MaxScreenData::sendPen()
+{
 }
 
 MIN_EXTERNAL(MaxScreenData);

@@ -107,7 +107,7 @@ function getOsDriver() {
    if ("windows" === max.os)
       return "ad_mme";
    else
-      return "CoreAudio";
+      return "Core Audio";
 }
 
 compileDict.local = 1;
