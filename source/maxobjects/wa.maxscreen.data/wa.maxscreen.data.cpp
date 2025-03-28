@@ -15,12 +15,10 @@ MaxScreenData::MaxScreenData(const atoms& args)
    , outputTouchPointIndex{this, "touch point index"}
    , outputMouse{this, "mouse"}
    , outputPen{this, "pen"}
-   , outputContent{this, "content", "dictionary"}
    , doubleClickMessage{this, "dblclick", Max::Patcher::minBind(this, &MaxScreenData::openFunction)}
    , openMessage{this, "open", "open the maxscreen app", Max::Patcher::minBind(this, &MaxScreenData::openFunction)}
    , bangMessage{this, "bang", Max::Patcher::minBind(this, &MaxScreenData::bangFunction)}
    , loopTimer(this, Max::Patcher::minBind(this, &MaxScreenData::timerFunction))
-   , dictContent(symbol(true))
 {
    loopTimer.delay(10);
 }
@@ -46,9 +44,6 @@ atoms MaxScreenData::bangFunction(const atoms& args, const int inlet)
    sendTouchPoints();
    sendMouse();
    sendPen();
-
-   outputContent.send("dictionary", dictContent.name());
-   dictContent.touch();
 
    return {};
 }
@@ -128,21 +123,12 @@ void MaxScreenData::receiveData()
          }
       }
    }
-
-   outputContent.send("dictionary", dictContent.name());
-   dictContent.touch();
 }
 
 void MaxScreenData::sendSize()
 {
    atoms size = {screenSize.getWidth(), screenSize.getHeight()};
    outputSize.send(size);
-
-   dict sizeContent;
-   sizeContent["width"] = screenSize.getWidth();
-   sizeContent["height"] = screenSize.getHeight();
-
-   dictContent["screenSize"] = sizeContent;
 }
 
 void MaxScreenData::sendTouchPoints()
@@ -166,24 +152,6 @@ void MaxScreenData::sendMouse()
                       mouse.getPosition().x(), mouse.getPosition().y(),
                       mouse.getStartPosition().x(), mouse.getStartPosition().y()};
    outputMouse.send(mouseData);
-
-   dict mouseContent;
-   mouseContent["pressed"] = mouse.isPressed();
-
-   dict position;
-   position["x"] = mouse.getPosition().x();
-   position["y"] = mouse.getPosition().y();
-   mouseContent["position"] = position;
-
-   dict startPosition;
-   startPosition["x"] = mouse.getStartPosition().x();
-   startPosition["y"] = mouse.getStartPosition().y();
-   mouseContent["startPosition"] = startPosition;
-
-   atoms test = {mouse.getPosition().x(), mouse.getPosition().y()};
-   dictContent["mouseData"] = atom_reference(test.size(), test.data());
-
-   dictContent["mouse"] = mouseContent;
 }
 
 void MaxScreenData::sendPen()

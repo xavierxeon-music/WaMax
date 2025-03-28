@@ -39,14 +39,11 @@ private:
    outlet<> outputTouchPointIndex;
    outlet<> outputMouse;
    outlet<> outputPen;
-   outlet<> outputContent;
 
    message<> doubleClickMessage;
    message<> openMessage;
    message<> bangMessage;
    timer<timer_options::defer_delivery> loopTimer;
-
-   dict dictContent;
 };
 
 #endif // MaxScreenDataH
