@@ -22,6 +22,7 @@ add_library(
    ${PROJECT_NAME}
    MODULE
    ${PROJECT_SRC}
+   ${MAX_SDK_INCLUDES}/common/commonsyms.c
 )
 force_cpp_version()
 

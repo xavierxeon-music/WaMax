@@ -30,6 +30,9 @@ private:
    void sendMouse();
    void sendPen();
 
+   void updateState(const QJsonObject& data);
+   void convertStateToDict();
+
 private:
    QLocalSocket socket;
 
@@ -40,10 +43,15 @@ private:
    outlet<> outputMouse;
    outlet<> outputPen;
 
+   outlet<> outputDict;
+
    message<> doubleClickMessage;
    message<> openMessage;
    message<> bangMessage;
    timer<timer_options::defer_delivery> loopTimer;
+
+   QJsonObject state;
+   dict stateDict;
 };
 
 #endif // MaxScreenDataH

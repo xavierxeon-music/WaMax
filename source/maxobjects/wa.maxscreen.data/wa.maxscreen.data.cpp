@@ -5,6 +5,9 @@
 
 using ScreenServer = Shared<"MaxScreen">;
 
+// see https://cycling74.com/forums/accessing-nested-dictionaries-in-min
+// see https://gist.github.com/robtherich/19b12d27f5a31cd5e1e6af6de34fa65e
+
 MaxScreenData::MaxScreenData(const atoms& args)
    : object<MaxScreenData>()
    , Data()
@@ -15,12 +18,20 @@ MaxScreenData::MaxScreenData(const atoms& args)
    , outputTouchPointIndex{this, "touch point index"}
    , outputMouse{this, "mouse"}
    , outputPen{this, "pen"}
+   , outputDict{this, "dict", "dictionary"}
    , doubleClickMessage{this, "dblclick", Max::Patcher::minBind(this, &MaxScreenData::openFunction)}
    , openMessage{this, "open", "open the maxscreen app", Max::Patcher::minBind(this, &MaxScreenData::openFunction)}
    , bangMessage{this, "bang", Max::Patcher::minBind(this, &MaxScreenData::bangFunction)}
    , loopTimer(this, Max::Patcher::minBind(this, &MaxScreenData::timerFunction))
+   , state()
+   , stateDict{symbol(true)}
 {
    loopTimer.delay(10);
+
+   {
+      using namespace c74::max;
+      common_symbols_init();
+   }
 }
 
 MaxScreenData::~MaxScreenData()
@@ -44,6 +55,9 @@ atoms MaxScreenData::bangFunction(const atoms& args, const int inlet)
    sendTouchPoints();
    sendMouse();
    sendPen();
+
+   convertStateToDict();
+   outputDict.send("dictionary", stateDict.name());
 
    return {};
 }
@@ -85,44 +99,25 @@ void MaxScreenData::receiveData()
 {
    QDataStream stream(&socket);
 
-   char marker;
+   QJsonObject data;
+
    while (!stream.atEnd())
    {
-      stream >> marker;
+      stream >> data;
+      updateState(data);
 
-      switch (marker)
-      {
-         case Marker::ScreenSize:
-         {
-            screenSize.load(stream);
-            sendSize();
-            break;
-         }
-         case Marker::TouchPoint:
-         {
-            tpList.load(stream);
-            sendTouchPoints();
-            break;
-         }
-         case Marker::Mouse:
-         {
-            mouse.load(stream);
-            sendMouse();
-            break;
-         }
-         case Marker::Pen:
-         {
-            pen.load(stream);
-            sendPen();
-            break;
-         }
-         default:
-         {
-            socket.readAll();
-            break;
-         }
-      }
+      if (tpList.load(data))
+         sendTouchPoints();
+      else if (screenSize.load(data))
+         sendSize();
+      else if (mouse.load(data))
+         sendMouse();
+      else if (pen.load(data))
+         sendPen();
    }
+
+   convertStateToDict();
+   outputDict.send("dictionary", stateDict.name());
 }
 
 void MaxScreenData::sendSize()
@@ -156,6 +151,60 @@ void MaxScreenData::sendMouse()
 
 void MaxScreenData::sendPen()
 {
+}
+
+void MaxScreenData::updateState(const QJsonObject& data)
+{
+   state = data;
+}
+
+void MaxScreenData::convertStateToDict()
+{
+   const QJsonDocument doc(state);
+   const QByteArray jsonData = doc.toJson();
+
+   //cout << jsonData.constData() << endl;
+
+   using namespace c74::max;
+   t_atom result[1];
+
+   t_object* jsonreader = (t_object*)object_new(_sym_nobox, _sym_jsonreader); // can not reuse this object
+   t_object* dictObject = nullptr;
+
+   auto parseAndCopy = [&]()
+   {
+      t_max_err parserError = (t_max_err)object_method(jsonreader, _sym_parse, jsonData.constData(), result);
+      if (parserError)
+      {
+         cout << "error parsing json data" << endl;
+         return;
+      }
+
+      dictObject = (t_object*)atom_getobj(result);
+      if (!dictObject)
+      {
+         cout << "error getting dictionary from json data" << endl;
+         return;
+      }
+
+      if (object_classname_compare(dictObject, _sym_dictionary))
+      {
+         stateDict.clear();
+         stateDict = dict{(t_dictionary*)dictObject};
+         stateDict.touch();
+      }
+      else
+      {
+         cout << "error: object is not a dictionary" << endl;
+      }
+   };
+
+   parseAndCopy();
+
+   object_free(jsonreader);
+
+   if (dictObject)
+      object_free(dictObject);
 }
 
 MIN_EXTERNAL(MaxScreenData);
