@@ -155,7 +155,10 @@ void MaxScreenData::sendPen()
 
 void MaxScreenData::updateState(const QJsonObject& data)
 {
-   state = data;
+   for (const QString& key : data.keys())
+   {
+      state[key] = data[key];
+   }
 }
 
 void MaxScreenData::convertStateToDict()
@@ -176,14 +179,14 @@ void MaxScreenData::convertStateToDict()
       t_max_err parserError = (t_max_err)object_method(jsonreader, _sym_parse, jsonData.constData(), result);
       if (parserError)
       {
-         cout << "error parsing json data" << endl;
+         cerr << "error parsing json data" << endl;
          return;
       }
 
       dictObject = (t_object*)atom_getobj(result);
       if (!dictObject)
       {
-         cout << "error getting dictionary from json data" << endl;
+         cerr << "error getting dictionary from json data" << endl;
          return;
       }
 
@@ -195,7 +198,7 @@ void MaxScreenData::convertStateToDict()
       }
       else
       {
-         cout << "error: object is not a dictionary" << endl;
+         cerr << "error: object is not a dictionary" << endl;
       }
    };
 
