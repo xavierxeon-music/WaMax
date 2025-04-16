@@ -12,17 +12,15 @@ MaxScreenData::MaxScreenData(const atoms& args)
    : object<MaxScreenData>()
    , Data()
    , socket()
-   , input{this, "bang"}
-   , outputSize{this, "screen size"}
-   , outputTouchPointData{this, "touch point data"}
-   , outputTouchPointIndex{this, "touch point index"}
-   , outputMouse{this, "mouse"}
-   , outputPen{this, "pen"}
-   , outputDict{this, "dict", "dictionary"}
+   , inputMessage{this, "bang"}
+   , inputDict{this, "dictionary", "dictionary"}
+   , outputEvent{this, "event", "dictionary"}
+   , outputState{this, "state", "dictionary"}
    , doubleClickMessage{this, "dblclick", Max::Patcher::minBind(this, &MaxScreenData::openFunction)}
    , openMessage{this, "open", "open the maxscreen app", Max::Patcher::minBind(this, &MaxScreenData::openFunction)}
    , bangMessage{this, "bang", Max::Patcher::minBind(this, &MaxScreenData::bangFunction)}
    , loopTimer(this, Max::Patcher::minBind(this, &MaxScreenData::timerFunction))
+   , eventDict{symbol(true)}
    , state()
    , stateDict{symbol(true)}
 {
@@ -32,10 +30,6 @@ MaxScreenData::MaxScreenData(const atoms& args)
       using namespace c74::max;
       common_symbols_init();
    }
-}
-
-MaxScreenData::~MaxScreenData()
-{
 }
 
 atoms MaxScreenData::openFunction(const atoms& args, const int inlet)
@@ -51,13 +45,8 @@ atoms MaxScreenData::openFunction(const atoms& args, const int inlet)
 
 atoms MaxScreenData::bangFunction(const atoms& args, const int inlet)
 {
-   sendSize();
-   sendTouchPoints();
-   sendMouse();
-   sendPen();
-
-   convertStateToDict();
-   outputDict.send("dictionary", stateDict.name());
+   copyToDict(state, stateDict);
+   outputState.send("dictionary", stateDict.name());
 
    return {};
 }
@@ -104,53 +93,12 @@ void MaxScreenData::receiveData()
    while (!stream.atEnd())
    {
       stream >> data;
+
+      copyToDict(data, eventDict);
+      outputEvent.send("dictionary", eventDict.name());
+
       updateState(data);
-
-      if (tpList.load(data))
-         sendTouchPoints();
-      else if (screenSize.load(data))
-         sendSize();
-      else if (mouse.load(data))
-         sendMouse();
-      else if (pen.load(data))
-         sendPen();
    }
-
-   convertStateToDict();
-   outputDict.send("dictionary", stateDict.name());
-}
-
-void MaxScreenData::sendSize()
-{
-   atoms size = {screenSize.getWidth(), screenSize.getHeight()};
-   outputSize.send(size);
-}
-
-void MaxScreenData::sendTouchPoints()
-{
-   for (int index = 0; index < tpList.size(); index++)
-   {
-      outputTouchPointIndex.send(index);
-
-      const TouchPoint::Entry& tp = tpList.at(index);
-      atoms touchPoint = {tp.isPressed(),
-                          tp.getPosition().x(), tp.getPosition().y(),
-                          tp.getStartPosition().x(), tp.getStartPosition().y(),
-                          tp.getPressure(), tp.getArea()};
-      outputTouchPointData.send(touchPoint);
-   }
-}
-
-void MaxScreenData::sendMouse()
-{
-   atoms mouseData = {mouse.isPressed(),
-                      mouse.getPosition().x(), mouse.getPosition().y(),
-                      mouse.getStartPosition().x(), mouse.getStartPosition().y()};
-   outputMouse.send(mouseData);
-}
-
-void MaxScreenData::sendPen()
-{
 }
 
 void MaxScreenData::updateState(const QJsonObject& data)
@@ -161,9 +109,9 @@ void MaxScreenData::updateState(const QJsonObject& data)
    }
 }
 
-void MaxScreenData::convertStateToDict()
+void MaxScreenData::copyToDict(const QJsonObject& source, dict& target)
 {
-   const QJsonDocument doc(state);
+   const QJsonDocument doc(source);
    const QByteArray jsonData = doc.toJson();
 
    //cout << jsonData.constData() << endl;
@@ -192,9 +140,9 @@ void MaxScreenData::convertStateToDict()
 
       if (object_classname_compare(dictObject, _sym_dictionary))
       {
-         stateDict.clear();
-         stateDict = dict{(t_dictionary*)dictObject};
-         stateDict.touch();
+         target.clear();
+         target = dict{(t_dictionary*)dictObject};
+         target.touch();
       }
       else
       {

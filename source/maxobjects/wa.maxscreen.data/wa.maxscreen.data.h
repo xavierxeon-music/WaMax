@@ -17,7 +17,6 @@ public:
 
 public:
    MaxScreenData(const atoms& args = {});
-   ~MaxScreenData();
 
 private:
    atoms timerFunction(const atoms& args, const int inlet);
@@ -25,25 +24,16 @@ private:
    atoms bangFunction(const atoms& args, const int inlet);
 
    void receiveData();
-   void sendSize();
-   void sendTouchPoints();
-   void sendMouse();
-   void sendPen();
-
    void updateState(const QJsonObject& data);
-   void convertStateToDict();
+   void copyToDict(const QJsonObject& source, dict& target);
 
 private:
    QLocalSocket socket;
 
-   inlet<> input;
-   outlet<> outputSize;
-   outlet<> outputTouchPointData;
-   outlet<> outputTouchPointIndex;
-   outlet<> outputMouse;
-   outlet<> outputPen;
-
-   outlet<> outputDict;
+   inlet<> inputMessage;
+   inlet<> inputDict;
+   outlet<> outputEvent;
+   outlet<> outputState;
 
    message<> doubleClickMessage;
    message<> openMessage;
@@ -51,6 +41,7 @@ private:
    timer<timer_options::defer_delivery> loopTimer;
 
    QJsonObject state;
+   dict eventDict;
    dict stateDict;
 };
 
