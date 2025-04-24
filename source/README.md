@@ -34,4 +34,4 @@ cmake --build . --target ALL_BUILD --config Release -- /nologo /verbosity:minima
 exe: /Applications/Max.app/Contents/MacOS/Max
 
 ### vscode
-TODO
+install CMAKE extension

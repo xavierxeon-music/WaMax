@@ -5,23 +5,31 @@
 
 using ScreenServer = Shared<"MaxScreen">;
 
+// see https://cycling74.com/forums/accessing-nested-dictionaries-in-min
+// see https://gist.github.com/robtherich/19b12d27f5a31cd5e1e6af6de34fa65e
+
 MaxScreenData::MaxScreenData(const atoms& args)
    : object<MaxScreenData>()
    , Data()
    , socket()
-   , input{this, "bang"}
-   , outputSize{this, "screen size"}
-   , outputTouchPoints{this, "touch points"}
+   , inputMessage{this, "bang"}
+   , inputDict{this, "dictionary", "dictionary"}
+   , outputEvent{this, "event", "dictionary"}
+   , outputState{this, "state", "dictionary"}
    , doubleClickMessage{this, "dblclick", Max::Patcher::minBind(this, &MaxScreenData::openFunction)}
    , openMessage{this, "open", "open the maxscreen app", Max::Patcher::minBind(this, &MaxScreenData::openFunction)}
    , bangMessage{this, "bang", Max::Patcher::minBind(this, &MaxScreenData::bangFunction)}
    , loopTimer(this, Max::Patcher::minBind(this, &MaxScreenData::timerFunction))
+   , eventDict{symbol(true)}
+   , state()
+   , stateDict{symbol(true)}
 {
    loopTimer.delay(10);
-}
 
-MaxScreenData::~MaxScreenData()
-{
+   {
+      using namespace c74::max;
+      common_symbols_init();
+   }
 }
 
 atoms MaxScreenData::openFunction(const atoms& args, const int inlet)
@@ -37,8 +45,8 @@ atoms MaxScreenData::openFunction(const atoms& args, const int inlet)
 
 atoms MaxScreenData::bangFunction(const atoms& args, const int inlet)
 {
-   sendSize();
-   sendTouchPoints();
+   copyToDict(state, stateDict);
+   outputState.send("dictionary", stateDict.name());
 
    return {};
 }
@@ -80,40 +88,74 @@ void MaxScreenData::receiveData()
 {
    QDataStream stream(&socket);
 
-   char marker;
+   QJsonObject data;
+
    while (!stream.atEnd())
    {
-      stream >> marker;
+      stream >> data;
 
-      if (Marker::ScreenSize == marker)
-      {
-         screenSize.load(stream);
-         sendSize();
-      }
-      else if (Marker::TouchPoint == marker)
-      {
-         tpList.load(stream);
-         sendTouchPoints();
-      }
+      copyToDict(data, eventDict);
+      outputEvent.send("dictionary", eventDict.name());
+
+      updateState(data);
    }
-
-   //socket.readAll();
 }
 
-void MaxScreenData::sendSize()
+void MaxScreenData::updateState(const QJsonObject& data)
 {
-   atoms size = {screenSize.getWidth(), screenSize.getHeight()};
-   outputSize.send(size);
-}
-
-void MaxScreenData::sendTouchPoints()
-{
-   for (int index = 0; index < tpList.size(); index++)
+   for (const QString& key : data.keys())
    {
-      const TouchPoint::Entry& tp = tpList.at(index);
-      atoms touchPoint = {index, tp.isPressed(), tp.getPosition().x(), tp.getPosition().y(), tp.getStart().x(), tp.getStart().y(), tp.getPressure(), tp.getArea()};
-      outputTouchPoints.send(touchPoint);
+      state[key] = data[key];
    }
+}
+
+void MaxScreenData::copyToDict(const QJsonObject& source, dict& target)
+{
+   const QJsonDocument doc(source);
+   const QByteArray jsonData = doc.toJson();
+
+   //cout << jsonData.constData() << endl;
+
+   using namespace c74::max;
+   t_atom result[1];
+
+   t_object* jsonreader = (t_object*)object_new(_sym_nobox, _sym_jsonreader); // can not reuse this object
+   t_object* dictObject = nullptr;
+
+   auto parseAndCopy = [&]()
+   {
+      t_max_err parserError = (t_max_err)object_method(jsonreader, _sym_parse, jsonData.constData(), result);
+      if (parserError)
+      {
+         cerr << "error parsing json data" << endl;
+         return;
+      }
+
+      dictObject = (t_object*)atom_getobj(result);
+      if (!dictObject)
+      {
+         cerr << "error getting dictionary from json data" << endl;
+         return;
+      }
+
+      if (object_classname_compare(dictObject, _sym_dictionary))
+      {
+         target.clear();
+         target = dict{(t_dictionary*)dictObject};
+         target.touch();
+      }
+      else
+      {
+         cerr << "error: object is not a dictionary" << endl;
+      }
+   };
+
+   parseAndCopy();
+
+   object_free(jsonreader);
+
+   if (dictObject)
+      object_free(dictObject);
 }
 
 MIN_EXTERNAL(MaxScreenData);

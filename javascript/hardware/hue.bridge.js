@@ -156,7 +156,7 @@ function bang() {
 
    outlet(1, Object.keys(deviceMap));
    for (let name in hue.stateChange) {
-      debug("state change name", name);
+      print("state change name", name);
    }
 }
 

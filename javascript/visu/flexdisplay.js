@@ -29,7 +29,7 @@ let token = null;
 function upload() {
 
    if (!uploadFileName) {
-      debug("upload", "no file name");
+      print("upload", "no file name");
       return;
    }
 
@@ -38,12 +38,12 @@ function upload() {
    uploadContent.exportimage(uploadFileName, "png");
 
    if (!Paths.exists(uploadFileName)) {
-      debug("upload", "file not open");
+      print("upload", "file not open");
       return;
    }
 
    if (!token) {
-      debug("upload", "no token");
+      print("upload", "no token");
       return;
    }
 
@@ -53,7 +53,7 @@ function upload() {
    request["multipart_form"] = { "part1": { "name": "file", "file": uploadFileName } };
    request["headers"] = ["Authorization: Bearer " + token, "Content-Type: multipart/form-data"];
 
-   //debug("upload", uploadContent.dim, uploadFileName);
+   //print("upload", uploadContent.dim, uploadFileName);
 
    outlet_dictionary(0, request);
 }
@@ -62,7 +62,7 @@ function bind(id) {
 
    matrixId = id;
    timestamp = 0;
-   //debug("bind", matrixId);
+   //print("bind", matrixId);
 }
 
 makeAbsPath.local = 1;
@@ -79,7 +79,7 @@ function setfiles(uploadPath, downloadPath) {
    uploadFileName = makeAbsPath(uploadPath);
    downloadFileName = makeAbsPath(downloadPath);
 
-   //debug("setfiles", uploadFileName, downloadFileName);
+   //print("setfiles", uploadFileName, downloadFileName);
 }
 
 function msg_dictionary(data) {
@@ -101,7 +101,7 @@ function msg_dictionary(data) {
 
       test = test.replaceAll("\\", "/");
       if (test == downloadFileName) {
-         //debug("new image", test);
+         //print("new image", test);
          downloadMatrix.importmovie(downloadFileName);
          outlet(1, "jit_matrix", downloadMatrix.name);
       }
@@ -111,7 +111,7 @@ function msg_dictionary(data) {
 function fetch() {
 
    if (!token) {
-      debug("fetch", "no token");
+      print("fetch", "no token");
       return;
    }
 
@@ -125,7 +125,7 @@ function fetch() {
       request["url"] = baseUrl + "/image";
       request["filename_out"] = downloadFileName;
       request["overwrite_output_file"] = 1;
-      //debug("fetch image");
+      //print("fetch image");
    }
    else {
       request["url"] = baseUrl + "/timestamp";

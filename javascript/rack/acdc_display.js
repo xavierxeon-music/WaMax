@@ -34,7 +34,7 @@ function notifydeleted() {
 updateFunction.local = 1;
 function updateFunction() {
 
-   // print("update"); acdc.debug();
+   // print("update"); acdc.print();
 
    acdc.copyTo(portDict);
    outlet(0, "bang");

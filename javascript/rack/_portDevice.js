@@ -87,7 +87,7 @@ PortDevice.prototype.addPortName = function (index, name, isSender) {
 
    this.core.portDict[key] = name;
 
-   //print("add", key, name); this.debug();
+   //print("add", key, name); this.print();
 
    if (this.core.updateFunction)
       this.core.updateFunction();
@@ -102,7 +102,7 @@ PortDevice.prototype.removePortName = function (index, isSender) {
    var key = prefix + index.toString();
 
    delete this.core.portDict[key];
-   //print("remove", key); this.debug();
+   //print("remove", key); this.print();
 
    if (this.core.updateFunction)
       this.core.updateFunction();
