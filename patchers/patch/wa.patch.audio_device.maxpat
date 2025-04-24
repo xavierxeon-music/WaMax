@@ -10,11 +10,23 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 34.0, 77.0, 1852.0, 1089.0 ],
+		"rect" : [ 714.0, 170.0, 1735.0, 945.0 ],
 		"gridonopen" : 2,
 		"gridsize" : [ 15.0, 15.0 ],
 		"gridsnaponopen" : 2,
 		"boxes" : [ 			{
+				"box" : 				{
+					"id" : "obj-27",
+					"maxclass" : "button",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "bang" ],
+					"parameter_enable" : 0,
+					"patching_rect" : [ 225.0, 120.0, 24.0, 24.0 ]
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"id" : "obj-25",
 					"maxclass" : "newobj",
@@ -81,7 +93,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 855.0, 180.0, 131.0, 34.0 ],
+					"patching_rect" : [ 855.0, 180.0, 131.0, 33.0 ],
 					"text" : ";\rmax getsystem #0_os"
 				}
 
@@ -213,8 +225,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 758.0, 572.0, 76.0, 36.0 ],
-					"text" : ";\r\ndsp iovs 128"
+					"patching_rect" : [ 758.0, 572.0, 76.0, 35.0 ],
+					"text" : ";\rdsp iovs 128"
 				}
 
 			}
@@ -343,8 +355,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 652.0, 572.0, 78.0, 36.0 ],
-					"text" : ";\r\ndsp sr 48000"
+					"patching_rect" : [ 652.0, 572.0, 78.0, 35.0 ],
+					"text" : ";\rdsp sr 48000"
 				}
 
 			}
@@ -555,7 +567,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 557.345459000000119, 397.0, 29.5, 22.0 ],
-									"text" : "13"
+									"text" : "8"
 								}
 
 							}
@@ -729,7 +741,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 221.0, 397.0, 29.5, 22.0 ],
-									"text" : "12"
+									"text" : "8"
 								}
 
 							}
@@ -1030,7 +1042,7 @@
 
 							}
  ],
-						"originid" : "pat-25",
+						"originid" : "pat-34",
 						"styles" : [ 							{
 								"name" : "wa.buffer",
 								"default" : 								{
@@ -1085,8 +1097,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 30.0, 75.0, 54.0, 22.0 ],
-					"text" : "delay 10"
+					"patching_rect" : [ 30.0, 75.0, 67.0, 22.0 ],
+					"text" : "delay 1000"
 				}
 
 			}
@@ -1266,6 +1278,13 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-9", 0 ],
+					"source" : [ "obj-27", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-29", 0 ],
 					"source" : [ "obj-28", 0 ]
 				}
@@ -1422,7 +1441,7 @@
 
 			}
  ],
-		"originid" : "pat-23",
+		"originid" : "pat-32",
 		"styles" : [ 			{
 				"name" : "wa.buffer",
 				"default" : 				{
