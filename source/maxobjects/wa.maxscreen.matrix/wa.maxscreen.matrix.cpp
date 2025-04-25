@@ -1,6 +1,6 @@
 #include "wa.maxscreen.matrix.h"
 
-#include <QImage>
+#include <QinputImage>
 
 #include <MaxPatcher.h>
 #include <Shared.h>
@@ -8,28 +8,25 @@
 #include "Streamable.h"
 
 using namespace c74;
-using ScreenServer = Shared<"MaxScreen">;
 
 MaxScreenMatrix::MaxScreenMatrix(const atoms& args)
    : object<MaxScreenMatrix>()
    , matrix_operator<>(false)
-   , memoryPublisher()
-   , image()
    , input{this, "(matrix) Input", "matrix"}
+   , memoryPublisher("input")
+   , inputImage()
    , output{this, "(matrix) output", "matrix"}
-   , doubleClickMessage{this, "dblclick", Max::Patcher::minBind(this, &MaxScreenMatrix::doubleClickFunction)}
+   , memorySubscriber("output")
+   , outputImage()
    , resizeTimer(this, Max::Patcher::minBind(this, &MaxScreenMatrix::resizeFunction))
 {
    // args not working in matrix operator
 
-   image = memoryPublisher.createWithCurrentSize();
-   //cout << "MaxScreenMatrix INIT " << image.size().width() << " x " << image.size().height() << endl;
+   inputImage = memoryPublisher.createWithCurrentSize();
+   outputImage = memorySubscriber.createWithCurrentSize();
+   //cout << "MaxScreenMatrix INIT " << inputImage.size().width() << " x " << inputImage.size().height() << endl;
 
    resizeTimer.delay(100);
-}
-
-MaxScreenMatrix::~MaxScreenMatrix()
-{
 }
 
 template <typename matrix_type>
@@ -42,40 +39,48 @@ pixel MaxScreenMatrix::calc_cell(pixel input, const matrix_info& info, matrix_co
 {
    const int x = position.x();
    const int y = position.y();
-   if (x >= image.width() || y >= image.height())
-      return pixel{};
 
    if (x < 0 || y < 0)
       return pixel{};
 
-   const QRgb color = qRgb(input[red], input[green], input[blue]);
-   QRgb* line = reinterpret_cast<QRgb*>(image.scanLine(y));
-   line[x] = color;
+   if (x < inputImage.width() && y < inputImage.height())
+   {
+      const QRgb color = qRgb(input[red], input[green], input[blue]);
+      QRgb* line = reinterpret_cast<QRgb*>(inputImage.scanLine(y));
+      line[x] = color;
+   }
 
-   return pixel{};
+   if (x >= outputImage.width() || y >= outputImage.height())
+      return pixel{};
+
+   QRgb* line = reinterpret_cast<QRgb*>(outputImage.scanLine(y));
+   const QRgb color = line[x];
+
+   pixel output;
+
+   output[alpha] = 255;
+   output[red] = static_cast<uchar>(255 * color.red());
+   output[green] = static_cast<uchar>(255 * color.green());
+   output[blue] = static_cast<uchar>(255 * color.blue());
+
+   return output;
 }
 
 atoms MaxScreenMatrix::resizeFunction(const atoms& args, const int inlet)
 {
    if (!memoryPublisher.sizeMatch()) [[unlikely]]
    {
-      image = memoryPublisher.createWithCurrentSize();
-      //cout << "MaxScreenMatrix RESIZE " << image.size().width() << " x " << image.size().height() << endl;
+      inputImage = memoryPublisher.createWithCurrentSize();
+      //cout << "MaxScreenMatrix INPUT RESIZE " << inputImage.size().width() << " x " << inputImage.size().height() << endl;
+   }
+
+   if (!memorySubscriber.sizeMatch()) [[unlikely]]
+   {
+      outputImage = memorySubscriber.createWithCurrentSize();
+      //cout << "MaxScreenMatrix OUTPUT RESIZE " << outputImage.size().width() << " x " << outputImage.size().height() << endl;
    }
 
    resizeTimer.delay(100);
-   return {};
-}
-
-atoms MaxScreenMatrix::doubleClickFunction(const atoms& args, const int inlet)
-{
-   if (!ScreenServer::isServerActive())
-   {
-      cout << "start max screen" << endl;
-      ScreenServer::startApplication();
-   }
-   image = memoryPublisher.createWithCurrentSize();
-
    return {};
 }
 

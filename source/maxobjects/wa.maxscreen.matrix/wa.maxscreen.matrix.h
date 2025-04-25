@@ -7,19 +7,16 @@ using namespace c74::min;
 #include <CommonQt.h>
 
 #include <QImage>
-#include <QLocalSocket>
 
-#include "ImageSize.h"
 #include "SharedImage.h"
 
 class MaxScreenMatrix : public object<MaxScreenMatrix>, public matrix_operator<>
 {
 public:
-   MIN_DESCRIPTION{"send matrix to screen"};
+   MIN_DESCRIPTION{"matrix from / to screen"};
 
 public:
    MaxScreenMatrix(const atoms& args = {});
-   ~MaxScreenMatrix();
 
 public:
    template <typename matrix_type>
@@ -29,15 +26,17 @@ public:
 
 private:
    atoms resizeFunction(const atoms& args, const int inlet);
-   atoms doubleClickFunction(const atoms& args, const int inlet);
 
 private:
-   SharedImage memoryPublisher;
-   QImage image;
-
+   // send matrix to gui
    inlet<> input;
-   outlet<> output; // needs matrix output !
-   message<> doubleClickMessage;
+   SharedImage memoryPublisher;
+   QImage inputImage;
+
+   // get scrrenshot from gui
+   outlet<> output;
+   SharedImage memorySubscriber;
+   QImage outputImage;
 
    timer<timer_options::defer_delivery> resizeTimer;
 };
