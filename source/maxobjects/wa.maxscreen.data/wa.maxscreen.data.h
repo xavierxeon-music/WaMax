@@ -27,7 +27,6 @@ private:
    atoms bangFunction(const atoms& args, const int inlet);
 
    void receiveData();
-   void updateState(const QJsonObject& data);
 
 private:
    QLocalSocket socket;

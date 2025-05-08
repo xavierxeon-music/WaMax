@@ -41,7 +41,7 @@ atoms MaxScreenData::openFunction(const atoms& args, const int inlet)
 
 atoms MaxScreenData::bangFunction(const atoms& args, const int inlet)
 {
-   copyToDict(state, stateDict);
+   copyToMaxDict(state, stateDict);
    outputState.send("dictionary", stateDict.name());
 
    return {};
@@ -90,18 +90,10 @@ void MaxScreenData::receiveData()
    {
       stream >> data;
 
-      copyToDict(data, eventDict);
+      copyToMaxDict(data, eventDict);
       outputEvent.send("dictionary", eventDict.name());
 
-      updateState(data);
-   }
-}
-
-void MaxScreenData::updateState(const QJsonObject& data)
-{
-   for (const QString& key : data.keys())
-   {
-      state[key] = data[key];
+      mergeDicts(state, data);
    }
 }
 

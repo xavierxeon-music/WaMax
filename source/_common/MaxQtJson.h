@@ -9,7 +9,8 @@ namespace Max
       QtJson();
 
    protected:
-      bool copyToDict(const QJsonObject& source, dict& target, std::string* error = nullptr);
+      void copyToMaxDict(const QJsonObject& source, dict& target, std::string* error = nullptr) const;
+      void mergeDicts(const QJsonObject& source, QJsonObject& target) const;
    };
 } // namespace Max
 

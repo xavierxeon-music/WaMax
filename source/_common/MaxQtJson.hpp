@@ -9,7 +9,7 @@ inline Max::QtJson::QtJson()
    common_symbols_init();
 }
 
-void Max::QtJson::copyToDict(const QJsonObject& source, dict& target, std::string* error)
+void Max::QtJson::copyToMaxDict(const QJsonObject& source, dict& target, std::string* error) const
 {
    const QJsonDocument doc(source);
    const QByteArray jsonData = doc.toJson();
@@ -58,6 +58,14 @@ void Max::QtJson::copyToDict(const QJsonObject& source, dict& target, std::strin
    }
 
    cleanup();
+}
+
+void Max::QtJson::mergeDicts(const QJsonObject& source, QJsonObject& target) const
+{
+   for (const QString& key : source.keys())
+   {
+      target[key] = source[key];
+   }
 }
 
 #endif // NOT MaxQtJsonHPP
