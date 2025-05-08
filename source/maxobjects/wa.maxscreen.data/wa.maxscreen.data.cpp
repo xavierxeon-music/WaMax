@@ -11,7 +11,6 @@ using ScreenServer = Shared<"MaxScreen">;
 MaxScreenData::MaxScreenData(const atoms& args)
    : object<MaxScreenData>()
    , Max::QtJson()
-   , Data()
    , socket()
    , inputMessage{this, "bang"}
    , inputDict{this, "dictionary", "dictionary"}

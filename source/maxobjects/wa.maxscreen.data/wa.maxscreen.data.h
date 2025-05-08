@@ -8,12 +8,10 @@ using namespace c74::min;
 
 #include <QLocalSocket>
 
-#include "Data.h"
 #include "MaxQtJson.h"
 
 class MaxScreenData : public object<MaxScreenData>,
-                      public Max::QtJson,
-                      public Data
+                      public Max::QtJson
 {
 public:
    MIN_DESCRIPTION{"max screen data"};

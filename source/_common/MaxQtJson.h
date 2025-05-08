@@ -1,6 +1,8 @@
 #ifndef MaxQtJsonH
 #define MaxQtJsonH
 
+#include <QJsonObject>
+
 namespace Max
 {
    class QtJson

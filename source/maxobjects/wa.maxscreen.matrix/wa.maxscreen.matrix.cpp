@@ -1,6 +1,6 @@
 #include "wa.maxscreen.matrix.h"
 
-#include <QinputImage>
+#include <QImage>
 
 #include <MaxPatcher.h>
 #include <Shared.h>
@@ -59,9 +59,9 @@ pixel MaxScreenMatrix::calc_cell(pixel input, const matrix_info& info, matrix_co
    pixel output;
 
    output[alpha] = 255;
-   output[red] = static_cast<uchar>(255 * color.red());
-   output[green] = static_cast<uchar>(255 * color.green());
-   output[blue] = static_cast<uchar>(255 * color.blue());
+   output[red] = static_cast<uchar>(255 * qRed(color));
+   output[green] = static_cast<uchar>(255 * qGreen(color));
+   output[blue] = static_cast<uchar>(255 * qBlue(color));
 
    return output;
 }
