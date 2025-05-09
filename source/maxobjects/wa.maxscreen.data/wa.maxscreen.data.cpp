@@ -10,7 +10,7 @@ using ScreenServer = Shared<"MaxScreen">;
 
 MaxScreenData::MaxScreenData(const atoms& args)
    : object<MaxScreenData>()
-   , Data()
+   , Max::QtJson()
    , socket()
    , inputMessage{this, "bang"}
    , inputDict{this, "dictionary", "dictionary"}
@@ -25,11 +25,6 @@ MaxScreenData::MaxScreenData(const atoms& args)
    , stateDict{symbol(true)}
 {
    loopTimer.delay(10);
-
-   {
-      using namespace c74::max;
-      common_symbols_init();
-   }
 }
 
 atoms MaxScreenData::openFunction(const atoms& args, const int inlet)
@@ -45,7 +40,7 @@ atoms MaxScreenData::openFunction(const atoms& args, const int inlet)
 
 atoms MaxScreenData::bangFunction(const atoms& args, const int inlet)
 {
-   copyToDict(state, stateDict);
+   copyToMaxDict(state, stateDict);
    outputState.send("dictionary", stateDict.name());
 
    return {};
@@ -94,68 +89,11 @@ void MaxScreenData::receiveData()
    {
       stream >> data;
 
-      copyToDict(data, eventDict);
+      copyToMaxDict(data, eventDict);
       outputEvent.send("dictionary", eventDict.name());
 
-      updateState(data);
+      mergeDicts(state, data);
    }
-}
-
-void MaxScreenData::updateState(const QJsonObject& data)
-{
-   for (const QString& key : data.keys())
-   {
-      state[key] = data[key];
-   }
-}
-
-void MaxScreenData::copyToDict(const QJsonObject& source, dict& target)
-{
-   const QJsonDocument doc(source);
-   const QByteArray jsonData = doc.toJson();
-
-   //cout << jsonData.constData() << endl;
-
-   using namespace c74::max;
-   t_atom result[1];
-
-   t_object* jsonreader = (t_object*)object_new(_sym_nobox, _sym_jsonreader); // can not reuse this object
-   t_object* dictObject = nullptr;
-
-   auto parseAndCopy = [&]()
-   {
-      t_max_err parserError = (t_max_err)object_method(jsonreader, _sym_parse, jsonData.constData(), result);
-      if (parserError)
-      {
-         cerr << "error parsing json data" << endl;
-         return;
-      }
-
-      dictObject = (t_object*)atom_getobj(result);
-      if (!dictObject)
-      {
-         cerr << "error getting dictionary from json data" << endl;
-         return;
-      }
-
-      if (object_classname_compare(dictObject, _sym_dictionary))
-      {
-         target.clear();
-         target = dict{(t_dictionary*)dictObject};
-         target.touch();
-      }
-      else
-      {
-         cerr << "error: object is not a dictionary" << endl;
-      }
-   };
-
-   parseAndCopy();
-
-   object_free(jsonreader);
-
-   if (dictObject)
-      object_free(dictObject);
 }
 
 MIN_EXTERNAL(MaxScreenData);
