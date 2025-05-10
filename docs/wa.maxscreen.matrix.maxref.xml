@@ -6,8 +6,8 @@
 
 <c74object name='wa.maxscreen.matrix' category=''>
 
-	<digest>send matrix to screen </digest>
-	<description>send matrix to screen </description>
+	<digest>matrix from / to screen </digest>
+	<description>matrix from / to screen </description>
 
 
 	<!--METADATA-->
