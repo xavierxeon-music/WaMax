@@ -4,13 +4,13 @@
 		"appversion" : 		{
 			"major" : 9,
 			"minor" : 0,
-			"revision" : 2,
+			"revision" : 7,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 714.0, 170.0, 2138.0, 945.0 ],
+		"rect" : [ 714.0, 170.0, 1735.0, 945.0 ],
 		"gridonopen" : 2,
 		"gridsize" : [ 15.0, 15.0 ],
 		"gridsnaponopen" : 2,
@@ -22,8 +22,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 480.0, 255.0, 151.0, 22.0 ],
-					"text" : "sprintf openFile \\\"%s\\\" Live"
+					"patching_rect" : [ 480.0, 255.0, 258.0, 22.0 ],
+					"text" : "sprintf openFile \\\"%s\\\" \\\"Ableton Live 12 Suite\\\""
 				}
 
 			}
@@ -368,7 +368,6 @@
 
 			}
  ],
-		"originid" : "pat-6",
 		"styles" : [ 			{
 				"name" : "wa.buffer",
 				"default" : 				{
