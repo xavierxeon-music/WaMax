@@ -22,6 +22,7 @@ private:
 
    outlet<> outputHostName;
    outlet<> outputIp;
+   outlet<> outputInterface;
 
    message<> bang;
 };
