@@ -24,11 +24,11 @@ atoms HostName::bangFunction(const atoms& args, const int inlet)
    atoms interfaceList;
 
    const QHostAddress& localhost = QHostAddress(QHostAddress::LocalHost);
-   const QList<QNetworkInterface> interfaces = QNetworkInterface::allInterfaces();
-   for (const QNetworkInterface& interface : interfaces)
+   const QList<QNetworkInterface> networkInterfaces = QNetworkInterface::allInterfaces();
+   for (const QNetworkInterface& networkInterface : networkInterfaces)
    {
-      const QString name = interface.humanReadableName();
-      const QList<QNetworkAddressEntry> entries = interface.addressEntries();
+      const QString name = networkInterface.humanReadableName();
+      const QList<QNetworkAddressEntry> entries = networkInterface.addressEntries();
 
       for (const QNetworkAddressEntry& entry : entries)
       {
