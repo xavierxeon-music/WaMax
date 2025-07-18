@@ -183,8 +183,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "jit_matrix", "" ],
-					"patching_rect" : [ 240.0, 489.0, 689.0, 22.0 ],
-					"text" : "jit.gl.gridshape #0_camera @shape sphere @dim 200 200 @texture #0_insta @mat_ambient 1. 1. 1. 1. @lighting_enable 1"
+					"patching_rect" : [ 240.0, 489.0, 678.0, 22.0 ],
+					"text" : "jit.gl.gridshape #0_camera @shape sphere @dim 1000 1000 @texture #0_insta @mat_ambient 1. 1. 1. 1. @lighting_enable 1"
 				}
 
 			}
