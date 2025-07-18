@@ -183,8 +183,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "jit_matrix", "" ],
-					"patching_rect" : [ 240.0, 489.0, 608.0, 22.0 ],
-					"text" : "jit.gl.gridshape #0_camera @shape sphere @texture #0_insta @mat_ambient 1. 1. 1. 1. @lighting_enable 1"
+					"patching_rect" : [ 240.0, 489.0, 689.0, 22.0 ],
+					"text" : "jit.gl.gridshape #0_camera @shape sphere @dim 200 200 @texture #0_insta @mat_ambient 1. 1. 1. 1. @lighting_enable 1"
 				}
 
 			}
@@ -243,9 +243,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 675.0, 30.0, 406.0, 22.0 ],
+					"patching_rect" : [ 675.0, 30.0, 413.0, 22.0 ],
 					"style" : "wa.admin",
-					"text" : "patcherargs @vdevice 0 @dim 320 240 @scale 1.15 @rx 0. @ry 0. @rz 0."
+					"text" : "patcherargs @vdevice 0 @dim 320 240 @scale 1.15 @rx 90. @ry 0. @rz 0."
 				}
 
 			}
