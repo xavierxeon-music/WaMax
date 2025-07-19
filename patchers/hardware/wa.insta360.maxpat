@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 34.0, 77.0, 1852.0, 1089.0 ],
+		"rect" : [ 305.0, 375.0, 1852.0, 1061.0 ],
 		"gridonopen" : 2,
 		"gridsize" : [ 15.0, 15.0 ],
 		"gridsnaponopen" : 2,
@@ -257,7 +257,7 @@
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 675.0, 30.0, 467.0, 22.0 ],
 					"style" : "wa.admin",
-					"text" : "patcherargs @vdevice 0 @dim 320 240 @scale 1.15 @rx 90. @ry 90. @rz 0. @light 0"
+					"text" : "patcherargs @vdevice 0 @dim 320 240 @scale 1.15 @rx 90. @ry 90. @rz 0. @light 1"
 				}
 
 			}
