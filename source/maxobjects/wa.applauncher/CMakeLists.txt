@@ -23,6 +23,8 @@ else()
    list(REMOVE_ITEM PROJECT_SRC "${PROJECT_SOURCE_DIR}/ProcessWrapper_win.cpp")
 endif()
 
+find_package(Qt6 REQUIRED COMPONENTS Core)
+
 # message(STATUS "APPLUNCHER SOURCE FILES: ${PROJECT_SRC}")
 add_library(
    ${PROJECT_NAME}
@@ -31,7 +33,6 @@ add_library(
 )
 force_cpp_version()
 
-find_package(Qt6 REQUIRED COMPONENTS Core)
 target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Core)
 
 use_carbon()

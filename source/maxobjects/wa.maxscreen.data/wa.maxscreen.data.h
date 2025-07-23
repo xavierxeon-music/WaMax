@@ -4,11 +4,11 @@
 #include "c74_min.h"
 using namespace c74::min;
 
+#include <MaxQtJson.h>
+
 #include <CommonQt.h>
 
 #include <QLocalSocket>
-
-#include "MaxQtJson.h"
 
 class MaxScreenData : public object<MaxScreenData>,
                       public Max::QtJson
