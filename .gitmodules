@@ -1,9 +1,16 @@
 [submodule "source/min-api"]
 	path = source/min-api
 	url = git@github.com:Cycling74/min-api.git
+   branch = main
 [submodule "applications/MaxScreen"]
 	path = applications/MaxScreen
 	url = git@github.com:xavierxeon-music/MaxScreen.git
+   branch = master
 [submodule "applications/HelpForMax"]
 	path = applications/HelpForMax
 	url = git@github.com:xavierxeon-music/HelpForMax.git
+   branch = master
+[submodule "applications/SpectralDraw"]
+	path = applications/SpectralDraw
+	url = git@github.com:xavierxeon-music/SpectralDraw.git
+   branch = master
