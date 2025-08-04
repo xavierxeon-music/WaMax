@@ -1,0 +1,2 @@
+max objectfile wa.camera.select wa.camera.select;
+max definesubstitution wa.camera.select bpatcher @name wa.camera.select.maxpat;
