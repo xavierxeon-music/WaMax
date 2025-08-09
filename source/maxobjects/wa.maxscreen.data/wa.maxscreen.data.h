@@ -1,12 +1,11 @@
 #ifndef MaxScreenDataH
 #define MaxScreenDataH
 
+// keep order
 #include "c74_min.h"
 using namespace c74::min;
-
-#include <MaxQtJson.h>
-
 #include <CommonQt.h>
+#include <MaxQtJson.h>
 
 #include <QLocalSocket>
 

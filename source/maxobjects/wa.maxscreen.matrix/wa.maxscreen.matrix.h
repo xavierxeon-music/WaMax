@@ -1,9 +1,9 @@
 #ifndef MaxScreenMatrixH
 #define MaxScreenMatrixH
 
+// keep order
 #include "c74_min.h"
 using namespace c74::min;
-
 #include <CommonQt.h>
 
 #include <QImage>

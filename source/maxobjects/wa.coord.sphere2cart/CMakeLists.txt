@@ -13,7 +13,7 @@ file(GLOB PROJECT_SRC
    "*.cpp"
 )
 
-find_package(WaMath REQUIRED)
+find_package(WaTools REQUIRED COMPONENTS Math)
 
 add_library(
    ${PROJECT_NAME}

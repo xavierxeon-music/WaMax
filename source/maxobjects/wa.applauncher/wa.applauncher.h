@@ -1,9 +1,9 @@
 #ifndef AppLauncherH
 #define AppLauncherH
 
+// keep order
 #include "c74_min.h"
 using namespace c74::min;
-
 #include <CommonQt.h>
 
 #include <QString>

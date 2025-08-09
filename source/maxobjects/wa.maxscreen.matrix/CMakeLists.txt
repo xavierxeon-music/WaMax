@@ -14,7 +14,7 @@ file(GLOB PROJECT_SRC
 )
 
 find_package(Qt6 REQUIRED COMPONENTS Gui Network)
-find_package(WaTools REQUIRED)
+find_package(WaTools REQUIRED COMPONENTS General)
 
 add_library(
    ${PROJECT_NAME}

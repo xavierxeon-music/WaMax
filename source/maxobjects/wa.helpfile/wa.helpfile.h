@@ -2,10 +2,10 @@
 #ifndef HelpFileH
 #define HelpFileH
 
+// keep order
 #include "c74_min.h"
 using namespace c74::min;
 using namespace c74::min::ui;
-
 #include <CommonQt.h>
 
 #include "PatchInfo.h"
