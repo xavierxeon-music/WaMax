@@ -18,7 +18,10 @@ MaxScreenData::MaxScreenData(const atoms& args)
    , outputState{this, "state", "dictionary"}
    , doubleClickMessage{this, "dblclick", Max::Patcher::minBind(this, &MaxScreenData::openFunction)}
    , openMessage{this, "open", "open the maxscreen app", Max::Patcher::minBind(this, &MaxScreenData::openFunction)}
-   , bangMessage{this, "bang", Max::Patcher::minBind(this, &MaxScreenData::bangFunction)}
+   , bangMessage{this, "bang", "output state", Max::Patcher::minBind(this, &MaxScreenData::bangFunction)}
+   , dictMessage{this, "dictionary", Max::Patcher::minBind(this, &MaxScreenData::dictFunction)}
+   , loadMessage{this, "load", "load file", Max::Patcher::minBind(this, &MaxScreenData::loadFunction)}
+   , unloadMessage{this, "unload", "unload file", Max::Patcher::minBind(this, &MaxScreenData::unloadFunction)}
    , loopTimer(this, Max::Patcher::minBind(this, &MaxScreenData::timerFunction))
    , eventDict{symbol(true)}
    , state()
@@ -29,6 +32,9 @@ MaxScreenData::MaxScreenData(const atoms& args)
 
 atoms MaxScreenData::openFunction(const atoms& args, const int inlet)
 {
+   if (0 != inlet)
+      return {};
+
    if (!ScreenServer::isServerActive())
    {
       cout << "start max screen" << endl;
@@ -40,8 +46,61 @@ atoms MaxScreenData::openFunction(const atoms& args, const int inlet)
 
 atoms MaxScreenData::bangFunction(const atoms& args, const int inlet)
 {
+   if (0 != inlet)
+      return {};
+
    copyToMaxDict(state, stateDict);
    outputState.send("dictionary", stateDict.name());
+
+   return {};
+}
+
+atoms MaxScreenData::dictFunction(const atoms& args, const int inlet)
+{
+   if (1 != inlet)
+      return {};
+
+   const dict inputDict{args[0]};
+   QJsonObject data = fromMaxDict(inputDict);
+
+   if (data.isEmpty())
+      return {};
+
+   QDataStream stream(&socket);
+   stream << data;
+
+   return {};
+}
+
+atoms MaxScreenData::loadFunction(const atoms& args, const int inlet)
+{
+   if (0 != inlet)
+      return {};
+
+   const std::string filename = args[0];
+
+   QJsonObject data;
+   data["_id"] = "system";
+   data["_type"] = "load";
+   data["path"] = QString::fromStdString(filename);
+
+   QDataStream stream(&socket);
+   stream << data;
+
+   return {};
+}
+
+atoms MaxScreenData::unloadFunction(const atoms& args, const int inlet)
+{
+   if (0 != inlet)
+      return {};
+
+   QJsonObject data;
+   data["_id"] = "system";
+   data["_type"] = "unload";
+
+   QDataStream stream(&socket);
+   stream << data;
 
    return {};
 }

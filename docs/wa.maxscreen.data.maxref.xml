@@ -28,14 +28,29 @@
 
 	<methodlist>
 
+		<method name='load'>
+			<digest>load file </digest>
+			<description>load file </description>
+		</method>
+
 		<method name='open'>
 			<digest>open the maxscreen app </digest>
 			<description>open the maxscreen app </description>
 		</method>
 
 		<method name='bang'>
+			<digest>output state </digest>
+			<description>output state </description>
+		</method>
+
+		<method name='dictionary'>
 			<digest></digest>
 			<description></description>
+		</method>
+
+		<method name='unload'>
+			<digest>unload file </digest>
+			<description>unload file </description>
 		</method>
 
 	</methodlist>

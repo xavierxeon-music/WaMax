@@ -68,4 +68,26 @@ void Max::QtJson::mergeDicts(const QJsonObject& source, QJsonObject& target) con
    }
 }
 
+QJsonObject Max::QtJson::fromMaxDict(const dict& source) const
+{
+   using namespace c74::max;
+
+   t_object* jsonwriter = (t_object*)object_new(_sym_nobox, _sym_jsonwriter); // can not reuse this object
+   if (!jsonwriter)
+      return QJsonObject();
+
+   t_object* object = source;
+   t_dictionary* maxdict = (t_dictionary*)object;
+   object_method(jsonwriter, _sym_writedictionary, maxdict);
+
+   t_handle json;
+   object_method(jsonwriter, _sym_getoutput, &json);
+
+   const QByteArray data((const char*)*json);
+   object_free(jsonwriter);
+
+   QJsonObject result = QJsonDocument::fromJson(data).object();
+   return result;
+}
+
 #endif // NOT MaxQtJsonHPP

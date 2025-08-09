@@ -13,6 +13,7 @@ namespace Max
    protected:
       void copyToMaxDict(const QJsonObject& source, dict& target, std::string* error = nullptr) const;
       void mergeDicts(const QJsonObject& source, QJsonObject& target) const;
+      QJsonObject fromMaxDict(const dict& source) const;
    };
 } // namespace Max
 
