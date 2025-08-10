@@ -28,11 +28,11 @@ def createStorage():
 
    text = '//////////////////////////////////////////\n'
    text += '\n'
-   text += 'var settings = {};\n'
+   text += 'let settings = {};\n'
    text += '\n'
 
    text += 'function getvalueof() {\n'
-   text += '   var text = JSON.stringify(settings);\n'
+   text += '   let text = JSON.stringify(settings);\n'
    text += '   return text;\n'
    text += '}\n'
    text += '\n'
@@ -51,7 +51,7 @@ def createStorage():
 def createBody():
 
    text = 'function bang(){\n'
-   text += '   debug("bang");\n'
+   text += '   print("bang");\n'
    text += '}\n'
    text += '\n'
 

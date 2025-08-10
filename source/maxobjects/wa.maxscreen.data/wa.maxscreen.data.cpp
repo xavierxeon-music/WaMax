@@ -80,8 +80,8 @@ atoms MaxScreenData::loadFunction(const atoms& args, const int inlet)
    const std::string filename = args[0];
 
    QJsonObject data;
-   data["_id"] = "system";
-   data["_type"] = "load";
+   data["_type"] = "command";
+   data["_id"] = "load";
    data["path"] = QString::fromStdString(filename);
 
    QDataStream stream(&socket);
@@ -96,8 +96,8 @@ atoms MaxScreenData::unloadFunction(const atoms& args, const int inlet)
       return {};
 
    QJsonObject data;
-   data["_id"] = "system";
-   data["_type"] = "unload";
+   data["_type"] = "command";
+   data["_id"] = "unload";
 
    QDataStream stream(&socket);
    stream << data;
@@ -151,7 +151,14 @@ void MaxScreenData::receiveData()
       copyToMaxDict(data, eventDict);
       outputEvent.send("dictionary", eventDict.name());
 
-      mergeDicts(state, data);
+      const QString type = data["_type"].toString();
+      const QString id = data["_id"].toString();
+      if (!type.isEmpty() && !id.isEmpty())
+      {
+         QJsonObject typeObject = state[type].toObject();
+         typeObject[id] = data;
+         state[type] = typeObject;
+      }
    }
 }
 
