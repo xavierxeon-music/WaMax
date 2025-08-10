@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
-<c74object as_bpatcher="0" name="wa.push2.encoder">
+<c74object name="wa.push2.encoder" patcher_type="standard">
     <digest>the decoder of a push2</digest>
     <description>the decoder of a push2</description>
     <metadatalist>
         <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMax</metadata>
         <metadata name="tag">WaMaxPackage</metadata>
     </metadatalist>
-    <parser inlet_count="0"/>
     <misc name="Outputs">
-        <entry id="1" name="decrease">
-            <digest/>
-            <description>encoder is turned counter clockwise</description>
-        </entry>
-        <entry id="2" name="increase">
+        <entry name="anything">
             <digest/>
             <description>encoder is turned clockwise</description>
         </entry>

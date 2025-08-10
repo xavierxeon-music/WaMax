@@ -9,6 +9,13 @@
     <misc name="Outputs"/>
     <objarglist/>
     <attributelist/>
-    <methodlist/>
+    <methodlist>
+        <method name="multichannelsignal" standard="1">
+            <arglist>
+                <arg name="multichannelsignal" optional="0" type="multichannelsignal"/>
+            </arglist>
+            <digest/>
+        </method>
+    </methodlist>
     <seealsolist/>
 </c74object>

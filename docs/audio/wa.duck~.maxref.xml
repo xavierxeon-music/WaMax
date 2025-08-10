@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
-<c74object name="wa.midi.player" patcher_type="standard">
-    <digest>Hello World</digest>
+<c74object name="wa.duck~" patcher_type="standard">
+    <digest/>
     <metadatalist>
         <metadata name="author">Ralf Waspe</metadata>
         <metadata name="tag">WaMax</metadata>
-        <metadata name="tag">WaMaxPackage</metadata>
     </metadatalist>
-    <misc name="Outputs">
-        <entry name="anything">
-            <digest/>
-        </entry>
-    </misc>
+    <misc name="Outputs"/>
     <objarglist/>
     <attributelist>
-        <attribute name="loop" set="1" type="symbol">
+        <attribute name="power" set="1" type="int">
             <digest/>
         </attribute>
     </attributelist>
     <methodlist>
-        <method name="int" standard="1">
+        <method name="power" standard="0">
             <arglist>
-                <arg name="int" optional="0" type="int"/>
+                <arg name="power" optional="0" type="int"/>
+            </arglist>
+            <digest/>
+        </method>
+        <method name="signal" standard="1">
+            <arglist>
+                <arg name="signal" optional="0" type="signal"/>
             </arglist>
             <digest/>
         </method>

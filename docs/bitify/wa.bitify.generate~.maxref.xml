@@ -13,6 +13,13 @@
     </misc>
     <objarglist/>
     <attributelist/>
-    <methodlist/>
+    <methodlist>
+        <method name="int" standard="1">
+            <arglist>
+                <arg name="int" optional="0" type="int"/>
+            </arglist>
+            <digest/>
+        </method>
+    </methodlist>
     <seealsolist/>
 </c74object>

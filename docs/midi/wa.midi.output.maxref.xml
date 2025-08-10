@@ -1,24 +1,37 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
 <c74object name="wa.midi.output" patcher_type="standard">
-    <digest>Hello World</digest>
+    <digest>midi output</digest>
     <metadatalist>
         <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMax</metadata>
         <metadata name="tag">WaMaxPackage</metadata>
     </metadatalist>
-    <parser inlet_count="1"/>
     <misc name="Outputs">
-        <entry id="1" name="available">
+        <entry name="anything">
             <digest/>
         </entry>
     </misc>
-    <objarglist/>
+    <objarglist>
+        <objarg name="" optional="0" type="symbol">
+            <digest> ("Internal)</digest>
+        </objarg>
+        <objarg name="" optional="0" type="anything">
+            <digest> (MaxToLive")</digest>
+        </objarg>
+    </objarglist>
     <attributelist/>
     <methodlist>
         <method name="symbol" standard="1">
+            <arglist>
+                <arg name="symbol" optional="0" type="symbol"/>
+            </arglist>
             <digest/>
         </method>
         <method name="int" standard="1">
+            <arglist>
+                <arg name="int" optional="0" type="int"/>
+            </arglist>
             <digest/>
         </method>
     </methodlist>

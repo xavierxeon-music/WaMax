@@ -4,14 +4,11 @@
     <digest>Hello World</digest>
     <metadatalist>
         <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMax</metadata>
         <metadata name="tag">WaMaxPackage</metadata>
     </metadatalist>
-    <parser inlet_count="1"/>
     <misc name="Outputs">
-        <entry id="1" name="hex color">
-            <digest/>
-        </entry>
-        <entry id="2" name="list color">
+        <entry name="anything">
             <digest/>
         </entry>
     </misc>
@@ -19,9 +16,15 @@
     <attributelist/>
     <methodlist>
         <method name="symbol" standard="1">
+            <arglist>
+                <arg name="symbol" optional="0" type="symbol"/>
+            </arglist>
             <digest/>
         </method>
         <method name="list" standard="1">
+            <arglist>
+                <arg name="list" optional="0" type="list"/>
+            </arglist>
             <digest/>
         </method>
     </methodlist>

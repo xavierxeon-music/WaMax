@@ -5,6 +5,7 @@
     <description>a grid device with 16 potentiometes</description>
     <metadatalist>
         <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMax</metadata>
         <metadata name="tag">WaMaxPackage</metadata>
         <metadata name="tag">hardware</metadata>
     </metadatalist>

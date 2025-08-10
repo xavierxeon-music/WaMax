@@ -5,6 +5,7 @@
     <description>a grid device with 16 encoders</description>
     <metadatalist>
         <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMax</metadata>
         <metadata name="tag">WaMaxPackage</metadata>
     </metadatalist>
     <misc name="Outputs"/>

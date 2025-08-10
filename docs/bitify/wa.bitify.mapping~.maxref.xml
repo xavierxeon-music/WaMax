@@ -10,6 +10,13 @@
     <misc name="Outputs"/>
     <objarglist/>
     <attributelist/>
-    <methodlist/>
+    <methodlist>
+        <method name="signal" standard="1">
+            <arglist>
+                <arg name="signal" optional="0" type="signal"/>
+            </arglist>
+            <digest/>
+        </method>
+    </methodlist>
     <seealsolist/>
 </c74object>

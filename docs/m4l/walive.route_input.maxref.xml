@@ -5,11 +5,11 @@
     <description>route the audio of a live channel to a plugin</description>
     <metadatalist>
         <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMax</metadata>
         <metadata name="tag">WaMaxPackage</metadata>
     </metadatalist>
-    <parser inlet_count="1"/>
     <misc name="Outputs">
-        <entry id="0" name="trackNames">
+        <entry name="anything">
             <digest/>
             <description>list of availabel tracks</description>
         </entry>
@@ -21,7 +21,7 @@
         </objarg>
     </objarglist>
     <attributelist>
-        <attribute get="1" name="from" set="1" size="1" type="symbol">
+        <attribute name="from" set="1" type="symbol">
             <digest>audio name</digest>
             <description>name of audio source</description>
         </attribute>
@@ -29,7 +29,7 @@
     <methodlist>
         <method name="from" standard="0">
             <arglist>
-                <arg name="" optional="0" type="symbol"/>
+                <arg name="from" optional="0" type="symbol"/>
             </arglist>
             <digest>audio name</digest>
             <description>name of audio source</description>

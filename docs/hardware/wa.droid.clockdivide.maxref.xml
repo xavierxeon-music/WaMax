@@ -4,33 +4,33 @@
     <digest>Hello World</digest>
     <metadatalist>
         <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMax</metadata>
         <metadata name="tag">WaMaxPackage</metadata>
     </metadatalist>
-    <parser inlet_count="1"/>
     <misc name="Outputs">
-        <entry id="0" name="">
+        <entry name="anything">
             <digest/>
         </entry>
     </misc>
     <objarglist/>
     <attributelist>
-        <attribute get="1" name="left" set="1" size="1" type="symbol">
+        <attribute name="left" set="1" type="symbol">
             <digest/>
         </attribute>
-        <attribute get="1" name="right" set="1" size="1" type="symbol">
+        <attribute name="right" set="1" type="symbol">
             <digest/>
         </attribute>
     </attributelist>
     <methodlist>
         <method name="left" standard="0">
             <arglist>
-                <arg name="" optional="0" type="symbol"/>
+                <arg name="left" optional="0" type="symbol"/>
             </arglist>
             <digest/>
         </method>
         <method name="riight" standard="0">
             <arglist>
-                <arg name="" optional="0" type="symbol"/>
+                <arg name="riight" optional="0" type="symbol"/>
             </arglist>
             <digest/>
         </method>

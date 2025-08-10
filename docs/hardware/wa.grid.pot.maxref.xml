@@ -5,6 +5,7 @@
     <description>a knob on a grid controller</description>
     <metadatalist>
         <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMax</metadata>
         <metadata name="tag">WaMaxPackage</metadata>
     </metadatalist>
     <misc name="Outputs">
@@ -24,11 +25,11 @@
         </objarg>
     </objarglist>
     <attributelist>
-        <attribute name="color" type="symbol">
+        <attribute name="color" set="1" type="symbol">
             <digest>led color</digest>
             <description>the color of the LED</description>
         </attribute>
-        <attribute name="name" type="symbol">
+        <attribute name="name" set="1" type="symbol">
             <digest>name</digest>
             <description>the name of the element</description>
         </attribute>

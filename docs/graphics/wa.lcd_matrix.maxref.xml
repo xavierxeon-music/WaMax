@@ -5,6 +5,7 @@
     <description>render target to be used with javascript LCD classes</description>
     <metadatalist>
         <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMax</metadata>
         <metadata name="tag">WaMaxPackage</metadata>
     </metadatalist>
     <misc name="Outputs">
@@ -20,7 +21,7 @@
         </objarg>
     </objarglist>
     <attributelist>
-        <attribute name="dim" type="list">
+        <attribute name="dim" set="1" type="list">
             <digest>dimension  (960 180)</digest>
             <description>the size of the generated matrix</description>
         </attribute>
