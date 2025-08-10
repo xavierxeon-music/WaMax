@@ -16,7 +16,7 @@ std::string Max::Patcher::path(ObjectType* object)
 {
    using namespace c74;
    max::t_object* max_patch_instance = static_cast<max::t_object*>(object->patcher());
-   const char* patchPath = max::jpatcher_get_filepath(max_patch_instance)->s_name;
+   const std::string patchPath = std::string(max::jpatcher_get_filepath(max_patch_instance)->s_name);
 
    return patchPath;
 }

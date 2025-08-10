@@ -34,8 +34,8 @@
 		</method>
 
 		<method name='open'>
-			<digest>open the maxscreen app </digest>
-			<description>open the maxscreen app </description>
+			<digest></digest>
+			<description></description>
 		</method>
 
 		<method name='bang'>

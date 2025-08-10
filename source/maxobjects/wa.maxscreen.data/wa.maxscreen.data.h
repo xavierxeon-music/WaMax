@@ -19,13 +19,18 @@ public:
    MaxScreenData(const atoms& args = {});
 
 private:
+   atoms doubleClickFunction(const atoms& args, const int inlet);
    atoms openFunction(const atoms& args, const int inlet);
    atoms bangFunction(const atoms& args, const int inlet);
    atoms dictFunction(const atoms& args, const int inlet);
    atoms loadFunction(const atoms& args, const int inlet);
    atoms unloadFunction(const atoms& args, const int inlet);
 
-   atoms timerFunction(const atoms& args, const int inlet);
+   atoms loopTimerFunction(const atoms& args, const int inlet);
+   atoms loadTimerFunction(const atoms& args, const int inlet);
+
+   void startMaxScreen();
+   void loadFile();
    void receiveData();
 
 private:
@@ -44,10 +49,12 @@ private:
    message<> unloadMessage;
 
    timer<timer_options::defer_delivery> loopTimer;
+   timer<timer_options::defer_delivery> loadTimer;
 
    QJsonObject state;
    dict eventDict;
    dict stateDict;
+   std::string filename;
 };
 
 #endif // MaxScreenDataH

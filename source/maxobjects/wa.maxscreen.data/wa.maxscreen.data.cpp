@@ -1,5 +1,7 @@
 #include "wa.maxscreen.data.h"
 
+#include <filesystem>
+
 #include <MaxPatcher.h>
 #include <Shared.h>
 
@@ -16,31 +18,38 @@ MaxScreenData::MaxScreenData(const atoms& args)
    , inputDict{this, "dictionary", "dictionary"}
    , outputEvent{this, "event", "dictionary"}
    , outputState{this, "state", "dictionary"}
-   , doubleClickMessage{this, "dblclick", Max::Patcher::minBind(this, &MaxScreenData::openFunction)}
-   , openMessage{this, "open", "open the maxscreen app", Max::Patcher::minBind(this, &MaxScreenData::openFunction)}
+   , doubleClickMessage{this, "dblclick", Max::Patcher::minBind(this, &MaxScreenData::doubleClickFunction)}
    , bangMessage{this, "bang", "output state", Max::Patcher::minBind(this, &MaxScreenData::bangFunction)}
+   , openMessage{this, "open", Max::Patcher::minBind(this, &MaxScreenData::openFunction)}
    , dictMessage{this, "dictionary", Max::Patcher::minBind(this, &MaxScreenData::dictFunction)}
    , loadMessage{this, "load", "load file", Max::Patcher::minBind(this, &MaxScreenData::loadFunction)}
    , unloadMessage{this, "unload", "unload file", Max::Patcher::minBind(this, &MaxScreenData::unloadFunction)}
-   , loopTimer(this, Max::Patcher::minBind(this, &MaxScreenData::timerFunction))
+   , loopTimer(this, Max::Patcher::minBind(this, &MaxScreenData::loopTimerFunction))
+   , loadTimer(this, Max::Patcher::minBind(this, &MaxScreenData::loadTimerFunction))
    , eventDict{symbol(true)}
    , state()
    , stateDict{symbol(true)}
+   , filename()
 {
    loopTimer.delay(10);
+
+   if (args.size() > 0)
+   {
+      filename = args[0];
+      loadFile();
+   }
+}
+
+atoms MaxScreenData::doubleClickFunction(const atoms& args, const int inlet)
+{
+   startMaxScreen();
+   loadFile();
+   return {};
 }
 
 atoms MaxScreenData::openFunction(const atoms& args, const int inlet)
 {
-   if (0 != inlet)
-      return {};
-
-   if (!ScreenServer::isServerActive())
-   {
-      cout << "start max screen" << endl;
-
-      ScreenServer::startApplication();
-   }
+   startMaxScreen();
    return {};
 }
 
@@ -77,15 +86,8 @@ atoms MaxScreenData::loadFunction(const atoms& args, const int inlet)
    if (0 != inlet)
       return {};
 
-   const std::string filename = args[0];
-
-   QJsonObject data;
-   data["_type"] = "command";
-   data["_id"] = "load";
-   data["path"] = QString::fromStdString(filename);
-
-   QDataStream stream(&socket);
-   stream << data;
+   filename = args[0];
+   loadFile();
 
    return {};
 }
@@ -102,10 +104,12 @@ atoms MaxScreenData::unloadFunction(const atoms& args, const int inlet)
    QDataStream stream(&socket);
    stream << data;
 
+   filename = std::string();
+
    return {};
 }
 
-atoms MaxScreenData::timerFunction(const atoms& args, const int inlet)
+atoms MaxScreenData::loopTimerFunction(const atoms& args, const int inlet)
 {
    if (QLocalSocket::UnconnectedState == socket.state())
    {
@@ -136,6 +140,55 @@ atoms MaxScreenData::timerFunction(const atoms& args, const int inlet)
    }
 
    return {};
+}
+
+atoms MaxScreenData::loadTimerFunction(const atoms& args, const int inlet)
+{
+   loadFile();
+   return {};
+}
+
+void MaxScreenData::startMaxScreen()
+{
+   if (ScreenServer::isServerActive())
+      return;
+
+   cout << "start max screen" << endl;
+
+   ScreenServer::startApplication();
+   loadFile();
+}
+
+void MaxScreenData::loadFile()
+{
+   if (filename.empty())
+      return;
+
+   if (QLocalSocket::ConnectedState != socket.state())
+   {
+      loadTimer.delay(500);
+      return;
+   }
+
+   QJsonObject data;
+   data["_type"] = "command";
+   data["_id"] = "load";
+
+   std::filesystem::path filePath(filename);
+   if (filePath.is_relative())
+   {
+      std::filesystem::path patchPath = Max::Patcher::path(this);
+      patchPath = patchPath.remove_filename();
+
+      data["path"] = QString::fromStdString(patchPath.string() + filename);
+   }
+   else
+   {
+      data["path"] = QString::fromStdString(filename);
+   }
+
+   QDataStream stream(&socket);
+   stream << data;
 }
 
 void MaxScreenData::receiveData()
