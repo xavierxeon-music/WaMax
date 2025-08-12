@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 134.0, 218.0, 2274.0, 1005.0 ],
+		"rect" : [ 34.0, 143.0, 3490.0, 1423.0 ],
 		"openinpresentation" : 1,
 		"gridonopen" : 2,
 		"gridsize" : [ 15.0, 15.0 ],
@@ -223,7 +223,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 975.0, 377.0, 70.0, 22.0 ],
-					"restore" : [ 7 ],
+					"restore" : [ 0 ],
 					"saved_object_attributes" : 					{
 						"parameter_enable" : 0,
 						"parameter_mappable" : 0
@@ -242,7 +242,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 540.0, 380.0, 77.0, 22.0 ],
-					"restore" : [ 2 ],
+					"restore" : [ 0 ],
 					"saved_object_attributes" : 					{
 						"parameter_enable" : 0,
 						"parameter_mappable" : 0
@@ -274,8 +274,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 884.0, 510.0, 59.0, 22.0 ],
-					"text" : "format $1"
+					"patching_rect" : [ 884.0, 510.0, 93.0, 22.0 ],
+					"text" : "format $1, open"
 				}
 
 			}
@@ -294,7 +294,7 @@
 , 			{
 				"box" : 				{
 					"id" : "obj-44",
-					"items" : [ "640x480 - 640 x 480", ",", "640x480p60 - 640 x 480", ",", "1280x720 - 1280 x 720", ",", "1280x720p60 - 1280 x 720", ",", "1920x1080 - 1920 x 1080", ",", "1920x1080p60 - 1920 x 1080", ",", "1920x1440 - 1920 x 1440", ",", "1920x1440p60 - 1920 x 1440" ],
+					"items" : [ "NV12 - 420YpCbCr8BiPlanar - 1920 x 1080", ",", "NV12 - 420YpCbCr8BiPlanar - 1280 x 720", ",", "NV12 - 420YpCbCr8BiPlanar - 1080 x 1920", ",", "NV12 - 420YpCbCr8BiPlanar - 1760 x 1328", ",", "NV12 - 420YpCbCr8BiPlanar - 640 x 480", ",", "NV12 - 420YpCbCr8BiPlanar - 1328 x 1760", ",", "NV12 - 420YpCbCr8BiPlanar - 1552 x 1552" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -463,7 +463,7 @@
 				"box" : 				{
 					"comment" : "",
 					"id" : "obj-60",
-					"index" : 0,
+					"index" : 1,
 					"maxclass" : "inlet",
 					"numinlets" : 0,
 					"numoutlets" : 1,
@@ -476,7 +476,7 @@
 				"box" : 				{
 					"comment" : "",
 					"id" : "obj-61",
-					"index" : 0,
+					"index" : 1,
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
@@ -766,22 +766,6 @@
 
 			}
  ],
-		"dependency_cache" : [ 			{
-				"name" : "bpatcher_size.js",
-				"bootpath" : "~/GitHub/MaxPackages/WaMax/javascript/patch",
-				"patcherrelativepath" : "../../javascript/patch",
-				"type" : "TEXT",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "wa.patch.bpatcher.maxpat",
-				"bootpath" : "~/GitHub/MaxPackages/WaMax/patchers/patch",
-				"patcherrelativepath" : "../patch",
-				"type" : "JSON",
-				"implicit" : 1
-			}
- ],
-		"autosave" : 0,
 		"styles" : [ 			{
 				"name" : "wa.admin",
 				"default" : 				{

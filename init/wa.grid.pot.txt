@@ -1,2 +1,0 @@
-max objectfile wa.grid.pot wa.grid.pot;
-max definesubstitution wa.grid.pot bpatcher @name wa.grid.pot.maxpat;
