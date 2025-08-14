@@ -5,15 +5,11 @@
     <description>create fake stereo</description>
     <metadatalist>
         <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMax</metadata>
         <metadata name="tag">WaMaxPackage</metadata>
     </metadatalist>
-    <parser inlet_count="1"/>
     <misc name="Outputs">
-        <entry id="0" name="left">
-            <digest/>
-            <description>left out</description>
-        </entry>
-        <entry id="1" name="right">
+        <entry name="anything">
             <digest/>
             <description>right out</description>
         </entry>
@@ -22,10 +18,16 @@
     <attributelist/>
     <methodlist>
         <method name="float" standard="1">
+            <arglist>
+                <arg name="float" optional="0" type="float"/>
+            </arglist>
             <digest/>
             <description>stereo width</description>
         </method>
         <method name="signal" standard="1">
+            <arglist>
+                <arg name="signal" optional="0" type="signal"/>
+            </arglist>
             <digest/>
             <description>audio in</description>
         </method>

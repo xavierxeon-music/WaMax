@@ -1,2 +1,0 @@
-max objectfile wa.loopback.display wa.loopback.display;
-max definesubstitution wa.loopback.display bpatcher @name wa.loopback.display.maxpat;

@@ -35,7 +35,7 @@ MaxScreenData::MaxScreenData(const atoms& args)
 
    if (args.size() > 0)
    {
-      filename = args[0];
+      filename = (const std::string)args[0];
       loadFile();
    }
 }
@@ -86,7 +86,7 @@ atoms MaxScreenData::loadFunction(const atoms& args, const int inlet)
    if (0 != inlet)
       return {};
 
-   filename = args[0];
+   filename = (const std::string)args[0];
    loadFile();
 
    return {};

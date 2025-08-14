@@ -5,15 +5,11 @@
     <description>show midi devices</description>
     <metadatalist>
         <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMax</metadata>
         <metadata name="tag">WaMaxPackage</metadata>
     </metadatalist>
-    <parser inlet_count="0"/>
     <misc name="Outputs">
-        <entry id="0" name="output">
-            <digest/>
-            <description>currently selected output</description>
-        </entry>
-        <entry id="1" name="input">
+        <entry name="anything">
             <digest/>
             <description>currently selected input</description>
         </entry>

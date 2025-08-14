@@ -4,11 +4,11 @@
     <digest>Hello World</digest>
     <metadatalist>
         <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMax</metadata>
         <metadata name="tag">WaMaxPackage</metadata>
     </metadatalist>
-    <parser inlet_count="1"/>
     <misc name="Outputs">
-        <entry id="1" name="">
+        <entry name="anything">
             <digest/>
         </entry>
     </misc>

@@ -5,11 +5,11 @@
     <description>a midi input that checks periodically if the device is available</description>
     <metadatalist>
         <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMax</metadata>
         <metadata name="tag">WaMaxPackage</metadata>
     </metadatalist>
-    <parser inlet_count="1"/>
     <misc name="Outputs">
-        <entry id="0" name="">
+        <entry name="anything">
             <digest/>
             <description>device available</description>
         </entry>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
-<c74object name="wa.loopback.display" patcher_type="gui">
+<c74object name="wa.device.sl3" patcher_type="standard">
     <digest/>
     <metadatalist>
         <metadata name="author">Ralf Waspe</metadata>
