@@ -2,7 +2,8 @@
 
 #include <string>
 
-#include <QDir>
+#undef number
+
 #include <QJsonDocument>
 #include <QJsonObject>
 

@@ -4,13 +4,13 @@
 		"appversion" : 		{
 			"major" : 9,
 			"minor" : 0,
-			"revision" : 3,
+			"revision" : 7,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 34.0, 171.0, 3772.0, 1395.0 ],
+		"rect" : [ 994.0, 322.0, 1000.0, 724.0 ],
 		"gridonopen" : 2,
 		"gridsize" : [ 15.0, 15.0 ],
 		"gridsnaponopen" : 2,
@@ -82,8 +82,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
-					"patching_rect" : [ 30.0, 120.0, 36.0, 22.0 ],
-					"text" : "> 0.1"
+					"patching_rect" : [ 30.0, 120.0, 42.0, 22.0 ],
+					"text" : "> 0.01"
 				}
 
 			}
@@ -182,8 +182,7 @@
 				}
 
 			}
- ],
-		"originid" : "pat-6"
+ ]
 	}
 
 }
