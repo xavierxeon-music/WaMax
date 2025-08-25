@@ -25,7 +25,6 @@ private:
 private:
    std::vector<Outlet> outletList;
    QList<AudioBlock*> audioBlocks;
-   size_t timestamp;
 };
 
 #endif // PassSpringH

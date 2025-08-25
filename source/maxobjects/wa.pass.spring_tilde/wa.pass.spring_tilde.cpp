@@ -7,7 +7,6 @@ PassSpring::PassSpring(const atoms& args)
    , vector_operator<>()
    , outletList()
    , audioBlocks()
-   , timestamp(0)
 {
    QString name = "dummy";
    if (args.size() > 0)
@@ -30,7 +29,7 @@ PassSpring::PassSpring(const atoms& args)
       Outlet an_outlet = std::make_unique<outlet<>>(this, "signal " + counter, "signal");
       outletList.push_back(std::move(an_outlet));
 
-      AudioBlock* audioBlock = AudioBlock::create(name, i + 1);
+      AudioBlock* audioBlock = new AudioBlock(name, i + 1);
       audioBlocks.push_back(audioBlock);
    }
 }
@@ -44,13 +43,7 @@ void PassSpring::operator()(audio_bundle input, audio_bundle output)
    {
       double* out = output.samples(channel);
       AudioBlock* audioBlock = audioBlocks[channel];
-      if (!audioBlock || audioBlock->timestamp <= timestamp)
-      {
-         std::memset(out, 0, frameSize * sizeof(double));
-         continue;
-      }
-
-      std::memcpy(out, audioBlock->data, frameSize * sizeof(double));
+      audioBlock->copyTo(out, frameSize);
    }
 }
 

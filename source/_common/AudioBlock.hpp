@@ -3,26 +3,37 @@
 
 #include "AudioBlock.h"
 
-#include <QSharedMemory>
-
-inline AudioBlock* AudioBlock::create(const QString& name, int counter)
+inline AudioBlock::AudioBlock(const QString& name, int counter)
+   : sharedMemory("SharedAudioStream_block_" + name + "_" + QString::number(counter))
+   , sharedData(nullptr)
 {
-   QSharedMemory* sharedMemory = new QSharedMemory("SharedAudioStream_block_" + name + "_" + QString::number(counter));
-   if (sharedMemory->create(sizeof(AudioBlock)))
-      return reinterpret_cast<AudioBlock*>(sharedMemory->data());
+   if (sharedMemory.create(sizeof(Data)))
+      return;
 
-   if (QSharedMemory::AlreadyExists == sharedMemory->error())
+   if (QSharedMemory::AlreadyExists == sharedMemory.error())
    {
-      sharedMemory->attach();
-      if (0 == sharedMemory->size())
+      sharedMemory.attach();
+      if (0 == sharedMemory.size())
       {
-         sharedMemory->detach();
-         sharedMemory->create(sizeof(AudioBlock));
+         sharedMemory.detach();
+         sharedMemory.create(sizeof(Data));
       }
-      return reinterpret_cast<AudioBlock*>(sharedMemory->data());
+      sharedData = reinterpret_cast<Data*>(sharedMemory.data());
    }
+}
 
-   return nullptr;
+inline void AudioBlock::copyFrom(const double* data, const size_t& size)
+{
+   sharedMemory.lock();
+   std::memcpy(sharedData->data, data, size * sizeof(double));
+   sharedMemory.unlock();
+}
+
+inline void AudioBlock::copyTo(double* data, const size_t& size)
+{
+   sharedMemory.lock();
+   std::memcpy(data, sharedData->data, size * sizeof(double));
+   sharedMemory.unlock();
 }
 
 #endif // NOT AudioBlockHPP

@@ -29,7 +29,7 @@ PassDrain::PassDrain(const atoms& args)
       Inlet an_inlet = std::make_unique<inlet<>>(this, "signal " + counter, "signal");
       inletList.push_back(std::move(an_inlet));
 
-      AudioBlock* audioBlock = AudioBlock::create(name, i + 1);
+      AudioBlock* audioBlock = new AudioBlock(name, i + 1);
       audioBlocks.push_back(audioBlock);
    }
 }
@@ -43,11 +43,7 @@ void PassDrain::operator()(audio_bundle input, audio_bundle output)
    {
       double* in = input.samples(channel);
       AudioBlock* audioBlock = audioBlocks[channel];
-      if (!audioBlock)
-         continue;
-
-      audioBlock->timestamp = QDateTime::currentMSecsSinceEpoch();
-      std::memcpy(audioBlock->data, in, frameSize * sizeof(double));
+      audioBlock->copyFrom(in, frameSize);
    }
 }
 
