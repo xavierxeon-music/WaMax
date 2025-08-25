@@ -17,7 +17,7 @@ MixDown::MixDown(const atoms& args)
          portCount = 1;
    }
 
-   for (auto i = 0; i < portCount; ++i)
+   for (int i = 0; i < portCount; ++i)
    {
       const std::string counter = std::to_string(i + 1);
       Inlet an_inlet = std::make_unique<inlet<>>(this, "signal " + counter, "signal");
