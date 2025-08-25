@@ -1,5 +1,5 @@
-#ifndef PassSpringH
-#define PassSpringH
+#ifndef PipeTapH
+#define PipeTapH
 
 #include "c74_min.h"
 using namespace c74::min;
@@ -8,13 +8,13 @@ using namespace c74::min;
 
 #include <AudioBlock.h>
 
-class PassSpring : public object<PassSpring>, public vector_operator<>
+class PipeTap : public object<PipeTap>, public vector_operator<>
 {
 public:
    MIN_DESCRIPTION{"description"};
 
 public:
-   PassSpring(const atoms& args = {});
+   PipeTap(const atoms& args = {});
 
 public:
    void operator()(audio_bundle input, audio_bundle output);
@@ -24,7 +24,7 @@ private:
 
 private:
    std::vector<Outlet> outletList;
-   QList<AudioBlock*> audioBlocks;
+   AudioBlock::List audioBlocks;
 };
 
-#endif // PassSpringH
+#endif // PipeTapH

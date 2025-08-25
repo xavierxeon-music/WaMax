@@ -1,9 +1,7 @@
-#include "wa.pass.drain_tilde.h"
+#include "wa.pipe.drain_tilde.h"
 
-#include <QDateTime>
-
-PassDrain::PassDrain(const atoms& args)
-   : object<PassDrain>()
+PipeDrain::PipeDrain(const atoms& args)
+   : object<PipeDrain>()
    , vector_operator<>()
    , inletList()
    , audioBlocks()
@@ -35,11 +33,12 @@ PassDrain::PassDrain(const atoms& args)
       AudioBlock* audioBlock = new AudioBlock(name, i + 1);
       audioBlocks.push_back(audioBlock);
 
-      cout << "test " << i << " " << audioBlock->getErrorString().toStdString() << endl;
+      if (!audioBlock->getErrorString().isEmpty())
+         cerr << "wa.pass.drain " << name.toStdString() << " @ " << i << " " << audioBlock->getErrorString().toStdString() << endl;
    }
 }
 
-void PassDrain::operator()(audio_bundle input, audio_bundle output)
+void PipeDrain::operator()(audio_bundle input, audio_bundle output)
 {
    const int channelCount = input.channel_count();
    const int frameSize = input.frame_count();
@@ -52,4 +51,4 @@ void PassDrain::operator()(audio_bundle input, audio_bundle output)
    }
 }
 
-MIN_EXTERNAL(PassDrain);
+MIN_EXTERNAL(PipeDrain);

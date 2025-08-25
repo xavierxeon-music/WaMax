@@ -3,6 +3,16 @@
 
 #include "AudioBlock.h"
 
+inline AudioBlock::List::~List()
+{
+   for (AudioBlock* block : *this)
+   {
+      block->sharedMemory.detach();
+      delete block;
+   }
+   clear();
+}
+
 inline AudioBlock::AudioBlock(const QString& name, int counter)
    : sharedMemory("SharedAudioStream_block_" + name + "_" + QString::number(counter))
    , sharedData(nullptr)

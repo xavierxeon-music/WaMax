@@ -1,9 +1,9 @@
-#include "wa.pass.spring_tilde.h"
+#include "wa.pipe.tap_tilde.h"
 
 #include <AudioBlock.h>
 
-PassSpring::PassSpring(const atoms& args)
-   : object<PassSpring>()
+PipeTap::PipeTap(const atoms& args)
+   : object<PipeTap>()
    , vector_operator<>()
    , outletList()
    , audioBlocks()
@@ -31,10 +31,13 @@ PassSpring::PassSpring(const atoms& args)
 
       AudioBlock* audioBlock = new AudioBlock(name, i + 1);
       audioBlocks.push_back(audioBlock);
+
+      if (!audioBlock->getErrorString().isEmpty())
+         cerr << "wa.pass.spring " << name.toStdString() << " @ " << i << " " << audioBlock->getErrorString().toStdString() << endl;
    }
 }
 
-void PassSpring::operator()(audio_bundle input, audio_bundle output)
+void PipeTap::operator()(audio_bundle input, audio_bundle output)
 {
    const int channelCount = output.channel_count();
    const int frameSize = output.frame_count();
@@ -47,4 +50,4 @@ void PassSpring::operator()(audio_bundle input, audio_bundle output)
    }
 }
 
-MIN_EXTERNAL(PassSpring);
+MIN_EXTERNAL(PipeTap);

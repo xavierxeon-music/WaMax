@@ -1,5 +1,5 @@
-#ifndef PassDrainH
-#define PassDrainH
+#ifndef PipeDrainH
+#define PipeDrainH
 
 #include "c74_min.h"
 using namespace c74::min;
@@ -8,13 +8,13 @@ using namespace c74::min;
 
 #include <AudioBlock.h>
 
-class PassDrain : public object<PassDrain>, public vector_operator<>
+class PipeDrain : public object<PipeDrain>, public vector_operator<>
 {
 public:
    MIN_DESCRIPTION{"description"};
 
 public:
-   PassDrain(const atoms& args = {});
+   PipeDrain(const atoms& args = {});
 
 public:
    void operator()(audio_bundle input, audio_bundle output);
@@ -24,7 +24,7 @@ private:
 
 private:
    std::vector<Inlet> inletList;
-   QList<AudioBlock*> audioBlocks;
+   AudioBlock::List audioBlocks;
 };
 
-#endif // PassDrainH
+#endif // PipeDrainH

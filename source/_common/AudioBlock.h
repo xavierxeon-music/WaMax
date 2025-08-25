@@ -8,6 +8,14 @@
 class AudioBlock
 {
 public:
+   class List : public QList<AudioBlock*>
+   {
+   public:
+      List() = default;
+      ~List();
+   };
+
+public:
    AudioBlock(const QString& name, int counter);
 
 public:
