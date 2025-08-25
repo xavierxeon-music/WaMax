@@ -26,6 +26,7 @@ FILE(GLOB PROJECT_LIST RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOUR
 
 foreach(PROJECT_DIR ${PROJECT_LIST})
    set(project_path ${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_DIR})
+   set(C74_BUILD_MAX_EXTENSION 1)
 
    if(EXISTS "${project_path}/CMakeLists.txt")
       message("Generating: ${PROJECT_DIR}")
