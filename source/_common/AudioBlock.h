@@ -13,10 +13,14 @@ public:
    public:
       List() = default;
       ~List();
+
+   private:
+      bool clearOnExit;
    };
 
 public:
-   AudioBlock(const QString& name, int counter);
+   AudioBlock(const QString& name, int counter, bool readOnly);
+   ~AudioBlock();
 
 public:
    void copyFrom(const double* data, const size_t& size);
@@ -32,6 +36,7 @@ private:
 
 private:
    QSharedMemory sharedMemory;
+   const bool readOnly;
    Data* sharedData;
    size_t cursor;
    QString errorString;

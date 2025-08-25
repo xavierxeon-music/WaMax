@@ -29,7 +29,7 @@ PipeTap::PipeTap(const atoms& args)
       Outlet an_outlet = std::make_unique<outlet<>>(this, "signal " + counter, "signal");
       outletList.push_back(std::move(an_outlet));
 
-      AudioBlock* audioBlock = new AudioBlock(name, i + 1);
+      AudioBlock* audioBlock = new AudioBlock(name, i + 1, true);
       audioBlocks.push_back(audioBlock);
 
       if (!audioBlock->getErrorString().isEmpty())

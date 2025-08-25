@@ -7,19 +7,20 @@ inline AudioBlock::List::~List()
 {
    for (AudioBlock* block : *this)
    {
-      block->sharedMemory.detach();
       delete block;
    }
    clear();
 }
 
-inline AudioBlock::AudioBlock(const QString& name, int counter)
+inline AudioBlock::AudioBlock(const QString& name, int counter, bool readOnly)
    : sharedMemory("SharedAudioStream_block_" + name + "_" + QString::number(counter))
+   , readOnly(readOnly)
    , sharedData(nullptr)
    , cursor(0)
    , errorString()
 {
-   if (sharedMemory.create(sizeof(Data)))
+   const QSharedMemory::AccessMode mode = readOnly ? QSharedMemory::ReadOnly : QSharedMemory::ReadWrite;
+   if (sharedMemory.create(sizeof(Data), mode))
    {
       sharedData = reinterpret_cast<Data*>(sharedMemory.data());
       return;
@@ -28,15 +29,26 @@ inline AudioBlock::AudioBlock(const QString& name, int counter)
    errorString = sharedMemory.errorString();
    if (QSharedMemory::AlreadyExists == sharedMemory.error())
    {
-      sharedMemory.attach();
+      sharedMemory.attach(mode);
       if (0 == sharedMemory.size())
       {
          sharedMemory.detach();
-         sharedMemory.create(sizeof(Data));
+         sharedMemory.create(sizeof(Data), mode);
       }
       errorString = sharedMemory.errorString();
       sharedData = reinterpret_cast<Data*>(sharedMemory.data());
    }
+}
+
+inline AudioBlock::~AudioBlock()
+{
+   if (!readOnly)
+   {
+      sharedMemory.lock();
+      std::memset(sharedData->data, 0, BlockSize * sizeof(double));
+      sharedMemory.unlock();
+   }
+   sharedMemory.detach();
 }
 
 inline void AudioBlock::copyFrom(const double* data, const size_t& size)

@@ -30,7 +30,7 @@ PipeDrain::PipeDrain(const atoms& args)
       Inlet an_inlet = std::make_unique<inlet<>>(this, "signal " + counter, "signal");
       inletList.push_back(std::move(an_inlet));
 
-      AudioBlock* audioBlock = new AudioBlock(name, i + 1);
+      AudioBlock* audioBlock = new AudioBlock(name, i + 1, false);
       audioBlocks.push_back(audioBlock);
 
       if (!audioBlock->getErrorString().isEmpty())
