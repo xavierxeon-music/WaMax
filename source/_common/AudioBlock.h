@@ -13,16 +13,20 @@ public:
 public:
    void copyFrom(const double* data, const size_t& size);
    void copyTo(double* data, const size_t& size);
+   const QString& getErrorString() const;
 
 private:
+   constexpr static size_t BlockSize = 2048;
    struct Data
    {
-      double data[256]; // needs to be stack memmory, choose suffiently large size
+      double data[BlockSize]; // needs to be stack memmory, choose suffiently large size
    };
 
 private:
    QSharedMemory sharedMemory;
    Data* sharedData;
+   size_t cursor;
+   QString errorString;
 };
 
 #ifndef AudioBlockHPP

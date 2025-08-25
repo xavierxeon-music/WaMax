@@ -8,6 +8,9 @@ PassDrain::PassDrain(const atoms& args)
    , inletList()
    , audioBlocks()
 {
+   if (0 == args.size())
+      return;
+
    QString name = "dummy";
    if (args.size() > 0)
    {
@@ -31,6 +34,8 @@ PassDrain::PassDrain(const atoms& args)
 
       AudioBlock* audioBlock = new AudioBlock(name, i + 1);
       audioBlocks.push_back(audioBlock);
+
+      cout << "test " << i << " " << audioBlock->getErrorString().toStdString() << endl;
    }
 }
 
