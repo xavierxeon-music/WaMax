@@ -7,8 +7,8 @@ static const int msLength = 10;
 McNoiseGate::McNoiseGate(const atoms& args)
    : object<McNoiseGate>()
    , mc_operator<>()
-   , threshold{this, "threshold", 0.005}
    , chans{this, "chans", 1, range{1, 1024}}
+   , threshold{this, "threshold", 0.005}
    , input(this, "input", "multichannelsignal")
    , output(this, "output", "multichannelsignal")
    , peakOutlet(this, "peak", "multichannelsignal")
