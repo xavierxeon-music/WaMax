@@ -3,7 +3,7 @@
 
 #include <QString>
 
-#include <QSharedMemory>
+#include <SharedData.h>
 
 class AudioBlock
 {
@@ -13,9 +13,6 @@ public:
    public:
       List() = default;
       ~List();
-
-   private:
-      bool clearOnExit;
    };
 
 public:
@@ -25,6 +22,7 @@ public:
 public:
    void copyFrom(const double* data, const size_t& size);
    void copyTo(double* data, const size_t& size);
+
    const QString& getErrorString() const;
 
 private:
@@ -38,8 +36,9 @@ private:
    QSharedMemory sharedMemory;
    const bool readOnly;
    Data* sharedData;
-   size_t cursor;
    QString errorString;
+
+   size_t cursor;
 };
 
 #ifndef AudioBlockHPP
