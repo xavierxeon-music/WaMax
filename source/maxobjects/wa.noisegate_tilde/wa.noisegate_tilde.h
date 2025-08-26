@@ -6,9 +6,6 @@ using namespace c74::min;
 
 #include <SampleDelay.h>
 
-// for mc wrapper see https://cycling74.com/forums/mc-support-with-min-api-for
-// see https://github.com/acids-ircam/nn_tilde/blob/master/src/frontend/maxmsp/nn_tilde/nn_tilde.cpp
-
 class NoiseGate : public object<NoiseGate>, public vector_operator<>
 {
 public:

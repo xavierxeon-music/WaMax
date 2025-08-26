@@ -75,7 +75,7 @@ void NoiseGate::operator()(audio_bundle input, audio_bundle output)
 
 atoms NoiseGate::dspSetupFunction(const atoms& args, const int inlet)
 {
-   cout << "sample rate = " << samplerate() << endl;
+   //cout << "sample rate = " << samplerate() << endl;
    bufferSize = msLength * samplerate() / 1000;
 
    buffer = SampleDelay(bufferSize * portCount);
