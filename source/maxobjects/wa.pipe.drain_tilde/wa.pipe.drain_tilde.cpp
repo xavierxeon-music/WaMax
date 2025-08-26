@@ -46,7 +46,7 @@ void PipeDrain::operator()(audio_bundle input, audio_bundle output)
    for (int channel = 0; channel < channelCount; channel++)
    {
       double* in = input.samples(channel);
-      AudioBlock* audioBlock = audioBlocks[channel];
+      AudioBlock* audioBlock = static_cast<AudioBlock*>(audioBlocks[channel]);
       audioBlock->copyFrom(in, frameSize);
    }
 }

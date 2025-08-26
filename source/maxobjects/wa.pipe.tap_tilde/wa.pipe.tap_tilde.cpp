@@ -45,7 +45,7 @@ void PipeTap::operator()(audio_bundle input, audio_bundle output)
    for (int channel = 0; channel < channelCount; channel++)
    {
       double* out = output.samples(channel);
-      AudioBlock* audioBlock = audioBlocks[channel];
+      AudioBlock* audioBlock = static_cast<AudioBlock*>(audioBlocks[channel]);
       audioBlock->copyTo(out, frameSize);
    }
 }

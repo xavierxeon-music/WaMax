@@ -3,81 +3,38 @@
 
 #include "AudioBlock.h"
 
-inline AudioBlock::List::~List()
-{
-   for (AudioBlock* block : *this)
-   {
-      delete block;
-   }
-   clear();
-}
-
 inline AudioBlock::AudioBlock(const QString& name, int counter, bool readOnly)
-   : sharedMemory("SharedAudioStream_block_" + name + "_" + QString::number(counter))
-   , readOnly(readOnly)
-   , sharedData(nullptr)
+   : SharedData<AudioBlockData>("WaPipe_Block_" + name + "_" + QString::number(counter), readOnly)
    , cursor(0)
-   , errorString()
 {
-   const QSharedMemory::AccessMode mode = readOnly ? QSharedMemory::ReadOnly : QSharedMemory::ReadWrite;
-   if (sharedMemory.create(sizeof(Data), mode))
-   {
-      sharedData = reinterpret_cast<Data*>(sharedMemory.data());
-      return;
-   }
-
-   errorString = sharedMemory.errorString();
-   if (QSharedMemory::AlreadyExists == sharedMemory.error())
-   {
-      sharedMemory.attach(mode);
-      if (0 == sharedMemory.size())
-      {
-         sharedMemory.detach();
-         sharedMemory.create(sizeof(Data), mode);
-      }
-      errorString = sharedMemory.errorString();
-      sharedData = reinterpret_cast<Data*>(sharedMemory.data());
-   }
 }
 
 inline AudioBlock::~AudioBlock()
 {
    if (!readOnly)
    {
-      sharedMemory.lock();
-      std::memset(sharedData->data, 0, BlockSize * sizeof(double));
-      sharedMemory.unlock();
+      Guard guard(this); // needs socpe, else crash
+      if (dataBlock)
+         std::memset(dataBlock->data, 0, BlockSize * sizeof(double));
    }
-   sharedMemory.detach();
 }
 
 inline void AudioBlock::copyFrom(const double* data, const size_t& size)
 {
-   if (sharedData)
-   {
-      sharedMemory.lock();
-      std::memcpy(sharedData->data + cursor, data, size * sizeof(double));
-      sharedMemory.unlock();
-   }
+   Guard guard(this);
+   if (dataBlock)
+      std::memcpy(dataBlock->data + cursor, data, size * sizeof(double));
 
    cursor = (cursor + size) % BlockSize;
 }
 
 inline void AudioBlock::copyTo(double* data, const size_t& size)
 {
-   if (sharedData)
-   {
-      sharedMemory.lock();
-      std::memcpy(data, sharedData->data + cursor, size * sizeof(double));
-      sharedMemory.unlock();
-   }
+   Guard guard(this);
+   if (dataBlock)
+      std::memcpy(data, dataBlock->data + cursor, size * sizeof(double));
 
    cursor = (cursor + size) % BlockSize;
-}
-
-const QString& AudioBlock::getErrorString() const
-{
-   return errorString;
 }
 
 #endif // NOT AudioBlockHPP
