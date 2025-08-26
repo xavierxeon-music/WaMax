@@ -7,7 +7,7 @@ MixDown::MixDown(const atoms& args)
    , vector_operator<>()
    , normalize{this, "normalize", true}
    , inletList()
-   , outletList()
+   , output(this, "mix", "signal")
 {
    int portCount = 1;
    if (args.size() > 0)
@@ -24,8 +24,8 @@ MixDown::MixDown(const atoms& args)
       inletList.push_back(std::move(an_inlet));
    }
 
-   Outlet mixOutlet = std::make_unique<outlet<>>(this, "singal", "signal");
-   outletList.push_back(std::move(mixOutlet));
+   //Outlet mixOutlet = std::make_unique<outlet<>>(this, "signal", "signal");
+   //outletList.push_back(std::move(mixOutlet));
 }
 
 void MixDown::operator()(audio_bundle input, audio_bundle output)
