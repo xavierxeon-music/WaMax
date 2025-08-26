@@ -23,9 +23,6 @@ MixDown::MixDown(const atoms& args)
       Inlet an_inlet = std::make_unique<inlet<>>(this, "signal " + counter, "signal");
       inletList.push_back(std::move(an_inlet));
    }
-
-   //Outlet mixOutlet = std::make_unique<outlet<>>(this, "signal", "signal");
-   //outletList.push_back(std::move(mixOutlet));
 }
 
 void MixDown::operator()(audio_bundle input, audio_bundle output)

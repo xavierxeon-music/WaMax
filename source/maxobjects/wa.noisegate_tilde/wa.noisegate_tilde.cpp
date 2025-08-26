@@ -30,45 +30,42 @@ NoiseGate::NoiseGate(const atoms& args)
       outletList.push_back(std::move(an_outlet));
    }
 
+   // peak and active as last ports, can not be seperate outlets
    Outlet peakOutlet = std::make_unique<outlet<>>(this, "peak", "signal");
    outletList.push_back(std::move(peakOutlet));
 
    Outlet activeOutlet = std::make_unique<outlet<>>(this, "active", "signal");
    outletList.push_back(std::move(activeOutlet));
 
+   // average over all inputs
    buffer = SampleDelay(bufferSize * portCount);
 }
 
 void NoiseGate::operator()(audio_bundle input, audio_bundle output)
 {
-   const int peakChanngel = input.channel_count();
+   const int peakChannel = input.channel_count();
+   const int activeChannel = peakChannel + 1;
+   double* outPeak = output.samples(peakChannel);
+   double* outActive = output.samples(activeChannel);
 
-   const int activeChannel = peakChanngel + 1;
-
-   for (int counter = 0; counter < input.frame_count(); counter++)
+   for (int channel = 0; channel < input.channel_count(); channel++)
    {
-      for (int channel = 0; channel < input.channel_count(); channel++)
+      double* in = input.samples(channel);
+      double* out = output.samples(channel);
+      for (int counter = 0; counter < input.frame_count(); counter++)
       {
-         double* in = input.samples(channel);
          const sample value = in[counter];
          buffer.tapin(value, true);
       }
 
       const sample peak = buffer.peak();
-      double* outpeak = output.samples(peakChanngel);
-      outpeak[counter] = peak;
-
       const bool active = (threshold >= peak);
-      double* outActive = output.samples(activeChannel);
-      outActive[counter] = active ? 1.0 : 0.0;
 
-      for (int channel = 0; channel < input.channel_count(); channel++)
+      for (int counter = 0; counter < input.frame_count(); counter++)
       {
-         double* in = input.samples(channel);
-         double* out = output.samples(channel);
-
-         const sample value = in[counter];
-         out[counter] = active ? 0.0 : value;
+         out[counter] = active ? 0.0 : in[counter];
+         outPeak[counter] = peak;
+         outActive[counter] = active ? 1.0 : 0.0;
       }
    }
 }

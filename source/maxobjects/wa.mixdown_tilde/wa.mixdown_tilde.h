@@ -17,15 +17,12 @@ public:
 
 private:
    using Inlet = std::unique_ptr<inlet<>>;
-   //using Outlet = std::unique_ptr<outlet<>>;
 
 private:
    attribute<bool> normalize;
 
    std::vector<Inlet> inletList;
    outlet<> output;
-
-   //std::vector<Outlet> outletList;
 };
 
 #endif // MixDownH

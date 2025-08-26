@@ -6,10 +6,7 @@ using namespace c74::min;
 
 #include <SampleDelay.h>
 
-// for mc wrapper see https://cycling74.com/forums/mc-support-with-min-api-for
-// see https://github.com/acids-ircam/nn_tilde
-
-class McNoiseGate : public object<NoiseGate>, public vector_operator<>
+class McNoiseGate : public object<McNoiseGate>, public mc_operator<>
 {
 public:
    MIN_DESCRIPTION{"description"};
@@ -23,6 +20,7 @@ public:
 private:
    atoms dspSetupFunction(const atoms& args, const int inlet);
    atoms maxClassSetupFunction(const atoms& args, const int inlet);
+   void updateBuffer();
 
    static long compileMultChannelOutputCount(c74::max::t_object* x, long index, long count);
    static long inputChanged(c74::max::t_object* x, long index, long count);
@@ -36,12 +34,10 @@ private:
    outlet<> peakOutlet;
    outlet<> activeOutlet;
 
-   SampleDelay buffer;
-
    message<> dspSetup;
    message<> maxclassSetup;
 
-   int bufferSize;
+   std::vector<SampleDelay> buffer;
 };
 
 #endif // McNoiseGateH

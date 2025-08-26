@@ -29,10 +29,9 @@ private:
 
    std::vector<Inlet> inletList;
    std::vector<Outlet> outletList;
-   SampleDelay buffer;
-
    message<> dspsetup;
 
+   SampleDelay buffer;
    int bufferSize;
    int portCount;
 };
