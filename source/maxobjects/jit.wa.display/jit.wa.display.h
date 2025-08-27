@@ -47,6 +47,7 @@ private:
 
    void requestInfo();
    void sendTexture();
+   void uploadTexture(const QJsonObject payload);
    void compileInfo(const QJsonObject& info);
    void updateInfo(const QJsonObject& info);
 
@@ -63,8 +64,6 @@ private:
    QByteArray bearerToken;
    SetInfo::Map setInfoMap;
    Mode mode;
-
-   CURL* curl;
 };
 
 #endif // DisplayH

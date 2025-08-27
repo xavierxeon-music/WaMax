@@ -1,6 +1,8 @@
 
 #include "jit.wa.display.h"
 
+#include <thread>
+
 #include <QBuffer>
 
 #include <FileTools.h>
@@ -24,7 +26,8 @@ JitDisplay::JitDisplay(const atoms& args)
 
    curl_global_init(CURL_GLOBAL_DEFAULT);
 
-   requestInfo();
+   auto infoFunction = std::bind(&JitDisplay::requestInfo, this);
+   std::thread(infoFunction).detach();
 }
 
 JitDisplay::~JitDisplay()
@@ -112,7 +115,13 @@ void JitDisplay::sendTexture()
    payload["image64"] = QString::fromUtf8(image64Data);
 
    cout << "send texture " << target.toStdString() << endl;
+   auto uploadFunction = std::bind(&JitDisplay::uploadTexture, this, payload);
 
+   std::thread(uploadFunction).detach();
+}
+
+void JitDisplay::uploadTexture(const QJsonObject payload)
+{
    const QByteArray uploadContent = QJsonDocument(payload).toJson(QJsonDocument::Compact);
    const QJsonObject jsonObject = post("/api/image", uploadContent);
    updateInfo(jsonObject);
@@ -144,8 +153,6 @@ void JitDisplay::compileInfo(const QJsonObject& info)
       const QString& setName = iterSet.key();
       const SetInfo& setInfo = iterSet.value();
       const QStringList imageNames = setInfo.images.keys();
-
-      cout << "Set: " << setName.toStdString() << ", Images: " << imageNames.join(", ").toStdString() << endl;
    }
 
    mode = Mode::Upload;
@@ -161,7 +168,7 @@ void JitDisplay::updateInfo(const QJsonObject& info)
       SetInfo& setInfo = setInfoMap["music"];
       if (setInfo.id != setId)
       {
-         cerr << "Set ID mismatch!" << endl;
+         //cerr << "Set ID mismatch!" << endl;
          return;
       }
 
@@ -178,7 +185,7 @@ QJsonObject JitDisplay::post(const QString& endpoint, const QByteArray& content)
 
    struct curl_slist* headers = NULL;
 
-   curl = curl_easy_init();
+   CURL* curl = curl_easy_init();
    curl_easy_setopt(curl, CURLOPT_URL, url.constData());
    curl_easy_setopt(curl, CURLOPT_XOAUTH2_BEARER, bearerToken.constData());
    curl_easy_setopt(curl, CURLOPT_ACCEPT_ENCODING, "application/json");
@@ -193,23 +200,20 @@ QJsonObject JitDisplay::post(const QString& endpoint, const QByteArray& content)
    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, JitDisplay::curlWriteCallback);
    curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
 
-   auto cleanup = [&]()
-   {
-      curl_slist_free_all(headers);
-      curl_easy_cleanup(curl);
-   };
-
    CURLcode res = curl_easy_perform(curl);
+   QJsonObject jsonObject;
    if (CURLE_OK != res)
    {
       cerr << __FUNCTION__ << " failed: " << curl_easy_strerror(res) << endl;
-      cleanup();
-      return QJsonObject();
    }
-   cleanup();
+   else
+   {
+      const QByteArray data = QByteArray::fromStdString(response);
+      jsonObject = FileTools::parseBytes(data);
+   }
 
-   const QByteArray data = QByteArray::fromStdString(response);
-   const QJsonObject jsonObject = FileTools::parseBytes(data);
+   curl_slist_free_all(headers);
+   curl_easy_cleanup(curl);
 
    return jsonObject;
 }
