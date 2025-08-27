@@ -1,5 +1,5 @@
-#ifndef MaxScreenMatrixH
-#define MaxScreenMatrixH
+#ifndef JitMaxScreenH
+#define JitMaxScreenH
 
 // keep order
 #include "c74_min.h"
@@ -10,13 +10,13 @@ using namespace c74::min;
 
 #include "SharedImage.h"
 
-class MaxScreenMatrix : public object<MaxScreenMatrix>, public matrix_operator<>
+class JitMaxScreen : public object<JitMaxScreen>, public matrix_operator<>
 {
 public:
    MIN_DESCRIPTION{"matrix from / to screen"};
 
 public:
-   MaxScreenMatrix(const atoms& args = {});
+   JitMaxScreen(const atoms& args = {});
 
 public:
    template <typename matrix_type>
@@ -29,16 +29,16 @@ private:
 
 private:
    // send matrix to gui
-   inlet<> input;
+   inlet<> inputMatrix;
    SharedImage memoryPublisher;
    QImage inputImage;
 
    // get scrrenshot from gui
-   outlet<> output;
+   outlet<> outputMatrix;
    SharedImage memorySubscriber;
    QImage outputImage;
 
    timer<timer_options::defer_delivery> resizeTimer;
 };
 
-#endif // MaxScreenMatrixH
+#endif // JitMaxScreenH

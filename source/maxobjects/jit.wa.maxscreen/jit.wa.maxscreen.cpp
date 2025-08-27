@@ -1,6 +1,4 @@
-#include "wa.maxscreen.matrix.h"
-
-#include <QImage>
+#include "jit.wa.maxscreen.h"
 
 #include <MaxPatcher.h>
 #include <Shared.h>
@@ -9,33 +7,33 @@
 
 using namespace c74;
 
-MaxScreenMatrix::MaxScreenMatrix(const atoms& args)
-   : object<MaxScreenMatrix>()
+JitMaxScreen::JitMaxScreen(const atoms& args)
+   : object<JitMaxScreen>()
    , matrix_operator<>(false)
-   , input{this, "(matrix) Input", "matrix"}
+   , inputMatrix{this, "(matrix) Input", "matrix"}
    , memoryPublisher("input")
    , inputImage()
-   , output{this, "(matrix) output", "matrix"}
+   , outputMatrix{this, "(matrix) output", "matrix"}
    , memorySubscriber("output")
    , outputImage()
-   , resizeTimer(this, Max::Patcher::minBind(this, &MaxScreenMatrix::resizeFunction))
+   , resizeTimer(this, Max::Patcher::minBind(this, &JitMaxScreen::resizeFunction))
 {
    // args not working in matrix operator
 
    inputImage = memoryPublisher.createWithCurrentSize();
    outputImage = memorySubscriber.createWithCurrentSize();
-   //cout << "MaxScreenMatrix INIT " << inputImage.size().width() << " x " << inputImage.size().height() << endl;
+   //cout << "JitMaxScreen INIT " << inputImage.size().width() << " x " << inputImage.size().height() << endl;
 
    resizeTimer.delay(100);
 }
 
 template <typename matrix_type>
-matrix_type MaxScreenMatrix::calc_cell(matrix_type input, const matrix_info& info, matrix_coord& position)
+matrix_type JitMaxScreen::calc_cell(matrix_type input, const matrix_info& info, matrix_coord& position)
 {
    return matrix_type{};
 }
 
-pixel MaxScreenMatrix::calc_cell(pixel input, const matrix_info& info, matrix_coord& position)
+pixel JitMaxScreen::calc_cell(pixel input, const matrix_info& info, matrix_coord& position)
 {
    const int x = position.x();
    const int y = position.y();
@@ -66,22 +64,22 @@ pixel MaxScreenMatrix::calc_cell(pixel input, const matrix_info& info, matrix_co
    return output;
 }
 
-atoms MaxScreenMatrix::resizeFunction(const atoms& args, const int inlet)
+atoms JitMaxScreen::resizeFunction(const atoms& args, const int inlet)
 {
    if (!memoryPublisher.sizeMatch()) [[unlikely]]
    {
       inputImage = memoryPublisher.createWithCurrentSize();
-      //cout << "MaxScreenMatrix INPUT RESIZE " << inputImage.size().width() << " x " << inputImage.size().height() << endl;
+      //cout << "JitMaxScreen INPUT RESIZE " << inputImage.size().width() << " x " << inputImage.size().height() << endl;
    }
 
    if (!memorySubscriber.sizeMatch()) [[unlikely]]
    {
       outputImage = memorySubscriber.createWithCurrentSize();
-      //cout << "MaxScreenMatrix OUTPUT RESIZE " << outputImage.size().width() << " x " << outputImage.size().height() << endl;
+      //cout << "JitMaxScreen OUTPUT RESIZE " << outputImage.size().width() << " x " << outputImage.size().height() << endl;
    }
 
    resizeTimer.delay(100);
    return {};
 }
 
-MIN_EXTERNAL(MaxScreenMatrix);
+MIN_EXTERNAL(JitMaxScreen);

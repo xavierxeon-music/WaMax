@@ -1,4 +1,4 @@
-#include "wa.maxscreen.data.h"
+#include "wa.maxscreen.h"
 
 #include <filesystem>
 
@@ -7,25 +7,22 @@
 
 using ScreenServer = Shared<"MaxScreen">;
 
-// see https://cycling74.com/forums/accessing-nested-dictionaries-in-min
-// see https://gist.github.com/robtherich/19b12d27f5a31cd5e1e6af6de34fa65e
-
-MaxScreenData::MaxScreenData(const atoms& args)
-   : object<MaxScreenData>()
+MaxScreen::MaxScreen(const atoms& args)
+   : object<MaxScreen>()
    , Max::QtJson()
    , socket()
    , inputMessage{this, "bang"}
    , inputDict{this, "dictionary", "dictionary"}
    , outputEvent{this, "event", "dictionary"}
    , outputState{this, "state", "dictionary"}
-   , doubleClickMessage{this, "dblclick", Max::Patcher::minBind(this, &MaxScreenData::doubleClickFunction)}
-   , bangMessage{this, "bang", "output state", Max::Patcher::minBind(this, &MaxScreenData::bangFunction)}
-   , openMessage{this, "open", Max::Patcher::minBind(this, &MaxScreenData::openFunction)}
-   , dictMessage{this, "dictionary", Max::Patcher::minBind(this, &MaxScreenData::dictFunction)}
-   , loadMessage{this, "load", "load file", Max::Patcher::minBind(this, &MaxScreenData::loadFunction)}
-   , unloadMessage{this, "unload", "unload file", Max::Patcher::minBind(this, &MaxScreenData::unloadFunction)}
-   , loopTimer(this, Max::Patcher::minBind(this, &MaxScreenData::loopTimerFunction))
-   , loadTimer(this, Max::Patcher::minBind(this, &MaxScreenData::loadTimerFunction))
+   , doubleClickMessage{this, "dblclick", Max::Patcher::minBind(this, &MaxScreen::doubleClickFunction)}
+   , bangMessage{this, "bang", "output state", Max::Patcher::minBind(this, &MaxScreen::bangFunction)}
+   , openMessage{this, "open", Max::Patcher::minBind(this, &MaxScreen::openFunction)}
+   , dictMessage{this, "dictionary", Max::Patcher::minBind(this, &MaxScreen::dictFunction)}
+   , loadMessage{this, "load", "load file", Max::Patcher::minBind(this, &MaxScreen::loadFunction)}
+   , unloadMessage{this, "unload", "unload file", Max::Patcher::minBind(this, &MaxScreen::unloadFunction)}
+   , loopTimer(this, Max::Patcher::minBind(this, &MaxScreen::loopTimerFunction))
+   , loadTimer(this, Max::Patcher::minBind(this, &MaxScreen::loadTimerFunction))
    , eventDict{symbol(true)}
    , state()
    , stateDict{symbol(true)}
@@ -40,20 +37,20 @@ MaxScreenData::MaxScreenData(const atoms& args)
    }
 }
 
-atoms MaxScreenData::doubleClickFunction(const atoms& args, const int inlet)
+atoms MaxScreen::doubleClickFunction(const atoms& args, const int inlet)
 {
    startMaxScreen();
    loadFile();
    return {};
 }
 
-atoms MaxScreenData::openFunction(const atoms& args, const int inlet)
+atoms MaxScreen::openFunction(const atoms& args, const int inlet)
 {
    startMaxScreen();
    return {};
 }
 
-atoms MaxScreenData::bangFunction(const atoms& args, const int inlet)
+atoms MaxScreen::bangFunction(const atoms& args, const int inlet)
 {
    if (0 != inlet)
       return {};
@@ -64,7 +61,7 @@ atoms MaxScreenData::bangFunction(const atoms& args, const int inlet)
    return {};
 }
 
-atoms MaxScreenData::dictFunction(const atoms& args, const int inlet)
+atoms MaxScreen::dictFunction(const atoms& args, const int inlet)
 {
    if (1 != inlet)
       return {};
@@ -81,7 +78,7 @@ atoms MaxScreenData::dictFunction(const atoms& args, const int inlet)
    return {};
 }
 
-atoms MaxScreenData::loadFunction(const atoms& args, const int inlet)
+atoms MaxScreen::loadFunction(const atoms& args, const int inlet)
 {
    if (0 != inlet)
       return {};
@@ -92,7 +89,7 @@ atoms MaxScreenData::loadFunction(const atoms& args, const int inlet)
    return {};
 }
 
-atoms MaxScreenData::unloadFunction(const atoms& args, const int inlet)
+atoms MaxScreen::unloadFunction(const atoms& args, const int inlet)
 {
    if (0 != inlet)
       return {};
@@ -109,7 +106,7 @@ atoms MaxScreenData::unloadFunction(const atoms& args, const int inlet)
    return {};
 }
 
-atoms MaxScreenData::loopTimerFunction(const atoms& args, const int inlet)
+atoms MaxScreen::loopTimerFunction(const atoms& args, const int inlet)
 {
    if (QLocalSocket::UnconnectedState == socket.state())
    {
@@ -142,13 +139,13 @@ atoms MaxScreenData::loopTimerFunction(const atoms& args, const int inlet)
    return {};
 }
 
-atoms MaxScreenData::loadTimerFunction(const atoms& args, const int inlet)
+atoms MaxScreen::loadTimerFunction(const atoms& args, const int inlet)
 {
    loadFile();
    return {};
 }
 
-void MaxScreenData::startMaxScreen()
+void MaxScreen::startMaxScreen()
 {
    if (ScreenServer::isServerActive())
       return;
@@ -159,7 +156,7 @@ void MaxScreenData::startMaxScreen()
    loadFile();
 }
 
-void MaxScreenData::loadFile()
+void MaxScreen::loadFile()
 {
    if (filename.empty())
       return;
@@ -191,7 +188,7 @@ void MaxScreenData::loadFile()
    stream << data;
 }
 
-void MaxScreenData::receiveData()
+void MaxScreen::receiveData()
 {
    QDataStream stream(&socket);
 
@@ -215,4 +212,4 @@ void MaxScreenData::receiveData()
    }
 }
 
-MIN_EXTERNAL(MaxScreenData);
+MIN_EXTERNAL(MaxScreen);

@@ -1,5 +1,5 @@
-#ifndef MaxScreenDataH
-#define MaxScreenDataH
+#ifndef MaxScreenH
+#define MaxScreenH
 
 // keep order
 #include "c74_min.h"
@@ -9,14 +9,14 @@ using namespace c74::min;
 
 #include <QLocalSocket>
 
-class MaxScreenData : public object<MaxScreenData>,
-                      public Max::QtJson
+class MaxScreen : public object<MaxScreen>,
+                  public Max::QtJson
 {
 public:
    MIN_DESCRIPTION{"max screen data"};
 
 public:
-   MaxScreenData(const atoms& args = {});
+   MaxScreen(const atoms& args = {});
 
 private:
    atoms doubleClickFunction(const atoms& args, const int inlet);
@@ -57,4 +57,4 @@ private:
    std::string filename;
 };
 
-#endif // MaxScreenDataH
+#endif // MaxScreenH
