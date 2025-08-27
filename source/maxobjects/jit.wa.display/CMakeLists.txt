@@ -7,8 +7,9 @@ file(GLOB PROJECT_SRC
    "*.cpp"
 )
 
-find_package(Qt6 REQUIRED COMPONENTS Gui Network)
-find_package(WaTools REQUIRED COMPONENTS General Core Network)
+find_package(Qt6 REQUIRED COMPONENTS Gui)
+find_package(WaTools REQUIRED COMPONENTS General Core )
+find_package(CURL REQUIRED)
 
 add_library(
    ${PROJECT_NAME}
@@ -17,6 +18,7 @@ add_library(
 )
 force_cpp_version()
 
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Gui Qt6::Network)
+target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Gui)
+target_link_libraries(${PROJECT_NAME} PRIVATE CURL::libcurl)
 
 include(${C74_MIN_API_DIR}/script/min-posttarget.cmake)
