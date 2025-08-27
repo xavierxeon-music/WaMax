@@ -1,3 +1,4 @@
+
 #include "jit.wa.display.h"
 
 #include <MaxPatcher.h>
@@ -10,8 +11,9 @@ JitDisplay::JitDisplay(const atoms& args)
    , name{this, "name", "dummy"}
    , jitClassSetup{this, "jitclass_setup", Max::Patcher::minBind(this, &JitDisplay::jitClassSetupFunction)}
    , buffer()
-   , sender(nullptr, "https://schweinesystem.ddns.net/flexdisplay")
+   , sender()
 {
+   sender.start();
 }
 
 template <typename matrix_type>
@@ -50,6 +52,7 @@ long JitDisplay::maxBangMessage(c74::max::t_object* x, long index, long count)
 void JitDisplay::sendTexture()
 {
    const std::string target = name.get();
+   sender.sendImage(buffer, QString::fromStdString(target));
    cout << "send texture " << target << endl;
 }
 

@@ -1,10 +1,8 @@
 #include "wa.apikeys.h"
 
-#include <QFile>
-#include <QJsonDocument>
-#include <QJsonParseError>
 #include <QStandardPaths>
 
+#include <FileTools.h>
 #include <MaxPatcher.h>
 
 ApiKeys::ApiKeys(const atoms& args)
@@ -49,19 +47,7 @@ void ApiKeys::readApiKeys(const QString& what)
    const QStringList paths = QStandardPaths::standardLocations(QStandardPaths::HomeLocation);
    const QString path = paths.at(0) + "/.ApiKeys/" + what + ".json";
 
-   QFile file(path);
-   if (!file.open(QIODevice::ReadOnly))
-      return;
-
-   const QByteArray data = file.readAll();
-   file.close();
-
-   QJsonParseError error;
-   const QJsonDocument doc = QJsonDocument::fromJson(data, &error);
-   if (error.error != QJsonParseError::NoError)
-      return;
-
-   apiContent = doc.object();
+   apiContent = FileTools::readJson(path);
    for (QJsonObject::const_iterator it = apiContent.constBegin(); it != apiContent.constEnd(); it++)
    {
       const QString qkey = it.key();

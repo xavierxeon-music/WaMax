@@ -7,7 +7,7 @@ using namespace c74::min;
 
 #include <QImage>
 
-#include <RestApiBlocking.h>
+#include "Sender.h"
 
 class JitDisplay : public object<JitDisplay>, public matrix_operator<>
 {
@@ -37,7 +37,7 @@ private:
    message<> jitClassSetup;
 
    QImage buffer;
-   RestApi::Blocking sender;
+   Sender sender;
 };
 
 #endif // DisplayH
