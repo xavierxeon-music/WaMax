@@ -4,19 +4,43 @@
 		"appversion" : 		{
 			"major" : 9,
 			"minor" : 0,
-			"revision" : 0,
+			"revision" : 8,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 34.0, 106.0, 1332.0, 1029.0 ],
+		"rect" : [ 34.0, 121.0, 3110.0, 1645.0 ],
 		"openinpresentation" : 1,
 		"gridonopen" : 2,
 		"gridsize" : [ 15.0, 15.0 ],
 		"gridsnaponopen" : 2,
 		"subpatcher_template" : "OpenGrid",
 		"boxes" : [ 			{
+				"box" : 				{
+					"id" : "obj-27",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 315.0, 238.5, 87.0, 22.0 ],
+					"text" : "prepend active"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-26",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "int" ],
+					"patching_rect" : [ 315.0, 195.0, 29.5, 22.0 ],
+					"text" : "!- 1"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"id" : "obj-52",
 					"maxclass" : "newobj",
@@ -49,7 +73,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 510.0, 15.0, 30.0, 30.0 ]
+					"patching_rect" : [ 510.0, 30.0, 30.0, 30.0 ]
 				}
 
 			}
@@ -74,42 +98,6 @@
 					"outlettype" : [ "signal" ],
 					"patching_rect" : [ 206.0, 360.0, 34.0, 22.0 ],
 					"text" : "*~ 1."
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-28",
-					"maxclass" : "message",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 315.0, 277.5, 29.5, 22.0 ],
-					"text" : "1."
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-27",
-					"maxclass" : "message",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 350.5, 277.5, 29.5, 22.0 ],
-					"text" : "0."
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-19",
-					"maxclass" : "newobj",
-					"numinlets" : 3,
-					"numoutlets" : 3,
-					"outlettype" : [ "bang", "bang", "" ],
-					"patching_rect" : [ 315.0, 194.5, 90.0, 22.0 ],
-					"text" : "select 0 1"
 				}
 
 			}
@@ -154,7 +142,6 @@
 							"parameter_longname" : "live.text",
 							"parameter_mmax" : 1,
 							"parameter_modmode" : 0,
-							"parameter_osc_name" : "<default>",
 							"parameter_shortname" : "live.text",
 							"parameter_type" : 2
 						}
@@ -249,7 +236,6 @@
 							"parameter_longname" : "live.text[8]",
 							"parameter_mmax" : 1,
 							"parameter_modmode" : 0,
-							"parameter_osc_name" : "<default>",
 							"parameter_shortname" : "solo",
 							"parameter_type" : 2
 						}
@@ -285,7 +271,6 @@
 							"parameter_longname" : "live.text[9]",
 							"parameter_mmax" : 1,
 							"parameter_modmode" : 0,
-							"parameter_osc_name" : "<default>",
 							"parameter_shortname" : "mute",
 							"parameter_type" : 2
 						}
@@ -366,7 +351,6 @@
 							"parameter_mmax" : 6.0,
 							"parameter_mmin" : -70.0,
 							"parameter_modmode" : 0,
-							"parameter_osc_name" : "<default>",
 							"parameter_shortname" : "live.gain~",
 							"parameter_type" : 0,
 							"parameter_unitstyle" : 4
@@ -384,8 +368,8 @@
 					"id" : "obj-3",
 					"maxclass" : "newobj",
 					"numinlets" : 0,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 34.0, 138.5, 107.0, 22.0 ],
 					"style" : "wa.admin",
 					"text" : "wa.patch.bpatcher"
@@ -437,7 +421,7 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-19", 0 ],
+					"destination" : [ "obj-26", 0 ],
 					"source" : [ "obj-11", 0 ]
 				}
 
@@ -486,20 +470,6 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-27", 0 ],
-					"source" : [ "obj-19", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-28", 0 ],
-					"source" : [ "obj-19", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-1", 0 ],
 					"source" : [ "obj-20", 0 ]
 				}
@@ -522,8 +492,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-13", 1 ],
-					"order" : 1,
-					"source" : [ "obj-27", 0 ]
+					"order" : 2,
+					"source" : [ "obj-26", 0 ]
 				}
 
 			}
@@ -531,23 +501,22 @@
 				"patchline" : 				{
 					"destination" : [ "obj-17", 1 ],
 					"order" : 0,
-					"source" : [ "obj-27", 0 ]
+					"source" : [ "obj-26", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-13", 1 ],
+					"destination" : [ "obj-27", 0 ],
 					"order" : 1,
-					"source" : [ "obj-28", 0 ]
+					"source" : [ "obj-26", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-17", 1 ],
-					"order" : 0,
-					"source" : [ "obj-28", 0 ]
+					"destination" : [ "obj-4", 0 ],
+					"source" : [ "obj-27", 0 ]
 				}
 
 			}
@@ -587,7 +556,6 @@
 
 			}
  ],
-		"originid" : "pat-18",
 		"parameters" : 		{
 			"obj-11" : [ "live.text", "live.text", 0 ],
 			"obj-16" : [ "live.text[9]", "mute", 0 ],
@@ -606,22 +574,36 @@
 		}
 ,
 		"dependency_cache" : [ 			{
+				"name" : "_mixer.js",
+				"bootpath" : "~/GitHub/MaxPackages/WaMax/javascript/mixer",
+				"patcherrelativepath" : "../../javascript/mixer",
+				"type" : "TEXT",
+				"implicit" : 1
+			}
+, 			{
 				"name" : "bpatcher_size.js",
-				"bootpath" : "/Volumes/ExternalData/_Home/GitHub/MusicProjects/WaMax/javascript/patch",
+				"bootpath" : "~/GitHub/MaxPackages/WaMax/javascript/patch",
 				"patcherrelativepath" : "../../javascript/patch",
 				"type" : "TEXT",
 				"implicit" : 1
 			}
 , 			{
+				"name" : "helper.js",
+				"bootpath" : "~/GitHub/MaxPackages/WaMax/javascript/_classes",
+				"patcherrelativepath" : "../../javascript/_classes",
+				"type" : "TEXT",
+				"implicit" : 1
+			}
+, 			{
 				"name" : "mixer_master.js",
-				"bootpath" : "/Volumes/ExternalData/_Home/GitHub/MusicProjects/WaMax/javascript/mixer",
+				"bootpath" : "~/GitHub/MaxPackages/WaMax/javascript/mixer",
 				"patcherrelativepath" : "../../javascript/mixer",
 				"type" : "TEXT",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "wa.patch.bpatcher.maxpat",
-				"bootpath" : "/Volumes/ExternalData/_Home/GitHub/MusicProjects/WaMax/patchers/patch",
+				"bootpath" : "~/GitHub/MaxPackages/WaMax/patchers/patch",
 				"patcherrelativepath" : "../patch",
 				"type" : "JSON",
 				"implicit" : 1
