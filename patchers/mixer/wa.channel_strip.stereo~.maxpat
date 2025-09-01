@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 34.0, 121.0, 2710.0, 1645.0 ],
+		"rect" : [ 34.0, 121.0, 3110.0, 1645.0 ],
 		"openinpresentation" : 1,
 		"gridonopen" : 2,
 		"gridsize" : [ 15.0, 15.0 ],
@@ -524,7 +524,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-23", 0 ],
-					"source" : [ "obj-15", 5 ]
+					"source" : [ "obj-15", 4 ]
 				}
 
 			}
