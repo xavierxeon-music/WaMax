@@ -10,7 +10,14 @@
 put the content of https://github.com/xavierxeon-helper/CMakePackages.git
 in your CMAKE_PREFIX_PATH
 
-## windows 
+## error
+
+### qlocale.h
+```
+QString toString(ulong number, int fieldWidth, char32_t fillChar) const
+```
+
+## windows compile
 
 hint: use vscode
 
