@@ -13,25 +13,25 @@ public:
    Lissajous(const atoms& args = {});
 
 public:
-   samples<2> operator()(sample x);
+   samples<2> operator()(sample phase);
 
 private:
    atoms aFunction(const atoms& args, const int inlet);
-   atoms phaseFunction(const atoms& args, const int inlet);
+   atoms aOffsetFunction(const atoms& args, const int inlet);
    atoms bFunction(const atoms& args, const int inlet);
 
 private:
-   inlet<> input;
+   inlet<> phasorInput;
    outlet<> xOutput;
    outlet<> yOutput;
 
-   attribute<double> aValue;
-   attribute<double> phaseValue;
-   attribute<double> bValue;
-
    message<> aMessage;
-   message<> phaseMessage;
+   message<> aOffsetMessage;
    message<> bMessage;
+
+   double a;
+   double aOffset;
+   double b;
 };
 
 #endif // LissajousH
