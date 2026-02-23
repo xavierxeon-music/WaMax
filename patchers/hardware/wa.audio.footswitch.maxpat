@@ -9,7 +9,7 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 34.0, 121.0, 3132.0, 1645.0 ],
+        "rect": [ 34.0, 177.0, 3084.0, 1589.0 ],
         "gridonopen": 2,
         "gridsnaponopen": 2,
         "subpatcher_template": "wa.main_template",
@@ -99,7 +99,7 @@
                     "numoutlets": 1,
                     "outlettype": [ "signal" ],
                     "patching_rect": [ 30.0, 30.0, 45.0, 22.0 ],
-                    "text": "adc~ 3"
+                    "text": "adc~ 2"
                 }
             },
             {

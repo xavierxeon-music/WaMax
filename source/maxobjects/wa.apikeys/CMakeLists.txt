@@ -8,7 +8,7 @@ file(GLOB PROJECT_SRC
 )
 
 find_package(Qt6 REQUIRED COMPONENTS Core)
-find_package(WaTools REQUIRED COMPONENTS Core)
+find_package(XX REQUIRED COMPONENTS Core)
 
 add_library(
    ${PROJECT_NAME}

@@ -3,9 +3,9 @@
 #include <filesystem>
 
 #include <MaxPatcher.h>
-#include <Shared.h>
+#include <XXShared.h>
 
-using ScreenServer = Shared<"MaxScreen">;
+using ScreenServer = XX::Shared<"MaxScreen">;
 
 MaxScreen::MaxScreen(const atoms& args)
    : object<MaxScreen>()

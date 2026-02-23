@@ -2,8 +2,8 @@
 
 #include <QStandardPaths>
 
-#include <FileTools.h>
 #include <MaxPatcher.h>
+#include <XXFileTools.h>
 
 ApiKeys::ApiKeys(const atoms& args)
    : object<ApiKeys>()
@@ -47,7 +47,7 @@ void ApiKeys::readApiKeys(const QString& what)
    const QStringList paths = QStandardPaths::standardLocations(QStandardPaths::HomeLocation);
    const QString path = paths.at(0) + "/.ApiKeys/" + what + ".json";
 
-   apiContent = FileTools::readJson(path);
+   apiContent = XX::FileTools::readJson(path);
    for (QJsonObject::const_iterator it = apiContent.constBegin(); it != apiContent.constEnd(); it++)
    {
       const QString qkey = it.key();

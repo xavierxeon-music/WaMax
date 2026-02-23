@@ -5,7 +5,7 @@
 #include "c74_min.h"
 using namespace c74::min;
 
-#include <MathVector3.h>
+#include <XXMathVector3.h>
 
 #include "SpatialRingBuffer.h"
 
@@ -29,8 +29,8 @@ namespace Coord
       atoms listFunction(const atoms& args, const int inlet);
 
    private:
-      Math::Vector3 cartesian;
-      Math::Spherical spherical;
+      XX::Math::Vector3 cartesian;
+      XX::Math::Spherical spherical;
       Spatial::RingBuffer buffer;
 
       inlet<> input;

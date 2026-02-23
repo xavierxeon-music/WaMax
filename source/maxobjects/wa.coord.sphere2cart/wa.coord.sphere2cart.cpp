@@ -20,7 +20,7 @@ Coord::Sphere2Cart::Sphere2Cart(const atoms& args)
 atoms Coord::Sphere2Cart::azFunction(const atoms& args, const int inlet)
 {
    spherical.az = args[0];
-   calcluate();
+   calculate();
 
    return {};
 }
@@ -28,7 +28,7 @@ atoms Coord::Sphere2Cart::azFunction(const atoms& args, const int inlet)
 atoms Coord::Sphere2Cart::elFunction(const atoms& args, const int inlet)
 {
    spherical.el = args[0];
-   calcluate();
+   calculate();
 
    return {};
 }
@@ -36,7 +36,7 @@ atoms Coord::Sphere2Cart::elFunction(const atoms& args, const int inlet)
 atoms Coord::Sphere2Cart::radiusFunction(const atoms& args, const int inlet)
 {
    spherical.radius = args[0];
-   calcluate();
+   calculate();
 
    return {};
 }
@@ -50,21 +50,21 @@ atoms Coord::Sphere2Cart::listFunction(const atoms& args, const int inlet)
    if (args.size() > 2)
       spherical.radius = args[2];
 
-   calcluate();
+   calculate();
 
    return {};
 }
 
 atoms Coord::Sphere2Cart::calculateFunction(const atoms& args, const int inlet)
 {
-   calcluate();
+   calculate();
 
    return {};
 }
 
-void Coord::Sphere2Cart::calcluate()
+void Coord::Sphere2Cart::calculate()
 {
-   const Math::Vector3 cartesian = Math::Vector3::fromSpherical(spherical, asDegrees);
+   const XX::Math::Vector3 cartesian = XX::Math::Vector3::fromSpherical(spherical, asDegrees);
 
    atoms result = {cartesian[0], cartesian[1], cartesian[2]};
    output.send(result);

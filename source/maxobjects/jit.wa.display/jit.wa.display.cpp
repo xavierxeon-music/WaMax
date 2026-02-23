@@ -5,7 +5,7 @@
 
 #include <QBuffer>
 
-#include <FileTools.h>
+#include <XXFileTools.h>
 
 #include <MaxPatcher.h>
 
@@ -21,7 +21,7 @@ JitDisplay::JitDisplay(const atoms& args)
    , setInfoMap()
    , mode(Mode::Info)
 {
-   const QJsonObject apiContent = FileTools::readApiKeys("flexdisplay");
+   const QJsonObject apiContent = XX::FileTools::readApiKeys("flexdisplay");
    bearerToken = apiContent["token"].toString().toUtf8();
 
    curl_global_init(CURL_GLOBAL_DEFAULT);
@@ -209,7 +209,7 @@ QJsonObject JitDisplay::post(const QString& endpoint, const QByteArray& content)
    else
    {
       const QByteArray data = QByteArray::fromStdString(response);
-      jsonObject = FileTools::parseBytes(data);
+      jsonObject = XX::FileTools::parseBytes(data);
    }
 
    curl_slist_free_all(headers);

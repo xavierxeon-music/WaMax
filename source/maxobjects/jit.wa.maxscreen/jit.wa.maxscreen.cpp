@@ -1,7 +1,7 @@
 #include "jit.wa.maxscreen.h"
 
 #include <MaxPatcher.h>
-#include <Shared.h>
+#include <XXShared.h>
 
 #include "Streamable.h"
 

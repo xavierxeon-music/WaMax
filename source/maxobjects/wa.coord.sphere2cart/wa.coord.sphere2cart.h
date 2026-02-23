@@ -5,14 +5,14 @@
 #include "c74_min.h"
 using namespace c74::min;
 
-#include <MathVector3.h>
+#include <XXMathVector3.h>
 
 namespace Coord
 {
    class Sphere2Cart : public object<Sphere2Cart>
    {
    public:
-      MIN_DESCRIPTION{"convert sphercal corrdinates to 3d carteasion"};
+      MIN_DESCRIPTION{"convert spherical coordinates to 3d cartesian"};
 
    public:
       Sphere2Cart(const atoms& args = {});
@@ -23,10 +23,10 @@ namespace Coord
       atoms radiusFunction(const atoms& args, const int inlet);
       atoms listFunction(const atoms& args, const int inlet);
       atoms calculateFunction(const atoms& args, const int inlet);
-      void calcluate();
+      void calculate();
 
    private:
-      Math::Spherical spherical;
+      XX::Math::Spherical spherical;
 
       outlet<> output;
       attribute<bool> asDegrees;

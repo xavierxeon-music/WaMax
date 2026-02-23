@@ -2,7 +2,7 @@
 
 #include <thread>
 
-#include <MathGeneral.h>
+#include <XXMathGeneral.h>
 
 Spatial::RingBuffer::RingBuffer()
    : buffer{}
@@ -13,13 +13,13 @@ Spatial::RingBuffer::RingBuffer()
 {
 }
 
-void Spatial::RingBuffer::add(const double& value, const Math::Spherical& coords)
+void Spatial::RingBuffer::add(const double& value, const XX::Math::Spherical& coords)
 {
    currentIndex++;
    if (currentIndex >= Function::length)
       currentIndex = 0;
 
-   if (Math::signChange(lastValue, value))
+   if (XX::Math::signChange(lastValue, value))
    {
       currentCoords = coords;
       currentFunction = Function(currentCoords);

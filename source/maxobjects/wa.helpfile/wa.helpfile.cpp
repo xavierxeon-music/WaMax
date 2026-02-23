@@ -8,9 +8,9 @@
 #include <QJsonObject>
 
 #include <MaxPatcher.h>
-#include <Shared.h>
+#include <XXShared.h>
 
-using HelpForMax = Shared<"HelpForMax">;
+using HelpForMax = XX::Shared<"HelpForMax">;
 
 HelpFile::HelpFile(const atoms& args)
    : object<HelpFile>()

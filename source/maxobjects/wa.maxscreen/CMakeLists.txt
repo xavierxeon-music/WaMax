@@ -16,7 +16,7 @@ file(GLOB PROJECT_SRC
 find_package(Qt6 REQUIRED COMPONENTS Gui Network)
 set(CMAKE_AUTOMOC ON)
 
-find_package(WaTools REQUIRED COMPONENTS Cpp Core Network)
+find_package(XX REQUIRED COMPONENTS Cpp Core Network)
 
 add_library(
    ${PROJECT_NAME}

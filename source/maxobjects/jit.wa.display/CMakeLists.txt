@@ -8,7 +8,7 @@ file(GLOB PROJECT_SRC
 )
 
 find_package(Qt6 REQUIRED COMPONENTS Gui)
-find_package(WaTools REQUIRED COMPONENTS Cpp Core )
+find_package(XX REQUIRED COMPONENTS Cpp Core )
 find_package(CURL REQUIRED)
 
 add_library(
