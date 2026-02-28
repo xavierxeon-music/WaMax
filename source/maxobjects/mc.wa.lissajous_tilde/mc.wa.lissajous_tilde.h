@@ -27,6 +27,7 @@ private:
 
 private:
    attribute<int> chans; // must have this name and type
+   message<> maxclassSetup;
 
    inlet<> phasorInput;
    outlet<> xOutput;

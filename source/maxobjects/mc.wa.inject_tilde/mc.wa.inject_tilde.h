@@ -23,13 +23,13 @@ private:
 
 private:
    attribute<int> chans; // must have this name and type
+   message<> maxclassSetup;
+
    attribute<int> target;
 
    inlet<> input;
    inlet<> single;
    outlet<> output;
-
-   message<> maxclassSetup;
 };
 
 #endif // McInjectH

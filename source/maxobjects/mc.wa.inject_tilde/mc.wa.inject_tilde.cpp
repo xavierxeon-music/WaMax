@@ -6,11 +6,11 @@ McInject::McInject(const atoms& args)
    : object<McInject>()
    , mc_operator<>()
    , chans{this, "chans", 1, range{1, 1024}}
+   , maxclassSetup{this, "maxclass_setup", Max::Patcher::minBind(this, &McInject::maxClassSetupFunction)}
    , target{this, "target", 1}
    , input(this, "input", "multichannelsignal")
    , single(this, "single", "signal")
    , output(this, "output", "multichannelsignal")
-   , maxclassSetup{this, "maxclass_setup", Max::Patcher::minBind(this, &McInject::maxClassSetupFunction)}
 {
 }
 
@@ -53,7 +53,8 @@ long McInject::compileMultChannelOutputCount(c74::max::t_object* x, long index, 
    minwrap<McInject>* ob = (minwrap<McInject>*)(x);
    if (0 == index)
       return ob->m_min_object.chans;
-   return 1;
+
+   return 0;
 }
 
 long McInject::inputChanged(c74::max::t_object* x, long index, long count)
@@ -61,6 +62,7 @@ long McInject::inputChanged(c74::max::t_object* x, long index, long count)
    minwrap<McInject>* ob = (minwrap<McInject>*)(x);
    if (0 == index)
       ob->m_min_object.chans = count;
+
    return true;
 }
 

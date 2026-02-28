@@ -6,6 +6,7 @@ McLissajous::McLissajous(const atoms& args)
    : object<McLissajous>()
    , mc_operator<>()
    , chans{this, "chans", 1, range{1, 1024}}
+   , maxclassSetup{this, "maxclass_setup", Max::Patcher::minBind(this, &McLissajous::maxClassSetupFunction)}
    , phasorInput{this, "(signal) phasor signal", "multichannelsignal"}
    , xOutput{this, "(signal) x signal", "multichannelsignal"}
    , yOutput{this, "(signal) y signal", "multichannelsignal"}
@@ -27,29 +28,28 @@ McLissajous::McLissajous(const atoms& args)
 // see https://en.wikipedia.org/wiki/Lissajous_curve
 void McLissajous::operator()(audio_bundle input, audio_bundle output)
 {
-   if (input.channel_count() != output.channel_count())
+   if (2 * input.channel_count() != output.channel_count())
    {
-      cerr << "McLissajous: input and output channel count mismatch " << input.channel_count() << " " << output.channel_count() << endl;
+      cerr << "Mc.Lissajous: input and output channel count mismatch " << input.channel_count() << " " << output.channel_count() << endl;
       return;
    }
 
-   const int channelCount = output.channel_count();
+   const int channelCount = input.channel_count();
    for (int channelIndex = 0; channelIndex < channelCount; channelIndex++)
    {
+      double* phaseIn = input.samples(channelIndex);
+      double* xOut = output.samples(channelIndex + 0);
+      double* yOut = output.samples(channelIndex + channelCount);
+
+      for (int counter = 0; counter < input.frame_count(); counter++)
+      {
+         const double phase = (2.0 * M_PI * phaseIn[counter]);
+
+         xOut[counter] = sin(a * phase + aOffset);
+         yOut[counter] = sin(b * phase);
+      }
    }
 }
-
-/*
-samples<2> McLissajous::operator()(sample phase)
-{
-   phase = (2.0 * M_PI * phase);
-
-   const double x = sin(a * phase + aOffset);
-   const double y = sin(b * phase);
-
-   return {x, y};
-}
-*/
 
 atoms McLissajous::maxClassSetupFunction(const atoms& args, const int inlet)
 {
@@ -63,9 +63,13 @@ atoms McLissajous::maxClassSetupFunction(const atoms& args, const int inlet)
 long McLissajous::compileMultChannelOutputCount(c74::max::t_object* x, long index, long count)
 {
    minwrap<McLissajous>* ob = (minwrap<McLissajous>*)(x);
-   if (0 == index)
-      return ob->m_min_object.chans;
-   return 1;
+   if (0 == index || 1 == index)
+   {
+      const int count = ob->m_min_object.chans;
+      return count;
+   }
+
+   return 0;
 }
 
 long McLissajous::inputChanged(c74::max::t_object* x, long index, long count)
@@ -73,6 +77,7 @@ long McLissajous::inputChanged(c74::max::t_object* x, long index, long count)
    minwrap<McLissajous>* ob = (minwrap<McLissajous>*)(x);
    if (0 == index)
       ob->m_min_object.chans = count;
+
    return true;
 }
 
