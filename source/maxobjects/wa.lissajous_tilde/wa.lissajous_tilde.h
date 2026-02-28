@@ -7,7 +7,7 @@ using namespace c74::min;
 class Lissajous : public object<Lissajous>, public sample_operator<1, 2>
 {
 public:
-   MIN_DESCRIPTION{"description"};
+   MIN_DESCRIPTION{"generate Lissajous figures"};
 
 public:
    Lissajous(const atoms& args = {});

@@ -1,7 +1,7 @@
 #ifndef SpatialRingBufferH
 #define SpatialRingBufferH
 
-#include <XXMathVector3.h>
+#include <XXLinalgVector3.h>
 
 #include "SpatialFunction.h"
 
@@ -20,7 +20,7 @@ namespace Spatial
       RingBuffer();
 
    public:
-      void add(const double& value, const XX::Math::Spherical& coords);
+      void add(const double& value, const XX::Linalg::Spherical& coords);
       Stereo convolve() const;
       uint8_t relativeIndex(const uint8_t counter) const;
 
@@ -28,7 +28,7 @@ namespace Spatial
       Entry buffer[Function::length];
       uint8_t currentIndex;
 
-      XX::Math::Spherical currentCoords;
+      XX::Linalg::Spherical currentCoords;
       Function currentFunction;
 
       double lastValue;

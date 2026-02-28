@@ -12,6 +12,7 @@ file(GLOB PROJECT_SRC
    "*.cpp"
 )
 
+find_package(Qt6 REQUIRED COMPONENTS Core)
 find_package(XX REQUIRED COMPONENTS Math)
 
 add_library(
@@ -20,5 +21,7 @@ add_library(
    ${PROJECT_SRC}
 )
 force_cpp_version()
+
+target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Core)
 
 include(${C74_MIN_API_DIR}/script/min-posttarget.cmake)

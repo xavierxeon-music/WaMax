@@ -1,7 +1,7 @@
 #ifndef SpatialFunctionH
 #define SpatialFunctionH
 
-#include <XXMathVector3.h>
+#include <XXLinalgVector3.h>
 
 #include "SpatialStereo.h"
 
@@ -24,7 +24,7 @@ namespace Spatial
       static constexpr uint8_t length = 64;
 
    public:
-      Function(const XX::Math::Spherical& coords);
+      Function(const XX::Linalg::Spherical& coords);
       Function(const Param& left = Param(), const Param& right = Param());
 
    public:

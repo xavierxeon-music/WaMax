@@ -16,7 +16,7 @@ Spatial::Function::Param::Param(const double& max, const double& peak, const dou
 
 // function
 
-Spatial::Function::Function(const XX::Math::Spherical& coords)
+Spatial::Function::Function(const XX::Linalg::Spherical& coords)
    : cache{}
    , left()
    , right()
@@ -24,8 +24,8 @@ Spatial::Function::Function(const XX::Math::Spherical& coords)
    static const Mapper valueClamp(Range(-1.0, 1.0), Range(0.0, 1.0));
    static const double earWeight = 0.65;
 
-   const XX::Math::Vector3 dir = XX::Math::Vector3::fromSpherical(coords);
-   const XX::Math::Vector3 normDir = dir.norm();
+   const XX::Linalg::Vector3 dir = XX::Linalg::Vector3::fromSpherical(coords);
+   const XX::Linalg::Vector3 normDir = dir.norm();
 
    const double peakDistance = 15.0;
 

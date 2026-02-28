@@ -5,7 +5,7 @@
 #include "c74_min.h"
 using namespace c74::min;
 
-#include <XXMathVector3.h>
+#include <XXLinalgVector3.h>
 
 namespace Coord
 {
@@ -26,7 +26,7 @@ namespace Coord
       void calculate();
 
    private:
-      XX::Math::Spherical spherical;
+      XX::Linalg::Spherical spherical;
 
       outlet<> output;
       attribute<bool> asDegrees;

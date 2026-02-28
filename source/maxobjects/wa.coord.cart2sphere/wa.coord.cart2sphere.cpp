@@ -64,7 +64,7 @@ atoms Coord::Cart2Sphere::calculateFunction(const atoms& args, const int inlet)
 
 void Coord::Cart2Sphere::calculate()
 {
-   const XX::Math::Spherical spherical = cartesian.toSpherical(asDegrees);
+   const XX::Linalg::Spherical spherical = cartesian.toSpherical(asDegrees);
 
    atoms result = {spherical.az, spherical.el, spherical.radius};
    output.send(result);

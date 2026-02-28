@@ -5,7 +5,7 @@
 #include "c74_min.h"
 using namespace c74::min;
 
-#include <XXMathVector3.h>
+#include <XXLinalgVector3.h>
 
 namespace Coord
 {
@@ -27,7 +27,7 @@ namespace Coord
       void calculate();
 
    private:
-      XX::Math::Vector3 cartesian;
+      XX::Linalg::Vector3 cartesian;
 
       outlet<> output;
       attribute<bool> asDegrees;
