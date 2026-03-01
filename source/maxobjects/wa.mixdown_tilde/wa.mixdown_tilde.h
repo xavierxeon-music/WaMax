@@ -7,7 +7,7 @@ using namespace c74::min;
 class MixDown : public object<MixDown>, public vector_operator<>
 {
 public:
-   MIN_DESCRIPTION{"description"};
+   MIN_DESCRIPTION{"add n signal channels together"};
 
 public:
    MixDown(const atoms& args = {});

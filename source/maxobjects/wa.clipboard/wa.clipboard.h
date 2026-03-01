@@ -7,7 +7,7 @@ using namespace c74::min;
 class Clipboard : public object<Clipboard>
 {
 public:
-   MIN_DESCRIPTION{"description"};
+   MIN_DESCRIPTION{"copy and paste text to and from the system clipboard"};
 
 public:
    Clipboard(const atoms& args = {});

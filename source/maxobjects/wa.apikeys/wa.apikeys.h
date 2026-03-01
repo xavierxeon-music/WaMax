@@ -11,7 +11,7 @@ using namespace c74::min;
 class ApiKeys : public object<ApiKeys>
 {
 public:
-   MIN_DESCRIPTION{"description"};
+   MIN_DESCRIPTION{"get api keys from ~/.ApiKeys fodler"};
 
 public:
    ApiKeys(const atoms& args = {});

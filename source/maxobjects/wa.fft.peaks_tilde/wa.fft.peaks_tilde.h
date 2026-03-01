@@ -17,7 +17,7 @@ namespace c74
 class FourierPeaks : public object<FourierPeaks>, public sample_operator<2, 0>
 {
 public:
-   MIN_DESCRIPTION{"description"};
+   MIN_DESCRIPTION{"get peaks in a Fourier transform"};
 
 public:
    FourierPeaks(const atoms& args = {});

@@ -9,7 +9,7 @@ using namespace c74::min;
 class NoiseGate : public object<NoiseGate>, public vector_operator<>
 {
 public:
-   MIN_DESCRIPTION{"description"};
+   MIN_DESCRIPTION{"a simple noisegate"};
 
 public:
    NoiseGate(const atoms& args = {});

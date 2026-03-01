@@ -9,7 +9,7 @@ using namespace c74::min;
 class McNoiseGate : public object<McNoiseGate>, public mc_operator<>
 {
 public:
-   MIN_DESCRIPTION{"description"};
+   MIN_DESCRIPTION{"mc version of noisegate~"};
 
 public:
    McNoiseGate(const atoms& args = {});

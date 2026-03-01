@@ -9,7 +9,7 @@ using namespace c74::min;
 class HostName : public object<HostName>
 {
 public:
-   MIN_DESCRIPTION{"description"};
+   MIN_DESCRIPTION{"get the hostname of the computer"};
 
 public:
    HostName(const atoms& args = {});
