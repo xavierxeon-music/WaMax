@@ -5,7 +5,7 @@
 * C examples: https://github.com/Cycling74/max-sdk.git
 * C++ examples: https://github.com/Cycling74/min-devkit
 
-## wa cmake package
+## XX cmake package
 
 put the content of https://github.com/xavierxeon-helper/CMakePackages.git
 in your CMAKE_PREFIX_PATH
@@ -15,6 +15,32 @@ in your CMAKE_PREFIX_PATH
 ### qlocale.h
 ```
 QString toString(ulong number, int fieldWidth, char32_t fillChar) const
+```
+
+## debug 
+
+### qtcreator
+* exe: /Applications/Max.app/Contents/MacOS/Max
+
+### vscode
+* install CMAKE extension
+* launch configuration
+```
+{
+   "name": "Debug",
+   "type": "cppdbg",
+   "preLaunchTask": "CMake: build",
+   "request": "launch",
+   "cwd": "${workspaceRoot}",
+   "stopAtEntry": false,
+   "program": "/Applications/Max.app/Contents/MacOS/Max",
+   "osx": {
+      "MIMode": "lldb"
+   },
+   "args": [
+      "/Users/waspe/Desktop/Test.maxpat"
+   ]
+}
 ```
 
 ## windows compile
@@ -34,11 +60,3 @@ https://learn.microsoft.com/en-us/cpp/build/cmake-projects-in-visual-studio?view
 cmake ..
 cmake --build . --target ALL_BUILD --config Release -- /nologo /verbosity:minimal /maxcpucount
 ```
-
-## debug 
-
-### qtcreator
-exe: /Applications/Max.app/Contents/MacOS/Max
-
-### vscode
-install CMAKE extension

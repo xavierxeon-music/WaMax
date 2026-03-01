@@ -4,6 +4,12 @@
 #include "c74_min.h"
 using namespace c74::min;
 
+class McBase : public object<McBase>
+{
+public:
+   McBase(const atoms& args = {}) {}
+};
+
 class McLissajous : public object<McLissajous>, public mc_operator<>
 {
 public:
