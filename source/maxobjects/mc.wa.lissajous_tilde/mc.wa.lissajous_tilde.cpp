@@ -3,10 +3,7 @@
 #include <MaxPatcher.h>
 
 McLissajous::McLissajous(const atoms& args)
-   : object<McLissajous>()
-   , mc_operator<>()
-   , chans{this, "chans", 1, range{1, 1024}}
-   , maxclassSetup{this, "maxclass_setup", Max::Patcher::minBind(this, &McLissajous::maxClassSetupFunction)}
+   : MultichannelObject<McLissajous>()
    , phasorInput{this, "(signal) phasor signal", "multichannelsignal"}
    , xOutput{this, "(signal) x signal", "multichannelsignal"}
    , yOutput{this, "(signal) y signal", "multichannelsignal"}
@@ -49,36 +46,6 @@ void McLissajous::operator()(audio_bundle input, audio_bundle output)
          yOut[counter] = sin(b * phase);
       }
    }
-}
-
-atoms McLissajous::maxClassSetupFunction(const atoms& args, const int inlet)
-{
-   c74::max::t_class* c = args[0];
-   c74::max::class_addmethod(c, (c74::max::method)McLissajous::compileMultChannelOutputCount, "multichanneloutputs", c74::max::A_CANT, 0);
-   c74::max::class_addmethod(c, (c74::max::method)McLissajous::inputChanged, "inputchanged", c74::max::A_CANT, 0);
-
-   return {};
-}
-
-long McLissajous::compileMultChannelOutputCount(c74::max::t_object* x, long index, long count)
-{
-   minwrap<McLissajous>* ob = (minwrap<McLissajous>*)(x);
-   if (0 == index || 1 == index)
-   {
-      const int count = ob->m_min_object.chans;
-      return count;
-   }
-
-   return 0;
-}
-
-long McLissajous::inputChanged(c74::max::t_object* x, long index, long count)
-{
-   minwrap<McLissajous>* ob = (minwrap<McLissajous>*)(x);
-   if (0 == index)
-      ob->m_min_object.chans = count;
-
-   return true;
 }
 
 atoms McLissajous::aFunction(const atoms& args, const int inlet)

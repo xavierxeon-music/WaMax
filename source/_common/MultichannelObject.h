@@ -1,0 +1,31 @@
+#ifndef MultichannelObjectH
+#define MultichannelObjectH
+
+#include "c74_min.h"
+using namespace c74::min;
+
+template <typename McClass>
+class MultichannelObject : public object<McClass>, public mc_operator<>
+{
+public:
+   MultichannelObject();
+
+protected:
+   virtual void operator()(audio_bundle input, audio_bundle output) = 0;
+
+private:
+   static atoms maxClassSetupFunction(const atoms& args, const int inlet);
+
+   static long compileMultChannelOutputCount(c74::max::t_object* x, long index, long count);
+   static long inputChanged(c74::max::t_object* x, long index, long count);
+
+private:
+   attribute<int> chans; // must have this name and type
+   message<> maxclassSetup;
+};
+
+#ifndef MultichannelObjectHPP
+#include "MultichannelObject.hpp"
+#endif // NOT MultichannelObjectHPP
+
+#endif // NOT MultichannelObjectH
