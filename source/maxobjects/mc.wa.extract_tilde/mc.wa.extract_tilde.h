@@ -23,14 +23,14 @@ private:
 
 private:
    attribute<int> chans; // must have this name and type
+   message<> maxclassSetup;
+
    attribute<int> target;
    attribute<bool> strip;
 
    inlet<> input;
    outlet<> output;
    outlet<> single;
-
-   message<> maxclassSetup;
 };
 
 #endif // McExtractH

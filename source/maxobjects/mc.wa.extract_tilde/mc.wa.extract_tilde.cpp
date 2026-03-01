@@ -6,13 +6,12 @@ McExtract::McExtract(const atoms& args)
    : object<McExtract>()
    , mc_operator<>()
    , chans{this, "chans", 1, range{1, 1024}}
+   , maxclassSetup{this, "maxclass_setup", Max::Patcher::minBind(this, &McExtract::maxClassSetupFunction)}
    , target{this, "target", 1}
    , strip{this, "strip", false}
    , input(this, "input", "multichannelsignal")
    , output(this, "output", "multichannelsignal")
    , single(this, "single", "signal")
-   , maxclassSetup{this, "maxclass_setup", Max::Patcher::minBind(this, &McExtract::maxClassSetupFunction)}
-
 {
 }
 
@@ -20,7 +19,7 @@ void McExtract::operator()(audio_bundle input, audio_bundle output)
 {
    if (input.channel_count() + 1 != output.channel_count())
    {
-      //cerr << "McExtract: input and output channel count mismatch " << input.channel_count() << " " << output.channel_count() << endl;
+      cerr << "McExtract: input and output channel count mismatch " << input.channel_count() << " " << output.channel_count() << endl;
       return;
    }
 
