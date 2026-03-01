@@ -6,8 +6,8 @@
 
 <c74object name='wa.lissajous~' category=''>
 
-	<digest>description </digest>
-	<description>description </description>
+	<digest>generate Lissajous figures </digest>
+	<description>generate Lissajous figures </description>
 
 
 	<!--METADATA-->
@@ -33,9 +33,9 @@
 			<description>b value </description>
 		</method>
 
-		<method name='phase'>
-			<digest>phase value </digest>
-			<description>phase value </description>
+		<method name='offset'>
+			<digest>offset value </digest>
+			<description>offset value </description>
 		</method>
 
 		<method name='a'>
@@ -49,21 +49,6 @@
 	<!--ATTRIBUTES-->
 
 	<attributelist>
-
-		<attribute name='a' get='1' set='1' type='float64' size='1' >
-			<digest></digest>
-			<description></description>
-		</attribute>
-
-		<attribute name='b' get='1' set='1' type='float64' size='1' >
-			<digest></digest>
-			<description></description>
-		</attribute>
-
-		<attribute name='phase' get='1' set='1' type='float64' size='1' >
-			<digest></digest>
-			<description></description>
-		</attribute>
 
 	</attributelist>
 

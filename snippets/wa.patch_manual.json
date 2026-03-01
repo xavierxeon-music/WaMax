@@ -1,0 +1,13 @@
+{
+    "pattrstorage": {
+        "name": "main",
+        "slots": {
+            "1": {
+                "id": 1,
+                "data": {
+                    "wa.channel_strip.master~::main_gain": [ 0.0 ]
+                }
+            }
+        }
+    }
+}
