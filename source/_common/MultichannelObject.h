@@ -10,10 +10,13 @@ class MultichannelObject : public object<McClass>, public mc_operator<>
 public:
    MultichannelObject();
 
-protected:
+public:
    virtual void operator()(audio_bundle input, audio_bundle output) = 0;
    virtual int getChannelCount(long index) const;
-   virtual int setChannelCount(long index, int count);
+   virtual void setChannelCount(long index, int count);
+
+protected:
+   attribute<int> chans; // must have this name and type
 
 private:
    static atoms maxClassSetupFunction(const atoms& args, const int inlet);
@@ -22,7 +25,6 @@ private:
    static long inputChanged(c74::max::t_object* x, long index, long count);
 
 private:
-   attribute<int> chans; // must have this name and type
    message<> maxclassSetup;
 };
 

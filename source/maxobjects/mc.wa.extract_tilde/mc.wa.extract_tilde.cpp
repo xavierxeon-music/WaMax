@@ -3,10 +3,7 @@
 #include <MaxPatcher.h>
 
 McExtract::McExtract(const atoms& args)
-   : object<McExtract>()
-   , mc_operator<>()
-   , chans{this, "chans", 1, range{1, 1024}}
-   , maxclassSetup{this, "maxclass_setup", Max::Patcher::minBind(this, &McExtract::maxClassSetupFunction)}
+   : MultichannelObject<McExtract>()
    , target{this, "target", 1}
    , strip{this, "strip", false}
    , input(this, "input", "multichannelsignal")
@@ -48,30 +45,18 @@ void McExtract::operator()(audio_bundle input, audio_bundle output)
    }
 }
 
-atoms McExtract::maxClassSetupFunction(const atoms& args, const int inlet)
+int McExtract::getChannelCount(long index) const
 {
-   c74::max::t_class* c = args[0];
-   c74::max::class_addmethod(c, (c74::max::method)McExtract::compileMultChannelOutputCount, "multichanneloutputs", c74::max::A_CANT, 0);
-   c74::max::class_addmethod(c, (c74::max::method)McExtract::inputChanged, "inputchanged", c74::max::A_CANT, 0);
-
-   return {};
-}
-
-long McExtract::compileMultChannelOutputCount(c74::max::t_object* x, long index, long count)
-{
-   minwrap<McExtract>* ob = (minwrap<McExtract>*)(x);
    if (0 == index)
-      return ob->m_min_object.chans;
+      return chans;
 
    return 1;
 }
 
-long McExtract::inputChanged(c74::max::t_object* x, long index, long count)
+void McExtract::setChannelCount(long index, int count)
 {
-   minwrap<McExtract>* ob = (minwrap<McExtract>*)(x);
    if (0 == index)
-      ob->m_min_object.chans = count;
-
-   return true;
+      chans = count;
 }
+
 MIN_EXTERNAL(McExtract);

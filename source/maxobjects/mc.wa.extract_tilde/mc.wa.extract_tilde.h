@@ -4,27 +4,22 @@
 #include "c74_min.h"
 using namespace c74::min;
 
-class McExtract : public object<McExtract>, public mc_operator<>
+#include <MultichannelObject.h>
+
+class McExtract : public MultichannelObject<McExtract>
 {
 public:
-   MIN_DESCRIPTION{"description"};
+   MIN_DESCRIPTION{"extract single channel from a multichannel signal (1 based index)"};
 
 public:
    McExtract(const atoms& args = {});
 
 public:
-   void operator()(audio_bundle input, audio_bundle output);
+   void operator()(audio_bundle input, audio_bundle output) override;
+   int getChannelCount(long index) const override;
+   void setChannelCount(long index, int count) override;
 
 private:
-   atoms maxClassSetupFunction(const atoms& args, const int inlet);
-
-   static long compileMultChannelOutputCount(c74::max::t_object* x, long index, long count);
-   static long inputChanged(c74::max::t_object* x, long index, long count);
-
-private:
-   attribute<int> chans; // must have this name and type
-   message<> maxclassSetup;
-
    attribute<int> target;
    attribute<bool> strip;
 

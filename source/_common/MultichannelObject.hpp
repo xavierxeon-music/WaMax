@@ -20,12 +20,10 @@ int MultichannelObject<McClass>::getChannelCount(long index) const
 }
 
 template <typename McClass>
-int MultichannelObject<McClass>::setChannelCount(long index, int count)
+void MultichannelObject<McClass>::setChannelCount(long index, int count)
 {
    (void)index;
-
    chans = count;
-   return chans;
 }
 
 template <typename McClass>
