@@ -13,6 +13,22 @@ MultichannelObject<McClass>::MultichannelObject()
 }
 
 template <typename McClass>
+int MultichannelObject<McClass>::getChannelCount(long index) const
+{
+   (void)index;
+   return chans;
+}
+
+template <typename McClass>
+int MultichannelObject<McClass>::setChannelCount(long index, int count)
+{
+   (void)index;
+
+   chans = count;
+   return chans;
+}
+
+template <typename McClass>
 atoms MultichannelObject<McClass>::maxClassSetupFunction(const atoms& args, const int inlet)
 {
    c74::max::t_class* c = args[0];
@@ -27,17 +43,15 @@ long MultichannelObject<McClass>::compileMultChannelOutputCount(c74::max::t_obje
 {
    minwrap<McClass>* ob = (minwrap<McClass>*)(x);
 
-   const int channelCount = ob->m_min_object.chans;
-   return channelCount;
+   return ob->m_min_object.getChannelCount(index);
 }
 
 template <typename McClass>
 long MultichannelObject<McClass>::inputChanged(c74::max::t_object* x, long index, long count)
 {
    minwrap<McClass>* ob = (minwrap<McClass>*)(x);
-   if (0 == index)
-      ob->m_min_object.chans = count;
 
+   ob->m_min_object.setChannelCount(index, count);
    return true;
 }
 

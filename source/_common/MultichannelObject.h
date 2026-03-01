@@ -12,6 +12,8 @@ public:
 
 protected:
    virtual void operator()(audio_bundle input, audio_bundle output) = 0;
+   virtual int getChannelCount(long index) const;
+   virtual int setChannelCount(long index, int count);
 
 private:
    static atoms maxClassSetupFunction(const atoms& args, const int inlet);
