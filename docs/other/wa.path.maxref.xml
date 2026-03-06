@@ -5,11 +5,11 @@
     <description>make unix paths</description>
     <metadatalist>
         <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMax</metadata>
         <metadata name="tag">WaMaxPackage</metadata>
     </metadatalist>
-    <parser inlet_count="1"/>
     <misc name="Outputs">
-        <entry id="1" name="path">
+        <entry name="anything">
             <digest/>
             <description>unix path</description>
         </entry>
@@ -18,6 +18,9 @@
     <attributelist/>
     <methodlist>
         <method name="anything" standard="1">
+            <arglist>
+                <arg name="anything" optional="0" type="anything"/>
+            </arglist>
             <digest/>
             <description>the path</description>
         </method>

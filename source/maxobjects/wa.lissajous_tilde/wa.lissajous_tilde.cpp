@@ -4,6 +4,7 @@
 
 Lissajous::Lissajous(const atoms& args)
    : object<Lissajous>()
+   , sample_operator<1, 2>()
    , phasorInput{this, "(signal) phasor signal", "signal"}
    , xOutput{this, "(signal) x signal", "signal"}
    , yOutput{this, "(signal) y signal", "signal"}
@@ -27,8 +28,8 @@ samples<2> Lissajous::operator()(sample phase)
 {
    phase = (2.0 * M_PI * phase);
 
-   const double x = sin(a * phase + aOffset);
-   const double y = sin(b * phase);
+   const sample x = sin(a * phase + aOffset);
+   const sample y = sin(b * phase);
 
    return {x, y};
 }
