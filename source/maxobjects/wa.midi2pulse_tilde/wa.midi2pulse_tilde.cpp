@@ -1,5 +1,6 @@
 #include "wa.midi2pulse_tilde.h"
 
+#include <ByteFours.h>
 #include <MaxPatcher.h>
 
 MidiToPulse::MidiToPulse(const atoms& args)
@@ -15,12 +16,20 @@ MidiToPulse::MidiToPulse(const atoms& args)
 samples<1> MidiToPulse::operator()()
 {
    sample out;
+
+   ByteFours converter(buffer);
+
    return {out};
 }
 
 atoms MidiToPulse::intFunction(const atoms& args, const int inlet)
 {
    buffer = args[0];
+   if (buffer < 0)
+      buffer = 0;
+   if (buffer > 255)
+      buffer = 255;
+
    return {};
 }
 
