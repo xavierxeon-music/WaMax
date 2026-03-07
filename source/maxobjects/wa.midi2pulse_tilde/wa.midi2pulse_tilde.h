@@ -17,13 +17,11 @@ public:
 
 private:
    atoms intFunction(const atoms& args, const int inlet);
-   atoms listFunction(const atoms& args, const int inlet);
 
 private:
    inlet<> input;
    outlet<> output;
-   message<> intMessage;
-   message<> listMessage;
+   message<threadsafe::yes> intMessage;
 
    std::vector<uint8_t> buffer;
    uint16_t bufferSize;
