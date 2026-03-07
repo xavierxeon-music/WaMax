@@ -5,6 +5,7 @@
     <description>increment or decrement a value</description>
     <metadatalist>
         <metadata name="author">Ralf Waspe</metadata>
+        <metadata name="tag">WaMax</metadata>
         <metadata name="tag">WaMaxPackage</metadata>
     </metadatalist>
     <misc name="Outputs">
@@ -24,11 +25,11 @@
         </objarg>
     </objarglist>
     <attributelist>
-        <attribute name="delta" type="float">
+        <attribute name="delta" set="1" type="float">
             <digest>scale encoder (1.0)</digest>
             <description>scales the incoming encoder values</description>
         </attribute>
-        <attribute name="wrap" type="int">
+        <attribute name="wrap" set="1" type="int">
             <digest>wrap (1)</digest>
             <description>if set to true max value will jump to min value and vice versa</description>
         </attribute>
@@ -81,6 +82,7 @@
                 <arg name="bang" optional="0" type="bang"/>
             </arglist>
             <digest/>
+            <description>send value</description>
         </method>
     </methodlist>
     <seealsolist/>
