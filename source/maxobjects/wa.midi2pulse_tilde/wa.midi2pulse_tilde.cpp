@@ -14,16 +14,13 @@ MidiToPulse::MidiToPulse(const atoms& args)
 {
 }
 
-void MidiToPulse::operator()(audio_bundle input, audio_bundle output)
+void MidiToPulse::operator()(audio_bundle inputs, audio_bundle outputs)
 {
-   //cout << "input " << input.channel_count() << " channels, " << input.frame_count() << " frames" << endl;
-   //cout << ", output " << output.channel_count() << " channels, " << output.frame_count() << " frames" << endl;
-
    static const int offsets[8] = {0, 1, 2, 3, 4, 5, 6, 7};
    uint16_t sendIndex = 0;
 
-   double* out = output.samples(0);
-   for (long frame = 0; frame < output.frame_count(); frame += 8)
+   double* out = outputs.samples(0);
+   for (long frame = 0; frame < outputs.frame_count(); frame += 8)
    {
       const int index = frame / 8;
       if (index < bufferSize)
@@ -45,7 +42,7 @@ void MidiToPulse::operator()(audio_bundle input, audio_bundle output)
       {
          for (const int offset : offsets)
          {
-            if (frame + offset < output.frame_count())
+            if (frame + offset < outputs.frame_count())
             {
                out[frame + offset] = 0.0;
             }
