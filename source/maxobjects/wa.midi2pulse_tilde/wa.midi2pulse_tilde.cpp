@@ -9,6 +9,7 @@ MidiToPulse::MidiToPulse(const atoms& args)
    , input{this, "(int) midi value"}
    , output{this, "(signal) pulse", "signal"}
    , intMessage{this, "int", "integer value.", Max::Patcher::minBind(this, &MidiToPulse::intFunction)}
+   , listMessage{this, "list", "list of integer values.", Max::Patcher::minBind(this, &MidiToPulse::listFunction)}
    , buffer(10, 0)
    , bufferSize(0)
 {
@@ -59,15 +60,40 @@ void MidiToPulse::operator()(audio_bundle inputs, audio_bundle outputs)
 
 atoms MidiToPulse::intFunction(const atoms& args, const int inlet)
 {
-   int value = args[0];
-   if (value < 0)
-      value = 0;
-   else if (value > 255)
-      value = 255;
+   for (size_t index = 0; index < args.size(); ++index)
+   {
+      int value = args[index];
+      if (value < 0)
+         value = 0;
+      else if (value > 255)
+         value = 255;
 
-   buffer[bufferSize++] = static_cast<uint8_t>(value);
-   if (bufferSize > buffer.size())
-      buffer.resize(buffer.size() + 10);
+      buffer[bufferSize++] = static_cast<uint8_t>(value);
+      if (bufferSize > buffer.size())
+         buffer.resize(buffer.size() + 10);
+
+      cout << "Received MIDI value: " << value << ", buffer size: " << bufferSize << endl;
+   }
+
+   return {};
+}
+
+atoms MidiToPulse::listFunction(const atoms& args, const int inlet)
+{
+   for (size_t index = 0; index < args.size(); ++index)
+   {
+      int value = args[index];
+      if (value < 0)
+         value = 0;
+      else if (value > 255)
+         value = 255;
+
+      buffer[bufferSize++] = static_cast<uint8_t>(value);
+      if (bufferSize > buffer.size())
+         buffer.resize(buffer.size() + 10);
+
+      cout << "Received MIDI LIST value: " << value << ", buffer size: " << bufferSize << endl;
+   }
 
    return {};
 }
