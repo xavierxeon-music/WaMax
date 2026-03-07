@@ -4,6 +4,8 @@
    "contents": [
       "wa.camera.maxsnip",
       "wa.jit_project.maxsnip",
+      "wa.mc_voice_mpe.maxsnip",
+      "wa.mc_voice.maxsnip",
       "wa.output.maxsnip",
       "wa.patch_manual.maxsnip",
       "wa.rack_integration.maxsnip",
