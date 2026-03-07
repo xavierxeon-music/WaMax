@@ -4,9 +4,10 @@
 #include "c74_min.h"
 using namespace c74::min;
 
+#include <MultichannelObject.h>
 #include <SampleDelay.h>
 
-class McNoiseGate : public object<McNoiseGate>, public mc_operator<>
+class McNoiseGate : public MultichannelObject<McNoiseGate>
 {
 public:
    MIN_DESCRIPTION{"mc version of noisegate~"};
@@ -15,18 +16,14 @@ public:
    McNoiseGate(const atoms& args = {});
 
 public:
-   void operator()(audio_bundle input, audio_bundle output);
+   void operator()(audio_bundle input, audio_bundle output) override;
+   void setChannelCount(long index, int count) override;
 
 private:
    atoms dspSetupFunction(const atoms& args, const int inlet);
-   atoms maxClassSetupFunction(const atoms& args, const int inlet);
    void updateBuffer();
 
-   static long compileMultChannelOutputCount(c74::max::t_object* x, long index, long count);
-   static long inputChanged(c74::max::t_object* x, long index, long count);
-
 private:
-   attribute<int> chans; // must have this name and type
    attribute<double> threshold;
 
    inlet<> input;
@@ -35,8 +32,6 @@ private:
    outlet<> activeOutlet;
 
    message<> dspSetup;
-   message<> maxclassSetup;
-
    std::vector<SampleDelay> buffer;
 };
 
