@@ -20,7 +20,10 @@ public:
    ByteFours(uint8_t byte = 0);
 
 public:
-   FoursValue value(const FoursValue& index) const;
+   double value(const FoursValue& index) const;
+   static bool isValidSample(double value);
+   static ByteFours::FoursValue fromSample(double value);
+
    operator uint8_t() const;
    std::string toString() const;
 

@@ -5,30 +5,72 @@
 
 MidiToPulse::MidiToPulse(const atoms& args)
    : object<MidiToPulse>()
-   , sample_operator<0, 1>()
+   , vector_operator<>()
    , input{this, "(int) midi value"}
    , output{this, "(signal) pulse", "signal"}
    , intMessage{this, "int", "integer value.", Max::Patcher::minBind(this, &MidiToPulse::intFunction)}
-   , buffer(0)
+   , buffer(10, 0)
+   , bufferSize(0)
 {
 }
 
-samples<1> MidiToPulse::operator()()
+void MidiToPulse::operator()(audio_bundle input, audio_bundle output)
 {
-   sample out;
+   //cout << "input " << input.channel_count() << " channels, " << input.frame_count() << " frames" << endl;
+   //cout << ", output " << output.channel_count() << " channels, " << output.frame_count() << " frames" << endl;
 
-   ByteFours converter(buffer);
+   static const int offsets[8] = {0, 1, 2, 3, 4, 5, 6, 7};
+   uint16_t sendIndex = 0;
 
-   return {out};
+   double* out = output.samples(0);
+   for (long frame = 0; frame < output.frame_count(); frame += 8)
+   {
+      const int index = frame / 8;
+      if (index < bufferSize)
+      {
+         ByteFours bf(buffer[index]);
+
+         out[frame + 0] = bf.value(ByteFours::FoursValue::O);
+         out[frame + 1] = 0.0;
+         out[frame + 2] = bf.value(ByteFours::FoursValue::I);
+         out[frame + 3] = 0.0;
+         out[frame + 4] = bf.value(ByteFours::FoursValue::Z);
+         out[frame + 5] = 0.0;
+         out[frame + 6] = bf.value(ByteFours::FoursValue::T);
+         out[frame + 7] = 0.0;
+
+         sendIndex++;
+      }
+      else
+      {
+         for (const int offset : offsets)
+         {
+            if (frame + offset < output.frame_count())
+            {
+               out[frame + offset] = 0.0;
+            }
+         }
+      }
+   }
+
+   bufferSize -= sendIndex;
+
+   std::copy(buffer.begin() + sendIndex, buffer.end(), buffer.begin());
+   if (bufferSize < 10)
+      buffer.resize(10);
 }
 
 atoms MidiToPulse::intFunction(const atoms& args, const int inlet)
 {
-   buffer = args[0];
-   if (buffer < 0)
-      buffer = 0;
-   if (buffer > 255)
-      buffer = 255;
+   int value = args[0];
+   if (value < 0)
+      value = 0;
+   else if (value > 255)
+      value = 255;
+
+   buffer[bufferSize++] = static_cast<uint8_t>(value);
+   if (bufferSize > buffer.size())
+      buffer.resize(buffer.size() + 10);
 
    return {};
 }

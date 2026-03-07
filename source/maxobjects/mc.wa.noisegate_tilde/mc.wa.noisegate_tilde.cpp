@@ -5,16 +5,13 @@
 static const int msLength = 10;
 
 McNoiseGate::McNoiseGate(const atoms& args)
-   : object<McNoiseGate>()
-   , mc_operator<>()
-   , chans{this, "chans", 1, range{1, 1024}}
+   : MultichannelObject<McNoiseGate>()
    , threshold{this, "threshold", 0.005}
    , input(this, "input", "multichannelsignal")
    , output(this, "output", "multichannelsignal")
    , peakOutlet(this, "peak", "multichannelsignal")
    , activeOutlet(this, "active", "multichannelsignal")
    , dspSetup{this, "dspsetup", Max::Patcher::minBind(this, &McNoiseGate::dspSetupFunction)}
-   , maxclassSetup{this, "maxclass_setup", Max::Patcher::minBind(this, &McNoiseGate::maxClassSetupFunction)}
    , buffer()
 {
    updateBuffer();
@@ -57,6 +54,14 @@ void McNoiseGate::operator()(audio_bundle input, audio_bundle output)
    }
 }
 
+void McNoiseGate::setChannelCount(long index, int count)
+{
+   (void)index;
+   chans = count;
+
+   updateBuffer();
+}
+
 void McNoiseGate::updateBuffer()
 {
    const int bufferSize = msLength * samplerate() / 1000;
@@ -69,29 +74,6 @@ atoms McNoiseGate::dspSetupFunction(const atoms& args, const int inlet)
    updateBuffer();
 
    return {};
-}
-
-atoms McNoiseGate::maxClassSetupFunction(const atoms& args, const int inlet)
-{
-   c74::max::t_class* c = args[0];
-   c74::max::class_addmethod(c, (c74::max::method)McNoiseGate::compileMultChannelOutputCount, "multichanneloutputs", c74::max::A_CANT, 0);
-   c74::max::class_addmethod(c, (c74::max::method)McNoiseGate::inputChanged, "inputchanged", c74::max::A_CANT, 0);
-
-   return {};
-}
-
-long McNoiseGate::compileMultChannelOutputCount(c74::max::t_object* x, long index, long count)
-{
-   minwrap<McNoiseGate>* ob = (minwrap<McNoiseGate>*)(x);
-   return ob->m_min_object.chans;
-}
-
-long McNoiseGate::inputChanged(c74::max::t_object* x, long index, long count)
-{
-   minwrap<McNoiseGate>* ob = (minwrap<McNoiseGate>*)(x);
-   ob->m_min_object.chans = count;
-   ob->m_min_object.updateBuffer();
-   return true;
 }
 
 MIN_EXTERNAL(McNoiseGate);

@@ -23,9 +23,43 @@ inline ByteFours::ByteFours(uint8_t byte)
    }
 }
 
-inline ByteFours::FoursValue ByteFours::value(const FoursValue& index) const
+inline double ByteFours::value(const FoursValue& index) const
 {
-   return fours[index];
+   switch (fours[index])
+   {
+      case O:
+         return -0.9;
+      case I:
+         return -0.7;
+      case Z:
+         return 0.7;
+      case T:
+         return 0.9;
+   }
+
+   return 0.0;
+}
+
+bool ByteFours::isValidSample(double value)
+{
+   if (value < -0.6 || value > 0.6)
+      return true;
+
+   return false;
+}
+
+ByteFours::FoursValue ByteFours::fromSample(double value)
+{
+   if (value >= -1.0 && value < -0.8)
+      return O;
+   else if (value >= -0.8 && value < -0.6)
+      return I;
+   else if (value >= 0.6 && value < 0.8)
+      return Z;
+   else if (value >= 0.8 && value <= 1.0)
+      return T;
+   else
+      return O;
 }
 
 inline ByteFours::operator uint8_t() const
