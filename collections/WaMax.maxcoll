@@ -11,6 +11,7 @@
       "wa.storage_and_interface.maxsnip",
       "wa.transport_link.maxsnip",
       "wa.transport_manual.maxsnip",
-      "walive.device_main.maxsnip"
+      "walive.device_main.maxsnip",
+      "walive.mc_voice.maxsnip"
    ]
 }
