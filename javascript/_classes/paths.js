@@ -9,22 +9,11 @@ if ( typeof this.Paths === "undefined" )
 
       static home()
       {
-         if ( max.os === "windows" )
-         {
-            homePath = process.env.USERPROFILE;
-         } else
-         {
-            homePath = process.env.HOME;
-         }
-
-         return homePath;
-         /*
-         let homeFolder = new File( "~" );
+         let homeFolder = new Folder( "~" );
          post( "Home folder path: " + homeFolder.pathname + "\n" );
          homeFolder.close();
 
          return homeFolder.pathname;
-         */
       }
 
       static topPatcher( this_patcher )
