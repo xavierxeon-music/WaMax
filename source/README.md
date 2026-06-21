@@ -47,6 +47,8 @@ QString toString(ulong number, int fieldWidth, char32_t fillChar) const
 
 hint: use vscode
 
+git submodule update --init --recursive
+
 ### setup
 
 https://learn.microsoft.com/en-us/cpp/build/cmake-projects-in-visual-studio?view=msvc-170
