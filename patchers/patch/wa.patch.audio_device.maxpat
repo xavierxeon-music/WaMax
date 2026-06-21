@@ -9,7 +9,7 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 34.0, 1277.0, 1452.0, 1041.0 ],
+        "rect": [ 34.0, 77.0, 1852.0, 1041.0 ],
         "gridonopen": 2,
         "gridsnaponopen": 2,
         "boxes": [
@@ -114,7 +114,7 @@
             },
             {
                 "box": {
-                    "code": "{\r\n    \"name\": \"\",\r\n    \"input_enabled\": 0,\r\n    \"auto_start\": 0,\r\n    \"os\": \"windows\",\r\n    \"input\": [ \"None\", \"Microphone Array on SoundWire D\" ],\r\n    \"output\": [ \"None\", \"Speakers (Cirrus Logic XU (with\" ]\r\n}",
+                    "code": "{\r\n    \"name\": \"MaxInternal\",\r\n    \"input_enabled\": 1,\r\n    \"auto_start\": 1,\r\n    \"os\": \"windows\",\r\n    \"input\": [ \"None\", \"Microphone Array on SoundWire D\" ],\r\n    \"output\": [ \"None\", \"Speakers (Cirrus Logic XU (with\" ],\r\n    \"home_path\": \"C:/Users/rwasp/\",\r\n    \"values\": {\r\n        \"input\": 0,\r\n        \"output\": 0,\r\n        \"driver\": \"ad_mme\"\r\n    }\r\n}",
                     "fontface": 0,
                     "fontname": "<Monospaced>",
                     "fontsize": 12.0,
@@ -307,8 +307,8 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 90.0, 375.0, 42.0, 20.0 ],
-                    "text": "output"
+                    "patching_rect": [ 90.0, 375.0, 61.0, 20.0 ],
+                    "text": "set output"
                 }
             },
             {
@@ -331,8 +331,8 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 25.0, 435.0, 35.0, 20.0 ],
-                    "text": "input"
+                    "patching_rect": [ 25.0, 435.0, 54.0, 20.0 ],
+                    "text": "set input"
                 }
             },
             {
