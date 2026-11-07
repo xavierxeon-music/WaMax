@@ -76,7 +76,7 @@ QJsonObject Max::QtJson::fromMaxDict(const dict& source) const
    if (!jsonwriter)
       return QJsonObject();
 
-   t_object* object = source;
+   t_object* object = static_cast<t_object*>(source);
    t_dictionary* maxdict = (t_dictionary*)object;
    object_method(jsonwriter, _sym_writedictionary, maxdict);
 

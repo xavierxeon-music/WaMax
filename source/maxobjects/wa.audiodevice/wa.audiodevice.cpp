@@ -4,6 +4,8 @@ AudioDevice::AudioDevice(const atoms& args)
    : object<AudioDevice>()
    , adstatus(nullptr)
 {
+   using namespace c74::max;
+
    t_atom ad_arg;
    atom_setsym(&ad_arg, gensym("driver"));
 

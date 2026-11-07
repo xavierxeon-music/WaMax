@@ -16,7 +16,7 @@ public:
    ~AudioDevice();
 
 private:
-   t_object* adstatus; 
+   c74::max::object* adstatus;
 };
 
 #endif // AudioDeviceH

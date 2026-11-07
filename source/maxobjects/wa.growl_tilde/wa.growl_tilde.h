@@ -292,7 +292,7 @@ namespace Growl
       message<> list;
       message<> dspsetup;
 
-      growl::Voice m_voice;
+      Voice m_voice;
       double m_gate{0.0};
       int m_note{-1};
    };

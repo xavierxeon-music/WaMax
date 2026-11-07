@@ -10,7 +10,7 @@ endfunction()
 
 function(force_cpp_version)
    if(APPLE)
-      set(CMAKE_OSX_DEPLOYMENT_TARGET "15.0" PARENT_SCOPE) # for Qt
+      set(CMAKE_OSX_DEPLOYMENT_TARGET "26.0" PARENT_SCOPE) # for Qt
    elseif(WIN32)
       set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++20" PARENT_SCOPE)
    endif()
