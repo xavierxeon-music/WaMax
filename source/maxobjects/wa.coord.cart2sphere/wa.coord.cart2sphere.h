@@ -5,6 +5,7 @@
 #include "c74_min.h"
 using namespace c74::min;
 
+#include <CommonQt.h>
 #include <XXLinalgVector3.h>
 
 namespace Coord
